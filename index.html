@@ -5,190 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tinita Volkan - Video Arşivi</title>
     <style>
-        /* --- SAYFA STİLİ --- */
-        body {
-            background-color: #0f0f0f;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
+        body { background-color: #0f0f0f; color: white; font-family: sans-serif; margin: 0; padding: 20px; }
+        h1 { text-align: center; color: #85d74b; }
+        #video-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 20px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
         }
-
-        h1 {
-            text-align: center;
-            color: #85d74b; /* Rumble Yeşili */
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        p.description {
-            text-align: center;
-            color: #888;
-            margin-bottom: 40px;
-            font-size: 14px;
-        }
-
-        /* Video Grid (Izgara) */
-        #video-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Video Kartı Tasarımı */
-        .video-card {
-            background: #1e1e1e;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .video-card:hover {
-            transform: translateY(-5px);
-            border: 1px solid #85d74b;
-        }
-
-        /* Video Alanı (16:9) */
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Oranı */
-            height: 0;
-            background: #000;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Kart İçeriği */
-        .card-content {
-            padding: 15px;
-            flex-grow: 1;
-        }
-
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin: 0 0 10px 0;
-            line-height: 1.4;
-        }
-
-        .card-title a {
-            color: #eee;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .card-title a:hover {
-            color: #85d74b;
-        }
-
-        .card-meta {
-            font-size: 12px;
-            color: #777;
-            border-top: 1px solid #333;
-            padding-top: 10px;
-        }
-
-        /* Yükleniyor / Hata Mesajları */
-        #message {
-            text-align: center;
-            padding: 50px;
-            grid-column: 1 / -1;
-            font-size: 18px;
-            color: #ccc;
-        }
+        .video-card { background: #1e1e1e; border-radius: 8px; overflow: hidden; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .card-content { padding: 15px; }
     </style>
 </head>
 <body>
 
-    <h1>🎬 Video Arşivi</h1>
-    <p class="description">Tüm Rumble videolarım otomatik listelenmektedir.</p>
-
-    <div id="message">⏳ Videolar yükleniyor...</div>
-    <div id="video-container"></div>
+    <h1>🎬 Video Arşivi (Local Source)</h1>
+    <div id="video-container">⏳ Videolar yükleniyor...</div>
 
     <script>
-        // --- AYARLAR ---
-        // Senin RSS.app bağlantın
-        const RSS_APP_URL = "https://rss.app/feeds/RNJJJP7ZxdAqgMpH.xml"; 
-        
-        // Senin Rumble Pub kodun
         const PUB_KEY = "4o7uxk";
-        
-        // Kaç video gösterilsin?
-        const VIDEO_LIMIT = 50; 
-        // ----------------
+        const container = document.getElementById("video-container");
 
-        const container = document.getElementById('video-container');
-        const messageBox = document.getElementById('message');
-
-        // RSS.app linkini alıp JSON formatına çeviriyoruz (CORS hatası önlemek için)
-        const API_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_APP_URL)}`;
-
-        fetch(API_URL)
-            .then(response => response.json())
-            .then(data => {
-                // Eğer veri geldiyse
-                if (data.status === 'ok') {
-                    messageBox.style.display = 'none'; // Yükleniyor yazısını kaldır
-                    const items = data.items.slice(0, VIDEO_LIMIT);
-
-                    if (items.length === 0) {
-                        messageBox.innerText = "Henüz video bulunamadı.";
-                        messageBox.style.display = 'block';
-                        return;
-                    }
-
-                    // Her video için kart oluşturma döngüsü
-                    items.forEach(item => {
-                        // Videonun ID'sini linkten çıkarma (Regex ile)
-                        // Link: https://rumble.com/v4abc123-baslik.html
-                        const match = item.link.match(/rumble\.com\/v([a-z0-9]+)/i);
-                        
-                        if (match && match[1]) {
-                            const videoID = match[1];
-                            const date = new Date(item.pubDate).toLocaleDateString('tr-TR');
-
-                            // HTML Kartı
-                            const card = document.createElement('div');
-                            card.className = 'video-card';
-                            card.innerHTML = `
-                                <div class="video-wrapper">
-                                    <iframe src="https://rumble.com/embed/${videoID}/?pub=${PUB_KEY}" allowfullscreen title="${item.title}"></iframe>
-                                </div>
-                                <div class="card-content">
-                                    <h3 class="card-title"><a href="${item.link}" target="_blank">${item.title}</a></h3>
-                                    <div class="card-meta">📅 ${date}</div>
-                                </div>
-                            `;
-                            container.appendChild(card);
-                        }
-                    });
-
-                } else {
-                    // RSS verisi hatalıysa
-                    throw new Error("RSS verisi işlenemedi (Status: " + data.status + ")");
-                }
+        // Kendi oluşturduğumuz JSON dosyasını çekiyoruz
+        fetch("videos.json")
+            .then(response => {
+                if(!response.ok) throw new Error("JSON dosyası bulunamadı (Henüz scrape çalışmadı mı?)");
+                return response.json();
             })
-            .catch(error => {
-                console.error(error);
-                messageBox.innerHTML = `
-                    <h3 style="color:#ff6b6b">Bir Hata Oluştu</h3>
-                    <p>Videolar yüklenemedi.</p>
-                    <p style="font-size:0.8em; color:#aaa;">Detay: ${error.message}</p>
+            .then(videos => {
+                container.innerHTML = ""; // Yükleniyor yazısını temizle
+                
+                if(videos.length === 0) {
+                    container.innerHTML = "<p>Henüz video bulunamadı.</p>";
+                    return;
+                }
+
+                videos.forEach(v => {
+                    const card = document.createElement("div");
+                    card.className = "video-card";
+                    card.innerHTML = `
+                        <div class="video-wrapper">
+                            <iframe src="${v.embed}?pub=${PUB_KEY}" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-content">
+                            <small>ID: ${v.id}</small>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            })
+            .catch(err => {
+                console.error(err);
+                container.innerHTML = `
+                    <div style="text-align:center; grid-column:1/-1;">
+                        <h3>Hata</h3>
+                        <p>videos.json dosyası okunamadı.</p>
+                        <p><small>GitHub Actions ilk kez çalıştıktan sonra bu dosya oluşacak.</small></p>
+                    </div>
                 `;
             });
     </script>
