@@ -91,7 +91,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             margin-bottom: 30px;
             aspect-ratio: 16 / 9;
-            max-height: 600px; /* Çok büyük ekranlarda aşırı büyümesini engeller */
+            max-height: 600px;
         }
 
         .player-wrapper iframe {
@@ -112,7 +112,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
-            align-items: stretch; /* Kartların satır boyunca eşit yükseklikte olmasını sağlar */
+            align-items: stretch;
         }
 
         /* Video Kartı */
@@ -125,16 +125,21 @@
             display: flex;
             flex-direction: column;
             border: 1px solid #333;
-            height: 100%; /* Kartın hücreyi tamamen doldurmasını sağlar */
+            height: 100%;
         }
 
         .video-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             background-color: var(--hover-bg);
-            border-color: var(--accent-color);
         }
 
-        /* Küçük Resim Alanı */
+        /* Aktif (Oynayan) Video Kartı Stili */
+        .video-card.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(133, 199, 66, 0.2);
+            background-color: #1f2a18;
+        }
+
         .thumbnail-container {
             width: 100%;
             aspect-ratio: 16 / 9;
@@ -143,10 +148,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0; /* Bu alanın asla küçülmesini engeller */
+            flex-shrink: 0;
         }
 
-        /* Play İkonu */
         .play-icon {
             width: 0; 
             height: 0; 
@@ -157,7 +161,7 @@
             transition: opacity 0.2s;
         }
         
-        .video-card:hover .play-icon {
+        .video-card:hover .play-icon, .video-card.active .play-icon {
             opacity: 1;
             border-left-color: var(--accent-color);
         }
@@ -179,7 +183,7 @@
             display: flex;
             flex-direction: column;
             gap: 5px;
-            flex-grow: 1; /* İçeriğin boşlukları doldurmasını sağlar */
+            flex-grow: 1;
         }
 
         .card-title {
@@ -187,18 +191,17 @@
             font-weight: 500;
             line-height: 1.4;
             color: var(--text-main);
-            /* Başlıkların kutuyu bozmasını engellemek için */
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            overflow-wrap: break-word; /* Çok uzun kelimeleri alt satıra kırar */
+            overflow-wrap: break-word;
         }
 
         .card-date {
             font-size: 0.85rem;
             color: var(--text-secondary);
-            margin-top: auto; /* Tarihi en alta iter */
+            margin-top: auto;
         }
 
         /* Footer */
@@ -247,7 +250,7 @@
     <main>
         <!-- Ana Oynatıcı -->
         <div class="current-video-title" id="main-title">Lütfen bir video seçin...</div>
-        <div class="player-wrapper">
+        <div class="player-wrapper" id="player-wrapper">
             <iframe 
                 id="main-player" 
                 src="" 
@@ -280,6 +283,7 @@
             }
         }
 
+        // Temel embed URL'i oluşturur (autoplay olmadan)
         function getEmbedUrl(originalUrl) {
             const videoId = getRumbleId(originalUrl);
             if (videoId) {
@@ -311,7 +315,8 @@
 
                 const card = document.createElement('div');
                 card.className = 'video-card';
-                card.onclick = () => playVideo(embedUrl, video.title);
+                // Tıklandığında hem URL'yi hem de kartın kendisini (this) gönderiyoruz
+                card.onclick = function() { playVideo(embedUrl, video.title, this); };
 
                 card.innerHTML = `
                     <div class="thumbnail-container">
@@ -329,16 +334,31 @@
             container.appendChild(grid);
         }
 
-        function playVideo(url, title) {
+        function playVideo(url, title, cardElement) {
             const player = document.getElementById('main-player');
             const mainTitle = document.getElementById('main-title');
             
-            player.src = url;
+            // URL'e otomatik oynatma parametresini ekliyoruz
+            // Eğer URL'de zaten soru işareti varsa & ile yoksa ? ile ekliyoruz
+            let finalUrl = url;
+            if (url.includes('?')) {
+                finalUrl = url + '&autoplay=1';
+            } else {
+                finalUrl = url + '?autoplay=1';
+            }
+
+            player.src = finalUrl;
             mainTitle.textContent = title;
             
-            if(window.innerWidth < 768) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Aktif olan kartı işaretle
+            document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active'));
+            if(cardElement) {
+                cardElement.classList.add('active');
             }
+
+            // Oynatıcıya yumuşak kaydırma yap (kullanıcı görsün)
+            const playerWrapper = document.getElementById('player-wrapper');
+            playerWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         async function fetchVideos() {
@@ -349,8 +369,9 @@
                 
                 renderVideos(allVideos);
                 
+                // Sayfa ilk açıldığında otomatik oynatma yapmasın diye autoplay eklemedik
                 if (allVideos.length > 0) {
-                    playVideo(getEmbedUrl(allVideos[0].link), allVideos[0].title);
+                    playVideo(getEmbedUrl(allVideos[0].link), allVideos[0].title, document.querySelector('.video-card'));
                 }
 
             } catch (error) {
