@@ -4,8 +4,6 @@ import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 # AYARLAR
 RUMBLE_USER = "tinitavolkan"
@@ -13,7 +11,7 @@ URL = f"https://rumble.com/user/{RUMBLE_USER}"
 OUTPUT_FILE = "videos.json"
 
 def scrape_videos():
-    print("🚀 Tarayıcı başlatılıyor...")
+    print("🚀 Selenium Başlatılıyor...")
     
     options = Options()
     options.add_argument("--headless") 
@@ -25,7 +23,7 @@ def scrape_videos():
     driver = None
     
     try:
-        # Driver Başlat
+        # Driver Başlatma
         try:
             from webdriver_manager.chrome import ChromeDriverManager
             from selenium.webdriver.chrome.service import Service
@@ -33,70 +31,74 @@ def scrape_videos():
         except:
             driver = webdriver.Chrome(options=options)
 
-        print(f"🌐 Sayfa yükleniyor: {URL}")
+        print(f"🌐 Sayfa Yükleniyor: {URL}")
         driver.get(URL)
 
-        # 1. BEKLEME: Videoların yüklenmesini bekle (sınıfa göre bekle)
-        # Senin verdiğin "videostream__link" sınıfının göründüğünü teyit et
-        print("⏳ Videoların yüklenmesini bekliyorum...")
-        try:
-            WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.CLASS_NAME, "videostream__link"))
-            )
-        except:
-            print("⚠️ Uyarı: 'videostream__link' sınıfı bulunamadı, sayfa yapısı değişmiş olabilir.")
+        # 1. Önce biraz bekle (JS yüklenmesi için)
+        time.sleep(5)
 
-        # 2. SCROLL (Kaydırma): Rumble sonsuz kaydırma kullanır.
-        # Sayfayı aşağı indikçe yeni videolar yüklenir.
-        print("📜 Sayfayı aşağı kaydırarak daha fazla video yüklüyorum...")
+        # 2. "Accept Cookies" (Çerez) varsa tıkla (Rumble bazen bunu gösteriyor)
+        try:
+            # Yaygın çerez butonu seçicileri
+            driver.find_element(By.XPATH, "//button[contains(text(), 'Accept') or contains(text(), 'I Agree') or contains(@class, 'accept')]").click()
+            print("🍪 Çerez butonu bulundu ve tıklandı.")
+            time.sleep(2)
+        except:
+            print("ℹ️ Çerez ekranı görünmüyor veya gerekli değil.")
+
+        # 3. Sonsuz Kaydırma (Scroll) - Videoları yükle
+        print("📜 Sayfa kaydırılıyor (Videolar yükleniyor)...")
         last_height = driver.execute_script("return document.body.scrollHeight")
         
-        scroll_count = 0
-        max_scrolls = 10  # En fazla 10 kez aşağı indir (yaklaşık 30-50 video bulur, Actions limiti için önemli)
+        scroll_attempts = 0
+        max_scrolls = 10 # 10 kere aşağı in (yaklaşık 30-50 video)
 
-        while scroll_count < max_scrolls:
-            # En aşağı kaydır
+        while scroll_attempts < max_scrolls:
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(2) # Yükleme süresi
             
-            # Yüklemesi için bekle
-            time.sleep(2)
-            
-            # Yeni yüksekliği ölç
             new_height = driver.execute_script("return document.body.scrollHeight")
-            
             if new_height == last_height:
-                # Yükseklik değişmediyse, sayfa bitti demektir.
                 print("✅ Sayfa sonuna gelindi.")
                 break
-            
             last_height = new_height
-            scroll_count += 1
-            print(f"   ...Kaydırma {scroll_count}/{max_scrolls}")
+            scroll_attempts += 1
+            print(f"   Kaydırma: {scroll_attempts}")
 
-        # 3. TOPLAMA: Artık sadece video linklerini hedefle
-        video_links = set()
-        
-        # "videostream__link" sınıfına sahip tüm elementleri bul
-        # (Bunu senin verdiğin elementteki class="videostream__link link" yapısından biliyoruz)
-        elements = driver.find_elements(By.CLASS_NAME, "videostream__link")
-        
-        print(f"🔍 Toplam {len(elements)} adet video linki elementi bulundu.")
+        # 4. VERİ ÇEKME (En Kritik Kısım)
+        video_ids = set()
 
-        for elem in elements:
-            href = elem.get_attribute("href")
-            if href:
-                # Senin verdiğin link: /v73qn5i-prensesperver...
-                # Regex ile /v ile başlayan ID'yi yakala
-                match = re.search(r'/v([a-z0-9]+)', href, re.IGNORECASE)
+        # Verdiğin HTML'deki "data-video-id" özelliğini hedefliyoruz.
+        # Bu yapı sınıf ismi değişse bile çalışır.
+        containers = driver.find_elements(By.CSS_SELECTOR, "div[data-video-id]")
+        
+        print(f"🔍 Toplam video konteyneri bulundu: {len(containers)}")
+
+        for container in containers:
+            try:
+                # Konteynerin içindeki video linkini bul
+                # Verdiğin HTML'de: <a class="videostream__link link" ...>
+                link_elem = container.find_element(By.CSS_SELECTOR, "a.videostream__link")
+                href = link_elem.get_attribute("href")
                 
-                if match:
-                    video_id = "v" + match.group(1) # Başına v ekle (regex v'siz alıyor)
-                    video_links.add(video_id)
+                if href:
+                    # Örnek Link: /v73qn5i-prensesperver...
+                    # Regex: /v ile başlayan, tire işaretine kadar olan kısmı al.
+                    # Grup (1): v73qn5i
+                    match = re.search(r'/v([a-z0-9]+)-', href, re.IGNORECASE)
+                    
+                    if match:
+                        video_id = "v" + match.group(1) # Regex v'yi almazsa, başına koy
+                        video_ids.add(video_id)
 
-        unique_ids = list(video_links)
-        print(f"✅ {len(unique_ids)} adet benzersiz video ID'si işlendi.")
+            except Exception as e:
+                # Bazı konteynerlerde link yoksa hata verme, geç
+                pass
 
-        # JSON'a yaz
+        unique_ids = list(video_ids)
+        print(f"✅ Başarıyla işlenen benzersiz video sayısı: {len(unique_ids)}")
+
+        # JSON Oluşturma
         videos_data = []
         for vid in unique_ids:
             videos_data.append({
@@ -104,10 +106,11 @@ def scrape_videos():
                 "embed": f"https://rumble.com/embed/{vid}/"
             })
 
+        # Kaydetme
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             json.dump(videos_data, f, indent=4, ensure_ascii=False)
 
-        print(f"💾 Başarıyla tamamlandı. {OUTPUT_FILE} güncellendi.")
+        print(f"💾 {OUTPUT_FILE} başarıyla güncellendi.")
 
     except Exception as e:
         print(f"❌ Kritik Hata: {e}")
