@@ -271,40 +271,10 @@
     <script>
         let allVideos = [];
 
-        // Geliştirilmiş Video ID Çıkarma ve URL Oluşturma Fonksiyonu
-        function getEmbedUrl(originalUrl) {
-            try {
-                // 1. Video ID'sini yakalayıp yakalamadığımızı kontrol et (v ile başlayan kısım)
-                // Örnek: ...rumble.com/v73oifg-nuriben... -> v73oifg
-                const match = originalUrl.match(/rumble\.com\/(v[a-z0-9]+)/i);
-                
-                if (match && match[1]) {
-                    const videoId = match[1];
-                    
-                    // 2. Temel Embed Linki oluştur
-                    let embedUrl = `https://rumble.com/embed/${videoId}/?pub=4o7uxk`;
-
-                    // 3. Orijinal linkteki parametreleri (?e9s=... gibi) alıp embed'e ekle
-                    // Bu "Video not found" hatasını önlemek için çok önemlidir.
-                    try {
-                        const urlObj = new URL(originalUrl);
-                        const params = new URLSearchParams(urlObj.search);
-                        
-                        if (params.toString()) {
-                            embedUrl += '&' + params.toString();
-                        }
-                    } catch (e) {
-                        console.warn("Parametre ayrıştırılamadı, orijinal link kullanılıyor:", originalUrl);
-                    }
-
-                    return embedUrl;
-                }
-            } catch (e) {
-                console.error("Video ID çıkarılırken hata:", e);
-            }
-            
-            // Eğer regex tutmazsa orijinal linki döndür (son çare)
-            return originalUrl;
+        // GÜNCELLENMİŞ: Embed ID'sini doğrudan kullanır
+        function getEmbedUrl(embedId) {
+            // videos.json'dan gelen ID'yi direkt linkin içine koyuyoruz.
+            return `https://rumble.com/embed/${embedId}/?pub=4o7uxk&autoplay=1`;
         }
 
         function extractDate(title) {
@@ -325,7 +295,8 @@
             grid.className = 'video-grid';
 
             videos.forEach(video => {
-                const embedUrl = getEmbedUrl(video.link);
+                // DİKKAT: Burada video.embed_id kullanıyoruz
+                const embedUrl = getEmbedUrl(video.embed_id);
                 const dateStr = extractDate(video.title);
 
                 const card = document.createElement('div');
@@ -352,15 +323,7 @@
             const player = document.getElementById('main-player');
             const mainTitle = document.getElementById('main-title');
             
-            // 4. Otomatik oynatma (autoplay) parametresini ekle
-            let finalUrl = url;
-            if (url.includes('?')) {
-                finalUrl = url + '&autoplay=1';
-            } else {
-                finalUrl = url + '?autoplay=1';
-            }
-
-            player.src = finalUrl;
+            player.src = url;
             mainTitle.textContent = title;
             
             // Aktif olan kartı işaretle
@@ -382,9 +345,9 @@
                 
                 renderVideos(allVideos);
                 
-                // İlk videoyu hazırla
+                // İlk videoyu otomatik hazırla (oynatma, sadece yükle)
                 if (allVideos.length > 0) {
-                    playVideo(getEmbedUrl(allVideos[0].link), allVideos[0].title, document.querySelector('.video-card'));
+                    playVideo(getEmbedUrl(allVideos[0].embed_id), allVideos[0].title, document.querySelector('.video-card'));
                 }
 
             } catch (error) {
