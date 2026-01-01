@@ -1,73 +1,28 @@
-<!DOCTYPE html>
+
+
+Share Session
+
+"https://tinitavolkan.github.io/" uzantılıo websitemi tasarlıyorum.
+
+şuan
+"<!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tinita Volkan - Video Arşivi</title>
-    <style>
-        body { background-color: #0f0f0f; color: white; font-family: sans-serif; margin: 0; padding: 20px; }
-        h1 { text-align: center; color: #85d74b; }
-        #video-container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-            gap: 20px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-        }
-        .video-card { background: #1e1e1e; border-radius: 8px; overflow: hidden; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        .card-content { padding: 15px; }
-    </style>
+<meta charset="UTF-8">
+<title>Video Arşivi</title>
 </head>
-<body>
+<body style="background:#0f0f0f;color:white;font-family:Arial;text-align:center">
 
-    <h1>🎬 Video Arşivi (Local Source)</h1>
-    <div id="video-container">⏳ Videolar yükleniyor...</div>
+<h1>🎬 Rumble Video Arşivi</h1>
 
-    <script>
-        const PUB_KEY = "4o7uxk";
-        const container = document.getElementById("video-container");
-
-        // Kendi oluşturduğumuz JSON dosyasını çekiyoruz
-        fetch("videos.json")
-            .then(response => {
-                if(!response.ok) throw new Error("JSON dosyası bulunamadı (Henüz scrape çalışmadı mı?)");
-                return response.json();
-            })
-            .then(videos => {
-                container.innerHTML = ""; // Yükleniyor yazısını temizle
-                
-                if(videos.length === 0) {
-                    container.innerHTML = "<p>Henüz video bulunamadı.</p>";
-                    return;
-                }
-
-                videos.forEach(v => {
-                    const card = document.createElement("div");
-                    card.className = "video-card";
-                    card.innerHTML = `
-                        <div class="video-wrapper">
-                            <iframe src="${v.embed}?pub=${PUB_KEY}" allowfullscreen></iframe>
-                        </div>
-                        <div class="card-content">
-                            <small>ID: ${v.id}</small>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            })
-            .catch(err => {
-                console.error(err);
-                container.innerHTML = `
-                    <div style="text-align:center; grid-column:1/-1;">
-                        <h3>Hata</h3>
-                        <p>videos.json dosyası okunamadı.</p>
-                        <p><small>GitHub Actions ilk kez çalıştıktan sonra bu dosya oluşacak.</small></p>
-                    </div>
-                `;
-            });
-    </script>
+<iframe
+src="https://rumble.com/embed/v71jolc/?pub=4o7uxk"
+width="80%"
+height="400"
+frameborder="0"
+allowfullscreen>
+</iframe>
 
 </body>
 </html>
+"
