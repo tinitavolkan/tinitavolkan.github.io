@@ -271,24 +271,39 @@
     <script>
         let allVideos = [];
 
-        function getRumbleId(url) {
-            try {
-                const match = url.match(/\/(v[a-z0-9]+)-/i);
-                if (match && match[1]) {
-                    return match[1];
-                }
-                return null;
-            } catch (e) {
-                return null;
-            }
-        }
-
-        // Temel embed URL'i oluşturur (autoplay olmadan)
+        // Geliştirilmiş Video ID Çıkarma ve URL Oluşturma Fonksiyonu
         function getEmbedUrl(originalUrl) {
-            const videoId = getRumbleId(originalUrl);
-            if (videoId) {
-                return `https://rumble.com/embed/${videoId}/?pub=4o7uxk`;
+            try {
+                // 1. Video ID'sini yakalayıp yakalamadığımızı kontrol et (v ile başlayan kısım)
+                // Örnek: ...rumble.com/v73oifg-nuriben... -> v73oifg
+                const match = originalUrl.match(/rumble\.com\/(v[a-z0-9]+)/i);
+                
+                if (match && match[1]) {
+                    const videoId = match[1];
+                    
+                    // 2. Temel Embed Linki oluştur
+                    let embedUrl = `https://rumble.com/embed/${videoId}/?pub=4o7uxk`;
+
+                    // 3. Orijinal linkteki parametreleri (?e9s=... gibi) alıp embed'e ekle
+                    // Bu "Video not found" hatasını önlemek için çok önemlidir.
+                    try {
+                        const urlObj = new URL(originalUrl);
+                        const params = new URLSearchParams(urlObj.search);
+                        
+                        if (params.toString()) {
+                            embedUrl += '&' + params.toString();
+                        }
+                    } catch (e) {
+                        console.warn("Parametre ayrıştırılamadı, orijinal link kullanılıyor:", originalUrl);
+                    }
+
+                    return embedUrl;
+                }
+            } catch (e) {
+                console.error("Video ID çıkarılırken hata:", e);
             }
+            
+            // Eğer regex tutmazsa orijinal linki döndür (son çare)
             return originalUrl;
         }
 
@@ -315,7 +330,6 @@
 
                 const card = document.createElement('div');
                 card.className = 'video-card';
-                // Tıklandığında hem URL'yi hem de kartın kendisini (this) gönderiyoruz
                 card.onclick = function() { playVideo(embedUrl, video.title, this); };
 
                 card.innerHTML = `
@@ -338,8 +352,7 @@
             const player = document.getElementById('main-player');
             const mainTitle = document.getElementById('main-title');
             
-            // URL'e otomatik oynatma parametresini ekliyoruz
-            // Eğer URL'de zaten soru işareti varsa & ile yoksa ? ile ekliyoruz
+            // 4. Otomatik oynatma (autoplay) parametresini ekle
             let finalUrl = url;
             if (url.includes('?')) {
                 finalUrl = url + '&autoplay=1';
@@ -356,7 +369,7 @@
                 cardElement.classList.add('active');
             }
 
-            // Oynatıcıya yumuşak kaydırma yap (kullanıcı görsün)
+            // Oynatıcıya kaydır
             const playerWrapper = document.getElementById('player-wrapper');
             playerWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
@@ -369,7 +382,7 @@
                 
                 renderVideos(allVideos);
                 
-                // Sayfa ilk açıldığında otomatik oynatma yapmasın diye autoplay eklemedik
+                // İlk videoyu hazırla
                 if (allVideos.length > 0) {
                     playVideo(getEmbedUrl(allVideos[0].link), allVideos[0].title, document.querySelector('.video-card'));
                 }
