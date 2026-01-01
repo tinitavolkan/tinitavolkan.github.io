@@ -11,10 +11,13 @@ URL = f"https://rumble.com/user/{RUMBLE_USER}"
 OUTPUT_FILE = "videos.json"
 
 def scrape_videos():
-    print("🚀 Selenium Başlatılıyor...")
+    print("🚀 Tarayıcı başlatılıyor...")
     
     options = Options()
+    # GitHub Actions için Headless ZORUNLU (Arayüz açılmaz)
+    # Yerel test yaparken burayı yorum satırı yapabilirsin: # options.add_argument("--headless")
     options.add_argument("--headless") 
+    
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--window-size=1920,1080")
@@ -31,72 +34,54 @@ def scrape_videos():
         except:
             driver = webdriver.Chrome(options=options)
 
-        print(f"🌐 Sayfa Yükleniyor: {URL}")
+        print(f"🌐 Sayfa yükleniyor: {URL}")
         driver.get(URL)
 
-        # 1. Önce biraz bekle (JS yüklenmesi için)
+        # Sayfanın yüklenmesini bekle
         time.sleep(5)
 
-        # 2. "Accept Cookies" (Çerez) varsa tıkla (Rumble bazen bunu gösteriyor)
+        # --- DEBUG: EKRAN GÖRÜNTÜSÜ AL (Video yoksa görmek için) ---
         try:
-            # Yaygın çerez butonu seçicileri
-            driver.find_element(By.XPATH, "//button[contains(text(), 'Accept') or contains(text(), 'I Agree') or contains(@class, 'accept')]").click()
-            print("🍪 Çerez butonu bulundu ve tıklandı.")
-            time.sleep(2)
-        except:
-            print("ℹ️ Çerez ekranı görünmüyor veya gerekli değil.")
+            driver.save_screenshot("rumble_debug.png")
+            print("📸 Ekran görüntüsü kaydedildi: rumble_debug.png")
+        except Exception as e:
+            print("⚠️ Ekran görüntüsü alınamadı (Headless sunucu hatası olabilir).")
+        # ---------------------------------------------------------
 
-        # 3. Sonsuz Kaydırma (Scroll) - Videoları yükle
-        print("📜 Sayfa kaydırılıyor (Videolar yükleniyor)...")
+        # Sonsuz Kaydırma
+        print("📜 Sayfayı kaydırarak daha fazla video yüklüyorum...")
         last_height = driver.execute_script("return document.body.scrollHeight")
-        
         scroll_attempts = 0
-        max_scrolls = 10 # 10 kere aşağı in (yaklaşık 30-50 video)
+        max_scrolls = 10
 
         while scroll_attempts < max_scrolls:
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(2) # Yükleme süresi
-            
+            time.sleep(2)
             new_height = driver.execute_script("return document.body.scrollHeight")
             if new_height == last_height:
-                print("✅ Sayfa sonuna gelindi.")
                 break
             last_height = new_height
             scroll_attempts += 1
-            print(f"   Kaydırma: {scroll_attempts}")
 
-        # 4. VERİ ÇEKME (En Kritik Kısım)
+        # --- EN GARANTİ SEÇİCİ (KESİN ÇÖZÜM) ---
+        # Class veya data-id'ye bakmıyoruz. Doğrudan href="/v" ile başlayan linkleri topluyoruz.
+        links = driver.find_elements(By.CSS_SELECTOR, "a[href^='/v']")
+        
+        print(f"🔍 Bulunan '/v' ile başlayan link sayısı: {len(links)}")
+
         video_ids = set()
 
-        # Verdiğin HTML'deki "data-video-id" özelliğini hedefliyoruz.
-        # Bu yapı sınıf ismi değişse bile çalışır.
-        containers = driver.find_elements(By.CSS_SELECTOR, "div[data-video-id]")
-        
-        print(f"🔍 Toplam video konteyneri bulundu: {len(containers)}")
-
-        for container in containers:
-            try:
-                # Konteynerin içindeki video linkini bul
-                # Verdiğin HTML'de: <a class="videostream__link link" ...>
-                link_elem = container.find_element(By.CSS_SELECTOR, "a.videostream__link")
-                href = link_elem.get_attribute("href")
-                
-                if href:
-                    # Örnek Link: /v73qn5i-prensesperver...
-                    # Regex: /v ile başlayan, tire işaretine kadar olan kısmı al.
-                    # Grup (1): v73qn5i
-                    match = re.search(r'/v([a-z0-9]+)-', href, re.IGNORECASE)
-                    
-                    if match:
-                        video_id = "v" + match.group(1) # Regex v'yi almazsa, başına koy
-                        video_ids.add(video_id)
-
-            except Exception as e:
-                # Bazı konteynerlerde link yoksa hata verme, geç
-                pass
+        for link in links:
+            href = link.get_attribute("href")
+            if href:
+                # Örnek: /v73qn5i-prensesperver...
+                # Regex: /v ile başlayan, tire işaretine kadar olan kısmı al.
+                match = re.search(r'/v([a-z0-9]+)-', href, re.IGNORECASE)
+                if match:
+                    video_ids.add("v" + match.group(1))
 
         unique_ids = list(video_ids)
-        print(f"✅ Başarıyla işlenen benzersiz video sayısı: {len(unique_ids)}")
+        print(f"✅ İşlenen benzersiz video sayısı: {len(unique_ids)}")
 
         # JSON Oluşturma
         videos_data = []
@@ -110,10 +95,10 @@ def scrape_videos():
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             json.dump(videos_data, f, indent=4, ensure_ascii=False)
 
-        print(f"💾 {OUTPUT_FILE} başarıyla güncellendi.")
+        print(f"💾 {OUTPUT_FILE} güncellendi.")
 
     except Exception as e:
-        print(f"❌ Kritik Hata: {e}")
+        print(f"❌ Hata: {e}")
         import traceback
         traceback.print_exc()
     finally:
