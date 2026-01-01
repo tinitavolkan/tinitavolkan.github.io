@@ -8,7 +8,7 @@ URL = f"https://rumble.com/user/{RUMBLE_USER}"
 OUTPUT_FILE = "videos.json"
 
 def scrape_videos():
-    # Başlığı ayarlayalım (Tarayıcı gibi görünmesi için)
+    # Tarayıcı gibi görün
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     }
@@ -16,48 +16,36 @@ def scrape_videos():
     print(f"🔍 {URL} adresine bağlanılıyor...")
     
     try:
-        # Başlık (Header) ile istek gönderiyoruz
         response = requests.get(URL, headers=headers)
         
         if response.status_code != 200:
             print(f"Hata: Sayfa bulunamadı. Durum kodu: {response.status_code}")
-            print("HTML İçeriği (ilk 500 karakter):", response.text[:500])
             return
 
         html_content = response.text
         
-        # Daha geniş Regex:
-        # 1. rumble.com/vID.html yakalar
-        # 2. Sadece /vID.html (bağıl link) yakalar
-        # 3. JSON yapısı içindeki "url":"..." yakalar
+        # DÜZELTİLMİŞ REGEX
+        # 1. rumble.com/ ile başlar
+        # 2. (v[a-z0-9]+) -> Grubu yakalar (Sadece v ile başlayan sayı/harf dizisi, örn: v73qci0)
+        # 3. (?=-|\.|\?|") -> Bakış açısı (Lookahead): Sonra tire, nokta, soru işareti veya tırnak varsa dur.
+        # Bu sayede başlık kısmını (egearseven-...) almaz.
         
-        # Önce standart linkleri dene
-        video_matches = re.findall(r'rumble\.com\/(v[a-zA-Z0-9\-]+)\.html', html_content)
+        # Bu pattern: rumble.com/v73qci0-... veya rumble.com/v73qci0.html... yakalar
+        pattern = r'rumble\.com\/(v[a-z0-9]+)(?=-|\.|\?|")'
         
-        # Eğer bulamazsa, sadece başına / işareti olanları dene
-        if not video_matches:
-            video_matches = re.findall(r'\/(v[a-zA-Z0-9\-]+)\.html', html_content)
+        matches = re.findall(pattern, html_content, re.IGNORECASE)
+        
+        print(f"🔍 Regex buldu: {len(matches)} adet ID.")
 
-        # Hala yoksa, ID'yi basitçe yakalamayı dene (v ile başlayan her şey)
-        if not video_matches:
-            video_matches = re.findall(r'[^a-z](v[a-z0-9]+)', html_content)
-
-        print(f"🔍 Regex buldu: {len(video_matches)} adet ham ID.")
-
-        if not video_matches:
-            print("⚠️ Video bulunamadı.")
-            print("SAYFANIN İLK 1000 KARAKTERİNE BAK:")
-            print(html_content[:1000])
+        if not matches:
+            print("⚠️ ID bulunamadı. Sayfa kaynağı farklı olabilir.")
             return
 
-        # Aynı videoları temizle (Set kullanarak)
-        # Rumble'da ID'ler 'v' ile başlar. Eğer yanlış yakaladıysak 'v' ile başlayanları filtreleyelim.
-        valid_videos = [v for v in video_matches if v.startswith('v')]
-        unique_ids = list(set(valid_videos))
-        
-        print(f"✅ Temizlenmiş benzersiz video sayısı: {len(unique_ids)}")
+        # Listeyi tekilleştir
+        unique_ids = list(set(matches))
+        print(f"✅ Tekrar edenler temizlendi, kalan: {len(unique_ids)}")
 
-        # JSON formatına çevirme
+        # JSON formatına çevir
         videos_data = []
         for vid in unique_ids:
             videos_data.append({
@@ -65,14 +53,14 @@ def scrape_videos():
                 "embed": f"https://rumble.com/embed/{vid}/"
             })
 
-        # Dosyaya yazma
+        # Dosyaya yaz
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             json.dump(videos_data, f, indent=4, ensure_ascii=False)
 
-        print(f"✅ {OUTPUT_FILE} dosyasına {len(videos_data)} video kaydedildi.")
+        print(f"✅ {OUTPUT_FILE} dosyasına {len(videos_data)} video yazıldı.")
 
     except Exception as e:
-        print(f"❌ Bir hata oluştu: {e}")
+        print(f"❌ Hata: {e}")
 
 if __name__ == "__main__":
     scrape_videos()
