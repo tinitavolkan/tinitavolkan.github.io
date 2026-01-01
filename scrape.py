@@ -4,37 +4,42 @@ import json
 
 # ---------------- AYARLAR ----------------
 RUMBLE_USER = "tinitavolkan"
-URL = f"https://rumble.com/user/{RUMBLE_USER}"
+
+# ✅ KESİN ÇÖZÜM: Mobil alt alan adını kullanıyoruz
+# Böylece GitHub Actions IP'leri engellenmez ve linkler çıplak gelir.
+URL = f"https://m.rumble.com/user/{RUMBLE_USER}"
+
 OUTPUT_FILE = "videos.json"
 
 HEADERS = {
+    # Mobil User-Agent kullanıyoruz (daha doğal görünür)
     "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/120.0.0.0 Safari/537.36"
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) "
+        "AppleWebKit/605.1.15 (KHTML, like Gecko) "
+        "Version/17.0 Mobile/15E148 Safari/604.1"
     )
 }
 # ------------------------------------------
 
 def scrape_rumble_videos():
-    print("🌐 Sayfa çekiliyor (Requests - Çok Hızlı)...")
+    print("🌐 Mobil site bağlantısı kuruluyor (requests)...")
     
     try:
         r = requests.get(URL, headers=HEADERS, timeout=15)
-        r.raise_for_status() # Eğer sayfa 404 verirse hata fırlat
+        r.raise_for_status()
         html = r.text
 
-        # 🔥 Regex ile /v... ile başlayan linkleri bul
+        # Mobil sitede link yapısı genellikle /v... şeklindedir.
+        # Regex araması yap.
         matches = re.findall(r'/v([a-z0-9]+)-', html, flags=re.IGNORECASE)
         
         if not matches:
-            print("⚠️ Uyarı: Hiç video bulunamadı. Link yapısı değişmiş olabilir.")
-            # Yine de boş dosya oluşturalım ki hata vermesin
+            print("⚠️ Uyarı: Mobil sitede bile video bulunamadı.")
             with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
                 json.dump([], f, indent=4)
             return
 
-        # Set ile tekrarları kaldır ve "v" öneki ekleyerek listeye çevir
+        # ID'leri temizle ve listeye ekle
         unique_ids = sorted(set("v" + m for m in matches))
         print(f"✅ Bulunan benzersiz video sayısı: {len(unique_ids)}")
 
