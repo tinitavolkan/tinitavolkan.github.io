@@ -8,7 +8,7 @@
         :root {
             --bg-color: #0f0f0f;
             --card-bg: #1e1e1e;
-            --accent-color: #85c742; /* Rumble yeşili tonu */
+            --accent-color: #85c742; /* Rumble yeşili */
             --text-main: #ffffff;
             --text-secondary: #aaaaaa;
             --hover-bg: #2a2a2a;
@@ -123,11 +123,13 @@
             transition: transform 0.2s, background-color 0.2s;
             display: flex;
             flex-direction: column;
+            border: 1px solid #333;
         }
 
         .video-card:hover {
             transform: translateY(-5px);
             background-color: var(--hover-bg);
+            border-color: var(--accent-color);
         }
 
         .thumbnail-container {
@@ -140,7 +142,7 @@
             justify-content: center;
         }
 
-        /* Play İkonu CSS ile çizildi */
+        /* Play İkonu */
         .play-icon {
             width: 0; 
             height: 0; 
@@ -156,7 +158,6 @@
             border-left-color: var(--accent-color);
         }
 
-        /* Rumble Logo simgesi (görsel yerine) */
         .brand-icon {
             position: absolute;
             top: 10px;
@@ -203,33 +204,27 @@
             margin-top: 40px;
         }
 
-        /* Yükleniyor Animasyonu */
-        .loading {
+        /* Yükleniyor ve Hata Mesajları */
+        .loading, .error-msg {
             text-align: center;
             padding: 40px;
-            color: var(--accent-color);
             font-size: 1.2rem;
         }
-        
-        /* Responsive Ayarlar */
+        .loading { color: var(--accent-color); }
+        .error-msg { color: #ff5555; }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .player-wrapper {
                 position: sticky;
-                top: 80px; /* Header yüksekliği + pay */
+                top: 70px;
                 z-index: 50;
                 border-radius: 0;
                 margin-left: -20px;
                 margin-right: -20px;
                 width: calc(100% + 40px);
             }
-            
-            main {
-                padding-top: 0;
-            }
-
-            .current-video-title {
-                margin-top: 20px;
-            }
+            .current-video-title { margin-top: 20px; }
         }
     </style>
 </head>
@@ -253,7 +248,7 @@
             </iframe>
         </div>
 
-        <!-- Video Listesi -->
+        <!-- Video Listesi Alanı -->
         <div id="video-list-container" class="loading">
             Videolar yükleniyor...
         </div>
@@ -264,114 +259,13 @@
     </footer>
 
     <script>
-        // JSON Verisi (Gerçek projede fetch ile dosyadan çekilir)
-        // Buraya kendi videos.json dosyanın içeriğini yapıştırdım. 
-        // Eğer dosyadan okumak istersen alttaki 'fetchVideos' fonksiyonundaki yorum satırlarını açabilirsin.
-        
-        const rawJsonData = [
-            {
-                "title": "Egearseven 07.12.2025 1",
-                "link": "https://rumble.com/v73qkbw-egearseven-07.12.2025-1.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Egearseven 16.12.2025 1_Parca_001",
-                "link": "https://rumble.com/v73qj4e-egearseven-16.12.2025-1-parca-001.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Blush 27.12.2025 1_Parca_001",
-                "link": "https://rumble.com/v73qixu-blush-27.12.2025-1-parca-001.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Egearseven 14.12.2025 1_Parca_000",
-                "link": "https://rumble.com/v73qfxs-egearseven-14.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Egearseven 26.12.2025 1_Parca_000",
-                "link": "https://rumble.com/v73qfum-egearseven-26.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Egearseven 12.12.2025 1_Parca_000",
-                "link": "https://rumble.com/v73qeu8-egearseven-12.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Egearseven 12.12.2025 1_Parca_001",
-                "link": "https://rumble.com/v73qdqa-egearseven-12.12.2025-1-parca-001.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Egearseven 12.12.2025 2_Parca_001",
-                "link": "https://rumble.com/v73qdb8-egearseven-12.12.2025-2-parca-001.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Nuriben 06.12.2025 1_Parca_001",
-                "link": "https://rumble.com/v73qclm-nuriben-06.12.2025-1-parca-001.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Nuriben 06.12.2025 1_Parca_000",
-                "link": "https://rumble.com/v73qclk-nuriben-06.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Egearseven 29.12.2025 1_Parca_001",
-                "link": "https://rumble.com/v73qcl8-egearseven-29.12.2025-1-parca-001.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Egearseven 29.12.2025 1_Parca_000",
-                "link": "https://rumble.com/v73qcl2-egearseven-29.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Egearseven 15.12.2025 1_Parca_001",
-                "link": "https://rumble.com/v73qciu-egearseven-15.12.2025-1-parca-001.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Egearseven 15.12.2025 1_Parca_000",
-                "link": "https://rumble.com/v73qcio-egearseven-15.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Egearseven 12.12.2025 2_Parca_000",
-                "link": "https://rumble.com/v73qci0-egearseven-12.12.2025-2-parca-000.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Egearseven 08.12.2025 1",
-                "link": "https://rumble.com/v73qchg-egearseven-08.12.2025-1.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Nuriben 24.12.2025 1_Parca_000",
-                "link": "https://rumble.com/v73oofu-nuriben-24.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Nuriben 24.12.2025 2",
-                "link": "https://rumble.com/v73oo8w-nuriben-24.12.2025-2.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Nuriben 22.12.2025 1",
-                "link": "https://rumble.com/v73oo7w-nuriben-22.12.2025-1.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Nuriben 17.12.2025 1_Parca_001",
-                "link": "https://rumble.com/v73oo5k-nuriben-17.12.2025-1-parca-001.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Nuriben 17.12.2025 1_Parca_000",
-                "link": "https://rumble.com/v73oo4o-nuriben-17.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Nuriben 18.12.2025 1_Parca_001",
-                "link": "https://rumble.com/v73oo42-nuriben-18.12.2025-1-parca-001.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Nuriben 18.12.2025 1_Parca_000",
-                "link": "https://rumble.com/v73oo04-nuriben-18.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
-            },
-            {
-                "title": "Prensesperver 07.12.2025 1_Parca_000",
-                "link": "https://rumble.com/v73onua-prensesperver-07.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
-            }
-        ];
+        // Tüm videoları tutacak global değişken
+        let allVideos = [];
 
         // Linkten video ID'sini çıkarma fonksiyonu
         function getRumbleId(url) {
             try {
-                // URL'deki "v" ile başlayan kısmı yakalamaya çalışıyoruz
-                // Örnek: ...rumble.com/v73qkbw-egearseven... -> v73qkbw
+                // URL'deki "v" ile başlayan kısmı yakalar
                 const match = url.match(/\/(v[a-z0-9]+)-/i);
                 if (match && match[1]) {
                     return match[1];
@@ -386,13 +280,12 @@
         function getEmbedUrl(originalUrl) {
             const videoId = getRumbleId(originalUrl);
             if (videoId) {
-                // Eğer ortak yayın ID'si (pub) varsa onu koruyabiliriz veya standart kullanabiliriz
                 return `https://rumble.com/embed/${videoId}/?pub=4o7uxk`;
             }
-            return originalUrl; // ID bulunamazsa orijinal linke dön (çalışmaz ama hata vermez)
+            return originalUrl;
         }
 
-        // Başlıktan tarih çıkarma (Opsiyonel görsel düzenleme için)
+        // Başlıktan tarih çıkarma
         function extractDate(title) {
             const dateMatch = title.match(/\d{2}\.\d{2}\.\d{4}/);
             return dateMatch ? dateMatch[0] : "";
@@ -401,10 +294,10 @@
         // Video Listesini Ekrana Basma
         function renderVideos(videos) {
             const container = document.getElementById('video-list-container');
-            container.innerHTML = ""; // Önce temizle
+            container.innerHTML = "";
             
             if(videos.length === 0) {
-                container.innerHTML = "<p style='text-align:center; color:#777;'>Aradığınız kriterde video bulunamadı.</p>";
+                container.innerHTML = "<p class='error-msg'>Aradığınız kriterde video bulunamadı.</p>";
                 return;
             }
 
@@ -419,7 +312,6 @@
                 card.className = 'video-card';
                 card.onclick = () => playVideo(embedUrl, video.title);
 
-                // Kart içeriği
                 card.innerHTML = `
                     <div class="thumbnail-container">
                         <span class="brand-icon">RUMBLE</span>
@@ -436,7 +328,7 @@
             container.appendChild(grid);
         }
 
-        // Video Oynatma Fonksiyonu
+        // Video Oynatma
         function playVideo(url, title) {
             const player = document.getElementById('main-player');
             const mainTitle = document.getElementById('main-title');
@@ -444,49 +336,56 @@
             player.src = url;
             mainTitle.textContent = title;
             
-            // Mobilde videoye kaydır
             if(window.innerWidth < 768) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
-        // Arama Fonksiyonu
+        // Videos.json dosyasını yükleme
+        async function fetchVideos() {
+            try {
+                const response = await fetch('videos.json');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                allVideos = await response.json();
+                
+                // Videoları listele
+                renderVideos(allVideos);
+                
+                // İlk videoyu otomatik yükle
+                if (allVideos.length > 0) {
+                    playVideo(getEmbedUrl(allVideos[0].link), allVideos[0].title);
+                }
+
+            } catch (error) {
+                console.error('Videos.json yüklenirken hata oluştu:', error);
+                const container = document.getElementById('video-list-container');
+                container.innerHTML = `
+                    <div class="error-msg">
+                        <p>Hata: videos.json dosyası yüklenemedi.</p>
+                        <p style="font-size: 0.9rem; margin-top:10px; color:#888;">
+                            Dosyayı doğrudan açıyorsanız (file://), lütfen bir Local Server (Live Server) kullanın.
+                        </p>
+                    </div>
+                `;
+            }
+        }
+
+        // Arama İşlevi
         document.getElementById('search-input').addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
-            const filteredVideos = rawJsonData.filter(video => 
+            // allVideos değişkenini filtrele
+            const filteredVideos = allVideos.filter(video => 
                 video.title.toLowerCase().includes(searchTerm)
             );
             renderVideos(filteredVideos);
         });
 
-        // Başlangıç İşlemleri
-        function init() {
-            // Eğer gerçek bir JSON dosyası kullanmak istersen burayı aç:
-            /*
-            fetch('videos.json')
-                .then(response => response.json())
-                .then(data => {
-                    rawJsonData = data; // Veriyi güncelle
-                    renderVideos(rawJsonData);
-                    // İlk videoyu yükle
-                    if(data.length > 0) {
-                        playVideo(getEmbedUrl(data[0].link), data[0].title);
-                    }
-                })
-                .catch(err => console.error("Videos.json yüklenemedi:", err));
-            */
-
-            // Şimdilik gömülü veriyi kullanıyoruz:
-            renderVideos(rawJsonData);
-            
-            // Sayfa açılınca ilk videonun oynamasını istersen burayı aç:
-            if (rawJsonData.length > 0) {
-                playVideo(getEmbedUrl(rawJsonData[0].link), rawJsonData[0].title);
-            }
-        }
-
-        // Sayfa yüklendiğinde başlat
-        window.addEventListener('DOMContentLoaded', init);
+        // Başlat
+        window.addEventListener('DOMContentLoaded', fetchVideos);
 
     </script>
 </body>
