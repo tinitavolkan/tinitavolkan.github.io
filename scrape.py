@@ -1,47 +1,43 @@
-import requests
+import cloudscraper
 import re
 import json
 
 # ---------------- AYARLAR ----------------
 RUMBLE_USER = "tinitavolkan"
-
-# ✅ KESİN ÇÖZÜM: Mobil alt alan adını kullanıyoruz
-# Böylece GitHub Actions IP'leri engellenmez ve linkler çıplak gelir.
-URL = f"https://m.rumble.com/user/{RUMBLE_USER}"
-
+URL = f"https://rumble.com/user/{RUMBLE_USER}"
 OUTPUT_FILE = "videos.json"
-
-HEADERS = {
-    # Mobil User-Agent kullanıyoruz (daha doğal görünür)
-    "User-Agent": (
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) "
-        "AppleWebKit/605.1.15 (KHTML, like Gecko) "
-        "Version/17.0 Mobile/15E148 Safari/604.1"
-    )
-}
 # ------------------------------------------
 
-def scrape_rumble_videos():
-    print("🌐 Mobil site bağlantısı kuruluyor (requests)...")
-    
+def scrape():
+    print("🚀 Cloudscraper ile Rumble bağlantısı başlatılıyor (STABLE MODE)...")
+
+    # Cloudscraper oluştur (Chrome gibi davranacak)
+    scraper = cloudscraper.create_scraper(
+        browser={"browser": "chrome", "platform": "windows"}
+    )
+
     try:
-        r = requests.get(URL, headers=HEADERS, timeout=15)
+        # İsteği at
+        r = scraper.get(URL, timeout=20)
         r.raise_for_status()
         html = r.text
 
-        # Mobil sitede link yapısı genellikle /v... şeklindedir.
-        # Regex araması yap.
+        # DEBUG: Eğer hata alırsan HTML'i kontrol et
+        with open("debug.html", "w", encoding="utf-8") as f:
+            f.write(html)
+        print("📸 debug.html oluşturuldu.")
+
+        # Regex ile video ID'lerini yakala
         matches = re.findall(r'/v([a-z0-9]+)-', html, flags=re.IGNORECASE)
         
         if not matches:
-            print("⚠️ Uyarı: Mobil sitede bile video bulunamadı.")
+            print("⚠️ Video bulunamadı. (Cloudflare koruması aşılabilmiş ama içerik boş olabilir)")
             with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
                 json.dump([], f, indent=4)
             return
 
-        # ID'leri temizle ve listeye ekle
         unique_ids = sorted(set("v" + m for m in matches))
-        print(f"✅ Bulunan benzersiz video sayısı: {len(unique_ids)}")
+        print(f"✅ Bulunan video sayısı: {len(unique_ids)}")
 
         videos = [
             {
@@ -54,10 +50,10 @@ def scrape_rumble_videos():
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             json.dump(videos, f, indent=4, ensure_ascii=False)
 
-        print(f"💾 {OUTPUT_FILE} başarıyla oluşturuldu.")
+        print(f"💾 {OUTPUT_FILE} oluşturuldu.")
 
     except Exception as e:
-        print(f"❌ Hata: {e}")
+        print(f"❌ Cloudscraper Hatası: {e}")
 
 if __name__ == "__main__":
-    scrape_rumble_videos()
+    scrape()
