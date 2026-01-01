@@ -1,10 +1,11 @@
-name: Rumble Video Scraper (Selenium)
+name: Rumble Video Scraper (Simple)
 
 permissions:
   contents: write
 
 on:
   schedule:
+    # Her gün
     - cron: "0 0 * * *"
   workflow_dispatch:
 
@@ -20,17 +21,17 @@ jobs:
         with:
           python-version: "3.9"
 
-      - name: Gerekli Kütüphaneleri Yükle
-        run: |
-          pip install requests selenium webdriver-manager
+      - name: Gerekli Kütüphaneyi Yükle (Sadece requests)
+        run: pip install requests
 
-      - name: Scripti Çalıştır (Selenium ile)
+      - name: Scripti Çalıştır
         run: python scrape.py
 
-      - name: Değişiklikleri Gönder
+      - name: Değişiklikleri Gönder (Commit & Push)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add videos.json
-          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 Selenium: Video listesi güncellendi"
+          # Değişiklik yoksa hata verme, varsa commit at
+          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 Auto update: Video listesi güncellendi"
           git push
