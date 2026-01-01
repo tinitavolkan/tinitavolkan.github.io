@@ -1,11 +1,10 @@
-name: Rumble Video Scraper (Simple)
+name: Rumble Video Scraper (Cloudscraper)
 
 permissions:
   contents: write
 
 on:
   schedule:
-    # Her gün
     - cron: "0 0 * * *"
   workflow_dispatch:
 
@@ -21,17 +20,18 @@ jobs:
         with:
           python-version: "3.9"
 
-      - name: Gerekli Kütüphaneyi Yükle (Sadece requests)
-        run: pip install requests
+      - name: Gerekli Kütüphaneleri Yükle (requests + cloudscraper)
+        run: pip install requests cloudscraper
 
-      - name: Scripti Çalıştır
+      - name: Scripti Çalıştır (Cloudscraper)
         run: python scrape.py
 
-      - name: Değişiklikleri Gönder (Commit & Push)
+      - name: Değişiklikleri Gönder
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add videos.json
-          # Değişiklik yoksa hata verme, varsa commit at
-          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 Auto update: Video listesi güncellendi"
+          # Debug dosyasını da eklemek istersen alt satırı aktif et:
+          # git add debug.html
+          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 Cloudscraper: Video listesi güncellendi"
           git push
