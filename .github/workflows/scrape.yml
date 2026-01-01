@@ -1,10 +1,16 @@
 name: Rumble Video Scraper
 
+# --- BURASI ÇOK ÖNEMLİ ---
+# Bu satır olmadan Actions repo'ya dosya yazamaz (push yapamaz)
+permissions:
+  contents: write
+# -------------------------
+
 on:
   schedule:
-    # Her gün Türkiye saati ile 03:00'te çalışır (Cron UTC bazlıdır)
+    # Her gün saat 00:00'da çalışır
     - cron: "0 0 * * *" 
-  workflow_dispatch: # GitHub panelinden elle çalıştırmanızı sağlar
+  workflow_dispatch: # Elle tetiklemek için
 
 jobs:
   build:
@@ -18,10 +24,10 @@ jobs:
         with:
           python-version: "3.9"
 
-      - name: Gerekli Kütüphaneleri Yükle
+      - name: Kütüphaneleri Yükle
         run: pip install requests
 
-      - name: Scripti Çalıştır (Video Çek)
+      - name: Scripti Çalıştır (Scrape)
         run: python scrape.py
 
       - name: Değişiklikleri Gönder (Commit & Push)
@@ -29,6 +35,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add videos.json
-          # Eğer değişiklik yoksa hata vermemesi için "|| true" eklendi
+          # Eğer bir değişiklik yoksa (dosya aynıysa) commit yapma, yoksa yap ve pushla
           git diff --quiet && git diff --staged --quiet || git commit -m "🤖 Auto update: Video listesi güncellendi"
           git push
