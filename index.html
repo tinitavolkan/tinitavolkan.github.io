@@ -1,10 +1,9 @@
-11
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volkan'ın Arşivi | Next-Gen Stable</title>
+    <title>Volkan'ın Arşivi | Ultra Stable</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -153,14 +152,22 @@
                     embedId: v.embed_id,
                     date: date,
                     category: category,
-                    link: v.link,
-                    thumbnail: null 
+                    link: v.link
                 };
             }).sort((a, b) => b.date - a.date);
         };
 
-        // --- GELİŞMİŞ RUMBLE OEMBED API FONKSİYONU ---
+        // --- OPTİMİZE EDİLMİŞ FETCH (CACHE + THROTTLE) ---
         const fetchThumbFromRumble = async (videoUrl) => {
+            // 1. Local Storage Cache Kontrolü
+            const cacheKey = `rumble_thumb_${videoUrl}`;
+            try {
+                const cached = localStorage.getItem(cacheKey);
+                if (cached) return cached;
+            } catch (e) {
+                console.warn("LocalStorage erişimi engelli, cache pas geçiliyor.");
+            }
+
             try {
                 const oembed = `https://rumble.com/api/Media/oembed.json?url=${encodeURIComponent(videoUrl)}`;
                 const corsUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(oembed)}`;
@@ -169,9 +176,17 @@
                 if (!r.ok) return null;
 
                 const payload = await r.json();
-                // AllOrigins string olarak döner, parse etmek lazım
                 const data = JSON.parse(payload.contents);
-                return data.thumbnail_url || null;
+                const thumbUrl = data.thumbnail_url || null;
+
+                // Cache'e yaz
+                if (thumbUrl) {
+                    try {
+                        localStorage.setItem(cacheKey, thumbUrl);
+                    } catch (e) { /* Quota hatası yoksay */ }
+                }
+                
+                return thumbUrl;
             } catch (e) {
                 console.warn("oEmbed Hatası:", e);
                 return null;
@@ -255,7 +270,7 @@
             return (
                 <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-indigo-900/20 border border-white/10 relative animate-fade-in ring-1 ring-indigo-500/20">
                     <iframe 
-                        src={`https://rumble.com/embed/${video.embedId}/?pub=4o7uxk&autoplay=1`}
+                        src={`https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`}
                         className="w-full h-full"
                         allowFullScreen
                         title={video.title}
@@ -264,7 +279,7 @@
             );
         };
 
-        const VideoCard = ({ video, isActive, onClick }) => {
+        const VideoCard = ({ video, isActive, thumbnail, onClick }) => {
             const formatDate = (date) => {
                 const d = new Date(video.date);
                 if(isNaN(d.getTime())) return "Tarih Yok";
@@ -274,11 +289,11 @@
             const [imgLoaded, setImgLoaded] = useState(false);
             const [imgError, setImgError] = useState(false);
 
-            // Video değiştiğinde state'leri sıfırla
             useEffect(() => {
+                // Video ID veya Thumbnail değişirse state'i sıfırla
                 setImgLoaded(false);
                 setImgError(false);
-            }, [video.id]);
+            }, [video.id, thumbnail]);
 
             return (
                 <div 
@@ -291,17 +306,16 @@
                         }
                     `}
                 >
-                    {/* Video Kartı Görsel Alanı */}
                     <div className="relative w-full sm:w-48 aspect-video rounded-lg overflow-hidden flex-shrink-0 bg-black">
                         
-                        {/* 1. Gerçek Resim (oEmbed'den geldi) */}
-                        {video.thumbnail && !imgError ? (
+                        {/* 1. Gerçek Resim (Lazy Load + Cache) */}
+                        {thumbnail && !imgError ? (
                             <img 
-                                src={video.thumbnail} 
+                                src={thumbnail} 
                                 alt={video.title}
                                 onLoad={() => setImgLoaded(true)}
                                 onError={() => setImgError(true)}
-                                loading="lazy" // Performans için lazy load
+                                loading="lazy"
                                 className={`
                                     absolute inset-0 w-full h-full object-cover transition-all duration-500
                                     ${imgLoaded ? 'opacity-100' : 'opacity-0'}
@@ -309,31 +323,27 @@
                             />
                         ) : null}
 
-                        {/* 2. Shimmer / Loading / Error */}
-                        {(!video.thumbnail || imgError || !imgLoaded) && (
+                        {/* 2. Shimmer / Loading / Error State */}
+                        {(!thumbnail || imgError || !imgLoaded) && (
                             <div className="absolute inset-0 bg-slate-800 flex flex-col items-center justify-center p-2 text-center">
-                                {!video.thumbnail ? (
-                                    // Henüz oEmbed'ten veri gelmediyse
-                                    <span className="text-xs text-slate-400 animate-pulse">Resim Yükleniyor...</span>
+                                {!thumbnail ? (
+                                    <span className="text-xs text-slate-400 animate-pulse">Bekleniyor...</span>
                                 ) : imgError || !imgLoaded ? (
-                                    // Resim bozuksa veya yüklenemediyse
-                                    <span className="text-xs text-slate-500">Görüntü Bulunamadı</span>
+                                    <span className="text-xs text-slate-500">Resim Yok</span>
                                 ) : null}
                             </div>
                         )}
 
-                        {/* Play Overlay (Hover) */}
+                        {/* Hover Overlay */}
                         <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
                             <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                                 <span className="text-white text-sm">▶</span>
                             </div>
                         </div>
 
-                        {/* Active State Ring */}
                         {isActive && <div className="absolute inset-0 ring-2 ring-indigo-500 rounded-lg pointer-events-none z-10"></div>}
                     </div>
                     
-                    {/* Video Bilgisi */}
                     <div className="flex flex-col justify-center flex-1 min-w-0">
                         <h4 className={`text-sm font-medium line-clamp-2 mb-2 transition-colors ${isActive ? 'text-indigo-400' : 'text-slate-200 group-hover:text-white'}`}>
                             {video.title}
@@ -354,6 +364,8 @@
 
         const App = () => {
             const [videos, setVideos] = useState([]);
+            // thumbnails ayrı bir object olarak tutuluyor, performans için
+            const [thumbMap, setThumbMap] = useState({}); 
             const [loading, setLoading] = useState(true);
             const [selectedVideo, setSelectedVideo] = useState(null);
             const [activeCategory, setActiveCategory] = useState('all');
@@ -367,13 +379,13 @@
                         const data = await response.json();
                         const processed = processVideoData(data);
                         setVideos(processed);
-                        // OEMbed API ile thumbnail çekme işlemini başlat
-                        fetchThumbnails(processed);
+                        // Sıralı çekme işlemi başlat (Throttle Uygulu)
+                        startThumbnailFetch(processed);
                     } catch (error) {
                         console.warn("videos.json yüklenemedi, yedek veri kullanılıyor.", error);
                         const processed = processVideoData(FALLBACK_DATA);
                         setVideos(processed);
-                        fetchThumbnails(processed);
+                        startThumbnailFetch(processed);
                     } finally {
                         setLoading(false);
                     }
@@ -381,20 +393,27 @@
                 fetchVideos();
             }, []);
 
-            // --- RESİMLERİ OEEMBED API'DEN ÇEKME ---
-            const fetchThumbnails = async (videoList) => {
-                console.log("Rumble oEmbed API'den resimler çekiliyor...");
+            // --- THROTTLE UYGULU SIRALI ÇEKME ---
+            const startThumbnailFetch = async (videoList) => {
+                console.log("Stabil Resim Çekme Başladı...");
                 
-                const updatedVideos = await Promise.all(videoList.map(async (v) => {
+                for (const v of videoList) {
                     try {
                         const thumb = await fetchThumbFromRumble(v.link);
-                        return thumb ? { ...v, thumbnail: thumb } : v;
-                    } catch (e) {
-                        return v;
-                    }
-                }));
+                        
+                        // Sadece yüklenen resmin haritasını güncelle (Tüm listeyi rerender etmez)
+                        setThumbMap(prev => ({
+                            ...prev,
+                            [v.id]: thumb
+                        }));
 
-                setVideos(updatedVideos);
+                        // AllOrigins'i boğmamak için 400ms bekle
+                        await new Promise(r => setTimeout(r, 400));
+                        
+                    } catch (e) {
+                        console.warn(`Resim hatası: ${v.title}`);
+                    }
+                }
             };
 
             const filteredVideos = useMemo(() => {
@@ -479,6 +498,7 @@
                                                 key={video.id} 
                                                 video={video} 
                                                 isActive={selectedVideo?.id === video.id}
+                                                thumbnail={thumbMap[video.id]} // Map'ten okuyoruz
                                                 onClick={() => handleVideoSelect(video)}
                                             />
                                         ))
@@ -490,7 +510,7 @@
                     
                     <footer className="border-t border-white/5 mt-12 py-8 bg-black/20 backdrop-blur-sm">
                         <div className="max-w-7xl mx-auto px-4 text-center">
-                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Video Arşivi. Powered by Rumble oEmbed API.</p>
+                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Arşivi. Stabil, Throttled & Cached.</p>
                         </div>
                     </footer>
                 </div>
