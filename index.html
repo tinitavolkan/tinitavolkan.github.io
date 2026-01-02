@@ -1,4 +1,3 @@
-1
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -280,15 +279,10 @@
             const [isSearchingText, setIsSearchingText] = useState(false);
             const textCache = useRef({}); 
             const debounceTimerRef = useRef(null);
-            const searchIdRef = useRef(0); // KESİN ÇÖZÜM İÇİN
+            const searchIdRef = useRef(0);
 
-            // EFEKT: Arama değişince seçili videoyu sıfırla
-            useEffect(() => {
-                if (searchTerm.trim()) {
-                    setSelectedVideo(null);
-                    setStartTime(null);
-                }
-            }, [searchTerm]);
+            // KESİN ÇÖZÜM: Arama modunu belirten flag
+            const isSearchActive = searchTerm.trim().length > 0;
 
             useEffect(() => {
                 const fetchVideos = async () => {
@@ -313,26 +307,33 @@
                 fetchVideos();
             }, []);
 
-            // ARAMA MANTIĞI (searchIdRef ile Race Condition Düzeltmesi)
+            // Arama değişince seçili videoyu sıfırla
+            useEffect(() => {
+                if (!isSearchActive) {
+                    setSelectedVideo(null);
+                    setStartTime(null);
+                }
+            }, [isSearchActive]);
+
+            // ARAMA EFEKTİ (State Clear Fix)
             useEffect(() => {
                 const term = searchTerm.trim().toLowerCase();
 
-                // 1. Arama boşsa hemen temizle
+                // 1. KESİN KONTROL: Eğer input boşsa, HEMEN return et ve temizle
                 if (!term) {
-                    setSearchResults([]);
+                    setSearchResults([]); 
                     setIsSearchingText(false);
+                    // Herhangi bir bekleyen aramayı iptal et
                     if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
                     return;
                 }
 
-                // Timer'ı temizle
+                // Timer temizle
                 if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
 
                 const performSearch = async () => {
-                    // 2. KESİN ÇÖZÜM: Yeni benzersiz ID oluştur
                     const currentSearchId = ++searchIdRef.current;
-
-                    // 3. Yeni arama başladığında listeyi hemen temizle (UI anında boşalır)
+                    
                     setSearchResults([]);
                     setIsSearchingText(true);
 
@@ -412,17 +413,13 @@
                     const textHitsArrays = await Promise.all(fetchPromises);
                     const allTextHits = textHitsArrays.flat();
 
-                    // 4. KESİN ÇÖZÜM: Bu arama hala geçerli mi?
-                    // Eğer kullanıcı yeni bir arama yapmışsa (ID değişmişse), bu sonucu yazma.
-                    if (currentSearchId !== searchIdRef.current) {
-                        return; 
-                    }
+                    // Race Condition Koruması
+                    if (currentSearchId !== searchIdRef.current) return; 
 
                     setSearchResults([...allTextHits, ...results]);
                     setIsSearchingText(false);
                 };
 
-                // Yeni timer başlat
                 debounceTimerRef.current = setTimeout(() => {
                     performSearch();
                 }, 500);
@@ -430,12 +427,9 @@
             }, [searchTerm, videos, activeCategory, selectedVideo]);
 
             const displayVideos = useMemo(() => {
-                if (searchTerm) return []; 
-                return videos.filter(video => {
-                    if (activeCategory === 'all') return true;
-                    return normalizeText(video.category) === normalizeText(activeCategory);
-                });
-            }, [searchTerm, videos, activeCategory]);
+                if (activeCategory === 'all') return videos;
+                return videos.filter(video => normalizeText(video.category) === normalizeText(activeCategory));
+            }, [activeCategory, videos]);
 
             const handleSelectVideo = (video, startSeconds = null) => {
                 setSelectedVideo(video);
@@ -482,34 +476,41 @@
                                         type="text"
                                         placeholder="Kelime veya söz arayın..."
                                         value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                        onChange={(e) => {
+                                            const val = e.target.value;
+                                            setSearchTerm(val === "" ? "" : val); // Önerilen fix
+                                        }}
                                         className="w-full bg-slate-900/50 border border-white/10 text-slate-100 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 block w-full pl-11 p-4 transition-all duration-300 placeholder:text-slate-600"
                                     />
                                 </div>
 
                                 <div className="flex items-center justify-between px-2 sticky top-0 bg-[#020617] z-10 py-2">
                                     <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">
-                                        {isSearchingText ? 'Metin taranıyor...' : (searchTerm ? 'Arama Sonuçları' : `${displayVideos.length} Video`)}
+                                        {isSearchingText ? 'Metin taranıyor...' : (isSearchActive ? 'Arama Sonuçları' : `${displayVideos.length} Video`)}
                                     </h3>
                                 </div>
 
                                 <div className="space-y-4 overflow-y-auto h-[600px] pr-2 pb-4">
                                     {loading ? (
                                         <div className="text-center py-8 text-slate-500 animate-pulse">Videolar yükleniyor...</div>
-                                    ) : searchResults.length > 0 ? (
-                                        searchResults.map((item, idx) => (
-                                            <SearchResultCard 
-                                                key={item.id || idx} 
-                                                item={item} 
-                                                isActive={item.type === 'video' ? selectedVideo?.id === item.video.id : false}
-                                                onClick={() => handleSelectVideo(item.video, item.seconds || null)}
-                                            />
-                                        ))
-                                    ) : searchTerm ? (
-                                        <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">
-                                            <p>Sonuç bulunamadı.</p>
-                                        </div>
+                                    ) : isSearchActive ? (
+                                        // ARAMA MODU: Sadece aktifse sonuçları göster
+                                        searchResults.length > 0 ? (
+                                            searchResults.map((item, idx) => (
+                                                <SearchResultCard 
+                                                    key={item.id || idx} 
+                                                    item={item} 
+                                                    isActive={item.type === 'video' ? selectedVideo?.id === item.video.id : false}
+                                                    onClick={() => handleSelectVideo(item.video, item.seconds || null)}
+                                                />
+                                            ))
+                                        ) : (
+                                            <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">
+                                                <p>Sonuç bulunamadı.</p>
+                                            </div>
+                                        )
                                     ) : (
+                                        // NORMAL MODU: Search aktif değilse, her zaman video listesini göster
                                         displayVideos.map((video) => (
                                             <SearchResultCard 
                                                 key={video.id} 
