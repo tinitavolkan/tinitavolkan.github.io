@@ -1,0 +1,4425 @@
+[00:00:00] İşlemciden verince internete bağlanmıyor.
+[00:00:02] Anlamadım.
+[00:00:03] Nasıl iş ya?
+[00:00:04] Valla şimdi normalden verdim yine.
+[00:00:07] Ekran kartından verdim.
+[00:00:11] Acaba işlemci driverı yok.
+[00:00:14] İşlemcinin driverı güncel bu arada.
+[00:00:17] Şöyle yazdım da.
+[00:00:18] Bios'ta sıkıntı olabilir mi?
+[00:00:24] Sonerim izliyor mu acaba yayını ya?
+[00:00:25] Gamers'taki çocuğa yazdım.
+[00:00:27] OBS'lik yükledim mi diyor.
+[00:00:28] En güzel versiyonu.
+[00:00:30] Ya kodlayıcı hatası vermesinin sebebi OBS mi?
+[00:00:48] Yok geldim ya geldim de her an gidebilirim.
+[00:00:51] Bilmiyorum OBS diyor ki Nvidia işte ekran kartının ismi yazıyor.
+[00:00:56] Kodlayıcı hatası diyor.
+[00:00:57] Onun uyarısını veriyor.
+[00:00:59] Kodlayıcı hatası diyor.
+[00:01:00] Ekran kartı değil de işlemciden vermeye çalıştım.
+[00:01:03] İşlemciden verdiğimde de hiç bağlanmadı.
+[00:01:07] İnternete bağlanmıyor.
+[00:01:08] Çarpı gözüküyor.
+[00:01:09] İnternet yeri.
+[00:01:15] Benim format atmam lazım.
+[00:01:17] Acil bence.
+[00:01:18] Teşekkür ederim Dilek.
+[00:01:24] Format atınca düzelecek gibi.
+[00:01:26] Elgürende hoş geldin.
+[00:01:27] Benazur hoş geldin.
+[00:01:30] OBS'i güncelleyip dene.
+[00:01:40] Ama yine kapamam lazım.
+[00:01:43] Ne yapsam bilemedim.
+[00:01:46] Acaba başka bir OBS mi kullansak?
+[00:01:50] Stream elements OBS.
+[00:01:52] Buna alıştık ama artık ya.
+[00:01:54] Yok yine aynı OBS de.
+[00:01:56] Stream elements OBS ama.
+[00:02:00] Tamam yok yine OBS.
+[00:02:01] Anladım ne demek istediğince.
+[00:02:02] Format atınca Anlos ayarları gidecek.
+[00:02:04] Anlos'un ayarları ya.
+[00:02:05] Gitsin Anlos'un ayarları.
+[00:02:07] Hiç zorunda değil şu an Anlos'un ayarları.
+[00:02:10] İki bilgisi var şu an.
+[00:02:12] Ben de Win11 üstü bekliyorum.
+[00:02:14] Mavi ekran verip duruyor.
+[00:02:15] Win10'da bir kere sorun yaşamadım.
+[00:02:17] Bence onunla alakalı değil.
+[00:02:19] Ben bu bilgisayarı aldığım gibi format atacaktım.
+[00:02:21] Gerizekalı gibi kimseyi dinlemedim.
+[00:02:23] O yüzden olmadı.
+[00:02:25] Bende şey vardı.
+[00:02:26] Aslında formatsız.
+[00:02:27] Ben formatsız evet.
+[00:02:28] Bende şey vardı.
+[00:02:29] Bir de USB vardı.
+[00:02:30] Onunla kendim format atabilirim herhalde diye düşünüyorum.
+[00:02:33] Varsın ya basit iş.
+[00:02:35] AMD evet.
+[00:02:36] Aleyküm selam Mehmet.
+[00:02:38] Aleyküm selam Luzia.
+[00:02:43] VL'de kasayı da götür Anlos ayar çeker.
+[00:02:48] VL mi olacakmış ki?
+[00:02:49] VL olmaz ki uzun bir süre bence.
+[00:02:50] Daha yeni ev yayını oldu.
+[00:02:52] Çağrı abi konuk bakacağım diyordu ya.
+[00:02:54] Makara yapıyordu oğlum o.
+[00:02:57] Bilmiyorum gerçekte olabilir.
+[00:02:58] Çağrı abi.
+[00:03:00] Belli olmaz.
+[00:03:01] Aleyküm selam.
+[00:03:02] Ahmet her zaman sıkıntı.
+[00:03:03] Bunu söylediğimde herkes itiraz ediyor.
+[00:03:04] Aleyküm selam Esra.
+[00:03:05] Hoş geldin.
+[00:03:06] Ahmet'e ne sıkıntısı var ki?
+[00:03:07] Ya onunla alakalı değil ya.
+[00:03:08] Ahmet'e teknik, yazılımsal sıkıntı.
+[00:03:09] Benim bu bilgisayarı formata atmam lazım.
+[00:03:10] O bir elektronik bilgisayar değil.
+[00:03:11] Bir bilgisayar öyle.
+[00:03:12] Bir tane bilgisayar, bir tane görülebilir.
+[00:03:13] Bir tane bilgisayar, bir taneふay.
+[00:03:14] Bir tane bilgisayar...
+[00:03:15] O çok bir bilgisayar.
+[00:03:16] Bu bence çok da çok muhtemel.
+[00:03:17] O datada çok da çok çok muhtemel.
+[00:03:19] AMD'nin ne sıkıntısı var ki?
+[00:03:23] Ya onunla alakalı değil ya.
+[00:03:25] AMD teknik yazılımsal sıkıntı değil.
+[00:03:27] Benim bu bilgisayara format atmam lazım.
+[00:03:28] OBS'den falan olduğunu da düşünmüyorum asla.
+[00:03:31] Başka bir şeyden.
+[00:03:33] OBS'i güncellerim yine de.
+[00:03:37] Bunlar neymiş lan?
+[00:03:40] Güncelleme geliyor OBS'e ben yapmıyorum.
+[00:03:43] Çünkü her güncelleme geldiği zaman OBS sıkıntı yaratıyor.
+[00:03:45] Sevmiyorum, bozuk oluyor.
+[00:03:47] O yüzden yapmıyorum.
+[00:03:48] Donuyor mu?
+[00:03:49] Ha?
+[00:03:50] Donuyor mu OBS?
+[00:03:52] Yok hep böyle problem yaşatıyor yani.
+[00:03:54] Hani hep şey diyorlar hani güncelleme gelsin hemen güncellemeyin.
+[00:03:57] Biraz zaman gelsin öyle güncelleyin.
+[00:03:59] Hani ekran kart dışında hani muhabbet ediyorlar ya.
+[00:04:01] Hmm.
+[00:04:02] Eber hoş geldin selamlar.
+[00:04:04] Unlost'un bilgisayarı evet.
+[00:04:05] Dynamo hoş geldin selamlar.
+[00:04:09] Sorun OBS'de ise eski sürüme sorun yoktu.
+[00:04:11] Yeni sürüme geçenler eski sürüme dönüyordu bir ara.
+[00:04:14] Benim şu an eski sürüm.
+[00:04:15] Ben bayağıdır OBS'imi güncellemiyorum.
+[00:04:17] Yani benim...
+[00:04:18] Benim şu an kaçtır?
+[00:04:20] Benim şu an OBS 31.1.2.
+[00:04:21] Şu an kaçıncı versiyonu gelmiş?
+[00:04:23] OBS Studio.
+[00:04:29] Şu an kaçı gelmiş bunun?
+[00:04:30] Nerede yazıyor?
+[00:04:37] Yine kapandı evet.
+[00:04:43] Kaç demiştin abla?
+[00:04:45] Şu an 32.04 gelmiş.
+[00:04:46] Benimki 31.1.2.
+[00:04:47] Şu an 32.04 gelmiş mesela.
+[00:04:52] Neyse bakalım yine giderse OBS'i güncellerim artık.
+[00:04:54] Yapacak bir şey yok.
+[00:04:56] Yine gitti de bir şey olmaz yapacak bir şey yok.
+[00:05:00] İnşallah bir daha gitmez.
+[00:05:04] Çok canımı sıkıyor bu durum.
+[00:05:05] Dün de iki kere gitti.
+[00:05:07] Dün 10 saatlik yayın yaptık ama yarım yarım gözüküyor.
+[00:05:08] Bir 6 bir 4 gözüküyor.
+[00:05:10] Türkan'ın linki Adalet Dilaveroğlu.
+[00:05:12] Kadoşumuz.
+[00:05:14] Türkan'ızın linki.
+[00:05:16] Bir de ne oldu biliyor musun Eren?
+[00:05:18] Yayın gitti ya ekranların gelmesini bekledim.
+[00:05:22] Ekran bir açıyordum ben böyle yayvan bir şekilde gözüküyordum ekranda.
+[00:05:29] Çok komik.
+[00:05:31] Of ya.
+[00:05:32] Böyle geniş bir şekilde full screen bir ekrandaydım.
+[00:05:36] Onu görmek lazım.
+[00:05:38] Altında sıçardınız onu görseydiniz.
+[00:05:40] Ve donmuşum öyle.
+[00:05:44] White yemiş halimi evet.
+[00:05:46] Abi keşke Whatsapp'ta fotosunu atsaydın ya.
+[00:05:49] Hayır oğlum hemen yayına gidiyor mudur gitmiyor mudur diye hemen kapattım tedirgin olup zaten.
+[00:05:54] Of ya.
+[00:05:55] İnşallah kapanmaz bir daha.
+[00:05:59] Dünkü keki yediğini beğendiğini gördüm en son sonra uyumuşum.
+[00:06:02] Evet dün yedim.
+[00:06:03] Gözlük bilge karga.
+[00:06:04] Bitirdin mi keki?
+[00:06:05] Ne?
+[00:06:06] Bitirdin mi keki?
+[00:06:07] Nasıl bitireyim oğlum o kocaman keki?
+[00:06:09] O kadar yedim sadece bir daha yemedim biliyor musun?
+[00:06:11] Ya of kekle sipariş vermiştim ya.
+[00:06:13] Kerem Hanım hemen bir daha söyle.
+[00:06:15] İyade gelince.
+[00:06:16] Daha küsümden sipariş vermiyorum.
+[00:06:18] Ya nereden söylemiştin?
+[00:06:20] Sar bak senden.
+[00:06:21] Evet evet.
+[00:06:23] Teşekkür ederim.
+[00:06:25] Ben yet.
+[00:06:27] Antalya'da deprem mi oldu?
+[00:06:29] Geçmiş olsun.
+[00:06:30] Geçmiş olsun.
+[00:06:31] Bana bildirim gelmedi.
+[00:06:34] Demek ki burada hissedilmemiş.
+[00:06:37] Arkadaşlar geçmiş olsun çok kötü mü oldu?
+[00:06:40] Hissettirdi mi?
+[00:06:42] Kike reklam geliyormuş.
+[00:06:43] Bu Kike reklam genel mi geliyormuş?
+[00:06:44] Yoksa yayıncıların açacağı şekilde mi geliyormuş?
+[00:06:50] Onun infosu var mı?
+[00:06:57] Görmedim Twitter'da ama.
+[00:06:58] İnfosu yok da.
+[00:06:59] Reklam geleceğini galiba Eddie söylemiş.
+[00:07:02] Evet evet.
+[00:07:03] Platformda gördüm onu.
+[00:07:07] Fucking hoş geldin.
+[00:07:08] Aleyküm selam.
+[00:07:10] Ya bilmiyorum ya.
+[00:07:11] Reklam.
+[00:07:12] Yani.
+[00:07:13] Burayı biz reklamsız diye sevmiyorduk ama.
+[00:07:14] Bence dediğin gibi oldu bu ya.
+[00:07:15] Eğer yayıncının açacağı şekilde bir reklamsa.
+[00:07:16] Yine yayıncıdan yayıncıya göre değişir.
+[00:07:17] Açmaz yayıncıya reklam.
+[00:07:18] Yine izleyebilirsiniz bence.
+[00:07:19] Problem olacağını zannetmiyorum.
+[00:07:20] Twitch'te bir ara öyleydi.
+[00:07:21] Sonra Twitch'e tamamen geldi mesela.
+[00:07:22] Twitch kendi basıyordu reklamları.
+[00:07:23] Bir de yayıncının açtığı reklamlar vardı.
+[00:07:24] Aleyküm selam.
+[00:07:25] Sena hoş geldin.
+[00:07:26] Ha belki ya da evet sağa sola koyulur.
+[00:07:27] Yayını bölmez belki de.
+[00:07:28] O tarz bir şey olurdu ama o da.
+[00:07:29] Bilmiyorum.
+[00:07:30] O da yani.
+[00:07:31] Ben istemem.
+[00:07:32] Mesela ekonomik olarak.
+[00:07:43] Ekrana şok diye böyle bir şey.
+[00:07:44] Bir anda gelsin falan.
+[00:07:45] Ne bileyim.
+[00:07:46] E tarzı olacaksa okey bu arada bence.
+[00:07:47] Mesela senin yayında alt alt kısımda çıkıyor böyle.
+[00:07:48] Alt haber gibi.
+[00:07:49] Şey gibi.
+[00:07:50] Normal televizyondaki olanlar gibi.
+[00:07:51] Aynen aynen.
+[00:07:52] Öyle okey.
+[00:07:53] Bunun böyle değil.
+[00:07:54] Daha beterdir Can.
+[00:07:55] Selam Kaminari.
+[00:07:56] Hoş geldiniz.
+[00:07:57] Twitch'teki çok fazlaydı bu arada.
+[00:07:58] Twitch'te çok fazlaydı.
+[00:07:59] İnşallah öyle olmaz.
+[00:08:00] Yusuf hoş geldin.
+[00:08:01] İzlememeyecek bir şey yok.
+[00:08:02] İzlememeyecek bir şey yok.
+[00:08:03] İzlememeyecek bir şey yok.
+[00:08:04] İzlememeyecek bir şey yok.
+[00:08:05] İzlememeyecek bir şey yok.
+[00:08:06] Evet.
+[00:08:07] İzlememeyecek derecede olursa sıkıntı bence kötü olur.
+[00:08:08] Yani ben izleyenlerin hoşuna gideceğini zannetmiyorum.
+[00:08:09] Ben de hem yayıncımda bir izleyen olarak.
+[00:08:10] Hoşuma gitmiyordu yani reklam izlemek.
+[00:08:11] Aynen.
+[00:08:12] Haa.
+[00:08:13] Tamam.
+[00:08:14] Tamam.
+[00:08:15] Aynen.
+[00:08:16] Tamam.
+[00:08:17] Tamam.
+[00:08:18] Tamam.
+[00:08:19] Tamam.
+[00:08:20] Tamam.
+[00:08:21] Tamam.
+[00:08:22] Tamam.
+[00:08:23] Tamam.
+[00:08:36] reklam gelecekse bence o benliğine zam getirmezler
+[00:08:40] youtube reklam gireri gibi olsa iyi olur
+[00:08:42] ekrana entegre ediyorlar reklamı videoyu bölmeden
+[00:08:44] işte bizim de bu programlarda
+[00:08:45] mesela dün Danla'nın podcastı nasıl da alttan çıkıyordu
+[00:08:48] üstten sağdan çıkıyor falan böyle
+[00:08:49] aynen öyle bütün twitch öyleydi
+[00:08:54] yani giriyordum birinin yanına
+[00:08:55] bir yayıncıya ufak böyle bir
+[00:08:58] görüyorsun hemen pat reklam giriyor
+[00:09:00] hani öyle bir durumdaydı yani
+[00:09:01] bakalım ne zaman gelir
+[00:09:04] ne zaman gelmez bilmiyorum ben ama şey diye
+[00:09:06] düşündüm onu hani işte dediğim gibi yayıncı
+[00:09:08] açar yayıncının açtığına
+[00:09:10] göre bir reklam ıs şey olur süresi
+[00:09:12] olur diye düşündüm ama bilmiyorum dedim
+[00:09:14] böyle de olmayabilir yani
+[00:09:15] aleyküm selam Merve hoş geldin
+[00:09:18] o yüzden benim bir bilgim yok
+[00:09:21] 5-10 dakika
+[00:09:23] youtube'da spor programları izlemek için
+[00:09:28] millet youtube premium alıyor
+[00:09:29] artık programların içine reklam almanın
+[00:09:32] bokunu çıkarttılar videolar izlenmez oldu
+[00:09:34] oğlum Cem Yılmaz'ın
+[00:09:36] videosunu izliyorduk hatırlıyor musunuz
+[00:09:37] Cem Yılmaz'ın bir sözünden altta hemen
+[00:09:39] reklam çıkıyordu şok olmuştum
+[00:09:40] bu tv hoş geldin aleyküm selam
+[00:09:42] ama şimdi biraz azalmış twitch'te
+[00:09:47] valla baya da twitch'e girmiyorum
+[00:09:48] hiç bir bilgim yok twitch konusunda
+[00:09:50] twitch'te kimse kalmadı ki
+[00:09:51] yani izlediğim yabancı yayıncılar vardı
+[00:09:53] onlar da hepsi geçti artık genelde
+[00:09:56] aa evet bak Kamil'in dediği doğru
+[00:10:06] mars sesi reklamı falan filan olacaksa o biraz sıkıntı çıkartır rahatsız edici olur yani
+[00:10:11] twitch'e sadece metik yayıncıları var o da kitle yasak diye
+[00:10:16] valla onları hiç takip etmediğim için bilmiyorum
+[00:10:18] prime var bende abonelikleri kullanmıyorum
+[00:10:21] valla bende de prime var bende de kullanmıyorum abonelikleri
+[00:10:24] girmiyorum çünkü hiç twitch'e
+[00:10:25] bir ara sürekli çağrıya falan oluyordu
+[00:10:27] o prime'de ne güzel lol kapsil falan alıyorduk affe
+[00:10:34] ne güzel günlerdi o
+[00:10:35] evet oradan bir de bir şeyler paylaşıyorduk
+[00:10:36] oyunlar falan daha veriyordu sanki başka
+[00:10:37] rp veriyordu kostüm falan veriyordu
+[00:10:41] ilk başta 800 rp veriyordu
+[00:10:44] sonra onu düşürdüler 300 falan yapmışlardı
+[00:10:46] oyun falan da veriyordu sanki sadece onlar da değil
+[00:10:48] tabi tabi
+[00:10:49] oyunlar kötüydü de
+[00:10:51] yok ya dönüş yapılmaz bu zannetmiyorum
+[00:11:01] txler hoşgeldiniz hoşgeldin merhaba
+[00:11:04] orası
+[00:11:06] artık dönülmez gibi düşünüyorum artık
+[00:11:08] ya artıca kimse dönmez ya artık
+[00:11:10] ya size böyle büyük konuşayım tiktok'a dönerch drown
+[00:11:27] tiktok
+[00:11:30] fta
+[00:11:33] renk
+[00:11:33] anlais
+[00:11:34] kendinize ukulana
+[00:11:35] yollayın
+[00:11:35] alındırıcı hesapları o abi de öyle bir şey vardı değil mi lan Twitch'de fısıltı vardı
+[00:11:40] a evet bir de Prime kalktı doğru artık Prime'da öyle işte Twitch'e gidelim şey
+[00:11:47] hani yapıyorduk ya film izleme dizi izleme bilmem ne izleme o artık kalktı Twitch'de yok
+[00:11:51] yapamıyorsun onu artık watch party yapamıyorsun yani Prime'le birlikte
+[00:11:56] diyordunuz ya kısmetse olurdu hadi orada gidelim izleyelim falan o muhabbet yok artık kalktı o
+[00:12:02] TV'de kik izleyim diyorum tam ekranda duruyor yayın bir anda f5 atıyorum sürekli valla benim
+[00:12:10] televizyonda izliyorum ama benim televizyonda da şöyle oluyor kik uygulaması normal zaman
+[00:12:15] akışından bir tık daha geriden geliyor yani mesela benim bilgisayarda da açık televizyondan
+[00:12:20] da açıyorum bilgisayar önden geliyor bende YouTube'da en iyi sayma yayıncılara yaramıyor
+[00:12:26] kik bir sürü sorun var ben YouTube'da da şey kötü
+[00:12:32] çok mu şey onların sanki chati mi sıkıntılı bir şey sıkıntılıydı sanki
+[00:12:37] müzik açamıyorum müzik televizyon falan filan var
+[00:12:41] chat kısmı hiç güzel değil yayın gecikmeli geliyorsa opera operadan izlemeyin
+[00:12:51] kik uygulaması yok bende Android değil TV TV'den her türlü geç geliyor benim de aynı
+[00:13:02] kik valla bilmiyorum ya yani Bence düzeltmeleri gereken bir sürü şey varken özellikle uygulama
+[00:13:08] ve normal platform içerisinde bence düzeltmeleri gereken çok fazla problem varken reklam getirip
+[00:13:14] öncesinde reklam getirmeye saçma Sen önce düzeltip sonrasında getirseler bence daha iyi olur Hem
+[00:13:19] izleyenler için hem yayıncılar için diye düşünüyorum Çünkü yayınlarda da biliyorsunuz
+[00:13:24] zaten çok sıkıntılar falan yaşıyoruz Onları Bence bir halletmeleri gerekiyor öncesinde bir şey gibi
+[00:13:28] Bir şey CSR'nin hileye çözüm bulamayıp yeni kasalar, yeni bilmem neler, yeni skinler çıkartması gibi bir şey.
+[00:13:43] Farkındalar ya.
+[00:13:44] Farkındalarsa sıkıntı yok.
+[00:13:45] Tamam o zaman.
+[00:13:46] O zaman problem yok.
+[00:13:48] Benim Peru'm hala geçildi mi?
+[00:13:50] Yayın kapandı gitti ya.
+[00:13:52] Takacak mıyım hala?
+[00:13:55] Geçen yayın kaldı o.
+[00:13:56] Geçen yayıda kaldı galiba.
+[00:13:57] Unuttuk ya atı.
+[00:13:59] Ama belliydi böyle yapacakları.
+[00:14:00] İlk sene bu arada atlar.
+[00:14:02] Şimdi da attıklarını toplamak istiyorlar.
+[00:14:03] Ya onların öyle bir problemi mi var sence?
+[00:14:04] Ta hayır.
+[00:14:08] Öyle bir sıkıntıları mı var sence oğlum?
+[00:14:12] Karaman YPG'si kulesi yanlış bırakmış.
+[00:14:14] Seni sipariş halledebildin mi?
+[00:14:15] Geri iade edecek vermiş.
+[00:14:17] İade aldım aldım.
+[00:14:20] Hemen ettiler.
+[00:14:21] Şu adamlar hiç hazır etmem ama ilk defa haklı.
+[00:14:26] Biliyorum ama onu ben de denk gelmiştim ya.
+[00:14:33] Bir kere bakıp görmüştüm ben de.
+[00:14:42] Öyle yapmıyorum zaten.
+[00:14:46] Ya Elgrandi Allah aşkına inanıyor musun?
+[00:14:50] Zannetmiyorum ben.
+[00:14:51] Her şeye inanıyor musunuz ya?
+[00:14:52] Hiç zannetmiyorum ben.
+[00:14:54] Adamların F1 arabasında reklamlandırılıyor.
+[00:14:56] Onları var.
+[00:15:08] Canım kek istedi Eren.
+[00:15:09] Var ya keki hatırlattın bana gideceğim şimdilik.
+[00:15:10] Ya of yalmış vermeyecektin.
+[00:15:12] Vallahi yine sipariş vermiştim ya.
+[00:15:14] Oğlum ben dünya yaptım hem de ıslak kek.
+[00:15:16] Tabii ki de var oğlum.
+[00:15:18] Heh tamam.
+[00:15:19] Ben de bugün ilk kek sipariş vermiştim.
+[00:15:21] Karaman'ım ya keşke sana yapabilsem ıslak kek var ya keşke getirebilsem daha doğrusu.
+[00:15:25] Karaman çık gel lan.
+[00:15:27] Dur dur ben geliyorum.
+[00:15:28] Burada hiç gelmiyorlar.
+[00:15:29] Gelsenler yaptırtacağım da.
+[00:15:33] Karaman ne yapıyorsun güzellik?
+[00:15:34] Karaman TFT oynuyor musun?
+[00:15:35] Bu ara herkes TFT'ye sarmışmış durumda.
+[00:15:40] Aha ne yapıyorsun Yağmur nene?
+[00:15:41] Eşek seni.
+[00:15:42] Zayraks hoş geldin.
+[00:15:43] Begüm.
+[00:15:45] Bana umarım gittiğin yerlerden magnet alıyorsundur.
+[00:15:48] Canım kardeşim.
+[00:15:52] Görkem hoş geldin.
+[00:15:53] Bir ıslak kek dedi.
+[00:15:54] Evet ben yaptım.
+[00:15:55] Aleyküm selam XMV hoş geldin merhaba.
+[00:15:59] Seaa
+[00:16:00] Aleyküm selam Rena.
+[00:16:01] Aleyküm selam Ragnor.
+[00:16:04] Bu arada bizim kedinin 68 günü kaldı.
+[00:16:07] Ne?
+[00:16:09] Askerlikten gelmesine.
+[00:16:11] Ha kedi gitti mi?
+[00:16:12] Oha.
+[00:16:13] Sen onu sayıyor musun lan?
+[00:16:15] Ben haberim yok ki oğlum.
+[00:16:17] Ben sayıyorum.
+[00:16:17] Sen bana niye Sefa'yı dün satmak istedin lan Karaman?
+[00:16:20] Sefa'dan sıkıldım ya artık kafam çöplüyor musun?
+[00:16:23] A aaa.
+[00:16:24] He aldım aldım.
+[00:16:25] Sigara da aldım chat'i okumuyon ki.
+[00:16:27] Oğlum zaten Begüm sen Dubai'den de bana sigara almıştın.
+[00:16:29] Biz seninle hiç görüşemedik veremedin bir türlü.
+[00:16:32] Sigara da getirdim magnetle demiş.
+[00:16:34] Sen var ya bir tanesin Begüm ya.
+[00:16:35] Mert hoş geldin.
+[00:16:36] Aleyküm selam.
+[00:16:38] Begüm manita yapmış manitasının story'si'den gördüm.
+[00:16:42] Begüm'ün.
+[00:16:43] Aaaa.
+[00:16:44] Evet.
+[00:16:44] Manitası var.
+[00:16:45] Hayır yok ona aa demedim.
+[00:16:46] Benim arkadaş baküden magnet getirmişti keşke sana da alsaydım.
+[00:16:50] Al işte.
+[00:16:52] Benim bakü magnetim yok mu ki ya?
+[00:16:55] Yok.
+[00:16:57] Biz bu magnet olayı yanlış anladık gibi Yağmur.
+[00:16:58] Nasıl yani kargolasın yakına oturuyoruz oğlum nasıl kargolasın.
+[00:17:09] Aa Kamil o da bilir bilemiyorum yani bir ihtimal bu arada düşündüğün şey ve mantıklı düşünüyorsun.
+[00:17:15] Geçen Elaza'ya gittim çevreleri göre 10 numara olmuş.
+[00:17:18] Begüm delikanlı adamdır manita yapar tabi.
+[00:17:20] Gelmiş Elaza.
+[00:17:21] Çağırmıyon eve.
+[00:17:23] Atmıyon ki bana cansın.
+[00:17:25] Ne?
+[00:17:25] Çağırmıyon ki eve atmıyon ki beni.
+[00:17:27] Senin artık başın bağlı değil mi?
+[00:17:29] Sen beni terk etmedin mi beni bırakıp gitmedin mi?
+[00:17:31] Ben seni nasıl eve atabilirim?
+[00:17:33] Begüm gelince gel de.
+[00:17:35] Takılalım.
+[00:17:37] Artık sandalyemde var masamda var koltukta aldım.
+[00:17:41] Oy katıcım hoşgeldin aleykümselam.
+[00:17:43] Legit hoşgeldin aleykümselam.
+[00:17:47] Begüm'ün manitası kimse çok şanslı bir kadın olmalı.
+[00:17:49] Aaa.
+[00:17:51] Kendi gittiğimiz yerden almıyor muyuz magneti?
+[00:17:53] Hayır.
+[00:17:55] Hayır ya niye öyle mi?
+[00:17:57] Evet genelde öyle olmasa da ben de onu sevmiyorum işte.
+[00:17:59] Ben kendi gittiğim yerlerden mesela kar küresi alıyorum ama arkadaşlarımın gittiği yerlerden magnet istiyorum.
+[00:18:05] Mesela şu an benim dolabımda gittiğim yerlerin magneti var.
+[00:18:09] Bir de Nesli Londra'dan, Berin Londra'dan ve Nesli Kaş'tan magnet getirmiş onları yapıştırdım mesela.
+[00:18:15] Ayvalık'tan falan böyle magnetlerim vardı benim onlar diğer evde kaldı.
+[00:18:17] Karaman Aliza'ya gelirsem getireceğim sana ıslaklık.
+[00:18:25] Hayır şu an istiyor ama benazor.
+[00:18:27] Dolabın üstüne öyle doldurursun çok şey istiyor.
+[00:18:33] Ya ne istedim magnet istedim ya.
+[00:18:35] İstedim tek şey magnetti.
+[00:18:39] Londra'ya gitmediysen yapıştırmaman lazım rajonu bul.
+[00:18:45] Bizde rajon yok abicim ben böyle.
+[00:18:47] Arkadaşlarım almış bende kullanıyorum.
+[00:18:49] Bizde rajon bu.
+[00:18:51] Nisa hoşgeldin selamlar.
+[00:18:53] Azaltabiliyoruz ama azaltınca titreme yapıyor.
+[00:18:57] O yüzden azaltmıyorum.
+[00:18:59] Feruk yalan olmadı yok takıcam.
+[00:19:05] Yağmış'a zor misafir.
+[00:19:07] Çağır benim eve gelse 2 saniyede evi gezer.
+[00:19:09] Su gibi.
+[00:19:13] Malatya'dayım ben nasıl hemen gideyim.
+[00:19:15] Ooo sen de insanları kandırıyorsun gibi geldi bana ama neyse.
+[00:19:23] Yağmış TR'deki lego store'lara şehir damgaları gelmiş.
+[00:19:25] Biriktirmeye sayılıyor artık damgalar.
+[00:19:27] Harbi mi?
+[00:19:29] Bile bi hoşgeldin aleykümselam.
+[00:19:31] Ben hep gidip şeyden alıyorum ama ya internetten alıyorum.
+[00:19:33] Teşekkür ederim Nisa sağol.
+[00:19:35] Ev zaten ekrandaki kadar gibi.
+[00:19:37] Birde yatak tuvalet var.
+[00:19:39] Evet.
+[00:19:41] Ekrandaki gibi şurası mutfak arkası koltuk zaten.
+[00:19:43] Birde içeride yatak otosu var.
+[00:19:45] Birde banyo var.
+[00:19:49] Malatya Elazığ 40 dakika.
+[00:19:51] Evet.
+[00:19:53] Karaman siz taşınmadınız dimi lan daha.
+[00:19:55] Canım.
+[00:19:57] Bizim o ev şu an hazır tamamen full dolu.
+[00:19:59] Odanı yaptın mı?
+[00:20:01] Evet benim her şey hazır orada.
+[00:20:03] Sadece internet yok canım.
+[00:20:05] Haa.
+[00:20:07] Asıl odamda olan şey yokmuş.
+[00:20:09] Aynen sadece bu evden beyaz eşyaları götüreceğiz.
+[00:20:11] Ula dolap.
+[00:20:13] Gel hoşgeldin merhaba.
+[00:20:15] Arkadaki store'a gittim.
+[00:20:17] Damga vardı şehre özel.
+[00:20:19] Allah Allah.
+[00:20:21] Acaba İstanbul'da var mı?
+[00:20:23] Bir bakmak lazım.
+[00:20:25] Benim bir önceki yayınım kaç saat olmuş?
+[00:20:27] Kaç saat olmuş?
+[00:20:29] 23 falan mıydı?
+[00:20:31] Bakıyoruz buna ha.
+[00:20:33] 26.
+[00:20:35] Aleykümselam.
+[00:20:37] İyi günler.
+[00:20:39] Hoşgeldin.
+[00:20:41] Merhaba.
+[00:20:45] Selam ya Coşkun.
+[00:20:47] Dağ başında soğuk varmış.
+[00:20:49] O da komşudan gelecek.
+[00:20:51] Zaten karamadım.
+[00:20:53] Keşke komşu olsa.
+[00:20:55] O bile yok.
+[00:20:57] Komşu mu yok?
+[00:20:59] Siz nasıl?
+[00:21:01] Siz böyle müstakil etrafı yeşillik bir yere mi taşınıyorsunuz?
+[00:21:03] Anlamadım ki.
+[00:21:05] Sizin o nasıl bir yer?
+[00:21:07] Evet.
+[00:21:09] Aynen öyle.
+[00:21:11] Aynen öyle.
+[00:21:13] Oğlum böyle Karadeniz'de dağların tepesinde böyle evler olurdu.
+[00:21:17] Böyle hep buraya insanlar nasıl çıkıyor falan.
+[00:21:19] Siz orada öyle bir yerde mi oturacaksınız?
+[00:21:21] Yok.
+[00:21:23] Yine şehir merkezinde de.
+[00:21:25] Daha yeni yerleşim yeri.
+[00:21:27] Haa.
+[00:21:29] Akbugacım selamlar.
+[00:21:31] Avukat Sefa hoşgeldin.
+[00:21:33] Kaçtın mı?
+[00:21:35] Hilal gidiyor.
+[00:21:37] Hilal nereye?
+[00:21:41] Karaman çok konuşma.
+[00:21:43] Kalacağım şimdi demiş.
+[00:21:45] Hyperfreaking hoşgeldin.
+[00:21:47] Eren nereye gitti?
+[00:21:49] Eren vc'den gelse de ben de vc'ye gitsin.
+[00:21:51] Kral hoşgeldin.
+[00:21:53] Nasıl yani?
+[00:21:55] Sırayla mı tahta gidiyorsunuz?
+[00:21:57] Bak bak.
+[00:21:59] İsme bak.
+[00:22:01] Pıt pıt canavarı.
+[00:22:03] O nasıl binik ya?
+[00:22:05] Mihriban aleykümselam.
+[00:22:07] Teker teker etmiyoruz ya.
+[00:22:09] Şimdi ben gidersem burası çok sessiz kalacakmış gibi hissettim.
+[00:22:11] Yo sorsunlar sor bence.
+[00:22:13] Yapmayayım.
+[00:22:15] Karaman ev ziyareti yayını olmaz mı diyorlar.
+[00:22:17] Olur neden olmaz?
+[00:22:19] Ahmet hoşgeldin aleykümselam.
+[00:22:21] Bardağımın esni hediye etti.
+[00:22:23] Flying Tiger.
+[00:22:29] Para c4 yüksek beat tempodor.
+[00:22:33] Baba çarkı yaptı.
+[00:22:35] Üstüne kürka çok güzelmiş.
+[00:22:37] Teşekkür ederim Mihriban.
+[00:22:39] Mihriban çok güzel isim ya.
+[00:22:41] Evet.
+[00:22:43] Karaman dün ne oldu biliyor musun?
+[00:22:45] Kft gittim tamam mı ilk defa.
+[00:22:47] Uzun bir aradan sonra ilk defa.
+[00:22:49] Fatih prezer Fatih var ya.
+[00:22:51] O dedi ki backstitch lazım.
+[00:22:53] Ben dedim ki lazım gel hiçbir comp bilmiyorum.
+[00:22:55] Bana comp öğret dedim.
+[00:22:57] Bu geldi Karaman bana hiçbir şey söylemedi.
+[00:22:59] Beni gitti baron comp'u götürdü.
+[00:23:01] Baron comp'u da en zor comp'muş.
+[00:23:03] Yani on level'a falan çıkman gerekiyormuş.
+[00:23:05] Yani ilk başlayanlar için denenecek bir comp değil.
+[00:23:07] Neyse.
+[00:23:09] Abi adam hiçbir şey söylemiyor.
+[00:23:11] Demir yine hiçlik götürdü ama hiçlik çok zor attı.
+[00:23:13] Yani atmadı hatta yani.
+[00:23:15] Neyse ben sonuncu oldum.
+[00:23:17] Sonra bir daha gireceğim dedim.
+[00:23:19] Demir ikiye attı beni bir daha gireceğim dedim.
+[00:23:21] Bir daha girdim ve dedim chat'e.
+[00:23:23] Dedim luz basın çünkü dedim ben şuan comp deniyorum.
+[00:23:25] Birinci olamam dedim.
+[00:23:27] Gittim kendi beynimle zekamla birinci oldum.
+[00:23:29] Bütün zedrak medrak hepsi luz basmıştı.
+[00:23:33] Hepsi sıçtı.
+[00:23:35] Keşke dün her gün çok kalabalık olsaydık da
+[00:23:37] şu sepeleriniz hepsi sıfırlansaydı ya.
+[00:23:39] Ama çoğunluk 1000 almış abla.
+[00:23:41] Ne?
+[00:23:43] Top 4 almış çoğunluk %59.
+[00:23:45] Top 4 basmış.
+[00:23:47] Ya o kadar güvenmişler mi bana?
+[00:23:49] Hı hı.
+[00:23:51] Aaa.
+[00:23:53] Ama bir şey söyleyeyim mi bak sabah kalktım bir baktım yayına.
+[00:23:55] Dedim ki iyi dönmüşüm lan dedim.
+[00:23:57] Çok böyle sıçıyormuşuz Eren.
+[00:23:59] Orada ben full
+[00:24:01] level basıp aramışım.
+[00:24:03] Mesela bana chatten şey yazmış biri.
+[00:24:05] Sıçtın ne yapıyorsun falan yazmış böyle.
+[00:24:07] Oradan döndürmüşüz maçı.
+[00:24:09] Ama başka bir şey var.
+[00:24:11] Belki de komplarda öğrenmek lazım.
+[00:24:13] Şu an sadece Ionia'yı biraz böyle.
+[00:24:15] Ionia neydi lan o?
+[00:24:17] Ionara Ionia onu çözdüm gibi.
+[00:24:19] Melike hoş geldin ne güzel kalbin.
+[00:24:21] Oğlum dün
+[00:24:23] Bak dün.
+[00:24:25] CS LoL TF'de oynandı.
+[00:24:27] Beni zorla bir kere LoL'e soktular.
+[00:24:29] LoL'lü sözleşmeliydi bu arada.
+[00:24:31] LoL sözleşmeliydi.
+[00:24:33] Arka arkaya 2000 alındı.
+[00:24:35] 2000 alındı sonrası aldık.
+[00:24:37] Sonra hadi bir TFD deneyelim.
+[00:24:39] TFD'de bir tane 8.liğimiz var.
+[00:24:41] Bir tane de 1.liğimiz var.
+[00:24:43] Demir 2'den Bronze'a çıktım.
+[00:24:45] Sözleşmeliği artık 3000'li mi yapsak ya?
+[00:24:47] Leman hoş geldin selamlar.
+[00:24:49] Islak kek güzeldi bayağı.
+[00:24:51] Bir Valla oynamadın yarmış kalbim kırıldı.
+[00:24:53] Bugün belki oynarız Valla.
+[00:24:55] Dün CS'de çok sardı.
+[00:24:57] Çağrılarla WS attık.
+[00:24:59] Bir de öncesinde biz de kendimiz de oynadık.
+[00:25:01] Bir de şu bilgisayar kapanmasa nasıl satayım problem olmayacak da
+[00:25:03] bilgisayar kapanıp duruyor ya.
+[00:25:05] Hadi bana yazmışsa ben uyuyordum ya.
+[00:25:07] Sana
+[00:25:09] yazdılar Ercan'a yazdılar galiba.
+[00:25:11] Çağırdılar bayağı herkesi de.
+[00:25:13] Sonra Buse vardı chatte.
+[00:25:14] Buse gelsin dedi.
+[00:25:15] E-sporcu olarak.
+[00:25:17] Hasan da diyor ki bana e-sporcuları toplamışsın.
+[00:25:19] Ben diyorum ki sadece Gundi var.
+[00:25:21] Çağrı bir de bıçak yedi Karaman.
+[00:25:23] Şeyden
+[00:25:25] Blade'den.
+[00:25:27] Blade'den bıçak yedi evet.
+[00:25:29] Yayında uyuyakalmışım.
+[00:25:31] Kafamın dibinde telefon sesi gördüm rüyamda abla.
+[00:25:33] Ha pardon.
+[00:25:35] Kafamın dibinde telefon seni gördüm rüyamda.
+[00:25:37] Aleykümselam isimsiz.
+[00:25:39] Nuri uyandırıldı mı gece?
+[00:25:41] En son Rıdvan deniyordu yok uyandırılmadı.
+[00:25:43] Aleykümselam Atakan.
+[00:25:47] Onun videosunu gördüm koptum.
+[00:25:51] Dün bir de benim mutfak yayında
+[00:25:53] kek yaptık kekin ortası pişmedi.
+[00:25:55] Ben üzüldüm ağlayacaktım neredeyse.
+[00:25:57] Dün çok garip bir gündü ya.
+[00:25:59] Vallahi değişik bir gündü.
+[00:26:00] Bilgisayarım bir de kapanmasın.
+[00:26:01] En en iyisi ama
+[00:26:03] Şura'nın sarmalarıydı.
+[00:26:05] Şura'nın burcu sarması.
+[00:26:07] Ben çişimi yapmaya gidiyorum Eren muhabbet edebilir misin?
+[00:26:09] Tamam.
+[00:26:13] Nuri abi yorgun ya bu arada.
+[00:26:15] Evet Nuri yorgun ya.
+[00:26:17] Sana kim getirecek?
+[00:26:18] Eren mi getirecekti?
+[00:26:25] Sauron'muş.
+[00:26:29] İlaç atmaz umarım gazozuma.
+[00:26:31] Yok canım.
+[00:26:39] Yağmur yayında oldu.
+[00:26:43] Hoş geldin Vice P.
+[00:26:55] Çağrı abi yayın açar mı açmaz mı belli değil henüz.
+[00:27:01] Yani yayın açacağını Çağrı abi bile bilmiyordur şuan.
+[00:27:09] Canım konuşuyoruz ya işte.
+[00:27:11] Rei.
+[00:27:15] İlaç açmaz kesin ses kötüydü belli olmaz.
+[00:27:31] Karaman ben kuryeyim gibi düşün.
+[00:27:33] Diyor Sauron.
+[00:27:35] Kim demiş ona.
+[00:27:37] Sauron kurye gibi düşün demiş bana.
+[00:27:39] Kuriyele bi mevzum oldu zaten valla bak
+[00:27:44] Dün Umut'u ben vermedim, Umut'u Aylin Kapkas verdi yemin etti açmadı abi
+[00:27:48] Umut kim?
+[00:27:48] Aylin
+[00:27:50] Şey Umut vermeyin derken yani
+[00:27:51] Umut olarak verme diyor
+[00:27:53] Aylin Kapkasa yazar orası
+[00:27:59] Ben Aylin'le konuşmuyorum bu arada haberiniz olsun
+[00:28:01] Aaa neden?
+[00:28:03] Aylin anlatır
+[00:28:05] Aaa
+[00:28:08] Bana düşmez
+[00:28:09] Niye konuşuyorsun?
+[00:28:12] Konuşmuyorum abi ben Aylin'le konuşmuyorum
+[00:28:14] Dur yazayım bakayım
+[00:28:15] Sen neden Karaman'la
+[00:28:19] Konuşmuyorsun
+[00:28:33] Kaçalım mı?
+[00:28:34] Yaa geldim
+[00:28:40] Aylin Kapkasay ve herkese İNSTA Sınav mıyo?
+[00:28:43] Aylin Kapkasay ve herkese İNSTA Sınav mıyo?
+[00:28:47] Aleyküm Selam Eren Merhaba
+[00:28:49] Umut Gözlem evi
+[00:28:51] Aylin beni İnsta'dan Takip Ediyon
+[00:28:53] Hesabımı Satabilirim Size
+[00:28:55] Teşhime Muhabbet'i gördüm ne zaman gidiyormuş
+[00:28:57] Teşhime Muhabbet'i şöyle oldu
+[00:28:59] Dün bizim benim yayına geldi çağrı
+[00:29:01] benim yayına geldikten sonra ben dedim ki
+[00:29:03] Hastayım falan dedim ben dedim ki bu hasta olduğu süre zarfında bir yerlere yolculuk var mı diye sordum
+[00:29:08] Ben dedim ki bu hasta olduğu süre zarfında bir yerlere yolculuk var mı diye sordum Ben dedim ki bu hasta olduğu süre zarfında bir yerlere yolculuk var mı diye sordum
+[00:29:09] böyle geçiştirdi tamam mı?
+[00:29:11] Sonra biz CS kadrosu kurmaya çalışırken
+[00:29:12] Çağrı şey dedi.
+[00:29:15] CS bise de yola çıksam
+[00:29:16] öyle bir şey söyledi ama böyle makarasına söyledi gibi geldi bana.
+[00:29:20] Yani
+[00:29:20] ciddi değildi bence.
+[00:29:21] Berkan hoş geldin.
+[00:29:22] Aleyküm selam.
+[00:29:23] Aleyküm selam Hasan.
+[00:29:25] Düğün eski halini görmedim.
+[00:29:30] Aratavuş şimdi bugün var ya.
+[00:29:34] Teşekkür ederim Melike.
+[00:29:35] Selam Gosgo.
+[00:29:39] İkimiz
+[00:29:39] Haa çeşmeye ne zaman gidiyorsun
+[00:29:49] diye sormuş bile ona demiş.
+[00:29:51] Gidin bitince.
+[00:29:52] Çok güzel gözüküyor ya.
+[00:29:54] CS bitince demiş.
+[00:29:57] Benazur görüşürüz.
+[00:29:58] Kegin'in yayını bugün yok değil mi bilmiyorum ki.
+[00:30:00] İnfomuz yok.
+[00:30:02] Teşekkür ederim sağ olun.
+[00:30:03] Ne zaman bir şey izleyeceksin?
+[00:30:05] Karnım acıktı yemek yiyeceğim.
+[00:30:07] Şimdi izleyeceğim.
+[00:30:08] Burkan hoş geldin.
+[00:30:09] Aleyküm selam.
+[00:30:10] Düğün eski hali.
+[00:30:13] Toruncu site mankenmiş.
+[00:30:19] Yine bir trend yolu mankenlik vakası.
+[00:30:24] Nasıl bu Sumu?
+[00:30:24] Allah söylemedim sen söyledin ya.
+[00:30:27] Sumu bu emin misiniz?
+[00:30:29] Benziyor baksana suratı muratı.
+[00:30:33] Nasıl ya?
+[00:30:36] Hangi surat?
+[00:30:39] Kısmetse olurdu ki.
+[00:30:49] Yazıyor ekranda kocaman herhalde.
+[00:30:52] Şura vermiş.
+[00:30:52] Şura atları oturmuş ki o hali bile güzel.
+[00:30:54] Kıskan başını azaltalım.
+[00:30:56] Sarı saç hiç yakışmamış ama.
+[00:30:59] Tam sultanmış harbiden.
+[00:31:01] Tam sultanmış harbiden bu arada.
+[00:31:03] Bu arada.
+[00:31:05] Aylık Afganistan'a gelmedi yok.
+[00:31:07] Perin hoş geldin.
+[00:31:08] Aleyküm selam.
+[00:31:08] İyiyim teşekkür ederim.
+[00:31:09] Sen nasılsın?
+[00:31:10] Oymuş zayıflamış sadece.
+[00:31:16] Burada daha çok belli oluyor.
+[00:31:18] Bayağı zayıflamış bu arada.
+[00:31:20] Hiç öyle önceden böyle kiloluymuş bir vibe'ı da yok suyun he.
+[00:31:26] Harbiden burada sultanmış.
+[00:31:29] Ya bir şey söyleyeceğim.
+[00:31:30] Ben şimdi Peru'nu takayım mı?
+[00:31:32] Şimdiden.
+[00:31:33] Sen tak.
+[00:31:34] Tak.
+[00:31:37] Kim almıştı Peru?
+[00:31:39] Tivizi.
+[00:31:39] Tivizi burada mısın?
+[00:31:42] Taş renginden dolayı.
+[00:31:43] Evet o sarı çok kötü bir sarı çünkü.
+[00:31:47] Çiğ bir sarı.
+[00:31:48] KO izleyeceğim şimdi zaten.
+[00:31:49] Erken geçeceğim bugün.
+[00:31:51] Çünkü üzerimde çok konuşuyoruz.
+[00:31:53] Sonra 4 saat falan konuştuğum için çok yoruluyorum.
+[00:31:55] Çeviri ve Altyazı M.K.
+[00:32:09] Çeviri ve Altyazı M.K.
+[00:32:10] Belki buradayım dememişsindir ya.
+[00:32:12] Big Five hazırlık sezonunun ikinci performans gecesindeyiz.
+[00:32:19] Özgüvenini asla kazandıramadık gibi geliyor bu kampta maalesef.
+[00:32:24] Çok iyi dans ediyorsun ama böyle isteksiz ve mutsuz gözüküyorsun.
+[00:32:29] Keşke hep bize bu yüzünü gösterseydin.
+[00:32:32] Bu sahne yüzü.
+[00:32:34] Sanki bir sınav veriyormuş gibi kayıt veriyorsun.
+[00:32:38] Bayılmadım.
+[00:32:39] Bunlar birilerini beğenecek mi artık?
+[00:32:45] Ben bir tık daha sevdim.
+[00:32:48] Çok güçlü bir adaysın.
+[00:32:49] Ama çok güçlü bir aday olma rehavetine sakın kapılma.
+[00:32:53] Çok iyi.
+[00:32:54] Tekniğin çok iyi.
+[00:32:55] Her saniyeni izlemek istedim.
+[00:32:57] Kaçırmak istemedim.
+[00:32:59] Biraz bence bizim için zor olacak seçmek.
+[00:33:01] Big Five hazırlık sezonu.
+[00:33:04] İkinci performans gecesinin.
+[00:33:07] Oğlum şunları hiç görmedik.
+[00:33:08] Hepsi siyahlı.
+[00:33:09] Big Five'ı gördük hep onları mı konuştular?
+[00:33:10] Aleyküm selam Ekin.
+[00:33:11] İkinci performans gecesinin.
+[00:33:14] Big Yes performansı.
+[00:33:18] Ben Damla ve Beril'le çok yakınım bu arada.
+[00:33:20] Kendimi onlar kadar güçlü bir aday olarak görmüyorum.
+[00:33:22] Bu beni parçalıyor.
+[00:33:25] Nasıl lan?
+[00:33:26] Makyajın çok kötü olmuş ya.
+[00:33:28] Bu arada kendimi onlar kadar güçlü bir aday olarak görmüyorum.
+[00:33:32] Bu beni parçalıyor.
+[00:33:34] Ve bence onlar da beni öyle görmüyorlar.
+[00:33:37] Bu da beni çok parçalıyor.
+[00:33:39] Çok parçalıyor nasıl bir şey lan?
+[00:33:41] Çok üzüyor, çok kırıyor.
+[00:33:43] Çok parçalıyor.
+[00:33:45] Ben anlamadım ne demek istedi?
+[00:33:56] Parçalandım.
+[00:33:58] Onlar girer ben girer hemen bu beni üzüyor mu?
+[00:34:00] Diyor.
+[00:34:02] Üzüldüğünü anladık hadi ya.
+[00:34:04] Üzülüyor mu gerçekten?
+[00:34:06] Anlamamıştım anasını satayım.
+[00:34:08] Damla'da ses yok evet.
+[00:34:10] Ecem de aura olsa onlar kadar iyi aslında.
+[00:34:12] Ama yok o aura.
+[00:34:14] Aura.
+[00:34:16] He ben güçlü rakip olmak istiyorum.
+[00:34:18] Onlar da beni güçlü olarak görsün.
+[00:34:20] Okey okey okey okey.
+[00:34:22] Her şey her şey.
+[00:34:24] Devam edebilirsiniz.
+[00:34:26] Diyor ki.
+[00:34:28] Rakiplerim beni rakip olarak görmüyor.
+[00:34:30] Onlar kadar iyi değilim falan diye ağlıyor.
+[00:34:32] Aşağılık kompleksi oluyor.
+[00:34:34] Ken hoş geldin.
+[00:34:36] Teşekkür ederim.
+[00:34:38] Ama bu kız peki dans odaklı mı ses odaklı mı?
+[00:34:40] Ben tam onu hatırlamıyorum.
+[00:34:42] Üstündeki herkese teşekkür ederim.
+[00:34:44] Sen nasılsın?
+[00:34:46] Aleyküm selam.
+[00:34:48] Dans.
+[00:34:50] Eserde hem dans hem ses var aslında.
+[00:34:52] Damla'da sadece dans var.
+[00:34:54] Niye üzülüyor?
+[00:34:56] Bugün kısmet olur var.
+[00:34:58] Sıla'cım hoş geldin.
+[00:35:00] Aleyküm selam.
+[00:35:01] Bir şey söyleyeceğim.
+[00:35:02] Ben gideyim şu peruğumu takayım.
+[00:35:04] Beren sen bir beş dakika falan şurada muhabbet ede dur.
+[00:35:06] İnşallah yayın falan da kapanmaz.
+[00:35:08] Kapanırsa da artık hı hı yiyeyim yani.
+[00:35:10] Adrelon'cum hoş geldin.
+[00:35:12] Aleyküm selam.
+[00:35:14] Sesi bayağı iyi biraz da dans edebiliyor.
+[00:35:16] Harika.
+[00:35:18] Çardak çeşmeye giderken ne kekleri aldı
+[00:35:20] ne bana waffle bıraktı.
+[00:35:22] Dün Direncan geldi chat'e.
+[00:35:24] Direncan şey dedi gece dönercisine mi gideceğiz
+[00:35:26] ne öyle bir şey dedi.
+[00:35:28] Ulan bir canım çekti gece dönercisi ya.
+[00:35:30] İyiyim Beren sen nasılsın?
+[00:35:32] Akardı.
+[00:35:34] Dur bir yazayım.
+[00:35:36] Ay hatırlamıyorum ki Melisa.
+[00:35:38] Ay hatırlamıyorum ki.
+[00:35:40] Ay hatırlamıyorum ki.
+[00:35:42] Melisa.
+[00:35:44] Nesline sorsama.
+[00:35:46] Nesline sorsama.
+[00:35:48] Iııı.
+[00:35:50] Burası neresi lan?
+[00:35:52] Burası neresi lan?
+[00:35:54] Burası neresi lan?
+[00:35:56] Burası neresi lan?
+[00:35:58] Geldim ve...
+[00:36:00] Ben ne yapacağımı unuttum.
+[00:36:02] Bir dakika.
+[00:36:04] Kısmetse
+[00:36:06] Olur'a geçiyoruz.
+[00:36:08] Iııı.
+[00:36:10] İçeri takıp geleceğim.
+[00:36:12] İçeri takıp geleceğim.
+[00:36:14] İçeri takıp geleceğim.
+[00:36:16] İçeri takıp geleceğim.
+[00:36:18] İçeri takıp geleceğim.
+[00:36:20] Hasan en acil zamanda Hasan'ın
+[00:36:22] Hasan en acil zamanda Hasan'ın
+[00:36:24] bana gelip format atması lazım.
+[00:36:26] Gitmeden müzik açayım tabii ki.
+[00:36:28] Burası da.
+[00:36:30] Senin onun için Hasan'ı beklemenin
+[00:36:32] gerek yok ya.
+[00:36:34] Niye?
+[00:36:36] Kendi ne yaparsın?
+[00:36:37] O kadar zor bir şey değil.
+[00:36:38] Nasıl yapacağım?
+[00:36:42] Yayıtta videoları var.
+[00:36:46] Onun için hard disk
+[00:36:48] lazım değil mi?
+[00:36:50] Yok bir tane flash yeterli.
+[00:36:52] Boş bir tane flash yeterli.
+[00:36:54] Boş bir tane flash yeterli.
+[00:36:56] Selamlar Rabia.
+[00:36:58] Benim bir tane vardı içerisine Hasan'ın
+[00:37:00] koyduğu flash bellem.
+[00:37:02] Galiba burada içeride o da.
+[00:37:04] Tamam onunla atarsın.
+[00:37:06] Basito.
+[00:37:08] Varsa.
+[00:37:14] USB mi?
+[00:37:16] USB mi?
+[00:37:18] Flash işte flash diyorlar.
+[00:37:20] Ayarlara girip PC sıfır.
+[00:37:22] Şu an hemen bunu yapalım mı?
+[00:37:24] Ama o flash'in içerisinde şey
+[00:37:26] Windows'un sürümünü mü güncellemek gerek?
+[00:37:28] Anakart sürüm falan güncelleme abla.
+[00:37:30] Bilmiyorum ki.
+[00:37:32] Bilmiyorum ki.
+[00:37:34] Gereksiz teknik olay bırak Hasan yapsın ya.
+[00:37:36] Gereksiz teknik olay bırak Hasan yapsın ya.
+[00:37:38] Bir şey olursa Hasan'a suç atarız.
+[00:37:40] Bir de normal bir zamanda bir şey olmuyor.
+[00:37:42] Sadece yayındayken oluyor.
+[00:37:44] Yayında bir sıkıntı yaşıyorum yani.
+[00:37:46] OBS kaynaklı bir problem yaşıyorum.
+[00:37:48] Aleyküm selam.
+[00:37:49] Niyar'a hoş geldiniz.
+[00:37:50] Burada bir yerler çakışıyor da.
+[00:37:52] Ve hep olmuyor.
+[00:37:54] Bak bir ara hiç olmuyordu.
+[00:37:56] Hatırlıyorduk akıyordu yani hiç yaşamadım.
+[00:37:58] Dün oldu bir de bugün oldu.
+[00:38:00] Dünden beri var bu.
+[00:38:01] Uzun zamandır
+[00:38:02] yoktu yani.
+[00:38:04] Bilmiyorum çözemedim.
+[00:38:06] Bilmiyorum çözemedim.
+[00:38:08] Bir an CS'dendir falan.
+[00:38:10] Bak CS'ye girmedim zannet hiç olmadı.
+[00:38:12] Ama dün CS'den sonra mı oldu önce mi oldu lan?
+[00:38:14] CS'ye girince mi oldu?
+[00:38:16] Hatırlamıyorum.
+[00:38:22] Boğaziçi'ne de yolladıktan sonra oldu.
+[00:38:24] Boğaziçi'ne de yolladıktan sonra oldu.
+[00:38:26] Önce olmuş.
+[00:38:28] Bilmiyorum bir format zaten net gerekiyor da.
+[00:38:32] Bir Hasan gelsin halletsin.
+[00:38:34] Çünkü şey de yapması lazım.
+[00:38:36] Bu DJ'ye girme muhabbetini falan da yapması lazım.
+[00:38:38] O falan da var.
+[00:38:40] O da gitmeyecek mi?
+[00:38:42] Gidecek ama o da kurması basit ya.
+[00:38:44] Onu da zaten kendim kurmuştum da.
+[00:38:46] E gelsin yapsın o ya.
+[00:38:48] Ben onlara
+[00:38:50] yemek falan da yaparım Hasan'a falan.
+[00:38:52] Zaten o gelmek istiyor ara ara.
+[00:38:54] Dün de dedim zaten gel diye.
+[00:38:56] Yine yazayım dur.
+[00:38:58] Aslında ne olur.
+[00:39:00] Aslında ne olur.
+[00:39:02] En yakın zamanda gel.
+[00:39:04] En yakın zamanda gel.
+[00:39:06] En yakın zamanda gel.
+[00:39:08] En yakın zamanda gel.
+[00:39:10] Ya.
+[00:39:12] Ya.
+[00:39:14] Temiz kuralım.
+[00:39:16] Temiz kuralım.
+[00:39:18] Temiz kuralım.
+[00:39:22] Ekibin Hasan'a olan güveni kopar.
+[00:39:24] Bana hep Hasan format attı.
+[00:39:26] Bana hep Hasan format attı.
+[00:39:28] Bana hep Hasan format attı.
+[00:39:30] Bana hep Hasan format attı.
+[00:39:32] Hasan o konularda iyi.
+[00:39:34] Yani hiç sıkıntı yaşamadım hiç.
+[00:39:36] Yani hiç sıkıntı yaşamadım hiç.
+[00:39:38] Yani hiç sıkıntı yaşamadım hiç.
+[00:39:40] Bu yüzden bu donuyor.
+[00:39:42] Bunda hiçbir şey yapılmadı ki.
+[00:39:44] Aa Hasan demiş ki keşke bugün gelseydim.
+[00:39:46] Aa Hasan demiş ki keşke bugün gelseydim.
+[00:39:48] Ayy keşke gelseydim.
+[00:39:50] Ayy keşke gelseydim.
+[00:39:52] Geçti artık.
+[00:39:54] Yarın gel olmadı.
+[00:39:58] Ya da ne zaman müsait olursan.
+[00:40:00] Ya da ne zaman müsait olursan.
+[00:40:02] Olursan gel.
+[00:40:04] Olursan gel.
+[00:40:06] Zaten Hasan, Mami çarşamba günü dönüyor.
+[00:40:08] Zaten Hasan, Mami çarşamba günü dönüyor.
+[00:40:10] Çarşamba günü dönerken zaten buradaki havalanına gidecek.
+[00:40:12] Çarşamba günü dönerken zaten buradaki havalanına gidecek.
+[00:40:14] Hasan da buraya gelsin işte.
+[00:40:16] Hasan da buraya gelsin işte.
+[00:40:18] Evet TürkNet benim.
+[00:40:20] Senin kendin uğraşasın yok gibi abi.
+[00:40:22] Nereden anladın?
+[00:40:24] Hiç şey o böyle komplike işlere giriş yapmak istemiyorum.
+[00:40:26] Hiç şey o böyle komplike işlere giriş yapmak istemiyorum.
+[00:40:28] Hiç böyle sevmediğim şeyler.
+[00:40:30] Çünkü ben hep o tarz şeyleri böyle
+[00:40:32] komplike şeyleri aslında değil biliyorum ya.
+[00:40:34] Format kolay bir şey zaten yaparım.
+[00:40:36] Yapamayacağım bir şey değil aslında da.
+[00:40:38] Bir şey olursa da yine görüntülü ararım bir şekilde halledilir de.
+[00:40:40] Bir şey olursa da yine görüntülü ararım bir şekilde halledilir de.
+[00:40:42] Ben hep böyle bir şey yaptığım zaman hep
+[00:40:44] bir sıkıntı yaşıyorum.
+[00:40:46] Bir sıkıntı bir problem çıkıyor yani.
+[00:40:48] O yüzden kendim yapmak istemiyorum.
+[00:40:50] Daha iyi bilen biri yapsın.
+[00:40:52] Tam olsun her şey yani.
+[00:40:58] Biz başka bir şey yaptık ama
+[00:40:59] Hatırlamıyorum onu da Berkan yaptırmış
+[00:41:01] Mesela kasaya ekran kartı takma muhabbeti falan
+[00:41:04] Hiç beceremem falan diyordum oturdum
+[00:41:05] Mesela onu da taktım yaptım
+[00:41:07] Bana zaten ilk bilgisayarı kurarken
+[00:41:09] Herkese de ki formatla dedim yok formatlamayacağım
+[00:41:11] Kalsın bir şey olmaz dedim
+[00:41:13] Ayarlı anlossa ayarlı da
+[00:41:14] Yapacak bir şey yok
+[00:41:16] Götüne girsin sen
+[00:41:19] Gülüşün tamam mı
+[00:41:21] Galiba evet
+[00:41:24] Sefa öyle yaptık
+[00:41:28] Abla Henry Cable PC toplam videosu izleyip yapılır ya
+[00:41:36] Kasa işleri
+[00:41:37] Dur
+[00:41:39] Ben geliyorum Eren
+[00:41:42] Peruk takacağım
+[00:41:43] Peruk'tur Hasan yazdı
+[00:41:45] Perşembe sabah geleyim
+[00:41:49] Demiş
+[00:41:49] Olur gel
+[00:41:51] Kahvaltıya
+[00:41:55] Olur gel
+[00:41:57] Gel
+[00:41:58] Şakalı o ama olur girebilir
+[00:42:02] Biliyorum biliyorum şaka yaptım
+[00:42:04] Belki yanlış geçen kasıyor dedin kasa
+[00:42:06] Bu anlossunu aldın kasa mı
+[00:42:07] Belki yanlış geçen kasıyor dedin kasa
+[00:42:11] Neyi kasıyor dedim
+[00:42:12] Hesap makinesi var ya
+[00:42:17] Geçen dediği acaba hangi geçen
+[00:42:24] Takvim açılmıyordu sanki
+[00:42:26] Takvim açılmıyordu takvimi
+[00:42:28] Yaptı
+[00:42:29] Oyuna girerken takılıyor
+[00:42:32] Ha şey
+[00:42:38] Şey mi
+[00:42:39] CS'de böyle
+[00:42:40] Sanki böyle bir takılma bir
+[00:42:42] Bir böyle bir şey var diyordum ama olmuyor
+[00:42:45] Bayağıdır o erjanlarla falan
+[00:42:47] CS'ye girerken olmuştu
+[00:42:48] Onun o oyunla alakalı diyor o bilgisayarla alakalı değildi
+[00:42:51] Teşekkür ederim
+[00:42:53] Proteinli kahve hoş geldin
+[00:42:54] Kivizi burada mısın Ayla
+[00:42:57] Kivizi burada mısın Ayla
+[00:42:58] Ekran kartı driverlarına baktım güncellemiş
+[00:43:02] Ama şöyle bir şey var mesela
+[00:43:03] Ben buradan Nvidia'ya giriyorum
+[00:43:05] Sürücüler diyorum ya
+[00:43:07] Burada benim güncelleme
+[00:43:10] Pardon bir dakika
+[00:43:11] Kavga kapatma
+[00:43:12] Burada benim güncelleme
+[00:43:13] Kivizi buradaymış
+[00:43:13] Tamam harika
+[00:43:17] Burada benim güncelleme geldiği zaman buraya güncelleme düşüyor ya
+[00:43:19] Ben buradan güncellediğim zaman burası bug'a giriyor ve güncellemiyor
+[00:43:22] Ben gidiyorum intersesinden güncelliyorum
+[00:43:24] Şu an zaten
+[00:43:26] 4 aralıktaki güncellemiyor
+[00:43:28] En son bu zaten yayınlanmış.
+[00:43:29] Benim şu an güncel yani.
+[00:43:30] Bir sıkıntı olmaması gerekiyor.
+[00:43:33] İyiyim Elifay sen nasılsın?
+[00:43:41] Hayır Raman ban sebebi değil tabii ki de.
+[00:43:43] Oyun evet.
+[00:43:43] Niye ban sebebi olsun?
+[00:43:47] Yanmışım bozulmuş.
+[00:43:48] Bozulmuş.
+[00:43:48] İyiyim.
+[00:43:49] Ama dün mesela dedi ki biri bende de öyle dedi.
+[00:43:52] Bende de öyle baktı dedi.
+[00:43:54] Neyse.
+[00:43:55] Kısmet olur şimdi geleceğim.
+[00:43:56] Özde Perum'u takacağım.
+[00:43:57] Neyse.
+[00:43:58] Format atılınca her yer olur inşallah.
+[00:44:00] Format attıktan sonra bütün oyunları her şeyi.
+[00:44:02] Bir sokum şeyleri zaten yaparız.
+[00:44:04] OBS'i de zaten direkt aktarıyoruz.
+[00:44:07] O yüzden problem olmaz.
+[00:44:08] Benim en çok korkudan OBS'ti.
+[00:44:12] Aleyküm selam Burak.
+[00:44:13] 12 saatte bir yayın mı açıyorsun ya?
+[00:44:15] Niye benim bugün yayını açmamı siz şaşırdınız?
+[00:44:17] Ben dedim size yarın kısmet olur izleyeceğiz diye.
+[00:44:19] Ve ben çok uykumu alarak uyandım.
+[00:44:22] Uzun yaydın ya dün belki o yüzdendir.
+[00:44:26] Batu hoş geldin.
+[00:44:26] Aleyküm selam.
+[00:44:28] Altyazı M.K.
+[00:44:33] Allah.
+[00:44:33] Win, C, T, R, Shift ve B tuşuna basın zıt diye bir ses geliyor.
+[00:44:36] Ekran kartını resetliyor denedim mi?
+[00:44:38] Doğru mu söylüyor?
+[00:44:41] Evet doğru ekran kartını resetliyor.
+[00:44:44] Onu bir kere yapmışım.
+[00:44:45] Yine yapayım mı ya sıkıntı yaşamamak için?
+[00:44:47] Ama OBS açıksa bir şey olabilir.
+[00:44:49] Onu.
+[00:44:50] Yapayım yan başımda.
+[00:44:52] Bana bunu bir kere daha yaptırmıştınız sanki.
+[00:44:55] Aslan geldi.
+[00:44:55] Teşekkür ediyorum.
+[00:44:56] Teşekkür ederim Brütel.
+[00:44:57] Metal.
+[00:44:58] kendim.
+[00:44:58] Haso.
+[00:44:59] Alo.
+[00:45:00] Hah.
+[00:45:01] Hah.
+[00:45:02] Yayında mısın?
+[00:45:02] Yayındayım
+[00:45:03] evet.
+[00:45:04] Niye?
+[00:45:05] Ha.
+[00:45:06] Ona göre Hasan Paşa moduna gidiyor.
+[00:45:07] Dürüyor.
+[00:45:08] Selam.
+[00:45:10] Ah yayına girmeden yakalayamamışım.
+[00:45:11] Ne
+[00:45:12] oldu ki?
+[00:45:13] Şu ayar yaptıracaktım sana.
+[00:45:15] OBS ayarı mı?
+[00:45:16] Ha.
+[00:45:18] Işlemciden verme muhabbetini mi yapacaktın?
+[00:45:19] Hem onu
+[00:45:21] alacakacaktım hem de ekran kartına güncel şeyine
+[00:45:23] bakacaktım.
+[00:45:25] Şimdi bu arada OBS'i ben işlemciden verme
+[00:45:28] çalıştım.
+[00:45:29] İnternetime bağlanmadı OBS.
+[00:45:30] Çarpı
+[00:45:32] gözüküyordu o şeyde.
+[00:45:33] Anladın mı?
+[00:45:34] Allah Allah.
+[00:45:35] Evet.
+[00:45:36] O
+[00:45:37] yüzden ekran kartından veriyorum yine.
+[00:45:40] Ekran kartına
+[00:45:43] neye bakacaksın?
+[00:45:44] Göstereyim onu sana.
+[00:45:45] Ekranı kapatıyorum.
+[00:45:46] Driver güncellemesine bakacaktım ya.
+[00:45:47] Ya şey belki
+[00:45:49] adalık kurmuştur driver güncellemesini.
+[00:45:50] Driver
+[00:45:51] güncellemesini ben zaten Nvidia'nın uygulamasından
+[00:45:55] kuramıyorum.
+[00:45:56] Bu application'dan kuramıyorum.
+[00:45:57] Tamam işte bak orada arıza olmuş işte.
+[00:45:59] Hayır şöyle.
+[00:46:00] Arıza
+[00:46:01] olması yani.
+[00:46:03] Işte bir arızalı bir kurulum olmuş.
+[00:46:04] Tam kurulmamış
+[00:46:06] muhtemelen bir şeyi falan.
+[00:46:07] Eksik bir şey olmuş.
+[00:46:08] Ama şeyden
+[00:46:09] üstüne yazmaya çalışmış fazlasıyla.
+[00:46:11] O yüzden kodek
+[00:46:12] hatası alıyorsun.
+[00:46:14] Kodlama hatası.
+[00:46:16] Ha ha ekran kartından
+[00:46:18] kodlama hatası alıyorsun.
+[00:46:19] Benim buradaki problemim o zaman
+[00:46:21] ekran kartı güncellemesinden mi kaynaklı?
+[00:46:23] Evet.
+[00:46:25] Benim ne oluyor?
+[00:46:27] Hasan.
+[00:46:29] Bu ekranda normalde güncelleme geldiği zaman bu
+[00:46:31] ekranda gözüküyor ve güncellediyorsun güncelliyor ya.
+[00:46:33] Hı hı.
+[00:46:34] Ben buradan güncelleme yaptığım zaman burası bug'a
+[00:46:36] giriyor.
+[00:46:37] Ben buradan güncellemiyorum,
+[00:46:37] güncelleyemiyorum.
+[00:46:39] Gidiyorum Nvidia'nın sitesinden
+[00:46:40] indiriyorum.
+[00:46:41] Öyle güncelliyorum.
+[00:46:42] Işte bak burada bir arıza olmuş
+[00:46:43] demek ki o yüzden yapıyor bunu.
+[00:46:45] O zaman bundan kaynaklı demek.
+[00:46:46] Biz her türlü format atacağız ama.
+[00:46:47] Tamam atalım sen.
+[00:46:49] Sen
+[00:46:50] format istiyorsun.
+[00:46:50] Atalım artık.
+[00:46:51] Format atalım ya.
+[00:46:52] Bu bilgisayar
+[00:46:52] bir anlıyorsun ayarlarını istemiyorum.
+[00:46:54] Kusura bakmasın.
+[00:46:55] Hesap makinesi mi kullanmak istiyorsun?
+[00:46:57] Hesap makinesi
+[00:46:58] kullanmak istiyorum.
+[00:46:59] Oğlum hesap makinesi açıktı ha.
+[00:47:00] Ben
+[00:47:01] bilgisayarı ilk aldığım zaman şuradan takvim açılmıyordu.
+[00:47:03] Takvim kafayı yiyordum ya.
+[00:47:04] Bunu Alican açtı mesela.
+[00:47:05] Şunu şunu
+[00:47:06] kapatmışlar.
+[00:47:08] Tamam.
+[00:47:10] Otomatik güncelleme hiç açık değil bende
+[00:47:12] zaten işte.
+[00:47:13] Ben bana işte bakıyorum.
+[00:47:14] Ara ara kontrol
+[00:47:16] ediyorum.
+[00:47:16] Güncelleme gelmiş mi?
+[00:47:17] Geldiği zaman internet sitesine
+[00:47:18] indiriyorum.
+[00:47:19] Kuruyorum.
+[00:47:20] Bu kadar.
+[00:47:25] Oh be.
+[00:47:26] Bilgisayarımı özlemişim.
+[00:47:27] Eve mi gittin?
+[00:47:28] Evde mi
+[00:47:29] sen?
+[00:47:29] Ha.
+[00:47:30] Sabah kalktım bir eve gittim dedim.
+[00:47:31] Bilgisayarımı
+[00:47:32] özledim.
+[00:47:33] Perşembe de evden dönüşte mi bana uğrayacaksın
+[00:47:34] Marmaray'dan?
+[00:47:35] Aynen.
+[00:47:36] Tamam.
+[00:47:37] Sabah.
+[00:47:37] Kahvaltıya mı geleceksin?
+[00:47:38] Öyle yaparım.
+[00:47:39] Tamam.
+[00:47:40] Sana ne yapayım?
+[00:47:41] Ne istiyorsun?
+[00:47:42] Marmarayla
+[00:47:43] geleceksin oğlum zaten ne trafiği?
+[00:47:45] Nasıl Marmarayla
+[00:47:46] geleceğim?
+[00:47:47] Neyle geleceksin?
+[00:47:49] Adam öyle gelemez ki Marmarayla
+[00:47:50] abla.
+[00:47:52] Nasıl yani anlamadım.
+[00:47:53] Niye gelemiyor Marmarayla?
+[00:47:55] Arabaya bineceğim.
+[00:47:56] Ha arabayla geleceksin.
+[00:47:58] Okey.
+[00:47:59] Kontağı
+[00:48:00] çalıştıracağım.
+[00:48:03] Kendin arabanda mı tiktak mı kiralayacaksın?
+[00:48:05] Babamın arabasıyla.
+[00:48:06] Tamam.
+[00:48:07] Yok kendisi.
+[00:48:08] Hasan kardeşimin de
+[00:48:09] arabası oldu.
+[00:48:10] Hasan Allah söyletti lan.
+[00:48:12] Hasan bir şey
+[00:48:13] soracağım sana.
+[00:48:14] İnfo mu var mı?
+[00:48:15] Bu pazar vela yayını falan
+[00:48:15] olacak mı?
+[00:48:16] Dün Çağrı şey dedi ya.
+[00:48:17] Pazara için konuk bakıyorum
+[00:48:19] falan.
+[00:48:20] Pazar yayınladığı için demişler.
+[00:48:22] Genel söyledi değil
+[00:48:24] mi onu?
+[00:48:24] Çünkü bugün herkes.
+[00:48:24] Herkes.
+[00:48:24] Herkes.
+[00:48:25] Herkes.
+[00:48:25] Herkes.
+[00:48:25] Veya yayını falan dedim.
+[00:48:26] Yok ya ne verirse ayınladım falan o
+[00:48:28] yayın oldu.
+[00:48:29] Genel.
+[00:48:30] Tamam.
+[00:48:31] Okey.
+[00:48:32] O zaman sen perşembe günü bana
+[00:48:33] geliyorsun.
+[00:48:33] Güzel bir kahvaltımızı yapıyoruz.
+[00:48:34] Hah.
+[00:48:35] Olur.
+[00:48:37] Sonrasında PC'yi formatlıyoruz.
+[00:48:38] Sonrasında da
+[00:48:40] takılırız artık.
+[00:48:41] Yaparız bir şeyler.
+[00:48:42] Bakarız ona.
+[00:48:44] Senin
+[00:48:45] yayın ayarlarını ayarlarız.
+[00:48:47] Ha zaten onlar oyun oyun onları
+[00:48:48] ben sonra OBS'leri falan her şeyi ayarlarız.
+[00:48:51] Sonra akşam Çağrı'ya geçersin.
+[00:48:55] Yayın olur zaten.
+[00:48:57] Hı hı.
+[00:48:58] Mamide çarşamba günü dönecekmiş.
+[00:49:00] Almış mı o
+[00:49:01] bilet?
+[00:49:02] Konuşmadım onunla.
+[00:49:02] Nasıl konuşmadın?
+[00:49:03] Aynı evin
+[00:49:04] içerisindesin.
+[00:49:05] Konuşmuyoruz ki Mamide.
+[00:49:06] Çok denk düşemiyoruz öyle
+[00:49:07] biz.
+[00:49:08] Nasıl ya?
+[00:49:10] Oğlum dün sordun.
+[00:49:11] Ben mesela geçen gün.
+[00:49:12] Dün dedi ya
+[00:49:13] çarşamba günü döneceğim diye.
+[00:49:14] Siz ona öyle de bakmayın ya.
+[00:49:15] Daha
+[00:49:17] bilet almadı.
+[00:49:18] Heee.
+[00:49:20] Mamide kalsa bu pazartesi dönüyordu o
+[00:49:21] yayından sonra.
+[00:49:22] O zaman Mamide gelsin perşembe.
+[00:49:23] Cuma için.
+[00:49:25] Ne olmuş?
+[00:49:27] Haberleşiriz onu.
+[00:49:28] Çağrı da gelsin hatta.
+[00:49:30] Çağrı
+[00:49:31] hayatta o saatte gelmez ama.
+[00:49:32] Çağrı abi gelmez o saatte.
+[00:49:33] Çağrı
+[00:49:34] o saatte hayatta gelmez.
+[00:49:36] Gerçi patatesli yumurta, yumurtalı
+[00:49:38] ekmek falan böyle bir şeyler söyleyip kandırırsak belki.
+[00:49:40] Çünkü Çağrı'ya e biz bir kere ne zaman gittim ben ya?
+[00:49:42] Bir gün
+[00:49:44] önceden gitmiştim Çağrı'ya.
+[00:49:45] Sarma falan götürmüştüm.
+[00:49:46] Sabah
+[00:49:47] kalktım işte patatesli yumurta falan bir şeyler yaptık.
+[00:49:49] Çağrı
+[00:49:50] uyandırırız uyandırırız.
+[00:49:51] Çağrı kalktı geldi.
+[00:49:52] Gözleri yeni
+[00:49:53] açılmış bir şekilde şey dedi.
+[00:49:54] Yemin ederim o kadar
+[00:49:55] güzel koktu ki bu kadar güzel kokmasa dedi inmezdim aşağıya
+[00:49:58] dedi.
+[00:49:59] Korktuğu için geldim dedi.
+[00:50:00] Geldi kahvaltı mı yaptı?
+[00:50:01] Çayını içti gitti yukarıya uyumaya.
+[00:50:03] Ve akşama kadar
+[00:50:05] uyanmadı.
+[00:50:08] Uyanıyor.
+[00:50:09] Ne?
+[00:50:11] Altı yedi gibi uyanıyor.
+[00:50:12] Altı yedi gibi
+[00:50:14] uyanıyor.
+[00:50:15] Bence daha arkana uyanıyordu lan eskiden.
+[00:50:17] Bozuldu
+[00:50:18] çok bozuldu sen ya.
+[00:50:19] Ama şöyle oluyor zaten Asu.
+[00:50:21] Uyanıyor.
+[00:50:22] Sonra uyuyor.
+[00:50:23] Şekerleme yapıyor o öğlen.
+[00:50:25] Tekrar uyuyor yani.
+[00:50:27] Biz mesela gidiyoruz ya mutfak salonu
+[00:50:29] yayına.
+[00:50:30] Çağrı geliyor herkes selamlıyor falan filan.
+[00:50:30] Sonra
+[00:50:31] diyor ben mi diyor tuvalete gidiyorum diyor.
+[00:50:32] Tuvalete
+[00:50:33] gidiyor gelmiyor.
+[00:50:35] İnmiyor aşağıya.
+[00:50:36] Aylin hoş geldin.
+[00:50:38] Dünkü
+[00:50:40] yayından beri uyumuyor musun?
+[00:50:42] Oha.
+[00:50:43] Hasan ben bugün menüde ne
+[00:50:45] var?
+[00:50:46] Bugün menüde ne olsun istersin karım hanım?
+[00:50:47] Oyun
+[00:50:48] oynamak istersen seni çağırayım.
+[00:50:50] Yani uyuyacak
+[00:50:52] olmazsan inşallah gelirsin.
+[00:50:53] Ha benim biraz ayar ayar
+[00:50:55] uzun sürüyor.
+[00:50:57] Yani şey CS falan girebilirim ama haber
+[00:50:58] ederim sana.
+[00:50:59] Geleceğim bir de yazarım sana.
+[00:51:00] Uyuyakalmazsam
+[00:51:01] geleyim.
+[00:51:03] Tamam.
+[00:51:04] Karaman grafik buraya gel demiş Aylin.
+[00:51:05] Ben
+[00:51:07] Aylin'le bütün konuşmam arkadaşım her şeyim bitmiştir.
+[00:51:13] Konuşma.
+[00:51:15] Geçmiş olsun canım.
+[00:51:17] Sefa görüşürüz.
+[00:51:19] Yok yok Revan
+[00:51:21] benim ekran kartı güzelleştirmelerini evet Hasan
+[00:51:23] çok mantıklı konuştu bu arada.
+[00:51:25] Hasan'a güvendim.
+[00:51:26] O yüzden sıkıntı yok.
+[00:51:28] Hasan ben bir de
+[00:51:29] sana bir şey diyecektim.
+[00:51:30] Ne diyecektim ya?
+[00:51:32] Unuttum anasını
+[00:51:33] satayım.
+[00:51:36] Ne biçim acaba?
+[00:51:40] Dün anonsla da ne yaptınız?
+[00:51:43] Ha dün direncanla ne yaptınız?
+[00:51:46] Direncan benim chat'e geldi ve şey dedi gece dönercesine
+[00:51:48] gideceğiz falan dedi.
+[00:51:50] Gece dönercesi kapalıydı.
+[00:51:51] Gece dönercesi
+[00:51:53] değil mi?
+[00:51:54] Adı nasıl kapalı ama?
+[00:51:54] Evet.
+[00:51:55] Ya ya onların bildiği yani Can Tavlo'nun sevdiği dönerce
+[00:51:57] kapalıymış.
+[00:51:59] Evet.
+[00:52:00] Sonra biz de yol üstü böyle bakındık ne var ne
+[00:52:02] yok etrafta diye.
+[00:52:03] Hı.
+[00:52:04] Kaburgacı Nurettin'e gittik yemek yedik.
+[00:52:06] Arkasında dayının künefeciye gittik.
+[00:52:07] Künefe yedik.
+[00:52:09] Aleyküm
+[00:52:10] selam.
+[00:52:11] Abla peki sen neden waffle gelmedi?
+[00:52:11] Peki bana niye
+[00:52:12] waffle gelmedi?
+[00:52:14] Yol üstüyüm.
+[00:52:16] Yolumuz yolumuz işte o tarafa
+[00:52:18] uğrayamadık.
+[00:52:19] Kapalıydı ya dönerce.
+[00:52:20] Çağrı geldi mi?
+[00:52:22] Yok.
+[00:52:23] Sanki böyle söylememen gereken bir şey varmış da söylemek
+[00:52:26] istememişsin gibi oldu.
+[00:52:28] Öyle olmadı mı?
+[00:52:30] Ne yemek yediniz
+[00:52:31] peki?
+[00:52:33] Kaburgacı Nurettin'e ne yiyebilirdin?
+[00:52:35] Kaburgacı Nurettin
+[00:52:37] anlamıyorum ki oğlum ağzında geveliyorsun.
+[00:52:39] Ben Nurettin
+[00:52:41] Nurettin anladım.
+[00:52:43] Böyle bir şey diyorsun.
+[00:52:45] Evde mi değildi?
+[00:52:47] Hani
+[00:52:49] hastaydı.
+[00:52:49] Nasıl evde değildi?
+[00:52:50] Evdeydi de yoğuşta.
+[00:52:51] Evdeydi de
+[00:52:52] yoğuşta.
+[00:52:54] Kaburgacı.
+[00:52:57] Şey yedik lahmacun yedik kaburgacıyla.
+[00:53:04] Selamlar Batu.
+[00:53:06] Ha.
+[00:53:07] Öyle oldu.
+[00:53:09] Anlat ya ne kadar heyecansız
+[00:53:10] anlatıyorsun.
+[00:53:12] Bir şey yapmamışsınız o zaman.
+[00:53:15] Yardımcım çocuk.
+[00:53:17] Ya ileride göresiniz yaptığımız şeyi.
+[00:53:19] Baca Yağmur bana bir spoiler geldi bak.
+[00:53:22] Bak bana gelmiş.
+[00:53:24] Bak var ya müthiş.
+[00:53:25] Nasıl ya?
+[00:53:27] Yani bak
+[00:53:29] sana şöyle söyleyeyim.
+[00:53:31] Çalışmak için her yerim
+[00:53:32] titriyor şu an.
+[00:53:34] Nasıl ya?
+[00:53:35] Ne?
+[00:53:37] Ya o fasal yazsana bana.
+[00:53:38] Bak
+[00:53:39] Yağmur'un müthişin anlamını biliyor musun bak?
+[00:53:41] Biliyorum
+[00:53:42] karım.
+[00:53:43] Bitti.
+[00:53:44] Bitti bak.
+[00:53:46] Bu bitti.
+[00:53:47] Müthiş.
+[00:53:48] Zahmet almış.
+[00:53:49] Ben dün dedim ki Çağrı'ya.
+[00:53:51] Giderken
+[00:53:52] blog çekin bari.
+[00:53:54] Atarsınız dedim Instagram'a falan ya da YouTube'a.
+[00:53:57] Yok.
+[00:53:59] O ne kadar farklı.
+[00:54:02] Okey.
+[00:54:08] Needle 2 senin banın açılmaz dostum.
+[00:54:09] Aha niye ne oldu?
+[00:54:11] Ne
+[00:54:12] demiş?
+[00:54:13] Ne yapmış ki?
+[00:54:14] Bir baktımmış.
+[00:54:15] Böyle hiç açılmasın.
+[00:54:16] Daha iyi yazmışsın.
+[00:54:18] Saat daha on bir buçukta yani.
+[00:54:20] Niye böyle bir şey
+[00:54:22] dedim.
+[00:54:23] On bin saat.
+[00:54:24] Daha yayınım başladı.
+[00:54:26] Bir de evet daha
+[00:54:27] başı.
+[00:54:29] Futbol özeti falan izleniyordur.
+[00:54:31] O şeyler, o saatler
+[00:54:32] gibi geldi bana.
+[00:54:35] Ayeral kısımlar yani böyle sohbet, muhabbet,
+[00:54:37] video izleme.
+[00:54:39] Ama şakaydı vallahi çok uzun zaman oldu.
+[00:54:41] Bizim eee
+[00:54:43] bankaldırma formu nerede?
+[00:54:45] Evet altı ay olmuş.
+[00:54:46] Bir daha böyle
+[00:54:48] şaka yapma o zaman.
+[00:54:50] Açıyor mu banını?
+[00:54:52] Evet.
+[00:54:54] Nurlin kanalından bana bak benim bana baksana açılır bence Şinasi
+[00:54:58] üstünden bambu yenir amık.
+[00:55:00] Niye Şinasi adamdan saymıyor musun sen?
+[00:55:02] Mustafa.
+[00:55:05] Ya.
+[00:55:08] Düşündüğüm kişiyiz lan oban açılmaz bu arada.
+[00:55:10] Hangi hangi
+[00:55:13] kimdir Mustafa Sinayi mi diyorsun?
+[00:55:15] Biri şey yazmış çünkü
+[00:55:16] bir ara Şinasi ölçüsü falan yazmıştı da o bana açılmaz.
+[00:55:18] Ha.
+[00:55:19] Azal hoş geldin.
+[00:55:20] Aleyküm selam.
+[00:55:22] Artık hırkanı söyle konuşalım.
+[00:55:23] Üzerine taşımışım konuyu.
+[00:55:24] Sırf hırka için kız arkadaş edinip
+[00:55:26] onu hediye bile alabilir.
+[00:55:26] Anne mi yaptı?
+[00:55:27] Bırak hırkamı.
+[00:55:27] Birer
+[00:55:28] bir yerden almadım ki.
+[00:55:31] Sen azgın bir saatte Şinasi'ye
+[00:55:33] almışsın.
+[00:55:34] Yok ya o değilim demiş.
+[00:55:35] Ne demiş?
+[00:55:36] Ne demiş?
+[00:55:37] Nasıl yardım kalktı ya demiş.
+[00:55:39] Arkasına amın yanmasın Şinasi'ye.
+[00:55:42] Ay.
+[00:55:43] Mustafa Sinayi'ni aldık lan.
+[00:55:44] İğrençsin.
+[00:55:45] Çektir git köyüne
+[00:55:46] demişsin sonra da Mustafa.
+[00:55:49] Siktir git köyüne demişsin Mustafa.
+[00:55:50] Bence bundan yedin
+[00:55:52] var.
+[00:55:53] Diğerlerinden değil de.
+[00:55:55] Ben de diğerlerinden yerdin de.
+[00:55:56] Ya sözünden iki hafta iştahım kapanır.
+[00:55:59] Abla eksime bir daha
+[00:56:02] söyleyebilir miyiz chatte?
+[00:56:03] Ben senin eksime söylemeyeceğim
+[00:56:04] hayır.
+[00:56:06] Banka aldığıma talep attım Mustafa Sinan bunun için.
+[00:56:08] Birem.
+[00:56:15] Önünde bir kahvaltı yapayım.
+[00:56:17] Ne yapacaksın?
+[00:56:19] Döner ekmek.
+[00:56:21] Ne için?
+[00:56:22] Döner ekmek kahvaltı.
+[00:56:24] Evet.
+[00:56:26] Ben de
+[00:56:27] bugün sucuklu yumurta yaptım kendime.
+[00:56:29] Domatesle sucuklu
+[00:56:32] yumurta.
+[00:56:32] Biraz domates de var.
+[00:56:33] Domates koydum.
+[00:56:34] Sucuklu yumurta
+[00:56:35] yaptım.
+[00:56:37] Bütün yumurtam her şeyim bitti.
+[00:56:38] Bizim burada büfe
+[00:56:39] var.
+[00:56:40] Hasan forma etkinliğine gelmek ister misin lan?
+[00:56:41] Ne
+[00:56:43] forması?
+[00:56:44] Herhangi bir forma.
+[00:56:45] Forma etkinliğini diyor.
+[00:56:47] Olayın
+[00:56:48] etkinlik ne işte?
+[00:56:49] Olayda etkinlik.
+[00:56:49] Forma giyip ııı DJ performansı gidiyorsun öyle eğlenmeye.
+[00:56:53] Nereye?
+[00:56:55] Okey geliyorum.
+[00:56:58] Bu saatte.
+[00:57:01] Dur bir bakayım biri gelip getirebiliyor muyuz?
+[00:57:04] Ben geçen sene gitmiştim ya Şinasi ben Ege gitmiştim
+[00:57:07] formalarımızı giyerek.
+[00:57:08] Ben de gelmek istiyorum.
+[00:57:10] Niye bir anda
+[00:57:11] heveslendin?
+[00:57:13] Hevesli değildim başta.
+[00:57:15] DJ performans falan
+[00:57:17] deyince.
+[00:57:18] Ha normal böyle bir sürü
+[00:57:19] ısırlar falan geliyor.
+[00:57:21] Aleykümselam Tunç.
+[00:57:22] Keşke çağrı
+[00:57:23] da gelse ya.
+[00:57:25] Muhteşem üçlü ya Şino, Ege, Yağmur.
+[00:57:27] Ama öyle bir
+[00:57:29] üçlü ki böyle kayboluyorum yani aralarında anladın mı?
+[00:57:31] Eee
+[00:57:32] davet eden kişi yazsana bana.
+[00:57:35] Davet eden kişi tanır mısın ki
+[00:57:37] bilmiyorum.
+[00:57:39] Yaren'i tanıyor musun?
+[00:57:41] Ha bir dolu var şimdi.
+[00:57:43] O sektörlü.
+[00:57:45] O isim.
+[00:57:49] Yazdım.
+[00:57:53] Hatta sen gelince çok off-site şey konuşuyoruz ya.
+[00:57:57] Yayın dışı konuşma gibi oluyor.
+[00:57:58] O yüzden şey oluyor.
+[00:58:00] Ha.
+[00:58:02] Aleykümselam
+[00:58:03] Tunç.
+[00:58:04] İşte çok tam detaylı konuşamıyoruz.
+[00:58:05] Hayır evet ama
+[00:58:06] konuşmamamız lazım.
+[00:58:07] İnsanlara da ayıp yani.
+[00:58:08] Toplum içinde
+[00:58:09] kulaktan kolay konuşulmaz.
+[00:58:11] Bizim seninle yayın dışı
+[00:58:12] konuşmamız gerekiyor.
+[00:58:13] Evet.
+[00:58:14] Araşma olduğumuz gerekiyor
+[00:58:15] yayın dışı.
+[00:58:16] Evet.
+[00:58:17] Neyse sen konuştuğumuz ve netleştiğimiz
+[00:58:18] tek şey Perşembe günü bana kahvaltıya geliyorsun.
+[00:58:19] Evet.
+[00:58:20] Bilgisayarı yapıyoruz, ediyoruz bilmem ne falan filan fıtı
+[00:58:23] fıtı.
+[00:58:24] Sonra sana da bakıyoruz.
+[00:58:25] Sonrasını şey yapıyoruz.
+[00:58:26] Aramıyorsun ki çablanı hayırsız.
+[00:58:27] Arıyor ya.
+[00:58:28] Ama hep böyle öyle
+[00:58:29] antin kuntin yerlerde arıyor ki böyle ya Marmaray'dayım, ya
+[00:58:32] tuvaletteyim.
+[00:58:33] Hep böyle bir şeyler yaparken hep arıyor
+[00:58:35] Hasan beni.
+[00:58:36] Ali hoş geldin.
+[00:58:37] Aleykümselam.
+[00:58:38] Ben arıyorum
+[00:58:39] yani ben çok kişi fazla herkesle aynı varmışsın ya.
+[00:58:41] Arıyor
+[00:58:42] ama şey diye aramıyorsun işte özledim değil.
+[00:58:44] Canım sıkıldı
+[00:58:46] biriyle konuşmak istedim.
+[00:58:46] Işte ne bileyim Nesli'ni
+[00:58:47] arıyor.
+[00:58:48] Işte Ali'yi arıyor.
+[00:58:49] Mami'yi arıyor.
+[00:58:49] Karamamı arıyor.
+[00:58:50] Öyle beni arıyor yani anladın mı?
+[00:58:51] Bahane.
+[00:58:52] Heee.
+[00:58:53] Hele
+[00:58:54] aratır mı soruyorsun?
+[00:58:56] Meraktan arıyorum evet.
+[00:59:03] Evet tamam arayıp on saniye boş yapıp kapatmak istiyorum.
+[00:59:06] Biraz da tft oynamanı istiyormuş.
+[00:59:07] Ben tft dün
+[00:59:09] oynadım zaten.
+[00:59:11] Hasan'da çok şey var arayıp on saniye boş yapıp
+[00:59:14] kapatır.
+[00:59:15] Öyle yapıyor ki zaten.
+[00:59:17] Nasıldı?
+[00:59:19] Önceki setlere benziyor.
+[00:59:21] Önceki sete benziyor.
+[00:59:23] Baron falan var yine galiba sette.
+[00:59:24] Ama şey değil.
+[00:59:26] Ya kötü
+[00:59:27] değil.
+[00:59:28] Oynanır yani.
+[00:59:29] Ben oynarım bir daha mesela.
+[00:59:31] Ama
+[00:59:32] kop bilmek lazım tabii.
+[00:59:33] Batum hoş geldin.
+[00:59:34] Aleykümselam.
+[00:59:35] Ay
+[00:59:36] kapı çaldı çiçek geldi.
+[00:59:38] Niye kız?
+[00:59:40] Hasan bir ıslak kek
+[00:59:42] yapmışım.
+[00:59:44] Kalır mı acaba sen gelene kadar?
+[00:59:46] Kalırsa sana yedireyim.
+[00:59:47] Selam selam Demet.
+[00:59:50] Ay evet benim Feruk'u takmaya gitmem
+[00:59:53] lazım.
+[00:59:54] Siz muhabbet ede dursanıza iki saniye.
+[00:59:55] Ben bir
+[00:59:55] peruk takıp geliyorum chat.
+[00:59:57] Hangisini?
+[00:59:58] Mor.
+[01:00:00] Hasan Hasan'ın da
+[01:00:01] muhabbet edesi geliyor ya.
+[01:00:02] Hasan siktir git sen de kahvaltı
+[01:00:04] hazırla hadi.
+[01:00:05] Zaten kahvaltı mümkün değil yiyorum bir yandan
+[01:00:06] konuşuyorum.
+[01:00:07] Sen ciddi misin?
+[01:00:08] Evet.
+[01:00:10] Tamam o zaman ben gidiyorum
+[01:00:11] peruk takmaya.
+[01:00:12] Bay bay.
+[01:00:14] Bay bay.
+[01:00:17] Çıkartıp mı gidecek o kulaklığı?
+[01:00:19] Yoksa duyuyor mu?
+[01:00:20] Ya
+[01:00:21] peruk takıp mantıken çıkartması gerekiyor.
+[01:00:26] Of bizim burada bir tane büfe var.
+[01:00:28] Şey büfe.
+[01:00:30] Hamburger yapar
+[01:00:32] da tosta basar ya.
+[01:00:33] Bildin mi?
+[01:00:33] Evet.
+[01:00:34] Heh o onların iş.
+[01:00:35] Onun
+[01:00:36] döneri.
+[01:00:37] Ekmeğiyle damağımı kesiyor.
+[01:00:39] Of mis gibi ya.
+[01:00:40] Patates falan doldurmuş içine.
+[01:00:42] Acaba biliyor muyumdur lan
+[01:00:44] acaba?
+[01:00:47] Binlerden mi bu?
+[01:00:51] Hayır ya eski ya ben çocukluğumdan beri var
+[01:00:55] burası.
+[01:00:56] Bir TL'ydi ilk başta burada döner.
+[01:00:57] O zamanki bir şey
+[01:00:59] olabilirim Hasan.
+[01:01:00] Benim kuzen o taraflarda oturuyor çünkü.
+[01:01:02] Yok
+[01:01:04] sakız gelmiyor ağzıma.
+[01:01:06] Tavuğu güzel.
+[01:01:08] Bir törenini aldı Hasan.
+[01:01:10] Ben bunlara uymam mesela.
+[01:01:12] Onlar Hasan'ın Hasanları çalışmıyor
+[01:01:14] arkadaşlar.
+[01:01:17] Yardım edelim onu.
+[01:01:22] Bakayım ne ödüller ne var orada?
+[01:01:24] On bin alacağım siz
+[01:01:26] oğlumun.
+[01:01:27] Koltuksuz yayın ne oluyor?
+[01:01:28] Kalkıyor mu ayakta mı
+[01:01:29] yapıyor yayını?
+[01:01:31] Ayakta yapıyor de eğilerek yapıyor.
+[01:01:32] E bunu
+[01:01:34] spamlasanıza bunu.
+[01:01:35] Niye spamlamıyorsunuz?
+[01:01:37] Almıyorlar.
+[01:01:38] Nasıl ya?
+[01:01:39] Ayakta bir de yayın yaptınız yalnız.
+[01:01:41] Ama öyle
+[01:01:42] arka arkaya alamıyorsun onu.
+[01:01:43] Geldim.
+[01:01:43] Yoruluyor çünkü.
+[01:01:44] Niye?
+[01:01:45] Yoruluyor ya Allah Allah.
+[01:01:46] Ya öyle iş mi var?
+[01:01:47] E ya sana nasıl gidiyor hayat?
+[01:01:51] Görüşemiyoruz seninle
+[01:01:54] çoktandır.
+[01:01:55] İyi canım nasıl gitsin?
+[01:01:56] Senin de dört gün
+[01:01:58] sonu doğum günün.
+[01:01:59] Vallahi öyle dört gün sonra doğum günüm.
+[01:02:00] Sayılır gün kaldı.
+[01:02:02] Bari sen Ali gibi işini düşünce yazmıyorsun.
+[01:02:04] Heh ben senin doğum gününü on gün önceden arayıp
+[01:02:06] kutluyorum.
+[01:02:09] Ben de seni beş ocakta arıyorum beş ocakta.
+[01:02:11] Bir
+[01:02:14] dakika geliyorum.
+[01:02:17] Onur benim lisansım var ya.
+[01:02:29] Bir dakika canım evde değişiklikler
+[01:02:41] olmuş.
+[01:02:42] Yeni televizyon gelmiş ben yürürken.
+[01:02:43] Bir bakayım şuna.
+[01:02:43] Aha.
+[01:02:45] Nasıl ya?
+[01:02:47] En bir like'lım Hasan.
+[01:02:52] Hasan televizyona bakmaya gitti direkt.
+[01:02:54] Bir dakika ama çok
+[01:02:56] değişiklik vardı.
+[01:02:57] Uşak abin de yenilenmiş.
+[01:02:58] Oğlum sen kaç
+[01:02:59] gündür gitmiyorsun lan eve.
+[01:03:09] Perik Dokuya'ya gelecek.
+[01:03:17] Karıman bana apartma ulusuna.
+[01:03:20] Ben de eski televizyonun duvarı
+[01:03:23] çakayım bari odama.
+[01:03:25] Aparat mı?
+[01:03:26] Ha tavana monte edebiliyoruz mu
+[01:03:27] acaba?
+[01:03:29] Tamam netice doğur.
+[01:03:31] Of ya bu pelop çok değişik duruyor
+[01:03:32] kanka.
+[01:03:34] Aha.
+[01:03:36] Okey ya.
+[01:03:38] Bir dakika.
+[01:03:42] Hem.
+[01:03:43] Bence hiç yakışmadı.
+[01:03:45] Hasan televizyon nasıl?
+[01:03:46] O şimdi ne?
+[01:03:47] ona bakıyom ben işte inceliyom şuanda
+[01:03:49] neyo ne inceliyosun
+[01:03:53] naptı
+[01:03:55] yeni televizyon gelmiş abla sanlara
+[01:03:57] yeni televizyon mu
+[01:03:59] duşakabinle değişmiş
+[01:04:01] gerçekten mi
+[01:04:03] evet
+[01:04:07] garip
+[01:04:09] perukta ne var biliyor musunuz
+[01:04:11] içerisindeki şeyler yok
+[01:04:13] dur bak şunu bi çıkartayım
+[01:04:15] şurası çok peruk duruyor
+[01:04:17] normal diğerleri bu kadar durmuyor
+[01:04:29] bilemedim
+[01:04:41] peruk peruk duruyor
+[01:04:43] aynen diğerleri öyle değil
+[01:04:45] şunun neresi garip biliyor musunuz
+[01:04:47] şu kısmı garip
+[01:04:51] airposta geçemem bir saat zaten bir şey olmaz
+[01:04:53] airpostumun şarjı kötü
+[01:04:55] selam alaman
+[01:04:57] hoşgeldin
+[01:05:07] dünki eleman bir daha oynamasın lütfen ya
+[01:05:09] çıldırdım izlerken
+[01:05:11] fatihe mi diyosun acaba
+[01:05:13] fatih oynatmadı ki
+[01:05:15] fatih hiç bir skim yapamadı yani
+[01:05:27] aynen emanet duruyo
+[01:05:29] ben bi duş alıp geliyom
+[01:05:31] tamam
+[01:05:33] yeni duşakabin takılmış eve
+[01:05:35] değiştirebiliyosam lilum smorla değiştirmek istiyorum
+[01:05:37] gerçekten mi çok mutlu olurum biliyor musun
+[01:05:39] ama benim bir saat tuttum mu heral
+[01:05:41] ya evet
+[01:05:43] tamam bir saati devam ettin şimdi değiştiricem peruk
+[01:05:45] tamam
+[01:05:47] bence de
+[01:06:13] ...
+[01:06:17] fatih'in beyaz dişi yakıştı
+[01:06:19] he peruk
+[01:06:21] geriden geliyom fatih'in beyaz dişi
+[01:06:23] ...
+[01:06:43] sa peruk
+[01:06:45] yoktu galiba ya varmıydı
+[01:06:47] gülüşa varmıydı ya ben hatırlamam ki sa peruk
+[01:06:49] ...
+[01:06:51] ...
+[01:06:53] ...
+[01:06:55] ...
+[01:06:57] ...
+[01:06:59] dişler fırçalandı mı chat
+[01:07:13] ...
+[01:07:17] ...
+[01:07:19] ...
+[01:07:21] ...
+[01:07:23] ...
+[01:07:25] ...
+[01:07:27] ...
+[01:07:29] ...
+[01:07:31] ...
+[01:07:33] ...
+[01:07:35] ...
+[01:07:37] ...
+[01:07:39] ...
+[01:07:41] ...
+[01:07:43] Gerçekten daha değiştirmem.
+[01:07:48] Bu kadar.
+[01:07:52] Bu daha güzel.
+[01:08:01] Kısa peruk yok.
+[01:08:02] Hepsi uzun.
+[01:08:10] Bu daha güzel oldu.
+[01:08:13] Aylin abla bu arada şey atmış.
+[01:08:21] Mr.
+[01:08:22] K'yi güzellerine atmış.
+[01:08:23] Ne?
+[01:08:24] Mr.
+[01:08:25] K'yi güzellerine atmış.
+[01:08:26] Ne?
+[01:08:27] Mr.
+[01:08:28] K'yi güzellerine atmış.
+[01:08:29] Aaa tamamdır.
+[01:08:39] Mr.
+[01:08:40] K'yi...
+[01:08:43] At bakayım.
+[01:08:52] Ay rahat edemedim.
+[01:08:53] Hasan duş almaya biz...
+[01:08:55] Oha Discord'daki herkes gitmiş.
+[01:08:57] Hasan diyorum.
+[01:08:59] Karavan Şinas'ın yayını gitmiş.
+[01:09:01] Şey olayını anlatıyormuş.
+[01:09:02] Kahve olayını anlatıyormuş.
+[01:09:06] Tamam.
+[01:09:06] Saçlar lans evet.
+[01:09:11] Teşekkür ederim Mirva.
+[01:09:13] Bakalım güzellerimize.
+[01:09:21] Hangisi güzel?
+[01:09:22] Bunlar?
+[01:09:23] Hepsi mi?
+[01:09:23] Hepsi.
+[01:09:24] Nereden bakacağız?
+[01:09:26] Yine aşağı biraz.
+[01:09:28] Hatama tarihinden anlarız.
+[01:09:30] Bunlar işte.
+[01:09:35] Yaş 22, 182, İlayda Güvenç.
+[01:09:37] Ankara.
+[01:09:39] EBA Koleji mezunuymuş.
+[01:09:43] Hülya Fazla, 1.80, 24 yaş.
+[01:09:46] Marmara Üniversitesi Çalışma Ekonomisi ve Endüstri İlişkileri Bölümü mezunu.
+[01:09:49] Aleyküm selam Sinep.
+[01:09:50] Fosil selam.
+[01:09:51] Bir saat tutuyorsun değil mi Eren?
+[01:09:53] Tutuyorum abla.
+[01:09:54] Tamam.
+[01:09:54] Altı yön geçe bitiyor.
+[01:09:56] Tamam.
+[01:09:56] Sen devam et dediğin için durdurmadım.
+[01:09:58] Evet evet.
+[01:09:59] Sude Çetinkaya, 1.80.
+[01:10:01] Bu kız hoşuma gitti.
+[01:10:02] Hoş gözüküyor.
+[01:10:04] 1.80, 22 yaşında.
+[01:10:05] İlk baştaki benim hoşuma gitti.
+[01:10:06] Yasemin Arık, 1.80, 23 yaşında.
+[01:10:09] İstanbul Aydın Üniversitesi'ymiş.
+[01:10:11] Arya Bozabalı, 1.80.
+[01:10:12] 23 yaşında.
+[01:10:12] Arya Bozabalı, 1.70, 25 yaşında.
+[01:10:16] Aaa bir tane oyuncuya benziyor lan bu kız.
+[01:10:20] Benzemedin mi sizle de?
+[01:10:23] Fatih'in beyaz dişleri beğenmemiş abla.
+[01:10:26] Dişleri çok beyaz değil beğenmedim.
+[01:10:29] O Sude Ebo'nun manitaydı.
+[01:10:32] Hangi Sude?
+[01:10:34] Yok ya.
+[01:10:36] Şu.
+[01:10:38] İspirip güzel olmuş yakın zaman dalgalıyı tak çok...
+[01:10:42] Merak ediyormuş.
+[01:10:44] Kız Sude zaten dalgalıyı taktım sonra çıkardım bunu taktım ya.
+[01:10:49] Nasıl tam bunu geçtim.
+[01:10:56] Başak Kaya, 1.76, 26 yaşında.
+[01:10:58] Aaa bu kız da hoşmuş sanki.
+[01:11:03] Böyle gözlerinin bakışı güzel hoşuma gitti.
+[01:11:05] Begüm Nil, Kutlu Ağa, 27 yaşında, 1.76.
+[01:11:08] Mukadder Albaz, 1.75, 25.
+[01:11:12] İddialı duruyor ya.
+[01:11:14] 1.75 şartı mı var?
+[01:11:17] E boy uzun olması gerekiyor.
+[01:11:20] Bu kız da hoşmuş.
+[01:11:22] Irmak, 1.75, 21 yaşında.
+[01:11:24] İzmir Ekonomi.
+[01:11:27] Aaa bu kim?
+[01:11:29] Sıla Çetin, 1.73, 19 yaşında.
+[01:11:33] Bu kızın göz yapısı çok hoş.
+[01:11:37] Bu arada.
+[01:11:38] Esin, hoşgeldin, hoşbulduk ve farklı.
+[01:11:42] Göz yapısı çok hoş, hoşuma gitti bu kız.
+[01:11:47] Irmak, 1.75, 20 yaşında.
+[01:11:50] Koç Üniversitesi Elektrik Elektronik Mühendisliği bölümü İngilizce ikinci sınıf öğrencisi.
+[01:11:54] Ooo.
+[01:11:55] Koç'ta okuyormuş lan kız.
+[01:12:12] Abla.
+[01:12:18] Yasemin Serpil.
+[01:12:25] Zeynep.
+[01:12:26] Hiç diyecektim ki sarışın falan kumral yok diyecektim.
+[01:12:29] Geldi.
+[01:12:34] Zeynep Arslan, 1.77, 21 yaşında.
+[01:12:38] Bu kız bir şey söyleyeyim mi?
+[01:12:39] Bu kız.
+[01:12:40] Burada birinci olmasa da.
+[01:12:41] İlerleyen zamanlar dizilerde, filmlerde falan filan bu kızı görebiliriz.
+[01:12:44] Ya da böyle reklam filmlerinde falan görebiliriz bunu bence biz.
+[01:12:47] Böyle tam gençlik dizisindeki Aslı Enver karakteri var.
+[01:12:51] O tarz bir vibe veriyor böyle.
+[01:12:53] Lise dizilerinde mi?
+[01:12:54] Lise dizili, gençlik dizilerinde oynayabilecek bir vibe'ı var.
+[01:12:58] Öyle geldi bana nedense.
+[01:13:01] Ayşenur Büşra Selvitop, 1.80, 28.
+[01:13:04] Mesela bu da öyle bir vibe verdi ya.
+[01:13:07] Bu da sanki böyle aşiret dizilerinde oynayıp.
+[01:13:09] Böyle birinin ablası ya da hanımefendi.
+[01:13:10] Birinin ablası ya da halası karakteri.
+[01:13:12] Ortalığı karıştıran bir karakteri oynarmış gibi hissettirdi bu kız da bana.
+[01:13:15] Neydi?
+[01:13:16] Bu atanın ses.
+[01:13:20] Kötü kız rol.
+[01:13:21] Tam o vibe değil mi?
+[01:13:22] Öyle vibe hissettiriyor kız.
+[01:13:24] Kızın gözleri güzel bu arada.
+[01:13:25] Esmer ve gözleri galiba mavi.
+[01:13:28] Aa bu kız hoşmuş.
+[01:13:30] Didar Azranur, 1.76, 21 yaşında.
+[01:13:32] Didar ne demek ya?
+[01:13:35] İlk defa tırnakları protez olmayan bir kadın görüyorum şu an.
+[01:13:40] Teşekkür ederim Ceren.
+[01:13:41] Hoş geldin.
+[01:13:42] Aleyküm selam Hello Kedi.
+[01:13:43] Güzelmiş bu kız.
+[01:13:44] Bu kız hoşmuş.
+[01:13:45] Evet bu kız benim hoşuma gitti.
+[01:13:47] Aaa.
+[01:13:50] İlayda.
+[01:13:52] Galiba en güzeli bu aralarında.
+[01:13:56] Bu kız hoş.
+[01:14:00] Bence bu kız hoş.
+[01:14:01] Ne diyorsunuz?
+[01:14:02] Gamzesi var güzel.
+[01:14:05] Hoş kız.
+[01:14:06] Hoş kız.
+[01:14:07] Hoş kız.
+[01:14:08] Hoş kız.
+[01:14:09] Bunu beğendim.
+[01:14:10] Benim fal bu herhalde şu an.
+[01:14:11] İlayda.
+[01:14:12] Aaa.
+[01:14:13] Bir oyuncuya benziyor ya.
+[01:14:14] Hangisi?
+[01:14:15] Adını unuttum.
+[01:14:16] Merve Sude Ötgün, 1.80, 25 yaşında.
+[01:14:17] Aaa.
+[01:14:18] Bunlara zirkon kaplama şart.
+[01:14:19] Adam Fatih'in beyaz dişi gülmemiş.
+[01:14:20] Lan Fatih'in beyaz dişi chatteyken.
+[01:14:21] Harbiden Fatih yayınlara denk gelsin.
+[01:14:22] Ne yapar acaba?
+[01:14:23] Aaaa.
+[01:14:24] Aaaa.
+[01:14:25] Aaaa.
+[01:14:26] Aaaa.
+[01:14:27] Aaaa.
+[01:14:28] Aaaa.
+[01:14:29] Aaaa.
+[01:14:30] Aaaa.
+[01:14:31] Aaaa.
+[01:14:32] Aaaa.
+[01:14:33] Aaaa.
+[01:14:34] Aaaa.
+[01:14:35] Aaaa.
+[01:14:36] Aaaa.
+[01:14:37] Aaaa.
+[01:14:38] Aaaa.
+[01:14:39] Aaaa.
+[01:14:40] Aaaa.
+[01:14:41] Sevim 7.
+[01:14:42] Sadio Bey Arslanönük, 1.80, 22.
+[01:14:43] Hiç şu anda benziyorsun • z supposedly ısımlan ivadesi 19.
+[01:14:50] Bu kız mı hemen istedin하면서 ona benziyorsunuper SAceri Sinanコこ v Machine
+[01:14:55] Jon ama yapamıyorum bu kızı kanıt için.
+[01:15:01] Yağım, hımm personalpel hımm.
+[01:15:03] Fena ki bu çocuklar yani, miştan.
+[01:15:05] 5.
+[01:15:06] Hımm.
+[01:15:07] S Boot tuttuk.
+[01:15:08] 350.
+[01:15:08] direkt o vibe'u verdi
+[01:15:11] Sıla 1.80 22 yaşında
+[01:15:13] Arzum Onan buna benzemiyor mu göz yapısı
+[01:15:17] aynısı
+[01:15:17] Arzum Onan da hoş kadındır bu arada ben çok beğeniyorum onu
+[01:15:25] hepsine
+[01:15:28] hepsine baktık mı lan kızların
+[01:15:30] buradan bakalım bir
+[01:15:33] buradan kendisini
+[01:15:34] pat diye böyle gösteren şu kişi var
+[01:15:37] ve Azra Arzum Onan'a
+[01:15:40] benzeyen abla var
+[01:15:41] onun haricinde değil hepsi
+[01:15:45] bilemedim ya
+[01:15:47] ilk açtığımız güzeldi
+[01:15:51] ilk açtığımız
+[01:15:53] bizim hiç aklımızda benim hiç aklımda
+[01:15:54] evet hoş kızmış bak dikkatli bakmamışım
+[01:15:57] en sağdaki
+[01:15:59] çok esmer
+[01:16:00] çok esmer var değil mi
+[01:16:02] niye bu kadar esmer var
+[01:16:03] Nigola Nigola nasıl olmuş
+[01:16:06] Engolo Engolo
+[01:16:07] aşağıdan soldan 2 ve 3 çok iyi
+[01:16:12] aşağıdan soldan 2 ve 3
+[01:16:16] en sağ ikinci ve en sol dördüncü
+[01:16:22] en sağ
+[01:16:23] en sağ ikinci hangi ikinci aşağı mı yukarı mı
+[01:16:28] soldan 4 3 pardon en sağ
+[01:16:32] şu
+[01:16:33] en sağ
+[01:16:36] alttan ikinci Eylül'e benziyor yok be
+[01:16:39] Şuradaki hallerine bir de bakalım kızların
+[01:16:42] şimdi oradaki fotoğraflar biraz farklı gösteriyor olabilir
+[01:16:49] aa bak ilk fotoğrafta güzel çıkmış kimse
+[01:16:53] bu kız da hoş çıkmış mesela
+[01:16:59] fotoğraftan fotoğrafa çok değişiyor işte ya
+[01:17:03] tabii canım fotoğraftan fotoğrafa net çok değişiyor
+[01:17:06] o kimdi bak o kumralı olan kızın saçları toplu hali çok iyi
+[01:17:28] Selamlar Grant başkan
+[01:17:31] o
+[01:17:36] keşke böyle vlog bari bir şey yapsalar
+[01:17:38] Evet ya
+[01:17:39] bu kızı çok çekmişler ha 4 numarayı
+[01:17:48] hoşmuş bu da
+[01:17:54] küt karakter dediğin kız o değil mi
+[01:17:59] Evet o kız Evet galiba
+[01:18:06] oğlum şeye benziyor lan lakasite papel'deki kız vardı ya ona benziyor lan bu kız
+[01:18:14] Nairobi'ye benziyor anlık andırıyor böyle Nairobi Nairobi neydi nasıl kaşları mı
+[01:18:20] kaşlarından ve gözleri biraz sürmeli galiba
+[01:18:23] Nairobi'yi andırdı anlık baksın da nedense
+[01:18:26] bu kız bu kız benim hoşuma gitti
+[01:18:28] kızın saçlarının toplu hali çok hoş bence
+[01:18:31] ne kadar zayıflar ya
+[01:18:36] Nairobi Karadenizli
+[01:18:39] kısmet olur izlemedim daha geçeceğim şimdi
+[01:18:41] Bu kız tatlı ya
+[01:19:04] çok zayıflar
+[01:19:10] o
+[01:19:12] o
+[01:19:14] o
+[01:19:16] o
+[01:19:18] o
+[01:19:20] o
+[01:19:22] o
+[01:19:24] o
+[01:19:26] o
+[01:19:28] o
+[01:19:30] o
+[01:19:32] o
+[01:19:33] o
+[01:19:35] o
+[01:19:37] o
+[01:19:39] o
+[01:19:41] o
+[01:19:43] o
+[01:19:45] o
+[01:19:47] o
+[01:19:49] o
+[01:19:51] o
+[01:19:53] o
+[01:19:55] o
+[01:19:57] o
+[01:19:59] o
+[01:20:02] o o
+[01:20:03] o o
+[01:20:04] o
+[01:20:06] o o
+[01:20:09] ö
+[01:20:11] mı
+[01:20:11] m
+[01:20:12] ı
+[01:20:13] o
+[01:20:15] o
+[01:20:16] o
+[01:20:17] aber
+[01:20:18] mı
+[01:20:21] o
+[01:20:26] In
+[01:20:29] In
+[01:20:30] Dümdüz zaten Özgür Ulusoy'u koymuşlar lafını satayım ya ne alaka Özgür Ulusoy'la gözüküyor ben de şöyle bir fotoğrafta falan arıyorum Özgür Ulusoy'u
+[01:20:44] Dümdüz zaten onu koymuşlar
+[01:20:47] Teknik olarak fotoğrafı var mı var
+[01:20:49] Ama biz bu hanımefendiden bahsediyoruz ya
+[01:20:52] Bu kim mesela bunu tanımıyorum
+[01:20:54] Nur Sen
+[01:20:55] Nur Sen'a saymış pardon Nur Sen değilmiş
+[01:20:59] Bu bir önceki Miss Turkey birincisi mi birincimiz mi
+[01:21:03] Kaç esmer var ya değil mi çok yine esmer var mesela
+[01:21:07] Sunama Özgür yapacakmış
+[01:21:10] Ha Sunama Özgür yapacakmış Özgür Ulusoy yapacakmış herhalde
+[01:21:12] Aleyküm selam Yasuk'un hoş geldin
+[01:21:18] Saçlarım böyle yok ya bence o kadar da kötü durmuyor ben
+[01:21:22] Güzel durmuyor ya bir bakayım
+[01:21:24] Güzel durmuyor
+[01:21:29] Önünü alabilirsin belki saçları
+[01:21:34] Şey arkasında kalmış ya
+[01:21:36] Kulaklıklarının arkasında kalmış ya
+[01:21:38] Tabi canım normal şey hali daha güzel
+[01:21:40] Kulaksızlıksız hali tabi daha güzel de
+[01:21:43] Bir önceki kıvırcık hiç olmadı ama bence ben o peruk aldım ama
+[01:21:46] O çok peruk peruklu
+[01:21:47] Evet taktım taktığım an no dedim
+[01:21:50] Kötü peruk
+[01:21:50] Baya kötü peruk bence
+[01:21:52] Ben onu nasıl kullanırım dedim biliyor musunuz üzerine böyle bandana takarım bandanayla kullanırım diye düşündüm
+[01:21:59] Meri bana teşekkür ederim
+[01:22:03] Rengi güzeldi evet
+[01:22:05] Teşekkür ederim Faruk
+[01:22:13] Bandanayla olur
+[01:22:15] Kahkülü çünkü bunun kahkülü nasıl biliyor musunuz
+[01:22:18] Bunun aslında kahkülü
+[01:22:19] Şurada falandı bu arada
+[01:22:21] Şöyle falandı bunun kahkülü ben bunun kahkülünü kestim
+[01:22:24] Benim gri saçtaki kahkül gibiydi
+[01:22:26] Bak mesela yukarı çıkınca daha açıyor ama biraz böyle aşağıya mesela
+[01:22:29] Dönmesi gerekiyor çünkü
+[01:22:31] Kaç dizgisi şurada falan
+[01:22:33] Öyle böyle falan
+[01:22:35] Neyse çıkamaz zaten bir saat takacağız sonra eski saçımıza
+[01:22:37] Sarı saçımıza geri döneriz
+[01:22:41] 20 dakikası gitti
+[01:22:43] Zaten kısme solur izlerken akar şimdi
+[01:22:47] Evet kısme solur tayfa
+[01:22:49] Herkes burada mı
+[01:22:51] KO izlemek isteyen bütün arkadaşlarımı şu an bu yayına davet ediyorum
+[01:22:55] Çayım bitmiş çayımı alıp geliyorum herkes kahvesini çayını
+[01:22:58] Her şeyini alsın
+[01:22:59] Konolojik kulaklıklardan ben çok memnunum
+[01:23:02] Kalınabilirsin istersen
+[01:23:03] Herkes alsın gelsin
+[01:23:05] Tostunu bana verdi demiş
+[01:23:07] Büşra Eylül'ün sabrını sınıyor
+[01:23:09] Büşra Hanım bu arada son bölümde yaptıkları çok iğrenç
+[01:23:13] İğrençlik ötesi
+[01:23:15] Yani Eylül'le Fatih orada konuşuyorlar ediyorlar geliyor Büşra oradan Fatih'e laf atıyor falan bilmem ne böyle flörtleşiyormuş gibi yapıyor
+[01:23:22] Fatih de böyle sert bir tepki vermiyor hani şey diyor komik yaptın komik olduğu için gülüyorum diyor yaptın çok komik
+[01:23:27] Ezikçe ezikçe şeyler yapıyor
+[01:23:29] Aynen öyle
+[01:23:30] Şura 2 gibi davranıyor Şura'dan daha beterini yapıyor bu arada yani
+[01:23:34] O kadar çok istediğini böyle belli ediyor ki
+[01:23:38] Ve adamın yanında
+[01:23:39] Hoşlandığı kadın var buna rağmen yapıyor bunu düşünsene
+[01:23:43] Şura gibi yapmıyor karakteri Şura gibi
+[01:23:44] Çok büyük yüzsüzlük ve çok büyük eziklik
+[01:23:47] Senin yaptığın yani senin bunu yaptığın kişi de aslında bir kadın ya
+[01:23:51] Senin başına da gelebilir ya bu
+[01:23:54] Senin başına gelse sen mesela daha farklı bir tepki verse o kız biraz daha şey diye
+[01:23:57] Hani sesini çıkartıyor falan filan da
+[01:23:59] O da şey diyor kızı umursamıyorum diyor yaptıklarını hiç umurumda değil diyor mesela
+[01:24:03] Ama Fatih'in de hoşuna gidiyor bu evet
+[01:24:06] Bilmiyorum retro zamanlar bir bilgim yok
+[01:24:12] Sizin kadar biliyorum ben de bize ayrı bir info gelmiyor
+[01:24:16] Ben dünkünü izledim orada Büşra kinayeli konuşuyor
+[01:24:18] Eylül hiç kötü algılamıyor Belisleri kötü algılıyor sadece
+[01:24:21] Evet Belis de aynı şeyi söylüyor zaten sen diyor burada diyor
+[01:24:23] Biz diyor bir şey dediğimizde biz diyor yanlış anlıyorsun diyor
+[01:24:26] Bizi diyor ters anlıyorsun diyor ama diyor burada diyor Büşra diyor gidiyorsunuz diyor
+[01:24:29] Zaten Eylül'ün hatta Kerem şey demiş Eylül'e
+[01:24:33] Sen demiş dışarıda böyle değilsin burada konuşkansın niye evde bu kadar sessizsin falan filan demiş
+[01:24:38] Hani şeyden şeyin farkındalar dışarıda burada farklı olduğunun
+[01:24:43] Biz izlediğimiz videoda kız nasıldı içeride nasıl suskun böyle bir şey konuşmuyor etmiyor
+[01:24:47] Tepkisini bile veremiyor sesi çıkmıyor sesi çıksa az çıkıyor falan
+[01:24:51] Gitmiş Perinaz da Kerem'i kıskanmış sen niye konuşuyorsun diye
+[01:24:57] Yaptığından daha hızlı geldi başına kızmış
+[01:24:59] Evet Melisa bir de sokak kızı dedi bir de bana Melisa dedi dedi sokak kızı dedi Melisa demiş güya Büşra'ya yani izlemiyoruz sanki
+[01:25:07] Valla bilmiyorum bir sıkıntı yani Fatih'in yaptığı da çok iğrenç diğerlerinin yaptığı da çok iğrenç
+[01:25:19] Hepsinin yaptığı çok iğrenç yani
+[01:25:29] Geliyorum
+[01:25:37] Ya konuşmak istemiyordu kız Allah Allah şu kızla bile laf söylüyorsunuz
+[01:25:41] Hangi kızla laf söylüyorsunuz da sinirleniyorsun kim konuşmak istemiyor
+[01:25:44] Kime diyorsun
+[01:25:48] Eylül'e mi diyorsun
+[01:25:51] Oğlum kızın öyle bir şey değil ki ailen
+[01:25:55] Gidip Melisa'ya falan laf söylüyor Büşra'ya laf söylemiyor Büşra'ya gidiyor muhabbet söylüyor
+[01:25:59] Sohbet ediyor laf sokuyor bir de Büşra bunu anlamıyor gülüyor ediyor umursamıyorum diyor
+[01:26:04] İyi de senin de manitana yani sen üzülsene sen erkek arkadaşına takılıyorsun oradan geliyor bir tane kız
+[01:26:08] Senin sevgiline laf ediyor işte benim dostum geldi bana gülüyor benimle flörtleşiyor falan diyor sen sinirlenmez misin
+[01:26:14] Ben anında sinirlenirim tepki gösteririm yani
+[01:26:18] Oy bu var da o da değil öyle bir şey değil yani
+[01:26:23] E sikerse ben de sikerim mesela bağırırsın çağırırsın hayırdır dersin hep yanındaki adama dersin sen ne yapıyorsun ne gülüyorsun gülüyor mu
+[01:26:29] Sen de anlatırsan hep 32 dişi zaten gözümüze sokuyor bu dişlerin reflektör gibi ben buna koyayım
+[01:26:34] Dişimi gözümüze soka soka soka soka soka soka
+[01:26:37] Sen ağzına şöyle şap diyeceğiz niye gülüyorsun ya
+[01:26:40] Niye gülüyorsun abi
+[01:26:41] Niye gülüyorsun ya
+[01:26:44] Aleyküm selam
+[01:26:47] Zem pırlanta valla
+[01:26:59] Yemiş gaz ama öyle ben yemin ederim izlerken ayar oldum ya yani Eylül'ün bu kadar susup kalmasına ben ayar oldum yani
+[01:27:26] Hadi tamam susup kaldın o zaman ben bir şey yapayım
+[01:27:29] Tamam bari tamam Buse'yle samimi olmuyorsan o zaman Büşra'yla da samimi ol.
+[01:27:32] Büşra'yla samimi olmamda bana ne getiriyor akla biliyor musun?
+[01:27:35] Tamam oylamada yazılmayayım.
+[01:27:37] Büşra'lar benim arkamda dursun.
+[01:27:39] Ya Belis'lerin tarafında olacağım ya Büşra'ların tarafından olacağım.
+[01:27:41] Büşra'ların tarafında olmasını seçiyorum.
+[01:27:43] Büşra benim manitama yanlasa da benim manitamla flört etse de sorun değil.
+[01:27:49] Hiç olmazsa beni yazmış yazmazlar.
+[01:27:51] En son ki bölümde de.
+[01:27:53] Ay çok bağırıyorum.
+[01:27:53] En son ki bölümde de Öykü Hanım oyun oynatıyor.
+[01:27:56] Ama şey diyor işte biz diyor çıkmayalım biz diyor sevgili değiliz.
+[01:28:01] Öykü Hanım da diyor ki sen diyor ne yani diyor Türkçe diyor anlamıyor musun tarzı bir şey diyor.
+[01:28:06] Böyle hani bunlar konuşuldu biz burada Türkçe konuştuk.
+[01:28:08] Sen yani Türkçenin de tercümesini mi istiyorsun diyor yani ne alaka diyor.
+[01:28:13] Kesir'e çoşken aleyküm selam.
+[01:28:20] Yok yok diyor ben diyor çıkmayayım falan diyor.
+[01:28:23] Biz diyor çıkmıyoruz.
+[01:28:23] Şey Fatih de öyle oylamak istemiyor.
+[01:28:25] Aslında kızın oradaki amacı şey hani biz diyor hani sevgili ismini koymadık.
+[01:28:29] Sadece çiftler çıkıyor dediğiniz için ben çıkmak istemedim.
+[01:28:33] Öykü de diyor ki sen ne anlatıyorsun ne alaka.
+[01:28:37] Saçma ya.
+[01:28:45] Bendis teşekkür ederim.
+[01:28:47] Çok sağ olun.
+[01:28:49] Teşekkür ederim Chess Stretch.
+[01:28:51] Twizy aldı da.
+[01:28:52] Kim almıştı?
+[01:28:54] Aynen Twizy aldı.
+[01:28:55] Bir saat perukluyuz bugün.
+[01:28:57] Başka bir peruk denedim onu beğenmedi.
+[01:28:59] Bunu taktık.
+[01:29:01] Bugün bir saatlik böyleyiz.
+[01:29:03] Öykü çok yanlı davranıyor.
+[01:29:05] Bazen çok mantıklı konuşuyor.
+[01:29:06] Bazen çok mantıksız konuşuyor.
+[01:29:07] Klasik zaten.
+[01:29:10] Melek ve Ufuk'u ne zaman patlatacaklar?
+[01:29:12] Melekli bu arada Ufuk'la Buket'i çok beliz şey diyor.
+[01:29:15] İşte sen diyor bu kadar diyor işte Buket'le uğraşıyorsun diyor.
+[01:29:18] Acaba diyor Buket'ten mi hoşlanıyorsun?
+[01:29:21] Öykü Büşra'yı Büşra'cı bence çok.
+[01:29:25] Bana öyle bir vibe veriyor.
+[01:29:31] Fatih diyor ki Büşra'ya komik gözüküyorsun.
+[01:29:33] Sana o yüzden gülüyorum diyor hani.
+[01:29:35] Seni diyor flört değil bu diyor.
+[01:29:36] Sen diyor komik gözüktüğün için sana gülüyor.
+[01:29:39] İzleyelim ben size anlatırım ara ara.
+[01:29:49] Bazen çok iyi konuşuyor Öykü.
+[01:29:51] Bazen o kadar kötü gözüküyor konuşuyor ki size anlatamam yani.
+[01:29:53] Bu gece çok iyi konuşuyor.
+[01:29:54] Ben de çok iyi konuşuyorum.
+[01:29:55] Bugün nasıl bir gün aydın mesajı aldım?
+[01:29:58] Ay bunu ben niye dinleyeyim ya?
+[01:30:00] Canım senden çok ilerledim.
+[01:30:01] Kaygın ol.
+[01:30:03] Bak bunu ben niye dinleyeyim ya diyor.
+[01:30:04] Gidiyor aylada oradan çak yapıyor mesela.
+[01:30:07] Belisi yaptı kanka yani bir şey diyeceğim şimdi olmayacak.
+[01:30:09] Ne demek sevinçli olan çocuğa gidip sen Buket'ten hoşlanıyorsun demek ya.
+[01:30:12] Ya o şey zaten Belisi'nin o dediği de yanlış.
+[01:30:16] Belisi ortalığı karıştırıyor net zaten.
+[01:30:18] Önceden Belisi mesela çok kusardım şu an hiç tutmuyorum.
+[01:30:21] Saçma sapan Barış'a falan da bağırmaya başladı bu son bölümler.
+[01:30:23] Artı olarak son bölümde.
+[01:30:25] Biraz Kerem'e ben üzüldüm.
+[01:30:27] Benden asla böyle bir cümle duymazsınız normalde.
+[01:30:31] Ya Perinaz'ın artık kıskançlığı çok up seviye top seviye olmaya başladı.
+[01:30:37] Kerem'e bir tık üzüldüm ben.
+[01:30:40] Son bölüm.
+[01:30:43] Düşra o zaman umarım öpmez beni ya sarı dişleriyle.
+[01:30:48] Tam ne olurdu?
+[01:30:48] Şurada şöyle oldu.
+[01:30:50] Bu aldatma mevzuları vardı ya Umut'la Buket'in.
+[01:30:52] Aldatma mevzularında Umut'la Buket'in.
+[01:30:54] Aldatma mevzularında Umut'la Buket'in.
+[01:30:55] Aldatma mevzularında Ufukan patlatıyor ya Umut'u.
+[01:30:58] Sonrasında Ufukan'ı yazmıyorlar Barış gidiyor ya.
+[01:31:00] Yeni gelen Barış Esin gidiyor ya.
+[01:31:03] Ufukan da ona takılıyor.
+[01:31:04] Diyor ki ben o kadar olayı patlattım diyor.
+[01:31:06] Bunların diyor aldattığını söyledim diyor.
+[01:31:08] Oradan diyor kızlar da söyledi onların aldattığını.
+[01:31:10] Nasıl hala Umut gitmez falan filan yazıyor.
+[01:31:12] Ona takılıyor.
+[01:31:13] Beliz de diyor ki sen diyor bu kadar çok buna takıldıysan o zaman Buket'ten mi hoşlanıyorsun?
+[01:31:18] Buket'te mi bir şey yaşamak istiyorsun?
+[01:31:20] Bu kadar takılıyorsun buna falan yapıyor böyle.
+[01:31:22] Bunu normal evde söylüyor.
+[01:31:24] Bu da işte.
+[01:31:25] Ortaya çıkıyor falan filan.
+[01:31:26] Melek'in de bunu haberi var.
+[01:31:27] Melek de şey diyor.
+[01:31:27] Ben diyor kendime güvenen bir kadınım.
+[01:31:29] Ufukan'dan böyle bir şey olmayacağını biliyorum.
+[01:31:31] Zaten ben kendime güveniyorum.
+[01:31:32] Benim için önemli bir şey değil falan diyor Melek.
+[01:31:35] Ayper hoşgeldin.
+[01:31:36] Arıcım hoşgeldin.
+[01:31:37] Aleyküm selam.
+[01:31:41] Doğru söylüyorsun Arı bu arada.
+[01:31:42] Bak tekrardan vazgeçtim.
+[01:31:44] Neyse sonrasında bu olaylar patlıyor.
+[01:31:47] Bunu da Beliz söylüyor işte.
+[01:31:49] Sen Buket'ten mi hoşlanıyorsun?
+[01:31:51] Ufukan diyor ki hayır diyor.
+[01:31:52] Böyle bir şey yok diyor.
+[01:31:52] Sadece aldatma olayı olduğu için diyor.
+[01:31:54] Aldatma olayı da diyor.
+[01:31:55] Benim diyor kırmızı çizgim olduğu için diyor.
+[01:31:57] Herkesin bu kadar normal karşılaması ve olmamış gibi davranması benim sinirimi bozuyor diyor.
+[01:32:01] Yoksa diyor benim diyor Buket'le aramda hiçbir şey yok olmayacak da yani istemiyorum da diyor.
+[01:32:06] Bu.
+[01:32:11] Bu arada Daisy senin dediğini ben düşündüm.
+[01:32:13] Bence de Buket Ufuk'tan hoşlanıyordu.
+[01:32:16] Ve haklı.
+[01:32:17] Bence de Ufukan haklı.
+[01:32:18] Yani bu kadar diyor aldatma muhabbeti döndü.
+[01:32:20] Ben bunu galada patlattım.
+[01:32:22] Bunu açıkladım.
+[01:32:23] Nasıl bunun bir sonucu olmaz?
+[01:32:24] Nasıl?
+[01:32:25] Herkes rahat bir şekilde devam edebiliyor falan diyor yani.
+[01:32:27] Ona takılıyor çocukta.
+[01:32:32] Ya bu kadar tabii anlatmak istediği şey bu.
+[01:32:36] Zaten bazılarının konuşmaları o kadar garip ki chat.
+[01:32:38] Mesela Melek bir şey anlatıyor.
+[01:32:40] Cümlesini bitirmeden başka bir şeye başlıyor.
+[01:32:42] Ben Melek'i hiç takip edemiyorum ve anlattıklarını çok zor anlıyorum mesela Melek'in.
+[01:32:46] Fatih hoş geldin.
+[01:32:46] Aleyküm selam.
+[01:32:47] Yani oraya bir şey lazım.
+[01:32:51] Mesela hakem olarak oraya koşsunlar tamam mı?
+[01:32:54] Konuşsunlar.
+[01:32:55] Ben beynimi orada zorlayayım ve onlara tercümanlık için orada bulunmak istiyorum.
+[01:33:01] Kimin ne anlattığına dair.
+[01:33:04] Bak net söylüyorum size.
+[01:33:09] Melek benim için orada hiçbir vasfı yok.
+[01:33:11] Zaten bir şey söyleyeyim mi?
+[01:33:12] Bak ben size ne söylüyorum.
+[01:33:13] Ufkan'la Melek'in hiç olayı olmadığı için bence onları birbirine düşürmek için bunlar zaten hepsi bir kurgu ya.
+[01:33:18] Biraz da onlara da olay çıksın falan diye öyle bir şey yaptılar.
+[01:33:22] Köyümü alıp geliyorum.
+[01:33:24] Evet artık başlayalım.
+[01:33:52] Evet artık başlayalım.
+[01:33:54] Saç peruk evet canım.
+[01:33:55] Fatih ona mı nasıl ne falan yazdın.
+[01:33:59] Saç peruk peruk.
+[01:34:03] Bu ketelenmeyecek.
+[01:34:04] Despacito mudur peki?
+[01:34:05] Dur bunu yayın başlığı yapacaktım.
+[01:34:10] Despacito mudur?
+[01:34:13] Ayy.
+[01:34:24] Despacito.
+[01:34:32] Bugün nasıl bir günaydın mesajı aldım.
+[01:34:35] Ay bunu ben niye dinleyeyim ya?
+[01:34:37] Canım senden ki günaydın.
+[01:34:39] Kaygın ol.
+[01:34:40] Canım sen günaydından başka bir şey alamazsın o çocuktan.
+[01:34:42] Ben sana söyledim.
+[01:34:43] Aynen olamadım.
+[01:34:44] Aynen olamadın ya.
+[01:34:45] Aynen olamadığın gibi.
+[01:34:46] Ben sana SS atayım günaydınlara.
+[01:34:48] Ne diyorsun?
+[01:34:49] Bak bak ben sana SS atayım diyor mesela.
+[01:34:51] Gezer hoş geldin.
+[01:34:52] Aleyküm selam.
+[01:34:53] Ya ben böyle ne yapacağım sizinle ya?
+[01:34:56] Umarım çok yakışıklı biri gelir de büşra alır.
+[01:35:01] Anlat.
+[01:35:02] İşte Fatih bana ilk defa bugün aşkım dedi sabah.
+[01:35:04] Aşkım dedi mesajdan.
+[01:35:06] Yemin et.
+[01:35:07] Eee?
+[01:35:08] Öyle ben de.
+[01:35:09] E sen girerken mutluslanan dedin.
+[01:35:12] Fatih mi?
+[01:35:13] Hı hı.
+[01:35:14] Hayır onun bugün başka bir şeye canı sıkıldı.
+[01:35:16] Ne gibi bir şeye?
+[01:35:17] İşte yok işte normalde kendi hayatıyla ilgili bir şeyler istemiş olmamış falan.
+[01:35:22] Hı hı.
+[01:35:23] Ne olmuş?
+[01:35:24] Yalan.
+[01:35:25] Hı hı hı.
+[01:35:26] Niye yalan diyorsun çocuğa?
+[01:35:27] Sen bu başka başlım.
+[01:35:28] Başkom.
+[01:35:29] Ya zaten.
+[01:35:30] Fatih diyor ki.
+[01:35:31] Bak diyor ki açık açık.
+[01:35:32] Ben diyor sana diyor zaten çıkma teklifi edeceğim.
+[01:35:33] Zaten yani biz seninle tanışmadık ben seninle hoşlanıyorum.
+[01:35:34] Ama diyor dümdüz diyor hadi diyor sevgili oğlum yapmak istemiyorum.
+[01:35:35] Özel bir şey yapmak istiyorum diyor.
+[01:35:36] Kıza da günaydın aşkım diye mesaj yapmış.
+[01:35:37] Aleyküm selam.
+[01:35:38] Önce bir tostumu yiyeyim diyor.
+[01:35:39] Aynen.
+[01:35:40] Aynen.
+[01:35:41] Aynen.
+[01:35:42] Aynen.
+[01:35:43] Aynen.
+[01:35:44] Aynen.
+[01:35:45] Aynen.
+[01:35:46] Aynen.
+[01:35:47] Aynen.
+[01:35:48] Aynen.
+[01:35:49] Aynen.
+[01:35:50] Aynen.
+[01:35:51] Aynen.
+[01:35:52] Aynen.
+[01:35:53] Aynen.
+[01:35:54] Aynen.
+[01:35:55] Aynen.
+[01:35:56] Aynen.
+[01:35:57] Aynen.
+[01:35:58] Aynen.
+[01:35:59] Aynen.
+[01:36:00] Aynen.
+[01:36:01] Aynen.
+[01:36:02] Aynen.
+[01:36:03] Aynen.
+[01:36:04] Aynen.
+[01:36:05] Aynen.
+[01:36:06] Aynen.
+[01:36:07] Aynen.
+[01:36:08] Aynen.
+[01:36:09] Ben hiç yalan söyleyemiyorum.
+[01:36:10] Kekeliyorum.
+[01:36:11] Bir ilişkide hiçbir zaman bak %50 sevgi değil.
+[01:36:14] Hiçbir zaman yok bak.
+[01:36:15] Mutlaka bir taraf bir taraftan daha çok seviyor ve bir taraf mutlaka bir yerde üzülüyor.
+[01:36:18] Ve bir taraf daha fedakar oluyor.
+[01:36:19] O duvarı bu hatta da kırmadım.
+[01:36:21] Nasıl nasibine aldın?
+[01:36:22] Ama Cemal şu an seni bu yüzden çok seviyor belki de.
+[01:36:24] Herkes yorum yapıyor ama.
+[01:36:25] Belki de o senin duvarlı oluşundan dolayı sana hasta.
+[01:36:28] Ama kanka kötü mü davranıyorsun?
+[01:36:29] Herkes yorum yapacak.
+[01:36:30] Sadece çıkış yapıyorsun ya bazen mesela.
+[01:36:33] Mesela ufak bir konuda bir anda çıkıyorsun ya bize çıkış yapıyormuş.
+[01:36:36] Büşra'nın elbisesinin kemeri olmak isteyen var mı?
+[01:36:39] Başta ne yaptığın o tavırı var ya rahat hissettiğin için o kişiye.
+[01:36:42] Onu burada yaptığın zaman erkekler bunu saldırı olarak algılıyor.
+[01:36:45] Halbuki senin sohbetin o şekilde.
+[01:36:47] Ne anlattı ya Büşra'yı dinlemeye?
+[01:36:49] Bazen mesela bir dönem öyleydim.
+[01:36:52] Sonra nasibimi aldım, sertleştim.
+[01:36:54] O duvarı bu hatta da kırmadım.
+[01:36:55] Nasıl nasibine aldın?
+[01:36:56] Ama Cemal şu an Miss Turkey jüresi olur demiş.
+[01:36:59] Tamam.
+[01:36:59] Aleyküm selam Büşra.
+[01:37:00] Nasıl akıllı?
+[01:37:01] Bu yüzden çok seviyor belki de.
+[01:37:02] Herkes yorum yapıyor ama.
+[01:37:03] Belki de o senin duvarlı oluşundan dolayı sana hasta.
+[01:37:06] Ama kanka kötü mü davranıyorsun?
+[01:37:07] Herkes yorum yapacak.
+[01:37:08] Sadece çıkış yapıyorsun ya bazen mesela.
+[01:37:11] Mesela ufak bir konuda bir anda çıkıyorsun ya bize çıkış yapıyormuş.
+[01:37:13] Ya da yakın arkadaşlarına yaptığın o tavırı var ya rahat hissettiğin için o kişiye.
+[01:37:17] Onu burada yaptığın zaman erkekler bunu saldırıyor.
+[01:37:19] Saldırı olarak algılıyor.
+[01:37:20] Halbuki senin sohbetin o şekilde.
+[01:37:22] Hani bize gibi davrandığın zaman erkekler bunu sert algılıyor.
+[01:37:26] Bir şey var.
+[01:37:27] Elbisesi, iğrenç ötesi yani.
+[01:37:32] Ne bileyim kötü yani.
+[01:37:34] Görmüyor musun mesela kötü olduğunu?
+[01:37:35] Ben böyle bir şey hayatta giymem ya.
+[01:37:38] Çok kötü durmuş.
+[01:37:39] Yakışmamış ya.
+[01:37:42] Bayağı biliyorsun ya mesela.
+[01:37:44] Normalde ilişkide bu erkeğe saygısızlık olarak algılanıyor.
+[01:37:47] Ama senin iletişiminle göre.
+[01:37:48] Ne diyorsun aşkım?
+[01:37:49] Sen falan mısın?
+[01:37:50] Hayır.
+[01:37:51] Ya ben değilim.
+[01:37:52] Bu benim karakterim ama ben karakterini yansıtmak zorundayım.
+[01:37:55] Cemal çok memnun zaten.
+[01:37:56] Cemal'le çok...
+[01:37:57] Bilmiyorum Cemal'le aramda inanılmaz bir şey var ya.
+[01:37:59] Bu gerçekten...
+[01:38:01] Büşra'yla alakalı bana hiçbir şey söylemeyip Büşra'ya hiçbir şey de istemiyorum arkadaşlar.
+[01:38:03] Teşekkür ederim.
+[01:38:04] Bilmiyorum ama bak yemin ediyorum Cemal'le benim aramdaki şey buranın çok üst level'ı.
+[01:38:09] Şey deme.
+[01:38:10] Şey ne mesela anlat.
+[01:38:11] Ne o?
+[01:38:11] Şey ne yani?
+[01:38:12] Hadi.
+[01:38:13] Anla işte ya bu kız da her şeyi soruyor beni yürüyor ya.
+[01:38:15] Bana toz gelsin artık.
+[01:38:17] Yiyemedim çok üzüldüm.
+[01:38:18] Ben yedim.
+[01:38:19] Ben yedim biliyor musun?
+[01:38:20] Ne oldu?
+[01:38:21] Bak bak.
+[01:38:22] Aynen gideceğim bak.
+[01:38:23] Durun kanka bir çatış.
+[01:38:24] Bir dakika ya.
+[01:38:25] Bir dakika.
+[01:38:26] Fatih abi ruhum burada.
+[01:38:27] Çık git şuradan.
+[01:38:28] Gitmesin.
+[01:38:29] Burada otursun.
+[01:38:30] Fatih dedi ki Eylül yiyemedi.
+[01:38:31] Sen yesen olur mu dedi.
+[01:38:32] Ben tamam dedim.
+[01:38:33] Yemin et.
+[01:38:34] Evet.
+[01:38:35] Vallahi de.
+[01:38:36] Tosttan bahsediyorlar.
+[01:38:37] Yanlış anlaşılma olmasın.
+[01:38:38] Tamamen tosttan bahsediyorlar bu arada.
+[01:38:39] Evet diyorum.
+[01:38:40] Ne zaman dersin lan?
+[01:38:41] Bu nasıl saçmalık?
+[01:38:42] Ne demiş anlayamıyorum.
+[01:38:43] Sen evdeyken o toz soğudu ya.
+[01:38:44] Soğuyacaktı ya.
+[01:38:45] Fatih dedin ya.
+[01:38:46] Ziyan olmasın sen yer misin dedi.
+[01:38:49] Ben de tamam dedim.
+[01:38:50] Aşkım ben.
+[01:38:51] Soğuk yerim bu arada.
+[01:38:52] Ben böyle şeye asla inanmam.
+[01:38:53] Ama sen çok.
+[01:38:54] Bunun gerçek olduğuna inanmıyor musun?
+[01:38:55] Bir soru istersen.
+[01:38:56] Asla.
+[01:38:57] Asla.
+[01:38:58] Dedi ki sana uzun zamandır vakit ayıramıyorum Büşra'cığım.
+[01:38:59] Bir süredir burada boşa oyalanıyorum.
+[01:39:00] O yüzden öyle konuştuk olduk da.
+[01:39:01] Sana olan aşkını gizlemek için saçma sapan insanlar var ya.
+[01:39:02] Dedi ki Büşra bunları zamanında yapacaktın.
+[01:39:03] Geçti Büşra dedi.
+[01:39:04] Öyle mi dedi?
+[01:39:05] Yoksa o zaman ne oldu?
+[01:39:06] Büşra dedi.
+[01:39:07] Büşra dedi.
+[01:39:08] Büşra dedi.
+[01:39:09] Büşra dedi.
+[01:39:10] Büşra dedi.
+[01:39:11] Yoksa yapmamı istediği için mi öyle söyledi?
+[01:39:12] Hala.
+[01:39:13] Sen öyle düşün Büşra ama öyle demedi bu arada.
+[01:39:14] O zaman da istemiş ama yapmamışsın işte.
+[01:39:15] İstemiş mi?
+[01:39:16] Bence sen onu kaybettin.
+[01:39:17] Onun aklına yemek geliyordu zannediyorsun benimle.
+[01:39:18] Sonra işte böyle dans ettiğini, dans ettiğini görünce ağlarsın.
+[01:39:19] Aşkım ben.
+[01:39:20] Aşkım ben.
+[01:39:21] O zaman sen bizim bir dans videomuzu izle.
+[01:39:22] Sen bizim bir dans videomuzu izle.
+[01:39:23] Ondan sonra bir daha bana gelemezsin.
+[01:39:24] Ben sana söyleyeyim.
+[01:39:25] Bak bak neler diyor.
+[01:39:26] Bak bak neler diyor Büşra.
+[01:39:27] Eylül'e, Eylül.
+[01:39:28] Ne diyor Büşra?
+[01:39:29] Eylül'e, Eylül.
+[01:39:40] Ne diyorsun ya falan demiyor mesela.
+[01:39:42] Yani Büşra bir kendine gel istersen falan demiyor yani.
+[01:39:45] Hani böyle tepki vermez misin?
+[01:39:47] Ya da kalkıp gidersin yani.
+[01:39:48] Hani illa Ayla'yla, Ayla'yla takılmak ya da onlarla takılmak zorunda değilsin.
+[01:39:57] Evet Büşra benim için bitmiştir falan dedi oğlum.
+[01:39:59] İstemiyorum.
+[01:40:00] Ben dedi bu haline gülüyorum dedi.
+[01:40:01] Kendini rezil ediyorsun falan dedi yani.
+[01:40:05] Oğlum oradaki herhangi bir şipe olan biri böyle davransa fena olay çıkar bu arada.
+[01:40:11] Ayla'yla takılacak diye işte.
+[01:40:19] Öykü, evet Öykü de öyle diyor.
+[01:40:20] Çekersin Ayla'yı kenara konuşmak istiyorsan Ayla'yla konuşursun dedi.
+[01:40:24] Yok anlamıyor Eylül.
+[01:40:26] Bilmiyorum.
+[01:40:27] Kanka bilmiyorum ya.
+[01:40:28] Garip, garip, garip bir kız yani.
+[01:40:29] Değişik, değişik bir tip.
+[01:40:31] Eylül'ü çözemedim çözmek de istemiyorum bu arada.
+[01:40:34] Çözmeyeyim öyle kalsın.
+[01:40:36] Gerek yok yani.
+[01:40:37] Anlanmış yine Eylül.
+[01:40:38] Ay şuradaki muhabbeti izledik mi?
+[01:40:40] İşte.
+[01:40:41] Büşra ona saçma sapan şeyler söylüyor.
+[01:40:44] Umurumda değil.
+[01:40:45] Gülüyor ediyor bilmem ne.
+[01:40:46] Ben Fatih'in tostunu yedim falan diyor.
+[01:40:48] İşte ne bileyim.
+[01:40:50] O da gülüyor.
+[01:40:51] Öyle mi yedin mi falan.
+[01:40:52] Sonra işte bana günaydın aşkım diye mesaj attı Eylül diyor.
+[01:40:54] Ben diyorsan atarım seslerini falan diyor Büşra Eylül'e.
+[01:40:57] Yani ne alaka?
+[01:41:10] Evet yapısında yok doğru.
+[01:41:12] Yapısında yok.
+[01:41:13] Yani beceremiyor bence.
+[01:41:14] Kavga etmeyi beceremez o kız.
+[01:41:16] Yani diğerleri gibi mesela Perinaz, Melis, Melis işte onlar falan böyle mesela daha bir anda böyle tepki gösteriyorlar falan ya.
+[01:41:22] O öyle bir yapıda değil.
+[01:41:24] Selamlar Esma.
+[01:41:25] Selamlar Suicide.
+[01:41:26] Hoş geldin.
+[01:41:27] Çok soğudum.
+[01:41:28] Hadi be.
+[01:41:29] Soğudun mu?
+[01:41:30] Hiç söylemedin mi böyle bir şey?
+[01:41:32] Bilmiyorum.
+[01:41:33] Yani biraz bakmak istedim.
+[01:41:34] Kaç gündür böyle?
+[01:41:35] Kendini sorguladım.
+[01:41:36] Ben de bir hafta Barış'tan soğumuştum ya çünkü.
+[01:41:39] Evet.
+[01:41:40] Perinaz'ı arayıp söylemiştim.
+[01:41:41] Bir anda geldi.
+[01:41:42] Analize ediyorsun ediyorsun bir günde tak diye soğuma geliyor.
+[01:41:45] Bir kadın zaten bir anda soğumaz kanka anladın mı?
+[01:41:47] Yavaş yavaş eksiliyor.
+[01:41:48] Aynen iki ata ata.
+[01:41:49] Patlama noktası oluyor.
+[01:41:50] Kanka bir de benim huyum o yani.
+[01:41:51] Ben bir kavga ederim onu alttan alırım ama içimde atarım onu.
+[01:41:54] Unutmam yani.
+[01:41:55] Ama bu çok kötü ya.
+[01:41:56] O birikir.
+[01:41:57] Peki sence bu soğumanın sebebi tam olarak bir kelimeyle sığdıracak olsan ne olurdu?
+[01:42:02] Kavga deme çok kavga etmiyorsunuz çünkü.
+[01:42:04] Stabil.
+[01:42:05] Stabildik değil mi?
+[01:42:07] Çok stabil.
+[01:42:08] Sıradanlık mı?
+[01:42:09] Ben sıradanlığı hiç sevmem.
+[01:42:11] Arada bir ne bileyim yani.
+[01:42:13] Bir çift seni ilgisiz bıraktı gibime geliyor.
+[01:42:15] Ya şöyle ben nasıl desem kanka sürekli erkekler evinde sadece goy goy yapmak için
+[01:42:22] geliyor buraya.
+[01:42:23] Ben burada sizinle konuşurken.
+[01:42:24] Bu arada burada çok doğru konuşuyor.
+[01:42:27] Metin Can'ın tek yaptığı şey dedikodu.
+[01:42:31] Ortalığı karıştırmak.
+[01:42:33] Muhabbet böyle goy goy şamata makara yapmak.
+[01:42:36] Asla böyle suda oturup doğru düzgün ilişkiler hakkında bile konuşmuyorlar.
+[01:42:39] Selamlar Kenobi hoş geldin.
+[01:42:41] Ali Khan hoş geldin merhaba.
+[01:42:42] Metin Can su.
+[01:42:43] Ben Metin Can'dan benim de midem bulandı bu arada.
+[01:42:48] Yani önceden Metin Sucu'yum şu an hiç birinci değilim.
+[01:42:51] Kerperci olacağım galiba.
+[01:42:53] Ortak yaptığı bir şey yok.
+[01:42:55] Kerper t-shirt alacak mısın peki?
+[01:42:56] Ha?
+[01:42:57] Kerper t-shirt'u.
+[01:42:58] Yaptıracağız saçmalama neye alması?
+[01:43:01] Kendimiz özel yaptıracağız fan club.
+[01:43:03] Haa Kerper fan club diye tamam.
+[01:43:05] Evet.
+[01:43:06] Bu evde.
+[01:43:07] Ay çok sıcak.
+[01:43:08] Çok sıcak.
+[01:43:09] Hep böyle.
+[01:43:10] Orada kaos yaratıyor.
+[01:43:12] Erkeklerle goy goy yapıyor.
+[01:43:14] Bu kadar.
+[01:43:15] Önceliği kendisi.
+[01:43:16] Hatta okutan olayında da şey diyor Metin Can.
+[01:43:17] Böyle bir bomba diyor bende olacak diyor.
+[01:43:19] Ben diyor patlatmaz mıydım diyor.
+[01:43:20] Ben diyor anında söylerdim böyle bir şey kaçırmazdım falan diyor.
+[01:43:24] Ya anladın mı?
+[01:43:25] Çok belli böyle şova geldiği böyle ortalığı karıştırmaya yani o kadar.
+[01:43:29] Kendi de söylüyor zaten.
+[01:43:31] Zaten.
+[01:43:32] Kombinimi yapayım geleyim.
+[01:43:34] Erkeklerle sohbet muhabbet edeyim.
+[01:43:36] Çıkayım gideyim bu.
+[01:43:37] Bu.
+[01:43:38] Peki sence oda senden soğumuş olabilir mi biraz?
+[01:43:41] Buraya gelmek için.
+[01:43:42] Şef hoş geldin.
+[01:43:43] Aleyküm selam.
+[01:43:44] Can atıyordum her gün onu görmek için.
+[01:43:45] Şimdi ben seni birkaç tane Metin Can'ın yanında görüyorum tam böyle oturuyorsun bak.
+[01:43:48] Hani aslında belli oluyor ben bunu sana sormak istemedim de.
+[01:43:52] Var bir şeyler yani.
+[01:43:54] Şakalarından da sıkıldım.
+[01:43:55] Dün de atıştık.
+[01:43:56] Yine bir konu hakkında şaka yaptı.
+[01:43:58] Yine ben alttan aldım.
+[01:43:59] Kimle şaka yapıyor?
+[01:44:01] Senle mi?
+[01:44:02] Ya bir konu geçti aramızda.
+[01:44:04] Kimle şipleme.
+[01:44:06] Beni kimle şipleyecekler acaba?
+[01:44:07] Gibi bir muhabbet geçti.
+[01:44:09] Sonra şakaya vurduğunu falan söyledi.
+[01:44:12] Nasıl yani?
+[01:44:13] Nasıl yani?
+[01:44:14] Başka birisi de editinin çıkacağını mı düşünüyor?
+[01:44:16] Ne?
+[01:44:17] Sen şaka yapıyorsun.
+[01:44:19] Ya şöyle oldu.
+[01:44:21] Konuşuyorduk işte.
+[01:44:22] Sana şey diyeceğine aşkım editlerimiz nasıl çıkacak acaba?
+[01:44:26] Nasıl güzel gözükecek miyiz diyeceğine.
+[01:44:28] Bunu da dedi mi peki?
+[01:44:29] Bunu da dedi mi?
+[01:44:30] Şöyle oldu.
+[01:44:31] Bunun geçen sezon normalde bu geçen sezon katılacaktı.
+[01:44:34] Haberleri falan çıktı işte.
+[01:44:36] Bazı yarışmacılarla.
+[01:44:38] Bunun konusu geçiyordu aramızda.
+[01:44:40] Bu sefer kimle şipleyecekler acaba?
+[01:44:42] Gibi bir muhabbet geçti.
+[01:44:44] İlk sustum bir şey söylemedim.
+[01:44:45] Sonrasında yazdım.
+[01:44:46] Ne alaka yani?
+[01:44:47] Ne saçmalıyorsun?
+[01:44:48] Seni kıskanmak için yapıyor olabilir mi?
+[01:44:49] Dedi ki orada şaka yaptım.
+[01:44:52] Hani başka bir şey söylemeni bekledim falan dedi.
+[01:44:54] Ben de dedim ki tamam canım sen yap şakanı dedi.
+[01:44:57] Beni de o zaman başka biriyle şiplesinler dedim.
+[01:44:59] Ben de bunu düşüneyim dedim.
+[01:45:01] Güzel demişsin Allah Allah.
+[01:45:03] Sonra biraz atıştık falan.
+[01:45:04] Ertesi güne kadar uzadı olan.
+[01:45:05] Orada kendisi yükseldi durduk yere.
+[01:45:10] Bana telefonu kapattı.
+[01:45:11] Sonra yine ben alttan aldım.
+[01:45:12] Ben aradım.
+[01:45:13] Yani benim anlamadığım şey kimle editin çıkacağına göre mi daha sıcak kalmaya aşk dolu davranacakmış?
+[01:45:18] Herhalde.
+[01:45:19] Hani izleyip görüp.
+[01:45:20] Bilmiyorum şaka yaptığını söyledi.
+[01:45:22] Benim sadece seni istediğimi biliyorsun falan gibi şeyler de söyledi de bilmiyorum.
+[01:45:27] Tamam tamam.
+[01:45:30] Ben bakacağım kanka.
+[01:45:32] Biti hoş geldin.
+[01:45:33] Eyvah.
+[01:45:35] Yağandın.
+[01:45:38] Bence haklı.
+[01:45:39] Değil.
+[01:45:40] Katılıyorum.
+[01:45:41] Kendi söylediklerinin duyulduğunda farkındayım.
+[01:45:43] Peki beyaz ayakkabı siyah çorap mı?
+[01:45:45] Ya başka ayakkabı giyecektim.
+[01:45:46] Sen bugün keko olmuşsun ha ben sana.
+[01:45:48] Başka ayakkabı giyecektim o yüzden.
+[01:45:49] Sen bugün keko olmuşsun ha ben sana diyeyim.
+[01:45:51] Bu arada Ayla'nın buradaki Metin Canoğlan tepkisini herkes Twitter'da paylaşmış.
+[01:45:55] Ayla net Metin Canoğlan yürüyor.
+[01:45:57] Bu kadar süzme bu kadar şey yapma olmaz falan diyorlar.
+[01:46:01] Sen zayıfladın mı?
+[01:46:03] Yok.
+[01:46:04] Bir tık zayıfladım ya.
+[01:46:05] Gerçi yemek yemeyeyim.
+[01:46:06] Ye.
+[01:46:07] Aşkım burada kim zayıflamadı ki Fatih?
+[01:46:08] Ben 10 kilo verdim.
+[01:46:09] Ya Cemal.
+[01:46:10] Ama Cemal'in göbeği çıktı kanka.
+[01:46:11] Cemal'in göbeği çıktı söylüyorum.
+[01:46:12] Gitmiş orada ip atlıyor bana video diyor.
+[01:46:13] Her şeyinizi izledim.
+[01:46:14] Nasıl yani?
+[01:46:15] Nasıl yani?
+[01:46:16] Metin Can'ın bu kadar olay içinde durup Ayla'ya cevap vermesi peki?
+[01:46:17] Dur bir de daha ne?
+[01:46:18] Su gidiyor Erkler evinde.
+[01:46:19] Erkler evinde ağlıyor.
+[01:46:20] Metin Can kızlar evinde kızlarla dedikodu yapmaya devam ediyor.
+[01:46:21] Bunu bir de ekrana veriyorlar.
+[01:46:22] Gördün mü?
+[01:46:23] Evet.
+[01:46:24] Herkes kızlar evinde.
+[01:46:34] Görüyor Metin Can bunu.
+[01:46:35] Ve Perinaz diyor ki ya diyor sen diyor hala diyor burada diyor konuşmaya devam ediyorsa
+[01:46:38] kız ağlıyor diyor.
+[01:46:39] Erkler evinde gitsene diyor yanına.
+[01:46:40] Gitmiyor da yanına.
+[01:46:41] Çok çok var ya.
+[01:46:42] Yani çok gıcık ya.
+[01:46:43] Şey konuşma tarzı çok gıcık.
+[01:46:44] Şey diyor.
+[01:46:45] Su ya.
+[01:46:46] Ha ya hadi ya.
+[01:46:47] Yürü git ya.
+[01:46:48] Falan böyle konuşuyorlar birbirlerine.
+[01:46:49] Birbirlerine olan tavırları ve konuşma şekilleri de çok kötü.
+[01:46:50] İknir hoş geldin.
+[01:46:51] Aleyküm selam.
+[01:46:52] Hatta Kerem bunu söylüyor.
+[01:46:53] Diyor ki yani diyor o kadar diyor.
+[01:46:54] Yürü git ya.
+[01:46:55] Falan böyle konuşuyorlar birbirlerine.
+[01:46:56] Yürü git ya.
+[01:46:57] Falan böyle konuşuyorlar birbirlerine.
+[01:46:58] Yürü git ya.
+[01:46:59] Falan böyle konuşuyorlar birbirlerine.
+[01:47:00] Ya birbirlerine olan tavırları ve konuşma şekilleri de çok kötü.
+[01:47:01] İknir hoş geldin.
+[01:47:02] Aleyküm selam.
+[01:47:03] Hatta Kerem bunu söylüyor.
+[01:47:04] Diyor ki yani diyor o kadar diyor.
+[01:47:05] Bir yerde diyor çok diyor hakarete başlıyorlar diyor.
+[01:47:06] Ben diyor böyle bir şey diyor yaşamak istemem mesela.
+[01:47:07] Böyle bir şey yapmam da yapılmasına da.
+[01:47:08] Saygısızlar ya.
+[01:47:09] Yapmasına da izin vermem diyor.
+[01:47:10] Çok saygısızca diyor.
+[01:47:11] Kerem söylüyor onu.
+[01:47:12] Ben suyun yerinde olsam net demiştim.
+[01:47:13] Herkes yoluna baksın yani.
+[01:47:14] Ki su yani.
+[01:47:15] İçerindeki en güzel kız bence.
+[01:47:16] Perinaz da ikisi yani.
+[01:47:17] İkisi de çok güzel.
+[01:47:18] Yani net suya çok talip gelir.
+[01:47:19] Twitter'daki mesajcılardan aldığım kadarıyla bu arada su rest çekmiş Metin'e.
+[01:47:22] Düzgün davran ayrılırım falan diye.
+[01:47:23] O yüzden şimdi iyilermiş.
+[01:47:24] Ben de ben de.
+[01:47:25] Ben de.
+[01:47:26] Ben de.
+[01:47:27] Ben de.
+[01:47:28] Ben de.
+[01:47:29] Ben de.
+[01:47:30] Ben de.
+[01:47:31] Ben de.
+[01:47:32] Ben de.
+[01:47:33] Ben de.
+[01:47:34] Ben de.
+[01:47:35] Ben de.
+[01:47:36] Ben de.
+[01:47:37] Ben de.
+[01:47:38] Ben de.
+[01:47:39] Ben de.
+[01:47:40] Ben de.
+[01:47:41] Ben de.
+[01:47:42] Ben de.
+[01:47:43] Ben de.
+[01:47:44] Ben de.
+[01:47:45] Ben de.
+[01:47:46] Ben de.
+[01:47:47] Ben de.
+[01:47:48] Ben de.
+[01:47:49] Ben de.
+[01:47:50] Ben de.
+[01:47:51] Tamam tamam tamam tamam.
+[01:47:52] Bu Director C plasma dedi ki biliyorsunuz o gözüküyor.
+[01:47:55] Kim?
+[01:47:56] Buおじいさん才
+[01:47:57] Ve şuan kardeşlerwanı ben loyal olacağım.
+[01:47:58] Opting keep say vanishedал
+[01:48:00] Burdakまぁ seesoon
+[01:48:03] People and things
+[01:48:05] Bil sheer
+[01:48:06] İşte
+[01:48:09] C 자�
+[01:48:11] .
+[01:48:12] Kızın anı Rush
+[01:48:13] Dans favoris
+[01:48:14] Serion
+[01:48:15] ı
+[01:48:15] Password
+[01:48:15] Aplattı bu arada.
+[01:48:16] Merak ettim.
+[01:48:17] İzlemişsin zaten ne söyledin?
+[01:48:18] Çok izleyemedim.
+[01:48:19] Nereye kadar izledin?
+[01:48:21] Hatırlamıyorum sen anlat.
+[01:48:23] Sıkıldığımı söyledim.
+[01:48:25] Neyle?
+[01:48:26] İlişkiden.
+[01:48:27] Ayrılmak mı istiyorsun?
+[01:48:29] Ayrılmak değil yani.
+[01:48:31] Bazı şeylerden soğuduğumu düşünüyorum.
+[01:48:33] Çok fazla stabil ilerlediğimi düşünüyorum.
+[01:48:35] Bir saniyede Metin Can kınağını şey yapıyor.
+[01:48:37] Yiyor kınağını koparıyor sonra böyle atıyor.
+[01:48:41] Çok kötü.
+[01:48:45] Sen stabil olması için bir şey yaptığını düşünüyor musun?
+[01:48:49] Bak Allah'ım bak yemin ederim.
+[01:48:51] Su bir şey diyor mesela stabil değil.
+[01:48:53] Sen diyor bunun için bir şey yaptın mı?
+[01:48:55] Su diyor ki sen bana değer verdiğini düşünmüyorum.
+[01:48:57] Metin diyor ki sen bana değer verdiğini düşünüyor musun?
+[01:48:59] Ya anasını satayım.
+[01:49:01] Sen ne yaptın kanka?
+[01:49:03] Sen niye soruyla cevap veriyorsun?
+[01:49:05] Sen önce bir sorulan soruya cevap ver sonra sen tekrar sor.
+[01:49:07] Bak en nefret ettiğim tavır ya.
+[01:49:09] Manipüle ediyor.
+[01:49:10] Sen peki böyle davranıyor musun ki?
+[01:49:11] Sen peki abicim.
+[01:49:13] Sen değil konu.
+[01:49:15] Şu an sana karşı olan düşüncem.
+[01:49:17] Önce bunu bir çözelim amına koyayım.
+[01:49:19] Önce bu bir çözülsün.
+[01:49:21] Sonra senin rahatsız olduğun duruma gelelim.
+[01:49:23] Ben senin problemini çözmeyeceğiz etmeyeceğiz demiyorum.
+[01:49:25] Sürekli kıza böyle cevap veriyor.
+[01:49:27] Beni bir ayar etti izlerken.
+[01:49:29] Var ya bak kafayı yiyecektim ya.
+[01:49:31] Vallahi kafayı yiyecektim ya.
+[01:49:33] Vallahi kafayı yiyecektim ya.
+[01:49:35] Sen şunu yapmayı istiyor musun peki?
+[01:49:37] Sen bunu şöyle yapıyor musun peki?
+[01:49:39] Kız bir şey söylüyor.
+[01:49:40] Sen peki şöyle davranıyor musun?
+[01:49:41] Sen diyor ki sen peki bana cilve yapıyor musun?
+[01:49:43] Ben sana ne cilve yaptım?
+[01:49:45] Erkekçe davranıyor musun o zaman?
+[01:49:47] Ben de sana bunu söylerim o zaman.
+[01:49:49] Sen prenses gibi davranırsan ben de sana prenses olmam.
+[01:49:51] Ben cengaverliğe soyunurum sen prenses olursan.
+[01:49:53] Ne yapacağız?
+[01:49:55] Rolleri mi değiştik?
+[01:49:56] Hayırdır?
+[01:50:01] Biz erkek düşmanı için hızlı veriyoruz.
+[01:50:03] Bu ne yapmış Metin'e bu zamana kadar?
+[01:50:05] Ya bir şey yapmasın.
+[01:50:06] O da buna bir şey yapmasın.
+[01:50:07] Sorulan soruya cevap versin o zaman.
+[01:50:11] Ne gibi mesela?
+[01:50:12] Bir şey yapmıyor musun?
+[01:50:13] Ne yapıyorsun?
+[01:50:15] Ben gayet senden daha fazla şey yapıyorum da bu arada.
+[01:50:17] Geliyorsun, goy goy yapıyorsun, gidiyorsun.
+[01:50:19] Hiç olmazsa onu da yapıyorum.
+[01:50:20] Sen onu da yapmıyorsun.
+[01:50:21] Lütfen.
+[01:50:23] Hiç olmazsa bir şey yapıyorum bak.
+[01:50:25] Ne yapıyor mesela örnek ver.
+[01:50:27] Bizlerle konuşuyor.
+[01:50:29] İkilisinden bahsediyor ikili ilişki.
+[01:50:31] Abla galiba bu şov sana iyi gelmiyor.
+[01:50:33] Zephi çok haklısın biliyor musun?
+[01:50:34] Hiç iyi gelmiyor bence de.
+[01:50:37] O zaman şikayet etmeyecek ya da gurursuz olmayacak ayrılacak.
+[01:50:39] Gururunla alakası yok oğlum.
+[01:50:41] Zaten bence de ayrılsın zaten de.
+[01:50:45] Bilmiyorum yani şu an
+[01:50:47] saçma.
+[01:50:48] Ben olsam bu olaylar
+[01:50:49] o jilve muhabbetinden sonra ben de mesela ayrılırdım.
+[01:50:51] Rahat da ayrılsa daha büyük kaos bile çıkardı.
+[01:50:53] Yani bence.
+[01:50:57] Sizle konuştuğunda bir şey yapmış oluyor mu bizim için?
+[01:50:59] Ne yapsın senin için?
+[01:51:01] Git git.
+[01:51:02] Büşra da gelecek yanında.
+[01:51:03] Ben ne yapayım onun için?
+[01:51:05] Her şey.
+[01:51:06] Erkeksin yani.
+[01:51:07] Ne fark ediyor?
+[01:51:08] Çok fark ediyor.
+[01:51:09] Yok öyle bir şey değil bu.
+[01:51:11] Senin benden bir tık daha zaten fazla bir şeyler yapman gerekiyor ya.
+[01:51:15] İlişkiyi başta erkek ısıtır kadını sonra
+[01:51:17] Sen stabil ilerlettirdikten sonra
+[01:51:19] ben ne yapabilirim?
+[01:51:21] Erkek ısıtır kadın pişirir yok.
+[01:51:25] Erkek doğrasın
+[01:51:27] yani malzemeleri versin kadın mı pişirsin?
+[01:51:29] Nasıl oluyor o işler?
+[01:51:33] Ne yaptığımda stabil olmayacak?
+[01:51:35] Bana bir örnek ver.
+[01:51:37] Kadın hisseder ilginin üzerinde olup olmadığını
+[01:51:39] seninle bir şey yapmana gerek yok.
+[01:51:41] Senin enerjinden bile dokunmandan
+[01:51:43] öpmenden sarılmandan bile onu alabilir.
+[01:51:45] Yapıyorum zaten ben yapıyorum zaten.
+[01:51:47] Belki o soğukluğu enerji olarak hissetmiş olabilir.
+[01:51:49] Yani sen bilerek bir şey yapmamışsındır anladın mı?
+[01:51:51] Bahane gibi geliyor bana da.
+[01:51:53] Bahane olduğunda.
+[01:51:55] Yeni aday geliyor diye mi?
+[01:51:57] Ne alakası var ya?
+[01:51:59] Bence söyleyeceğin son üç kız bu.
+[01:52:01] Yani bu arada.
+[01:52:03] Bunu gerçekten söyleyemezsin.
+[01:52:05] Son üç kız bu.
+[01:52:06] Kendisine de katıyor.
+[01:52:07] Beliz burada.
+[01:52:09] Sorguluyorum yani başka sebep yok bence çünkü.
+[01:52:11] Yeni adaydan dolayı olsa seninle şu an
+[01:52:13] ilişkiyi bitirmiştim zaten.
+[01:52:15] Dün ayrılır dendi.
+[01:52:17] Ben sana ilişkiyi bitireceğim diye bir şey söylemedim ki.
+[01:52:19] Seninle tartışıyorum ki bir şeyleri düzeltmek istiyorum.
+[01:52:21] Susmuyorum.
+[01:52:23] Sussam direkt bitirsem hadi neyse
+[01:52:25] bunu söylemeye hakkım var.
+[01:52:27] Umudunu yiyeceğim.
+[01:52:29] Kaç gün önce.
+[01:52:31] Arıyorum açmıyor.
+[01:52:33] Canım istemedi.
+[01:52:35] 3-4 kere arıyorum niye açmıyorsun?
+[01:52:37] Burada da mesela açmıyorsun
+[01:52:39] canım öylesin demezsin yani.
+[01:52:41] Evet bazı konularda Metin'de de
+[01:52:43] haklılık var ama gidip cilve yapmıyorsun falan da
+[01:52:45] denmez yani.
+[01:52:46] Orada mesela Metin
+[01:52:47] dümdüz haksız.
+[01:52:48] Ama bir şey
+[01:52:49] yaptı mı?
+[01:52:50] Çocuk yaptı yani.
+[01:52:51] Yapmadı değil.
+[01:52:52] Lav bombikler yaptı yani.
+[01:52:53] Çelenk aldı, o aldı, bu aldı.
+[01:52:54] Sürekli çiçekler
+[01:52:55] mi çiçekler.
+[01:52:56] Yani ekranda gösterim mesela
+[01:52:57] arkadan da alıyor olmuş.
+[01:52:59] Niye ortasından anlatıyorsun?
+[01:53:01] Niye ortasından anlatıyorsun?
+[01:53:03] Bir şey soruyorum.
+[01:53:04] Bak diyorum ters ters konuşma.
+[01:53:05] Canım böyle konuşmak istiyor.
+[01:53:07] Niye ortasından anlatıyorsun?
+[01:53:09] Senin tavırlarını anlatıyorum diyorsun ya.
+[01:53:11] Çünkü dün aramızda şöyle bir konuşma geçti.
+[01:53:13] Size de az önce söyledim.
+[01:53:14] Beni kimle şipleyecekler
+[01:53:15] acaba konuşması geçti.
+[01:53:17] Ve o an beni ardı ardı aradığında
+[01:53:19] gerçekten müsait değilim.
+[01:53:20] Kıssal bir meselem
+[01:53:21] vardı o sırada ve açamadım.
+[01:53:23] Metin can ben bir soru sorabilir miyim?
+[01:53:25] Telefonu kapatacak kadar zamanım varsa
+[01:53:27] 10 kere arıyorum.
+[01:53:28] 10 kere
+[01:53:29] Telefonu kapatmak ayrı o sırada
+[01:53:31] bir mesaj sorabilirsin.
+[01:53:33] Yani seninle editim çok çıkmayacak da
+[01:53:35] beni başkasıyla mı yakıştıracaklar diyorsun?
+[01:53:37] Olay öyle bir şey değil.
+[01:53:39] Nasıl söylediğini sen öyle anlat.
+[01:53:41] Benim daha önceki sezonda fotoğraflarım
+[01:53:43] paylaşılmıştı.
+[01:53:44] Başka biri sanılıp.
+[01:53:45] Katılacağımı düşünülüp.
+[01:53:46] Tamam mı?
+[01:53:47] Ben de bunları görünce ona attım.
+[01:53:48] Bak bilgin olsun böyle bir şeyler vardı diye.
+[01:53:49] Ben attım.
+[01:53:51] Konuyu açan benim.
+[01:53:52] Atan benim.
+[01:53:53] Sana bunları.
+[01:53:54] Sen öyle bir lanse ediyorsun ki ben durduk
+[01:53:55] öyle ya.
+[01:53:56] Acaba kimle şipleyecekler diye bir tavır sergilemedim.
+[01:53:57] Tamam sen bunu bana attın.
+[01:53:58] Bunda bir sıkıntı yok.
+[01:53:59] Acaba dedim insanlar
+[01:54:01] bu sene saçma sapan kimlerle şipleyecekler.
+[01:54:03] Saçma sapan diye bir cümle kurmadın.
+[01:54:05] Heyecanlı bir şekilde acaba bu sefer kimle
+[01:54:07] şipleyecekler dedin.
+[01:54:08] Tamam o soru çok iyi.
+[01:54:09] Gerçekten ben öyle bir şey duysam Kerem'den
+[01:54:11] yemin ederim ilişkim artık biter.
+[01:54:12] Metin Can burada eksilesin.
+[01:54:13] Bence değil.
+[01:54:14] Ben seni her konuda kurmak istiyorum.
+[01:54:15] Ama bu lafta söylenmez yani.
+[01:54:17] O niyette söylemediğini bilseydi
+[01:54:19] şu anda üzülmezdi ya.
+[01:54:21] Söylesene o anda niye böyle bir cümle kuruyorsun diye.
+[01:54:23] Ben o an tepki vermişim.
+[01:54:25] Senin hatan...
+[01:54:27] Buradan çok diğer kızlar konuşuyor.
+[01:54:29] Acayip sinir bozucu yani.
+[01:54:31] Şu an kız şeyi kurdular orada.
+[01:54:33] Koalisyonu kurdular.
+[01:54:35] Orada herkes şu an suyu savunuyor.
+[01:54:37] Yanlış yani.
+[01:54:39] Herkes birbiri kılıyor.
+[01:54:41] Ama şu taraf hiç birbiri kılamıyor şu.
+[01:54:43] Ne fark eder.
+[01:54:45] Anında tepki vermediğin zaman
+[01:54:47] ben onu yapmaya devam ederim.
+[01:54:49] Anında tepki vereceksin ki ben onu...
+[01:54:51] Senin sıkıntın da o.
+[01:54:52] Biz anında bağırıyoruz.
+[01:54:53] Reaksiyon gösteriyoruz.
+[01:54:55] Ben bunu sana sürekli söylüyorum anında ver tepkini.
+[01:54:57] O içine atıyor düşünüyor kafasında kuruluyor.
+[01:54:59] Ben de bu sefer diyorum ki bu şakadan alınmıyor.
+[01:55:01] Ben de şaka yapıyorum o tarzda.
+[01:55:03] Olay sadece bu edit olay.
+[01:55:05] Ben bu ilişkine stabil gitmesinden sıkıldım diyor.
+[01:55:07] Ben bu ilişkine stabil gitmesinden sıkıldım diyor.
+[01:55:09] Stabil demek ne demek arkadaşlar?
+[01:55:11] Her günümüz aynı.
+[01:55:13] Beliz hocam ne demek?
+[01:55:15] Artık heyecanlanmıyorum demek.
+[01:55:17] Anladın mı?
+[01:55:18] Sen yeniden bu kızı heyecanlandırmak için bir şey yapmayı düşünüyor musun?
+[01:55:19] O beni heyecanlandırmak için bir şey yapmaya düşünüyor.
+[01:55:21] O beni heyecanlandırmak için bir şey yapmaya düşünüyor.
+[01:55:23] Bana ne Beliz?
+[01:55:25] Ya Beliz'e ulaşın bak.
+[01:55:27] Anladınız mı ne demek istediğimi chat?
+[01:55:29] O beni heyecanlandırmak için bir şey yapıyor bu.
+[01:55:31] Sen değer veriyor musun Belizcan?
+[01:55:33] O bana değer veriyor bu.
+[01:55:35] Bu yani anladın mı?
+[01:55:37] Bu yani anladın mı?
+[01:55:39] Ben ona zaten bir sürü şey yaptım, o kadar şeyler yaptım.
+[01:55:41] Ben ona zaten bir sürü şey yaptım, o kadar şeyler yaptım.
+[01:55:43] Heyecanlımız vardı zaten.
+[01:55:45] Tek bir şey yüzünden bu heyecan nasıl bitebiliyor dese mesela sıkıntı yok.
+[01:55:47] Tek bir şey yüzünden bu heyecan nasıl bitebiliyor dese mesela sıkıntı yok.
+[01:55:49] Anladın mı?
+[01:55:51] Abi sen erkeksin, prensesleşme lütfen.
+[01:55:53] Abi sen erkeksin, prensesleşme lütfen.
+[01:55:55] Kanka Allah aşkına prensesleşme ya.
+[01:55:57] Kanka Allah aşkına prensesleşme ya.
+[01:55:59] Ya bir şey söyleyeyim hepiniz erkeksiniz.
+[01:56:01] Şurada bir tane çiçek kopartıp getirmek, bir jest yapmak ne kadar zamanınızı alabilir?
+[01:56:03] Ya bir çiçek kopartıp getirmek, bir jest yapmak ne kadar zamanınızı alabilir?
+[01:56:05] Bunu bana söyleyeceğini sorayım sen bu arada düşünmeyi.
+[01:56:07] Kanka bir şey söyleyebilir miyim?
+[01:56:08] Hani üzülme.
+[01:56:09] Bu arada evet bu Metin Can'ın söylenecek şey olan harbiden çelek melek aldı yani.
+[01:56:11] Bu arada evet bu Metin Can'ın söylenecek şey olan harbiden çelek melek aldı yani.
+[01:56:13] Kış ya bir şeyden.
+[01:56:15] Yapmadı diyemezler burada yani.
+[01:56:17] Umut şu kıza şunun %1'ini yapmadı.
+[01:56:19] Ama çünkü...
+[01:56:21] Ama çünkü...
+[01:56:23] Ama çünkü...
+[01:56:25] Ama çünkü...
+[01:56:27] Ama çünkü...
+[01:56:29] Ama çünkü...
+[01:56:31] Ama çünkü...
+[01:56:33] Ama çünkü...
+[01:56:35] Ama çünkü...
+[01:56:37] Ama çünkü...
+[01:56:39] Ama çünkü...
+[01:56:41] Ama çünkü...
+[01:56:43] Ama çünkü...
+[01:56:45] Ama çünkü...
+[01:56:47] Ama çünkü...
+[01:56:49] Ama çünkü...
+[01:56:51] Ama çünkü...
+[01:56:53] Ama çünkü...
+[01:56:55] Ama çünkü...
+[01:56:57] Ama çünkü...
+[01:56:59] Ama çünkü...
+[01:57:01] sevgili olana kadar yaptı sonrasında bir daha hiç böyle çiçek bir çiçek yok kolye molye takım akı da aldılar birbirlerine aslında yani de
+[01:57:07] suyun takıldığı başka bir şey zaten o arka planda konuşma tavırları falan filan bilmem neleri
+[01:57:14] oh olay
+[01:57:16] aleyküm selam yase
+[01:57:17] kızlar bence suyun ne hissettiğini anlamadı
+[01:57:27] aldatma var ortada biz metin'in çiçeği konuşuyoruz
+[01:57:31] bence bir şey almak değil
+[01:57:34] ilgisinin azaldığını falan hissetmiş olabilirim
+[01:57:36] evet o zaten aslında olay
+[01:57:37] bir şey almak değil
+[01:57:38] illa çiçek alıyordu ya da ilgisi vardı
+[01:57:40] belki kazanmaya çalışıyor sadece amaç bu yani
+[01:57:43] zaten o da
+[01:57:44] ama burada suyun takıldığı şey
+[01:57:49] bence daha çok şey muhabbeti
+[01:57:51] işte dedikodu yapıyorsun
+[01:57:53] burada goygoya moygoya geliyorsun
+[01:57:54] ama biz seninle hiçbir şey konuşamıyoruz
+[01:57:57] hep
+[01:57:57] bu
+[01:57:57] olayların içerisinde olmak istiyorsun
+[01:57:59] takılıyorsun
+[01:58:00] aynen bak mihriban'ın dediği muhabbet
+[01:58:05] suyu erkekler evine gönderiyorlar
+[01:58:12] tartıştınız mı
+[01:58:18] sen beni biliyorsun bak biz hep beraber konuşuyoruz
+[01:58:21] bir dakika
+[01:58:21] aaa ağlıyor
+[01:58:24] bak biz üçümüz konuşuyoruz
+[01:58:26] kapattılar
+[01:58:27] o yüzden
+[01:58:27] bak üçümüz telefonda
+[01:58:29] ya kız ağlıyor yine sen
+[01:58:29] görüntü vermediler mi yorum öpeyim
+[01:58:30] tabii ağladı ama gördün ağlamasını
+[01:58:32] eve git diyor eve git
+[01:58:33] ya metin sen niye böylesin ya
+[01:58:35] ben seni anlayamıyorum ya
+[01:58:37] evet gidip
+[01:58:38] gidip sarıl öp
+[01:58:40] bir şey söyleyeceğim bak size bir şey anlatayım
+[01:58:42] ben seni zor duruma bırakmak istemiyorum
+[01:58:44] sadece anla
+[01:58:45] zor durumda kalacağın bir durum yok gideceğim
+[01:58:46] tamam
+[01:58:47] size bir konu anlatıyordum ya örnek vereyim yarım kalmasın
+[01:58:49] yarım kalmasın diyor
+[01:58:51] kanka kendini açıklamaktan daha önemli şu anda
+[01:58:53] ve eski metin can olsa direkt giderdi anladın mı
+[01:58:55] ya ben yine giderdim o zaman
+[01:58:56] bize seni takdir ederdi
+[01:58:57] burada
+[01:58:58] abi kendini açıklasın kız niye siz her ağladığında
+[01:59:00] benim toplumuma gitmeme ihtiyacın
+[01:59:02] he
+[01:59:03] seni takdir etmeniz adamın umrunda değil
+[01:59:06] değil zaten umrunda olsa koca koca giderdi işte değil
+[01:59:08] yani tek
+[01:59:10] hepsi aynı karakterde olmasını bekleyemezsin her erkeğin
+[01:59:12] burada şimdi içeride
+[01:59:14] biri gider biri gitmez
+[01:59:16] biri der ki mesela kendisine gelsin ağlasın sakinleşsin
+[01:59:18] sonra konuşurum kafasına düşünür mesela birisi
+[01:59:21] anladın mı
+[01:59:22] hepsinin herkesin ilişkisi o şekilde o stabillikte olacak diye bir şey yok
+[01:59:25] kız bir anlatsın
+[01:59:26] ama seni
+[01:59:27] bütün gözyaşı döküyor o kadar
+[01:59:28] siz niye bunu sürekli bekliyorsunuz
+[01:59:29] kız bir rahatça kendini anlatsın ifade etsin
+[01:59:31] bu senin mantığın okey okey
+[01:59:32] iyi niyet
+[01:59:33] ya biraz onu düşünsenize
+[01:59:34] ben oraya gidene kadar ağlaması bitecek
+[01:59:36] biraz mantıklı düşünün ya
+[01:59:37] anlat
+[01:59:39] kanka stabil ilerliyordu
+[01:59:40] ve ben bana artık çok şikayetçiyim çok rahatsın
+[01:59:42] ve soğumaya başladım gittikçe
+[01:59:45] geç anlardadır hatta daha dün atıştık
+[01:59:48] aramızda işte şey
+[01:59:49] barış'ın saçları hakları ne düşünüyorsun alin kafkas
+[01:59:51] saçlarını boyatmış barış farkettiniz mi
+[01:59:54] melis görüyor
+[01:59:55] o videonun o kadar yakışıklı olsun o
+[01:59:57] olmuşsun falan diyor
+[01:59:58] kerem de alkışlıyor beni
+[01:59:59] melis'e şey diyor ilk defa diyor barış'a diyor
+[02:00:01] valla diyor iltifat ettin diyor
+[02:00:02] çok mutlu oldum ben diyor barış adına diyor
+[02:00:05] böyle mi gidiyorlardı şeye
+[02:00:07] hayat bahçesine
+[02:00:08] gittiler geldiler yok
+[02:00:10] konularını konuşuyorduk
+[02:00:11] geçen sene bunun haberleri çıkmış
+[02:00:13] işte şip konusunda falan
+[02:00:15] geçen sezona katılacakmış
+[02:00:16] bunu atmıştı bana
+[02:00:17] sonrasında dedi ki
+[02:00:18] bu sene beni kimle şipleyecekler acaba
+[02:00:21] sana
+[02:00:22] geçen mi söyledi ne zaman söyledi
+[02:00:23] dün söyledi bana
+[02:00:24] dün mü dünden önce mi ne söyledi
+[02:00:26] bunun üzerine bir tartışma yaşadık
+[02:00:27] nasıl böyle bir şey söylüyor Metin'le yani sen
+[02:00:29] bununla alakası var
+[02:00:30] sana mı söylüyor
+[02:00:31] ıskandırmak için mi belki söyleyeyim
+[02:00:32] ıskandırmak için
+[02:00:33] şaka yaptığını söyledi
+[02:00:34] ben o an tepki vermedim
+[02:00:35] ben de her şeyi içime atıyorum
+[02:00:37] sonrasında işte gece mesaj attım hani
+[02:00:40] nasıl böyle bir şey söylersin gibisinden
+[02:00:42] o da şaka yaptığını söyledi
+[02:00:43] neden o an tepki vermiyorsun da sonrasında tepki veriyorsun
+[02:00:46] falan gibisine şeyler söyledi
+[02:00:47] ben dedim ki konu bu mu şu an
+[02:00:49] tamam canım o zaman dedim
+[02:00:50] ben de aynı şeyi düşüneyim dedim
+[02:00:51] hani beni de kimle şipleyecekler diye
+[02:00:53] ben de söyleyeyim dedim
+[02:00:54] tamam o ne dedi
+[02:00:55] şaka yapıyoruz
+[02:00:56] uzatıyorsun
+[02:00:57] stabilden kasıtlıyor o da önemli
+[02:00:58] huzurlu sorunsuz gidince de bazı insanlar stabil diye olay istiyor
+[02:01:01] evet bazı insanlar mesela kaosu kavgayı falan sever ilişkide
+[02:01:04] tartışmıyoruz hiç diye mesela tartışma yaratır falan
+[02:01:07] o da var
+[02:01:08] şu an gibi şeyler söyledi ve ben kıyamadım
+[02:01:11] Ertesi gün gittim aradım
+[02:01:14] abla hoşlandı mı itiraf ettim
+[02:01:15] çocuğa panikten buraya yazıyorum
+[02:01:17] kız dur tamam sakin ol manyak
+[02:01:19] ne dedi
+[02:01:20] Ruby
+[02:01:23] koşacak bir insan mı ya
+[02:01:24] hayır değilsin
+[02:01:25] son zamanlarda bir şey
+[02:01:26] biraz korkuyorsun
+[02:01:27] korkma değil o emin ol
+[02:01:28] ne diyeceğim daha görmedim
+[02:01:29] mecburi sessizlik
+[02:01:31] sessiz kral
+[02:01:32] zamanında
+[02:01:33] seninle alakalı bir durum değil
+[02:01:36] her şeyin zamanı var
+[02:01:37] mecburiden kastı şey mi acaba
+[02:01:39] hani bir ara bir şey sorabilir miyim
+[02:01:41] kızlar karşısına aldı
+[02:01:42] o zaman dediklerimi nasıl çekebilirsin
+[02:01:43] zorunda değilsin tabi
+[02:01:44] Umut'u neden yazmadın
+[02:01:46] neden yazayım sevdiğim bir arkadaşım
+[02:01:50] aa neden yazayım sevdiğimi beni söyledi bak
+[02:01:53] yok yok Kerem dedi ki oradan niye Umut'u yazmadın
+[02:01:55] orada dedi ki Kerem dedi o da sevdiğim bir arkadaşım
+[02:01:58] niye yazayım dedi
+[02:01:59] mecburiyetten susuyorum neden
+[02:02:00] Kerem var ya millete niye böyle niye yazmadın
+[02:02:02] sen niye karışıyorsun kardeşim
+[02:02:05] bak Kerem kuliste bu arada Umut'u niye yazmadın kızlar da diyebiliyor orada
+[02:02:09] ben zaten kızlara söyledim beni yazmak istiyorsanız yazabilirsin
+[02:02:12] benim korkum yok kelenmekten
+[02:02:14] bak o tepki
+[02:02:15] ben bunun hesabını soracağım ama
+[02:02:17] bu çocuğa harbi yüz olmaya başladım ama
+[02:02:19] ben bir daha üstü gelmiş buraya göz geçtik
+[02:02:20] neyse
+[02:02:21] o ilgisizlik istabillikten kastın senin ilgisizlik mi
+[02:02:24] yani sana üstüne düşmemesi mi
+[02:02:26] kanka sen sürekli bak Perinaz'la bir şeyler yapıyorsun ben hediyeden bahsetmiyorum
+[02:02:29] kanka kıyaslama ilişkin hiç kimseyle kıyaslama o yanlış bir şey lütfen
+[02:02:32] kanka olay kıyaslamak değil bak
+[02:02:33] o yanlış bir şey
+[02:02:34] sen ilişkine prenses bir erkek misin sen prenses bir erkek misin
+[02:02:37] ben diyorum ki çok stabil ilerliyor bir şey bekliyorum diyorum
+[02:02:41] e sen de bir şey yapmıyorsun sen ne yapıyorsun diyor
+[02:02:43] sorumun soruyla cevap veriyor
+[02:02:45] bu arada dün beni aramasaydı ben konuşmayacaktım onunla
+[02:02:48] çünkü bak ben evet hata yapmış olabilirim ama ben hatamın üzerine on kere arayıp senden konuşmaya çalışıyorsam cevap vermiyor
+[02:02:54] cevap ver bir kere
+[02:02:55] o sonra gitmiş arkadaşıyla konuşmuş arkadaşı demiş ki fazla yüklenmişsin
+[02:02:58] bence bak arkadaşı demişse beni bir daha aramayacak
+[02:03:00] telefona cevap vermeyecek
+[02:03:01] ama dışkaz olarak birisine sorması bence çok doğru belki o an sinirden ani bir tepki vermiş olabilir
+[02:03:08] birisine sorup fikir alıyor
+[02:03:10] fena bir şey geldi
+[02:03:11] ne
+[02:03:12] Metin'in tişörtünün yakası olmak isteyen var mı
+[02:03:15] oooo
+[02:03:18] herkese evine gidip sevginin yanında değilken prenses misin demek ne cilve yapmıyorsun demekten on kat beter
+[02:03:23] bu kimse bir şey demiyor
+[02:03:24] çocuk niye kızları ikna etme çabasında asla
+[02:03:27] aha
+[02:03:28] ben ilgrande tamam
+[02:03:29] hayırlı olsun
+[02:03:30] hayırlı olsun
+[02:03:31] bence göz yaşları bile yeterli yani anladın mı sevdiğini gösterebilirsin
+[02:03:35] ya söylüyorum bunu sende belli etmiyorsun gibi şeyler söylüyor sen ne yaptın diyor diyorum ki hareketlerimden ben hareketlerimden belli etmiyor muyum
+[02:03:42] Allah terip doldu bu arada bitti be peruğun süresi
+[02:03:44] hah bitti mi dur şu peruğumu çıkartıp geliyorum
+[02:03:46] ıhı
+[02:03:47] tuvalete mi gidiyorsun herhalde
+[02:03:49] tamam bu la
+[02:03:54] yok çıkacak rahatsız oluyordur
+[02:04:00] yayın başında şey ödüllü alındı bir saat peruk ödüllü alındı bir saati doldu o yüzden çıkartıyor
+[02:04:10] niye söylüyor niye söylemeyeyim
+[02:04:16] bu
+[02:04:18] bu
+[02:04:20] bu
+[02:04:22] bu
+[02:04:53] bakıyorum hemen
+[02:04:55] twizy
+[02:04:59] twizy hala burda mısın ya yoksa gittin mi
+[02:05:02] ben daha yakışıklıyım hepsinden bu info doğru
+[02:05:06] mamuz hepsinden daha yakışıklı
+[02:05:10] yok 40k veremem
+[02:05:23] istiyorum
+[02:05:25] bak
+[02:05:31] R1
+[02:05:33] R1
+[02:05:35] R1
+[02:05:37] R1
+[02:05:39] R1
+[02:05:41] R1
+[02:05:43] R2
+[02:05:45] R2
+[02:05:47] R3
+[02:05:49] R3
+[02:05:51] Rahatladın mı?
+[02:05:53] Rahatladım.
+[02:05:59] Çelik domates yerken PC'ye fışkırdama gibi her yer battı.
+[02:06:05] Abla bir şey yorumunu okudum.
+[02:06:06] Çok güldüm.
+[02:06:08] Onu anlatayım mı sana da?
+[02:06:10] Ne?
+[02:06:11] Bu östürük halisi her şeye ağlıyor mu bir tanesinin aklı?
+[02:06:17] Salak.
+[02:06:18] Su içeyim.
+[02:06:19] Ediyor zaten.
+[02:06:24] Vallahi çok ediyorsun.
+[02:06:26] Bu arada yani benim gördüğüm en çok eden kız arkadaşım.
+[02:06:29] Yemek yapmayı bilmiyor gitti kısır yaptı ya.
+[02:06:32] Bence sen gerçekten manevi olarak...
+[02:06:34] Onları söylüyorum bana diyor ki sen bilirsin.
+[02:06:36] Çok şey veriyorsun zaten ilişkiye.
+[02:06:38] Zaten bunu görebiliyoruz.
+[02:06:40] Bunu Metin'in de yüzüne söyleyebilirim.
+[02:06:41] İlişkiyi sana...
+[02:06:43] Göz yaşları olmak isteyen var mı ya?
+[02:06:45] Dün göz yaşları.
+[02:06:46] Kız olsa yani var ya neler yani.
+[02:06:48] Bu arada böyle.
+[02:06:50] Madem çok seviyorsun göster abi.
+[02:06:52] Ben göstermezsem ben bu sefer attığım...
+[02:06:54] O da cilveli olsun diyor ya.
+[02:06:55] Cilve bekliyorum anladın mı?
+[02:06:56] Bana cilve yapmıyor.
+[02:06:57] Örnek veriyorum yani.
+[02:06:58] Yok ben mi yapacağım diyorum.
+[02:07:00] Siz onu anlamıyorsunuz.
+[02:07:01] Yapıyorsun bu arada ya.
+[02:07:02] Karşına alamayınca...
+[02:07:03] Doğru sen de yapa yapa yapa Kerem'i bu hale getirdin ama.
+[02:07:06] Sen açtın Kerem'i yani.
+[02:07:08] Ama bir şey söyleyeyim mi?
+[02:07:11] Ben de yüzde yüz beğenmeseydim Kerem'i o zaman ben de böyle olmayacaktım.
+[02:07:14] Tamam beni o zaman yüzde yüz beğenmemiş.
+[02:07:15] Ama gerçekten ben bunu ilk başta...
+[02:07:17] Tanırım mı?
+[02:07:18] Metin ben ilk zamanlarda ilk bölümde geldiğimde şey dedim Kerem'e sanki 5 sayfa hani yazmıştık ya 5 sayfa hatırlıyor musun?
+[02:07:26] Sanki o 5 sayfayı okumuşlar öyle bir insan getirmişler anladın mı?
+[02:07:30] Hatta ben şey demiştim o beni kontrol etsin hatırlıyor musun ilk erkekler evine geldiğinde?
+[02:07:35] Erkekler ilk geldiğinde.
+[02:07:36] Evet yani böyle bir şey beğeniyorsun.
+[02:07:38] Ama sen şunu unutuyorsun Su ile Perinaz'ın karakterleri farklı benim sayfam farklı.
+[02:07:41] Ama kızlar siz de başkasının karakterini benden beklemeyin o zaman.
+[02:07:44] Sen de git o zaman cilve yapmıyor onu yapmıyor bunu yapmıyor deme.
+[02:07:50] Birileri her konuştuğunda farklı birileri haklı bulmaktan sıkıldım.
+[02:07:54] Tek bir kişi haklı olsun onun üzerinden tartışalım konuşalım ya.
+[02:08:00] Bakıcı mı ya sürekli ilgi bekleyemezsin.
+[02:08:02] Yani adamın gelişi niye yok?
+[02:08:09] Çocuğun gelişini koymamışlar ya neyse bu çocuk 32 yaşında arkadaşlar isim Erkut.
+[02:08:14] İnfom bu kadar.
+[02:08:20] Aleykümselam Yumikebap.
+[02:08:21] Aslında Erkut buraya Buse'yi çağırmak istiyor.
+[02:08:24] Ama rejiye isim hafızası da çok yok çocuğun.
+[02:08:27] Söylüyor yani isim hafızam çok kötü isimleri aklımda tutamıyorum bilginiz olsun diyor.
+[02:08:31] Önce Büşra'yı çağırıyor.
+[02:08:32] Büşra ile bir konuşuyorlar.
+[02:08:33] Büşra diyor ki benim içerde yeni bitmiş bir ilişkim var diyor.
+[02:08:35] Yeni bir ilişkiden çıktım diyor.
+[02:08:36] Bilgin olsun diyor ama diyor tanışabiliriz tabii ki de beni tanıyabilirsin falan diyor.
+[02:08:39] Mithos hoşgeldin aleykümselam.
+[02:08:40] Esma hoşgeldin aleykümselam.
+[02:08:42] Neyse sonrasında aslında Buse'ye.
+[02:08:44] Buse'ye çağırmak istiyor.
+[02:08:45] Tarif ediyor Buse'yi.
+[02:08:46] Reji de su zannediyor suyu gönderiyor.
+[02:08:49] Su geliyor.
+[02:08:52] Hoşgeldin.
+[02:08:53] Hoşbulduk.
+[02:08:55] Tekrardan selamlar nasılsın?
+[02:08:56] Selam iyiyim sen?
+[02:08:57] İyiyim ben de.
+[02:08:58] Beklemiyordum bu arada ben hiç konuşmamıştım çünkü.
+[02:09:02] Bir dakika tamam sakin.
+[02:09:03] Yok sakin ama.
+[02:09:06] Ses alabilir miyiz?
+[02:09:07] Bilipse her şey bilerek de.
+[02:09:09] Ses alabilir miyiz?
+[02:09:12] Vermedi.
+[02:09:14] Emin misin?
+[02:09:15] Gideceğim.
+[02:09:16] Sakinim.
+[02:09:17] İsim yanlış dil olmuş galiba.
+[02:09:18] Efendim?
+[02:09:19] İsim yanlış dil olmuş galiba.
+[02:09:20] Tarif ettiğim kişiyi yanlış göndermişler ama olsun.
+[02:09:22] Nasıl yani?
+[02:09:23] Ben değil miydim?
+[02:09:24] Yok hayır.
+[02:09:25] Kimdi?
+[02:09:26] Sen suysun o zaman o Buse'ydi büyük ihtimalle.
+[02:09:29] Evet Buse'dir.
+[02:09:30] Evet.
+[02:09:31] Buse'yi çağıracaktım.
+[02:09:32] Aleykümselam Mithos.
+[02:09:33] Yani ismini unuttuğum için Buse'yi tarif ettim.
+[02:09:34] Sen gelmiş oldun.
+[02:09:35] Dürüst konuşayım tamamen.
+[02:09:36] Tamam yok hiç sorun değil.
+[02:09:37] Çünkü ben şaşırdım ben hiç konuşmamıştım.
+[02:09:38] Ben de Buse'yi bekliyordum.
+[02:09:39] Kızlarla beraber bir zorluk aldım.
+[02:09:44] Biz Buse'yi bekliyorduk Büşra'dan sonra o yüzden.
+[02:09:47] Rejiz jilve yapmayan uzun boylu koyun saçlı bir hanımefendi.
+[02:09:51] Bu arada yani Buse'yle de suyu nasıl karıştırdılar ya.
+[02:09:59] Ben şaşırdım.
+[02:10:00] Mesela tesadüf oldu sen ne öğretiyorsun?
+[02:10:02] Aynen bir şey yapmıyorum.
+[02:10:03] Benim erkek arkadaşım var bu arada.
+[02:10:04] Ağlayan bir kız vardı içeride he?
+[02:10:05] Evet burada.
+[02:10:06] Tanışırsın zaten çok seversin onu da.
+[02:10:08] İsmi?
+[02:10:09] Sadece aramız biraz limoni Metin.
+[02:10:10] Metin tanışırım birazdan içeri girince.
+[02:10:12] Evet evet.
+[02:10:13] Onu da söylersin.
+[02:10:14] Evet evet adam söylüyor canım açık açık.
+[02:10:17] Yok adama da helal olsun suya da helal olsun diyorum.
+[02:10:20] Kıskandırmak için burada oyun yapabilirdim mesela.
+[02:10:22] Yok be su öyle karakter var su onu yapmaz.
+[02:10:24] Araları limoni ya o yüzden diyorum.
+[02:10:26] Yani yine de yapmazdı bence zannetmiyorum yapacağını da ben söyleyeyim.
+[02:10:30] Giderse içeri ona durumu izah ederim.
+[02:10:32] Aynen aynen.
+[02:10:33] Umarım onunla da yolundadır her şey.
+[02:10:34] Efendim?
+[02:10:35] Umarım onunla da yolundadır her şey.
+[02:10:36] Yani bu sıralar biraz limoni ama hallederiz diye düşünüyorum.
+[02:10:40] Bu arada tatlı heyecanlı ama olması gerekiyor sanki ya.
+[02:10:42] Evet.
+[02:10:43] Gelmesini bekledim biraz daha konuşalım.
+[02:10:45] Sen niye buraya geldin hiç dışarı?
+[02:10:46] Gel dostum gel tanışalım yanlış anlaşılma oldu.
+[02:10:48] Yanlışlık olmuş.
+[02:10:49] Nasıl yanlış?
+[02:10:50] İnşallah olmayacakmış.
+[02:10:51] Arkadaşla sohbet ediyoruz.
+[02:10:53] Merhaba hoş geldin.
+[02:10:54] Eyvallah Metin.
+[02:10:55] Erkut ben.
+[02:10:56] Nasılsın Metin?
+[02:10:57] Eyvallah sen nasılsın?
+[02:10:58] Gel dostum.
+[02:10:59] Yakalara baksana kanka kafayı iyi çağır.
+[02:11:00] O kafayı iyi işi gördün mü abla?
+[02:11:01] Yok yakalar var Aslı acayip.
+[02:11:02] Çok bu bölüm var ya.
+[02:11:03] Metin tişörtün yakası burada mı?
+[02:11:04] Çok nefret ettim Metin'i candan ya.
+[02:11:05] Çok kötü oğlum kombinim o her şey çok kötü ya.
+[02:11:06] Her şey çok kötü.
+[02:11:07] Bana laf geldi el görende bak.
+[02:11:08] Yok gelmeyeceğim çık.
+[02:11:09] Çık ne ya?
+[02:11:10] Çık dışarı.
+[02:11:11] Çık ne?
+[02:11:12] Çıkar mısın diyeceksin.
+[02:11:13] Tamam çıkar mısın?
+[02:11:14] Bak sinirliyim çık.
+[02:11:15] Tamam yanlışlık olmuş zaten Buse'yi çağıracakmış.
+[02:11:16] Tamam çık.
+[02:11:17] Niye oturuyorsun o zaman sorsana başta.
+[02:11:18] Aleyküm selam Metin.
+[02:11:19] Dursun sohbet ediyoruz.
+[02:11:20] Başta sohbet ediyoruz.
+[02:11:21] Buse'yi çağıracakmış.
+[02:11:22] Buse'yi çağıracakmış.
+[02:11:23] Buse'yi çağıracakmış.
+[02:11:24] Buse'yi çağıracakmış.
+[02:11:25] Buse'yi çağıracakmış.
+[02:11:26] Buse'yi çağıracakmış.
+[02:11:27] Buse'yi çağıracakmış.
+[02:11:28] Buse'yi çağıracakmış.
+[02:11:29] Buse'yi çağıracakmış.
+[02:11:30] Buse'yi çağıracakmış.
+[02:11:31] Buse'yi çağıracakmış.
+[02:11:32] Buse'yi çağıracakmış.
+[02:11:33] Buse'yi çağıracakmış.
+[02:11:34] Buse'yi çağıracakmış.
+[02:11:35] Buse'yi çağıracakmış.
+[02:11:36] Buse'yi çağıracakmış.
+[02:11:37] Tamam çık.
+[02:11:38] Niye oturuyorsun o zaman sorsana başta.
+[02:11:39] Aleyküm selam Metin.
+[02:11:40] Dursun sohbet ediyoruz.
+[02:11:41] Başta söyledi zaten.
+[02:11:42] Süzüyor sonra gel diyor bak çeki.
+[02:11:43] Bak kafayı da sert kapattın.
+[02:11:44] Ne yapmaya çalışıyorsun sen?
+[02:11:45] Ya başta söyledi zaten bir sıkıntı yok.
+[02:11:46] Çıkman lazım o zaman doğrusunu çağırsın.
+[02:11:47] ne yapmaya çalışıyorsun sen ya başta söyledi zaten bir sıkıntı yok çıkman lazım o zaman
+[02:11:53] doğrusunu çağırsın sen ne yapmaya çalışıyorsun ne yapmaya çalışıyorsun bunları aynı konuşuyorlar
+[02:12:00] ha sen ne yapıyorsun sen ne yapmaya çalışıyorsun yemin ederim aynı sesli onları aynı kalkacaksın
+[02:12:08] çıkacaksın niye oturup öyle bir görüntü veriyorsun sen inadına mı yapıyorsun inadına yapmıyorum ya
+[02:12:14] tamam ama yürü git evine bak düzgün konuşma evine be insan gibi cevap ver sen insancıl davran o
+[02:12:23] zaman davranıyorum zaten nasıl sen davran sen nasıl oturursun oraya ya yanlış anlaşılma olmuş zaten
+[02:12:29] kötü niyetle oturmadım kötü niyetle oturmadım söyledim zaten seni de seni biliyor
+[02:12:35] oturmayacaksın biliyor seni biliyorsun seni diyorum beyinsiz
+[02:12:41] beyinsiz
+[02:12:43] beyinsiz
+[02:12:44] beyinsiz
+[02:12:44] beyni olmak isteyen var mı şu an
+[02:12:47] beynsizliğe bağırıyor ya
+[02:12:53] aha ben ben
+[02:12:56] lomen lomen
+[02:12:59] yok ki öyle biri
+[02:13:01] Allah'ım yarabbim ya
+[02:13:07] evet tartışmayı içeriden kamerayla çekmişler
+[02:13:10] Berra hoşgeldin aleyküm selam
+[02:13:11] Ne yok
+[02:13:32] niye mnie muffinииiz
+[02:13:34] bu böyle güzel mi abi
+[02:13:35] ne mieli comuni
+[02:13:37] abone ol
+[02:13:38] abone ol
+[02:13:39] şarkı nasıl kalın
+[02:13:40] not Couldn't I get your love
+[02:13:40] come on that baby
+[02:13:41] nerede diyordu ya onu
+[02:13:42] sana yaptıklarım için affet beni falan diyordu
+[02:13:45] birine de
+[02:13:47] Buse falan diyor
+[02:13:48] keşke bunu bazı tanıdığımız insanlar üzerinde de uygulayabilseydik
+[02:13:51] mesela
+[02:13:52] neyse bugün huzurlu bir gün geçirmek istedim
+[02:13:54] her dakika laf sokuyor Melis
+[02:13:57] yapmak istemiyorum
+[02:13:58] hayır
+[02:14:04] barış barış barış ben ondan çok korkuyorum
+[02:14:07] hayır ben onu istemiyorum
+[02:14:08] böyle tepki yaparsın ama olmaz
+[02:14:10] hayır
+[02:14:14] ben bırakmam zaten
+[02:14:17] hayatta bırakmayacağım
+[02:14:18] hiç buradan
+[02:14:18] hayır
+[02:14:20] ben bunu birine benzettim bu arada
+[02:14:26] ismini Eylül koymak istiyorum
+[02:14:29] sessiz sakin
+[02:14:30] kendi halinde
+[02:14:31] takılıyor öyle
+[02:14:33] buna ben Umut koymak istiyorum
+[02:14:35] Umut bazen çok uyuyor evde
+[02:14:37] bu ara var modu da düşmüş
+[02:14:38] gelebiliriz
+[02:14:40] geliyorum
+[02:14:41] o geliyor zaten
+[02:14:42] tamam ben buradan besleyeceğim
+[02:14:44] gel sen benim yanıma
+[02:14:45] gel evime
+[02:14:46] dur
+[02:14:47] tamam tamam
+[02:14:48] oh
+[02:14:49] afiyet olsun
+[02:14:50] kanka böyle bir şey olabilir mi bu nasıl bir sahne ya
+[02:14:58] bunu var ya koptum ya
+[02:15:00] yeniden en eğlendiğim bak en eğlendiğim ödül videosuydu bu yani
+[02:15:05] bak ciddi söylüyorum size ya
+[02:15:10] yiyip içen ve hiçbir şey yapmayan birisi var onun ismi
+[02:15:14] Cemal olsun
+[02:15:16] oh
+[02:15:18] o zaman bitti
+[02:15:19] tamam bitti barış
+[02:15:21] barış çabuk buraya gel
+[02:15:22] sakin sakin dur
+[02:15:30] ay geliyor barış yapamayacağım
+[02:15:32] bende çok korkuyorum ama
+[02:15:34] bu korkmayı yeneceğiz gel
+[02:15:36] ısırıyor mu ne diyorsun ya
+[02:15:38] bu
+[02:15:39] ben dokunayım bir kere
+[02:15:41] bana bu arada ben bir şey söyleyebilirim
+[02:15:43] bana dokunmayan yıvan bin yaşısın gerçekten
+[02:15:45] yapamam
+[02:15:46] korkuyorum yıvandan ama
+[02:15:47] yapamam ben zaten çok öfkeli bir halde yıvanlarla muhatap oluyorum
+[02:15:50] böyle yıvanım şu an
+[02:15:52] tısnıyor
+[02:15:53] evet şu an niye böyle geldin
+[02:15:55] sinirli
+[02:15:58] gel bakalım sen de
+[02:15:59] yok mümkün değil sakın bana getirme
+[02:16:00] hayır
+[02:16:01] gel gel
+[02:16:02] Müşra uzak dur benden
+[02:16:03] gel gel
+[02:16:04] Müşra uzak dur benden kafayı yiyeceğim ya
+[02:16:07] abi
+[02:16:09] Müşra
+[02:16:12] Müşra selam nasılsın bugün
+[02:16:14] Fatih ile nasıl gidiyor
+[02:16:16] her şey yolunda mı
+[02:16:18] aa
+[02:16:19] oynama geliyor
+[02:16:22] var ya o yılanı öyle ellersen hiç öyle sılsış dümdüz böyle put gibi dururdum ben ha
+[02:16:31] barış saygın dedi ama baya şey yaptı yani
+[02:16:33] ne
+[02:16:34] barış korkuyorum dedi ama baya şey yaptı yani
+[02:16:36] evet evet aynen
+[02:16:37] barış korkuyorum dedi ama baya şey yaptı yani
+[02:16:38] iyi başkanıyım zaten ama
+[02:16:40] gerçekle no yani
+[02:16:42] ilk defa hayatımda bir yıvana dokundum ve askerden beri yıvana bir fobim vardı
+[02:16:46] şey dermişim ilk bölümden beri benim elimi tutuyorsun ya
+[02:16:49] ne diyorsun
+[02:16:55] hatıra vereceğim barış
+[02:16:57] bu sana şans ve umur getirsin
+[02:16:59] teşekkürler
+[02:17:00] bunu saklayacağım
+[02:17:01] ayy ayy
+[02:17:06] peki sana bir soru soracağım
+[02:17:07] biz niye arkadan niye hindistan'daymışız gibi müzikler çalıyor
+[02:17:10] ben aladdin'in sihirli lambasında mıyız
+[02:17:13] neredeyiz anasını satayım ya
+[02:17:14] çizgi film mi çekiyoruz
+[02:17:15] niye böyle müzikler çalıyor arkada ya
+[02:17:17] bari çölde mümkünse
+[02:17:19] uçan halısıyla gelecek şimdi aladdin sihirli lambadan çıkacak cin
+[02:17:22] dilek hakkı isteyecek
+[02:17:24] dile benden ne dilersen
+[02:17:26] soruyu söyle
+[02:17:28] sence barış rol mü yapıyor yoksa bana karşı bir şey hissediyor mu cevap ver
+[02:17:33] evet mi
+[02:17:34] evet evet evet değil mi
+[02:17:36] aha işte bu
+[02:17:38] ziya
+[02:17:39] tamam bir daha soru alabilir miyiz
+[02:17:40] ziya uyuyor galiba
+[02:17:41] eylül
+[02:17:42] ziya
+[02:17:43] ziya tamam yapma yapma çok yapma kolumu parçaladı bak
+[02:17:48] ay kurban olurum sana aşkım
+[02:17:57] maymunlar çok korkuyorum ben bu arada ya
+[02:18:03] kaplan
+[02:18:04] kafes
+[02:18:05] kaplan
+[02:18:07] nasıl ya
+[02:18:08] şunun güzelliğine bak barış
+[02:18:13] pelo ile beraberiz pelo çok evcil uysal,henüz daha bir bebek
+[02:18:18] hatta hatta sizlere şu şekilde gösterebilirim
+[02:18:23] ay aşkım
+[02:18:24] dokuz
+[02:18:25] gayet
+[02:18:27] beni süslemişe bakın şimdi bak
+[02:18:29] Allah aşkına beni süs sevmesine bakın egbanı
+[02:18:31] duuu
+[02:18:32] gayet anne gitti
+[02:18:34] ne oldu
+[02:18:36] Çok güzelsin.
+[02:18:39] Çok tatlı.
+[02:18:42] Pelo ne güzelsin aşkım.
+[02:18:49] Pelo ne haber?
+[02:18:50] Bu da Belon benim tanışmak ister misin?
+[02:19:02] Burası hayvanat bahçesi değilmiş bu arada.
+[02:19:05] Burası ne de öykü söylüyor ya.
+[02:19:09] Hayvanat bahçesi değil de hayvanlara baktıkları bir yermiş.
+[02:19:13] Öyle bir şey diyorlar.
+[02:19:14] Belki bilen vardır.
+[02:19:17] Doğal yaşam parkı mı?
+[02:19:20] Rehabilite edilen yer.
+[02:19:22] Rehabilitasyon merkeziymiş.
+[02:19:27] Yani şey değil hayvanat bahçesi değilmiş.
+[02:19:31] Öyle diyor öykü.
+[02:19:32] Açıklıyor bunu dümdüz.
+[02:19:35] Nerede bilmiyorum ama mekan.
+[02:19:39] Sana yaptıklarım için çok düşmanım.
+[02:19:57] Allah'ım hadi görüşürüz beyler.
+[02:20:00] Onurlusun.
+[02:20:05] Çeviri ve Altyazı M.K.
+[02:20:35] Uff güzel gözüküyordu ha sofra.
+[02:20:38] Ben bunları izlerken çok eğlendim.
+[02:20:39] Daha bir şey yapmayacaklar ya herhalde.
+[02:20:41] Ne?
+[02:20:42] Daha bir şey yapmazlar gibi.
+[02:20:44] Ne gibi?
+[02:20:45] Ya şey bakıyorsun yani.
+[02:20:47] Ekleşiyorsun ya sayfayı.
+[02:20:49] Haa ya çocuğun gelişini falan da çok az artık özet koyuyorlar ya.
+[02:20:52] 38.
+[02:20:53] bölüme geçiyoruz arkadaşlar.
+[02:20:54] Acıktım acıktık.
+[02:20:56] Hemen bir yemek söyleyin.
+[02:20:59] Yiğit saçmalama.
+[02:21:01] Tuğçe hoş geldin.
+[02:21:03] Ben bugün yemek yapmadım.
+[02:21:04] Yapmayacağım yemek.
+[02:21:05] İstemiyorum yemek yemek.
+[02:21:07] Pırasa var yemekte pırt.
+[02:21:09] Ayyy.
+[02:21:11] Bizde aldım mis.
+[02:21:13] Islak kek yedim ya zaten.
+[02:21:15] Biraz önce.
+[02:21:17] Çayın yanında.
+[02:21:19] Bir şey de yemek istemiyorum.
+[02:21:21] Midem bulanıyor gibi.
+[02:21:23] Geçen gün ablayı bir 700 sipariş ettim.
+[02:21:25] Zaman çok zamlandı her şey.
+[02:21:27] Ne o Erhan?
+[02:21:29] Köfteli çorba ve sarma var mı?
+[02:21:31] Teşekkür ederim.
+[02:21:33] Ne o Erhan?
+[02:21:34] Ne o Erhan?
+[02:21:35] Köfteli çorba dediğin şey mi kronolaktin?
+[02:21:37] Ekşili köfte mi?
+[02:21:39] Belki akşam kendime bir yoğurt çorbası yaparım.
+[02:21:41] Bayağıdır çorba istemiyorum içmiyorum.
+[02:21:43] Ahum hoş geldin.
+[02:21:45] Aleyküm selam.
+[02:21:47] Tarhana alıp tarhana çorbası yapmak istiyorum.
+[02:21:49] Bak tarhana alsaydım keşke getirden.
+[02:21:55] Öpüşme falan yasak diye biliyorum ama evet onu gördük Yiğit.
+[02:21:57] Ben de gördüm.
+[02:21:59] Yayında da baktık.
+[02:22:01] Onun yoğurtlu hali gibi.
+[02:22:03] Yoğurt çorbası nohutlu mu nohutsuz.
+[02:22:05] Nohutsuz yiyorum ben.
+[02:22:07] Hep nohutsuz yedim.
+[02:22:13] 38.
+[02:22:14] bölüm tanıtıma bana bakalım.
+[02:22:15] Fırat Leşler gözümün önünde.
+[02:22:17] Böyle böyle böyle geri alacaksın herhalde Büşra sen.
+[02:22:19] Bir kadına yapılmamalı yani.
+[02:22:21] Çok ayıp.
+[02:22:23] Şöyle oldu kulisteydik.
+[02:22:25] Oğlum biz bir bölüm boyunca Fatih'i hiç görmedik farkında mısınız?
+[02:22:29] Bu bölüm hiç çıkmamışsın Fatih'in dişi.
+[02:22:31] Oğlum hiç çıkmamışsın Fatih'in dişi.
+[02:22:33] Aleyküm selam.
+[02:22:35] Aha geldik diyor.
+[02:22:37] Yumuşamışsın, cilveleşmişsin, laf atmışsın.
+[02:22:39] Büşra geldi yine.
+[02:22:41] Ama çok tatlı olmuşsun bugün.
+[02:22:43] Bunu söylemeden geçemeyeceğim.
+[02:22:45] Olsa da iltifat ediyor ve gülüyor musun?
+[02:22:47] Ama bu hareketlerin hala devam edecekse
+[02:22:49] hani yapmam dediğin şeyleri yaparım.
+[02:22:51] Bu hareketler ne?
+[02:22:53] İki dakika sürecek gel bir şey konuşalım.
+[02:22:55] Köçüğüm diyorum neyin acelesi bu yani?
+[02:22:57] Sen iyi misin?
+[02:22:58] Kızın gidip gelmesi zaten beş dakika sürecek.
+[02:22:59] Canım ben şu an proje modda değilim köçüğüm diyorum.
+[02:23:01] Anladın mı?
+[02:23:03] Ufuk Buket'ler hoş dönüyormuş abi işte.
+[02:23:05] Bu kadar basitti ya.
+[02:23:09] Bir daha Buket'le sevme olma kanka.
+[02:23:11] Sarılma var.
+[02:23:13] Akşamında mutlu konuşmalarını görüyoruz.
+[02:23:15] Yok sarılmadılar.
+[02:23:17] Sarıldıktan sonra dün
+[02:23:19] böyle bir şey yaşanması tuhaf geldi ki.
+[02:23:23] Hiçbir konuda fikri olmayan Ufuk Han
+[02:23:25] neden Buket olayında hiç susmuyor?
+[02:23:27] Ama şey demiyorum, çok üzülüyorum işte
+[02:23:29] Buket'in onu sevdiğini görünce.
+[02:23:31] Duygularla çok üzülüyordum artık
+[02:23:33] dediği için biz söyledik.
+[02:23:35] Ben gidiyorum abi.
+[02:23:37] Buket'le hiçbir bağlantım yok.
+[02:23:39] Umut'un bana başka dışarıda...
+[02:23:41] Ufuk Han sinirlendi bir dakika.
+[02:23:43] Bir saniye Ufuk Han
+[02:23:45] Ufuk Bey kızlara bindi.
+[02:23:47] Saçma saçma sözler var ben beğenmiyorum bu adamı.
+[02:23:49] Çocuk olarak kayna alıyorum sadece.
+[02:23:51] Bana bağrığa girme bana da bunu yapma.
+[02:23:57] Kapının ucunda o bakışı gören
+[02:23:59] yarışmıştı ya!
+[02:24:01] Ufuk Han şunları humble atmıştı ben.
+[02:24:03] Ufuk Han bu adamı anlıyor.
+[02:24:05] Yorum yapma, sen yaparsan yaparım.
+[02:24:07] Seni son kez uyarıyorum.
+[02:24:09] Oksu seni tokat manyağı harbi yapacağım.
+[02:24:25] Ufuk Han
+[02:24:26] tapışıp uçtu.
+[02:24:28] Koşuyor diye koymuşlar ama
+[02:24:29] Fatih de buradan şey diyor
+[02:24:31] Durun durun ben gideyim ben dışarıda salıyorum
+[02:24:34] Durun durun ben gideyim diyor
+[02:24:35] Fatih öyle bir giriyor ki içeri sanki böyle Umut
+[02:24:37] Ufukan bir şey söyleyecekmiş de
+[02:24:39] Ona engel oluyormuş gibi
+[02:24:41] Gidiyor Fatih kızlar diyor ki
+[02:24:43] Sen sanki siz diyor sanki diyor bir şey diyor
+[02:24:45] Saklıyorsunuz o diyor sanki o
+[02:24:47] Ufukan söylemesin diye diyor bu kadar diyor
+[02:24:50] Susturmaya geldiniz gibi geliyor
+[02:24:52] Diyor
+[02:24:52] Bir şey varmış gibi yani
+[02:24:55] Esra abla
+[02:24:57] Yüce Fatih sana attı
+[02:25:27] Umut yeni estetik yaptırmış
+[02:25:33] Gördün mü
+[02:25:34] Ne estetiği
+[02:25:36] Ne estetiği yaptırmış
+[02:25:37] Gerçekten mi
+[02:25:40] Çocuğu biri dömsün de rahatlayalım artık
+[02:25:45] Çene
+[02:25:47] Göğüs diş
+[02:25:50] Ya bir şey
+[02:25:50] Perinaz da yaptırmış
+[02:25:54] Perinaz da öyle bir şey söyleyeyim mi
+[02:25:56] Bunların hepsi de sponsor olmuş
+[02:25:57] Estetik merkezi bir tane bence
+[02:25:59] Perinaz'ı da gördüm ben öyle reklamda çıktı önüme
+[02:26:01] İnstagramda keşfette
+[02:26:02] Bir taneye gitmiş ışıltımı ne yaptırmış
+[02:26:05] Suratına bir şeyler yaptırmış
+[02:26:07] Onun reklamını gördüm
+[02:26:08] Abi çocuğun yanağına
+[02:26:15] Dolgaya gerek yoktu
+[02:26:16] Umut'un adet etmediği erkekler Cemal Barış bu kadar
+[02:26:18] Zaten Perinaz'ın var ya
+[02:26:23] Estetiği suratında yok var kesin vardır
+[02:26:25] Hepsinin var ya
+[02:26:27] En az belli olan ama su
+[02:26:30] Yani
+[02:26:31] Suda var mı acaba
+[02:26:32] Vardır bence
+[02:26:34] Ben programa başvursam Umut'u da çıksam ne kadar sorundur acaba ya
+[02:26:38] Yani olur sorunlu
+[02:26:42] Yüksek ihtimalle
+[02:26:43] Aleyküm selam Hülya
+[02:26:45] Hoş geldin merhaba
+[02:26:46] Burun dudak hepsinde yapılı mı
+[02:26:50] Yapılı
+[02:26:51] Suda dudak dolgusu var sanırım sadece
+[02:26:54] Hemşeriliğe
+[02:26:55] Hemşeriliğe
+[02:26:56] Hemşeriliğe
+[02:26:57] Hemşerilere estetikli dedin diye linçlemesin
+[02:27:00] Niye linçlesinler ya
+[02:27:01] Estetikli yalan mı
+[02:27:03] Değil
+[02:27:04] Reklam yapmış kadın yani
+[02:27:07] Kendileri de söylüyor
+[02:27:08] Dudak dolgusu var suda sadece
+[02:27:09] Suda az vardır dudak hepsinde var gibi
+[02:27:11] Suyunu eskende baktık
+[02:27:15] Aleyküm selam Zeynep
+[02:27:16] En az suda ama bence de en az suda
+[02:27:20] Büşra'da mı
+[02:27:21] Büşra'nda dudakta var
+[02:27:22] Hepsinde zaten bir dudakta var bence
+[02:27:24] Bir dudak dolgusu var hepsinde
+[02:27:26] En az buketle
+[02:27:27] Herhalde saçmalama
+[02:27:29] Güneş gözlüklerinizi takın millet demiş Fatih'in beyaz dişi
+[02:27:41] Arkadaşlar güneş gözlüklerimizi takalım
+[02:27:43] Doğru söylüyor
+[02:27:44] Büşra'nınki çok kötü bu arada
+[02:27:54] Yani öyle bir bazen
+[02:27:55] Öyle bir dudak dolgusu yapıyorlar ki
+[02:27:57] Dudağın çizgisini falan kaybediyorsun
+[02:27:59] O çok kötü oluyor
+[02:28:00] Mesela Ayla'nınki Beliz'inkide mesela çok büyük
+[02:28:03] O da çok yoğun
+[02:28:04] Mesela Büşra'nınki hiç olmamış
+[02:28:07] Büşra'nınki yapamamış ya da Büşra
+[02:28:09] Rujlarını bir türlü tutturamıyor
+[02:28:10] Yani kötü
+[02:28:12] Şu an hepsininki kötü
+[02:28:16] Suyunki okey evet
+[02:28:19] Fatih burada bildiğin Perinaz'ın da dediği gibi
+[02:28:25] Ufuk anne söyleyecekse susturmak için geldi
+[02:28:27] Bütün erkekler de buna yeltendi
+[02:28:28] Hepsi neyin ne olduğunu biliyorum ama ekran önünde konuşulur diye de önlem alıyor
+[02:28:31] Sakin olun bir daha
+[02:28:34] Ufuk anne
+[02:28:35] Umut
+[02:28:36] İkiniz arasında bir daha duymayacağım
+[02:28:37] Bir daha gerçekten duymayacağım
+[02:28:42] Arkadaş iyi yayınlar
+[02:28:43] Ben cevap gelene kadar buraya uğramayacağım
+[02:28:45] Totem yaptım öptüm sizi
+[02:28:46] Ruby cevap gelince söyle
+[02:28:48] Benim Azerbaycan Türk kız arkadaşım var
+[02:28:54] Dünya güzeli bir kızdı ama estetik yaptırmak istiyordu ona rağmen
+[02:28:56] Orada güzellik var mı?
+[02:28:57] Kalkısı estetikli olmakla doğru orantıda ilerliyormuş öyle diyordu
+[02:29:00] Valla benim de kirpiklerimi yaptırdığım bir gittiğim şey vardı
+[02:29:04] Kadın adını unuttum
+[02:29:05] Neyse kadın vardı o da İranlıydı
+[02:29:09] Perinaz gibi yani İranlıydı
+[02:29:12] Çok güzel o da
+[02:29:13] Fena güzel ama o da mesela dudaklarını falan hep böyle yaptırıyordu
+[02:29:16] Ama İranlar harbi güzel oluyor bu arada
+[02:29:18] İran kadınları harbi güzel oluyor
+[02:29:20] Ve çok bakımlı çok böyle şey oluyorlar
+[02:29:22] Biraz aşırıyı çok seviyorlarmış gibi geliyor bana
+[02:29:24] Mesela geliyordu şey diyordu bana
+[02:29:26] Evet
+[02:29:27] Mesela kirpik yaptırmak istiyorlar diyordu
+[02:29:29] Ben mesela çok hafif yaptırıyordum kirpiği
+[02:29:32] Ama onlar mesela gelip diyordu çok böyle gösterişli gösteriyor
+[02:29:35] Çok yoğun yoğun yaptırıyor diyorlardı
+[02:29:37] Ama yani güzellik algısı estetikli olmakla doğru orantıda ilerliyormuş
+[02:29:50] Olması garipmiş yani o
+[02:29:56] Garip
+[02:29:57] Bende şu an kirpik yok ben bayağıdır kirpik yaptırmıyorum ya
+[02:30:03] Çünkü çok koptu artık kirpiklerim
+[02:30:06] Bir şey yaptırmadım bayağıdır
+[02:30:17] Fukan senden aynı şekilde
+[02:30:18] Benlik bir şey yok
+[02:30:20] Kapattım kapattım
+[02:30:21] Kapatın konuyu
+[02:30:22] Teşekkür ederim
+[02:30:23] Daha ikiniz yok şöyle yapıyorum
+[02:30:25] Gelip daha daha daha yakali konuşmasın bende böyle
+[02:30:27] Benlik bir şey yok
+[02:30:27] Bence ikiniz de
+[02:30:28] Ne var ki sakladıklar onu da anlamadım
+[02:30:33] Benim kız arkadaşım da öyleydi
+[02:30:35] Çok güzeldi ama dudakları şişirmek istiyordu
+[02:30:37] Kirpikleri falan aşırıya kaçıyordu sürekli
+[02:30:39] Elmacık kemiğine falan dolgu yaptırıyordu
+[02:30:41] Ben istemiyorum deyince trip yiyordum
+[02:30:43] Mesela istememen ne kadar okey bir şey
+[02:30:45] Yani anladın mı
+[02:30:46] Ama işte
+[02:30:48] Her insanı farklı mesela
+[02:30:51] Bende hiç yok mesela
+[02:30:52] Yani ben bir tek ne düşündüm gözaltlarım mor diye
+[02:30:55] Ben de gözaltıma bir Paris ışıltıyordum
+[02:30:57] Ne diyorlar öyle bir şey düşündüm mesela
+[02:30:59] Onun haricinde hiç düşünmedim
+[02:31:00] Ara sıra işte dudak dolgusu yaptısam mı acaba falan diyorum
+[02:31:03] Ama öyle düşünüyorum geçiyor bende mesela
+[02:31:05] Yani biraz herkesin istediğini yaptırıyor yani
+[02:31:08] Bir şey diyemezsin ki
+[02:31:09] O kendisini öyle seviyor çünkü öyle beğeniyor
+[02:31:11] Okey yani kendisi için istiyor
+[02:31:14] Senin dediğin de bu arada güzel bir şey
+[02:31:19] Yani ben seni böyle seviyorum bir şey yaptırmana gerek yok
+[02:31:21] Ama kendi için yapıyor
+[02:31:27] O da sana bayılmıyor zaten Büşra o hareketler ne ya
+[02:31:38] Sana ne Beliz
+[02:31:39] Hadi şimdi de geçlesene Büşra
+[02:31:44] Evet şimdi bak zorundasın naber
+[02:31:45] Cevap vermeyeyim ki
+[02:31:47] Mercilas hoşgeldin
+[02:31:48] Yedirak hoşgeldin
+[02:31:52] Yaptın beğendin mi
+[02:31:54] Sakın gülme
+[02:31:54] Bu beyaz dişlerini sakın bize gösterme
+[02:31:57] Beğendiysen gözünü kır
+[02:32:00] Vallahi yaptırmak isteyeceğim tek estetik
+[02:32:03] Estetik sayılır mı bilmem ama vücut kılları içir vaziyete gitmek
+[02:32:06] O estetik sayılmaz ya
+[02:32:07] Zannetmiyorum estetik sayıldın onun
+[02:32:12] Despacito abimiz bugün suyun çok yakında oldu
+[02:32:17] Artık korumamdasın
+[02:32:20] Helal olsun
+[02:32:27] Özenen bir sahne
+[02:32:34] Fatih abinin dili tutulsun
+[02:32:36] Valla çabalaman takdire şayan Büşra
+[02:32:38] Ama senin takdirine ihtiyacım yok Allah'tan
+[02:32:40] Ben ediyorum seni merak etme
+[02:32:42] Değiştin artık rezilsin
+[02:32:44] Aa öpücük öpücük öpücük
+[02:32:46] Vatan gülüşü geliyor
+[02:32:48] Ya rahatsız olma ya Fatih
+[02:32:50] Sen de az değilsin ya
+[02:32:52] Müzik
+[02:32:54] Müzik
+[02:32:56] Müzik
+[02:32:56] Ya teşekkür ederim
+[02:32:58] Onun yanındakiler kim
+[02:33:00] Müzik
+[02:33:06] Mesela yani ben
+[02:33:08] Mesela gidecek Büşra öpücük atacak falan
+[02:33:10] Derim ki napıyosun ya derim
+[02:33:12] Hayırdır napıyosun
+[02:33:14] Yeter yaptın dedim rezilik değil mi falan derdim mesela elinin yerinde olsam yani
+[02:33:18] Sarı kart bile olabilirsin yani şiş
+[02:33:20] Ya olabilirim bu arada ciddi olabilirim
+[02:33:22] Ya Fatih için kavga etmem de
+[02:33:24] Ama
+[02:33:25] Ama
+[02:33:26] Bence
+[02:33:27] Tanışma yolunda olduğum biriyle böyle yapması
+[02:33:28] Yani Büşra öyle yapmazsın sadece ya da ne bileyim işte
+[02:33:30] Bir şey öpücük mü öpücük at bir şey dersin ya
+[02:33:35] Ya da Büşra ne gibi biliyor musunuz
+[02:33:37] Yaprak dökümünde Necla vardı ya böyle pembe bir tane palto ile geziyordu böyle anladın mı kendini herkes onu salmıştı
+[02:33:43] Öyle bir şey gibi saldılar Büşra'yı da ev öyle takılıyor kendi halinde
+[02:33:47] Öyle düşünüyor olabilirler
+[02:33:51] Pembe palto verseler tam olacak
+[02:33:53] Bir çiftin her şeyi mi samimiyetsiz olur ya
+[02:34:00] Meyve sebzelerden de nefret ettirdiniz acaba bu sefer buna ne anlam beklediniz
+[02:34:04] Yine bir de artı 18 çıkar
+[02:34:06] Yakışıklı yarim
+[02:34:07] Helem
+[02:34:10] Nefes
+[02:34:13] Nefes
+[02:34:17] Bu marul mu bu ne bu
+[02:34:23] Yorumlara baksana
+[02:34:24] Ay siz hala yüzünüz var böyle konuşmaya
+[02:34:31] Sezle ve meyve ile ilgili konuşmak sevgiline bok yeme demekten çok daha iyidir
+[02:34:35] Benim bütün meyvelerle müsteşarlarım var bunny purple ile alakası yok
+[02:34:39] Sana bir tavsiye erken zaman tedavili çok üzücü durumdasın
+[02:34:42] Yakışıklı yarim ve esmerim falan demesin artık ama cringe'lik komasına giriyorum
+[02:34:47] Aman Allah'ım
+[02:34:48] Bizi ne kadar güldürüyorsun
+[02:34:50] Bu kadar zekan seni rast etmiyor mu
+[02:34:52] Salak
+[02:34:53] Bir tweet atmadan önce biraz düşün
+[02:34:55] Bak
+[02:34:59] Ya
+[02:35:01] Salak bir daha o tonda söylesene abla
+[02:35:03] Ne
+[02:35:05] O salak o tonunu söyledin ya
+[02:35:07] Salak
+[02:35:08] Bir daha o tonda yapabilir misin
+[02:35:09] Salak
+[02:35:11] Helem
+[02:35:13] Valla yoruyorlar ya bana da kıskanç diyeceklerine kıskanç falan demişler yani
+[02:35:17] Bari bilmiyorsun Türkçe
+[02:35:20] Hiç yeltenmiyorsun
+[02:35:22] Yelten mi anladın mı hiç yelten mi
+[02:35:24] Yersin ablam bak kıskanıyorsun
+[02:35:25] Ay Allah'ım yarabbim ya bak yine ayar oldum aklıma gerçekten kırılıyorum ya
+[02:35:29] Fatih'in seni sessiz
+[02:35:36] Benim
+[02:35:37] Hoş geldi
+[02:35:38] Hoş bulduğumu söyleyemeyeceğim
+[02:35:40] Neden
+[02:35:41] Yani seni çok hoş buldum orası aynı
+[02:35:43] Allah'tan patlıcan koymamışsın
+[02:35:45] Sen de çok hoş olmuşsun
+[02:35:47] Ne oldu neyi duydun da neyi yanlış anladın da buraya geliyorsun ha
+[02:35:51] Fatih'cim ne düşünüyorsun
+[02:35:56] Konuşulanları biz gördük de senden duyalım
+[02:35:59] Evet
+[02:36:00] Ya Eylül bu çocuğun her hareketi niye yanlış anlaşılıyor ya
+[02:36:03] İşte anlaşılan
+[02:36:04] Buğza çok güzel adam keşke karakteri de öyle olsa biraz
+[02:36:07] Kimin
+[02:36:08] Eylül'ün dudak kalemi olacağım ben demiş eki tamam olur
+[02:36:12] Yanlış anlaşılıyor anlamıyorum ki
+[02:36:14] Ben yanlış anlaşılacak şeyler yapamıyorum
+[02:36:16] Ara sayfaya selam ver
+[02:36:17] Yeni adaylar geldiğinde o bu şu
+[02:36:20] Bu arada şu unutulmuş mu
+[02:36:22] Unutulmuş boşver
+[02:36:24] Ne oldu kimin anlattı ben
+[02:36:26] Aslında sen de bir şey anlatıyordun
+[02:36:28] Görüntü geldi
+[02:36:29] Ne var lan orada bu ne Aykos'un ne o
+[02:36:32] Ne anlatıyordu
+[02:36:33] Bizim de her zaman konuştuğumuz gibi ben dedim ki ben önce Fatih'le konuşacağım
+[02:36:36] Yani ona benziyor
+[02:36:37] Şöyle oldu kulisteydik
+[02:36:39] Bizim normal camlar böyle hep kapalı
+[02:36:43] Dedim ki açayım tam açtım
+[02:36:45] Allah'ın işi işte tam açtın
+[02:36:47] Mesela herkes ona takıldı zaten
+[02:36:49] Tam açtım
+[02:36:51] Camı açtım
+[02:36:52] Onlar da suyla
+[02:36:54] Şuradan önümden geçiyorlardı
+[02:36:56] Eylül hoş geldin
+[02:36:58] Hoş buldum
+[02:36:59] Her yerde karşıma mı ne çıkıyorsun
+[02:37:01] Her yer sesini duymak zorunda mıyım dedim
+[02:37:04] Ondan sonra camı kapattım
+[02:37:06] O da gel gel bir şey diyeceğim dedi
+[02:37:08] Çıktı direkt ola
+[02:37:10] Olay sadece bir kelime bu
+[02:37:12] Anladım peki ne gerek vardı
+[02:37:14] Cevap vermesini bile beklemedim
+[02:37:16] O kapıdan geçince şaşırdım yani
+[02:37:19] Aklı etli böyle kötü bir
+[02:37:21] Bu şekilde buraya taşınacağına hiç aklımın ucundan geçmezdim
+[02:37:24] Biliyorsun ki ama
+[02:37:26] Sipariş ettim versiyonu eve gelen
+[02:37:31] Lan bu bu mu bu
+[02:37:33] Ciddiyle
+[02:37:35] Ben bunu başka biri zannediyorum ikisi de aynı kişi mi cidden
+[02:37:39] Ama sen de kendin söylemiştin ya
+[02:37:41] İstedeki postlarıyla alakası yok diye
+[02:37:43] Hayır ben zannediyorum ki bu farklı bir insan buna buna benzetiyorlar
+[02:37:49] Ya suratı benziyor
+[02:37:53] Kızlara göre buradaki en yakışıklı erkek kim yok galiba ya
+[02:37:57] Ben de Eylül doğdum diye adım Eylül olacakmış
+[02:37:59] Babaannem ölmüş o sırada Allah'tan olmamış
+[02:38:01] Allah rahmet eylesin
+[02:38:03] 25 yaşındaki halidir
+[02:38:05] İnsta fotosuymuş
+[02:38:07] Cinsiyeti aynı
+[02:38:09] Aaa
+[02:38:16] Bir insta inceleme yapalım diyorlar
+[02:38:19] Atın bakayım instasını merak ettim
+[02:38:21] Taşısınlar
+[02:38:23] Hani orada yanlış anlaşılacak bir kelime yok
+[02:38:25] Veya
+[02:38:27] Rozamin hoş geldin aleykümselam
+[02:38:29] Ama onlar öyle düşünmüyor
+[02:38:31] Ne düşünüyorlar
+[02:38:33] Onlar düşünürler
+[02:38:35] Onlar hep düşünüyor Fatih
+[02:38:37] Onun umurunda değil yani düşündükleri
+[02:38:39] Senin umurunda değil ama sonra bizim önümüze çıkıyor
+[02:38:41] Önce çıkacak bir şey yok buna
+[02:38:43] Çıkıyor ama Fatih
+[02:38:45] Sabahın konusu işte bu günün konusu
+[02:38:47] Ne diyorsun ya
+[02:38:49] O zaman içeride
+[02:39:07] Oğlum hiç alakası yok lan
+[02:39:16] Adamın bir kere saçı benzemiyor hiç
+[02:39:19] Hadi göz atlarını falan şey yapmışlar
+[02:39:24] Okey yorgundur okur ona bir şey demeyeceğim de
+[02:39:26] Hiç benzemiyor
+[02:39:28] Abla baksana
+[02:39:29] Oğlum ne alaka
+[02:39:31] Saçı uzamış
+[02:39:33] E yukarıya çıksana bir abla
+[02:39:35] Fatih'i de atsana bir
+[02:39:37] Fatih beyaz dışarıda bana da bakalım
+[02:39:39] Bana da
+[02:39:46] Aha kestirmiş saçını
+[02:39:49] Tamam burada benziyor
+[02:40:07] Bambaşka biri oldu kanka
+[02:40:09] Oğlum adam
+[02:40:11] Bambaşka biri oldu harbiden
+[02:40:13] Nasıl oluyor böyle bir şey lan
+[02:40:19] Allah Allah çok enteresan
+[02:40:21] Pace up mu acaba
+[02:40:23] Bilmiyorum ki
+[02:40:25] Yapay zeka çok ilerledi ya maşallah
+[02:40:27] Bu bana bakmaz
+[02:40:29] Biz de evdekaline bakmayız
+[02:40:31] Saldırı yücüz zarar yücüz başarılı
+[02:40:33] Bu bana bakmaz
+[02:40:35] Biz de evdekaline bakmayız
+[02:40:37] Bu bana bakmaz
+[02:40:39] Biz de evdekaline bakmayız
+[02:40:41] Saldırı yücüz zarar yücüz başarılı
+[02:40:43] Saldırı yücüz zarar yücüz başarılı
+[02:40:49] Zegiz hoşgeldin
+[02:40:53] Fatih'in gibi de atın bakim
+[02:40:55] Merak ettim Fatih'in gibi
+[02:40:57] Bunu benim eski sevgilimde yapıyordu ya
+[02:41:07] Bu ne ya
+[02:41:09] Akbar'ın yaptığı goygoda aldığın zevke bakın ya
+[02:41:11] Ve hareketlerine bakın kendine geçiyor
+[02:41:15] Bu nasıl bir poz
+[02:41:17] Şaka mı?
+[02:41:19] sevgili ısırılır by the way
+[02:41:27] katılıyorum buna bu arada
+[02:41:28] ha
+[02:41:36] foundrof ne
+[02:41:38] foundrof zevamen
+[02:41:41] şeyde bu hermes
+[02:41:45] hermesdeki çantaları vermeyen
+[02:41:49] buymuş
+[02:41:49] bak burada bile dişleri gösteriyor
+[02:41:56] silmiş abi
+[02:42:01] önceki postlarını silmiş belli yani
+[02:42:03] reals falan var mı
+[02:42:04] yok
+[02:42:05] o da yok
+[02:42:07] reals da yok
+[02:42:09] bu ne lan burada farklı biri oğlum
+[02:42:14] bu kim
+[02:42:16] saçlarım dolayı ya
+[02:42:17] saçlarda çok şey olmuş
+[02:42:18] burada da farklı biri gibi
+[02:42:19] bilmiyorum blade
+[02:42:21] kerem'e daha çok benzemiyor mu
+[02:42:22] olursa haber ederim
+[02:42:23] bu kol ne ya
+[02:42:28] tam alaçatı boy ya
+[02:42:33] tam alaçatı boy kanka
+[02:42:34] bak yemin ederim tam çeşme alaçatı boy
+[02:42:36] aleykümselam kaliper hoşgeldin
+[02:42:38] aleykümselam nitrin
+[02:42:39] bir şey saçma
+[02:42:43] yani oradan
+[02:42:44] bir cümleyi alıp
+[02:42:46] yok işte fatih gülüyordu
+[02:42:48] fatih'in beyazlığı
+[02:42:49] onu yapıyordu
+[02:42:51] ben herkesi gülüyorum
+[02:42:53] herkesle
+[02:42:54] buradaki saçları bu arada kötü
+[02:42:56] ve gıdısı var
+[02:42:57] külolu burada
+[02:42:58] suratı külolu burada
+[02:42:59] oradaki haliyle alakası yok şu an suratının
+[02:43:02] işte sen herkesi gülüyorsan
+[02:43:04] aleykümselam
+[02:43:05] gülmeyeceksin fatih
+[02:43:06] bu bu kadar basit
+[02:43:07] yani düşünemiyor musun
+[02:43:08] aleykümselam salip
+[02:43:09] yani zaten
+[02:43:10] ekranda falan geldi
+[02:43:12] gülmüyorum
+[02:43:13] görüyorsun konuşmanı
+[02:43:14] kızma da bir şeye daha çete
+[02:43:15] geçir bu fatih
+[02:43:16] ne oldu ne dedi lan
+[02:43:18] niye testlerimizde gülüyoruz
+[02:43:19] gülüyor kanka
+[02:43:20] bu cümleyi alıp
+[02:43:21] yok işte fatih gülüyordu
+[02:43:22] onu yapıyordu
+[02:43:23] ben herkesi gülüyorum
+[02:43:25] herkesle
+[02:43:26] işte sen herkesi
