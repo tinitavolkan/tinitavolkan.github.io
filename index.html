@@ -74,7 +74,6 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
-        /* Image Loading Skeleton Animation */
         .shimmer {
             background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
             background-size: 200% 100%;
@@ -128,7 +127,7 @@
             },
             {
                 "title": "Hype - Turnuva Finali 01.01.2025",
-                "embed_id": "v999zzz", // Fake ID for demo
+                "embed_id": "v999zzz",
                 "link": "https://rumble.com/v999zzz-hype-final.html"
             }
         ];
@@ -155,7 +154,7 @@
                     date: date,
                     category: category,
                     link: v.link,
-                    thumbnail: null // Başlangıçta resim yok, yüklenecek
+                    thumbnail: null 
                 };
             }).sort((a, b) => b.date - a.date);
         };
@@ -253,11 +252,9 @@
                 return `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
             };
 
-            // Image Loading State Logic
             const [imgLoaded, setImgLoaded] = useState(false);
             const [imgError, setImgError] = useState(false);
 
-            // Reset load state if video changes
             useEffect(() => {
                 setImgLoaded(false);
                 setImgError(false);
@@ -276,7 +273,7 @@
                 >
                     <div className="relative w-full sm:w-48 aspect-video rounded-lg overflow-hidden flex-shrink-0 bg-black">
                         
-                        {/* 1. Real Image (Yüklendiyse) */}
+                        {/* 1. Resim Yüklenmişse */}
                         {video.thumbnail && !imgError ? (
                             <img 
                                 src={video.thumbnail} 
@@ -290,21 +287,27 @@
                             />
                         ) : null}
 
-                        {/* 2. Shimmer Loading Placeholder (Resim yüklenene kadar veya hata varsa) */}
+                        {/* 2. Placeholder / Loading / Error */}
                         {(!video.thumbnail || imgError || !imgLoaded) && (
-                            <div className="absolute inset-0 shimmer flex items-center justify-center bg-slate-800">
+                            <div className="absolute inset-0 bg-slate-800 flex flex-col items-center justify-center p-2 text-center">
+                                {/* Eğer resim URLsi yoksa ve henüz bekleniyorsa yükleniyor olabilir, ama hata varsa ikon göster */}
                                 {!video.thumbnail ? (
-                                    // Henüz API'den veri gelmediyse
-                                    <span className="text-xs text-slate-400">Yükleniyor...</span>
-                                ) : imgError ? (
-                                    // Resim hatasıysa
-                                    <span className="text-xs text-slate-500">Resim Yok</span>
+                                    // Henüz API'den resim gelmediyse
+                                    <span className="text-xs text-slate-400 animate-pulse">Bekleniyor...</span>
+                                ) : imgError || !imgLoaded ? (
+                                    // Resim bozuksa veya yüklenmediyse
+                                    <>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-slate-500 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <span className="text-[10px] text-slate-500">Önizleme Yok</span>
+                                    </>
                                 ) : null}
                             </div>
                         )}
 
-                        {/* Hover Overlay & Play Button */}
-                        <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        {/* Hover Overlay */}
+                        <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
                             <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                                 <span className="text-white text-sm">▶</span>
                             </div>
@@ -338,7 +341,6 @@
             const [activeCategory, setActiveCategory] = useState('all');
             const [searchTerm, setSearchTerm] = useState('');
 
-            // 1. Ana veri yükleme
             useEffect(() => {
                 const fetchVideos = async () => {
                     try {
@@ -347,10 +349,7 @@
                         const data = await response.json();
                         const processed = processVideoData(data);
                         setVideos(processed);
-                        
-                        // Resimleri çekmeye başla
                         fetchThumbnails(processed);
-
                     } catch (error) {
                         console.warn("videos.json yüklenemedi, yedek veri kullanılıyor.", error);
                         const processed = processVideoData(FALLBACK_DATA);
@@ -363,30 +362,34 @@
                 fetchVideos();
             }, []);
 
-            // 2. Resimleri (Thumbnail) Rumble API'den çekme fonksiyonu
+            // --- RESIM ÇEKME FONKSİYONU (CORS PROXY İLE) ---
             const fetchThumbnails = async (videoList) => {
-                console.log("Gerçek resimler çekiliyor...");
+                console.log("Resimler çekiliyor (CORS Proxy üzerinden)...");
                 
-                // Her bir video için asenkron istek atıyoruz
                 const updatedVideos = await Promise.all(videoList.map(async (video) => {
                     try {
-                        // Rumble oEmbed API kullanarak gerçek resim URL'sini alıyoruz
-                        const apiUrl = `https://rumble.com/api/oembed.json?url=${encodeURIComponent(video.link)}`;
-                        const response = await fetch(apiUrl);
+                        // 1. Rumble oEmbed API adresi
+                        const oEmbedUrl = `https://rumble.com/api/oembed.json?url=${encodeURIComponent(video.link)}`;
                         
+                        // 2. AllOrigins CORS Proxy kullanarak erişelim
+                        const corsUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(oEmbedUrl)}`;
+                        
+                        const response = await fetch(corsUrl);
                         if (!response.ok) return video;
                         
-                        const data = await response.json();
+                        const proxyData = await response.json();
+                        // Proxy'den gelen JSON içeriğini parse et
+                        const data = JSON.parse(proxyData.contents);
+                        
                         if (data && data.thumbnail_url) {
                             return { ...video, thumbnail: data.thumbnail_url };
                         }
                     } catch (e) {
-                        console.warn(`Resim çekilemedi: ${video.title}`, e);
+                        console.warn(`Resim hatası (${video.title}):`, e.message);
                     }
-                    return video; // Hata olursa orijinali döndür
+                    return video; 
                 }));
 
-                // State'i güncelle (Sadece resimler eklenmiş halde)
                 setVideos(updatedVideos);
             };
 
@@ -483,7 +486,7 @@
                     
                     <footer className="border-t border-white/5 mt-12 py-8 bg-black/20 backdrop-blur-sm">
                         <div className="max-w-7xl mx-auto px-4 text-center">
-                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Video Arşivi. Realtime Previews Enabled.</p>
+                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Video Arşivi. Resimler AllOrigins servisi ile çekilmektedir.</p>
                         </div>
                     </footer>
                 </div>
