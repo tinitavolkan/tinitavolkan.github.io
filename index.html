@@ -119,7 +119,7 @@
             "videos": [
                 { "title": "sinasi 24.12.2025 1", "embed_id": "v71l1b4", "link": "https://rumble.com/v73rpbc-sinasi-24.12.2025-1.html" },
                 { "title": "sinasi 22.12.2025 1_Parca_000", "embed_id": "v71l182", "link": "https://rumble.com/v73rp8a-sinasi-22.12.2025-1-parca-000.html" },
-                { "title": "Blush 02.12.2025_Parca_000", "embed_id": "v71l1b4", "link": "https://rumble.com/v71l1b4-blush.html" } // Test için örnek
+                { "title": "Blush 02.12.2025_Parca_000", "embed_id": "v71l1b4", "link": "https://rumble.com/v71l1b4-blush.html" } 
             ]
         };
 
@@ -170,14 +170,16 @@
             return processed;
         };
 
-        // METİN DOSYASI ADINI TAHMİN ETME FONKSİYONU
-        // "Blush 02.12.2025_Parca_000" -> "text/blush_02.12.2025_parca_000.txt"
+        // METİN DOSYASI ADINI TAHMİN ETME FONKSİYONU (GÜNCELLENDİ)
         const getTxtPath = (title) => {
             // Sondaki .html varsa kaldır
             let cleanTitle = title.replace(/\.html$/, '');
-            // Boşlukları _ ile değiştir ve küçült
-            let filename = normalizeText(cleanTitle).replace(/ /g, '_') + ".txt";
-            return `text/${filename}`;
+            // Boşlukları _ ile değiştir (Büyük/Küçük harf duyarlılığını KORU)
+            let filename = cleanTitle.replace(/ /g, '_') + ".txt";
+            let path = `text/${filename}`;
+            // Hata ayıklama için konsola yazdır
+            // console.log("Searching file:", path);
+            return path;
         };
 
         const Navbar = ({ categories, activeCategory, setActiveCategory, lastUpdate }) => (
@@ -237,7 +239,6 @@
 
         const SearchResultCard = ({ item, onClick }) => {
             if (item.type === 'video') {
-                // Standart Video Kartı
                 return (
                     <div onClick={onClick} className={`group cursor-pointer rounded-xl overflow-hidden border transition-all ${item.isActive ? 'border-indigo-500 ring-1 ring-indigo-500/30' : 'border-white/5 hover:border-white/10 hover:shadow-lg hover:shadow-indigo-900/10'}`}>
                         <div className="relative w-full aspect-video bg-black">
@@ -250,7 +251,6 @@
                     </div>
                 );
             } else if (item.type === 'timestamp') {
-                // Zamanlı Arama Sonucu Kartı
                 return (
                     <div onClick={onClick} className="group cursor-pointer rounded-xl overflow-hidden border border-indigo-500/30 bg-slate-900/80 backdrop-blur hover:bg-indigo-900/20 hover:border-indigo-500 transition-all p-3 relative">
                         <div className="flex items-start gap-3">
@@ -277,12 +277,12 @@
             const [lastUpdate, setLastUpdate] = useState("");
             const [loading, setLoading] = useState(true);
             const [selectedVideo, setSelectedVideo] = useState(null);
-            const [startTime, setStartTime] = useState(null); // Saniye cinsinden
+            const [startTime, setStartTime] = useState(null); 
             const [activeCategory, setActiveCategory] = useState('all');
             const [searchTerm, setSearchTerm] = useState("");
-            const [searchResults, setSearchResults] = useState([]); // Search mixed results
+            const [searchResults, setSearchResults] = useState([]); 
             const [isSearchingText, setIsSearchingText] = useState(false);
-            const textCache = useRef({}); // TXT dosyalarını önbelleğe almak için
+            const textCache = useRef({}); 
 
             useEffect(() => {
                 const fetchVideos = async () => {
@@ -317,14 +317,13 @@
                         return;
                     }
 
-                    // 1. Başlık bazlı video filtreleme (Standart filtreleme)
+                    // 1. Başlık bazlı video filtreleme
                     const titleMatches = videos.filter(v => {
                         const catMatch = activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory);
                         const textMatch = normalizeText(v.title).includes(term);
                         return catMatch && textMatch;
                     });
 
-                    // Başlık eşleşenleri sonuç listesine ekle (Video tipinde)
                     let results = titleMatches.map(v => ({
                         type: 'video',
                         video: v,
@@ -332,29 +331,28 @@
                         isActive: selectedVideo?.id === v.id
                     }));
 
-                    // 2. Metin dosyası içi arama (Gelişmiş Arama)
+                    // 2. Metin dosyası içi arama
                     setIsSearchingText(true);
                     
-                    // Kategori bazlı filtreleme
                     const videosToSearch = videos.filter(v => activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory));
 
                     const fetchPromises = videosToSearch.map(async (v) => {
-                        // Başlık zaten eşleştiyse metinde tekrar aramaya gerek yok (veya arayabiliriz ama kafa karıştırır)
-                        // Şimdilik başlık eşleşmeyenlere odaklanalım ki kullanıcıya yeni sonuçlar sunalım.
-                        if (normalizeText(v.title).includes(term)) return [];
+                        if (normalizeText(v.title).includes(term)) return []; // Başlık eşleşmiyorsa metne bak (veya her durumda bakmak isterseniz bu satırı silin)
 
                         const path = getTxtPath(v.title);
                         
-                        // Cache kontrolü
                         let content = textCache.current[path];
                         if (!content) {
                             try {
                                 const res = await fetch(path);
-                                if (!res.ok) return []; // Dosya yoksa yoksay
+                                if (!res.ok) {
+                                    // console.warn("Dosya bulunamadı:", path);
+                                    return []; 
+                                }
                                 content = await res.text();
-                                textCache.current[path] = content; // Kaydet
+                                textCache.current[path] = content; 
                             } catch (e) {
-                                return []; // Hata varsa yoksay
+                                return []; 
                             }
                         }
 
@@ -363,7 +361,6 @@
                         const hits = [];
                         lines.forEach(line => {
                             if (line.toLowerCase().includes(term)) {
-                                // Zaman damgası yakala [HH:MM:SS]
                                 const timeMatch = line.match(/\[(\d{2}):(\d{2}):(\d{2})\]/);
                                 if (timeMatch) {
                                     const h = parseInt(timeMatch[1]);
@@ -371,7 +368,6 @@
                                     const s = parseInt(timeMatch[3]);
                                     const totalSeconds = h * 3600 + m * 60 + s;
                                     
-                                    // Snippet oluştur (Zaman damgasını temizle ve aranan kelimeyi vurgula)
                                     let snippet = line.replace(timeMatch[0], '').trim();
                                     if (snippet.length > 100) snippet = snippet.substring(0, 100) + '...';
 
@@ -390,18 +386,14 @@
                         return hits;
                     });
 
-                    // Tüm metin aramalarını bekle
                     const textHitsArrays = await Promise.all(fetchPromises);
                     const allTextHits = textHitsArrays.flat();
 
-                    // Sonuçları birleştir (Önce başlık eşleşmeleri, sonra metin eşleşmeleri)
-                    // Ancak metin eşleşmeleri daha spesifik olduğu için en başa alabiliriz veya önce video sonra metin.
-                    // Kullanıcı deneyimi için metin eşleşmelerini en üste alıyoruz.
+                    // Önce metin sonuçları, sonra başlık sonuçları
                     setSearchResults([...allTextHits, ...results]);
                     setIsSearchingText(false);
                 };
 
-                // Debounce (500ms bekleme)
                 const timer = setTimeout(() => {
                     performSearch();
                 }, 500);
@@ -409,9 +401,8 @@
                 return () => clearTimeout(timer);
             }, [searchTerm, videos, activeCategory, selectedVideo]);
 
-            // Normal Modda (Arama yoksa) Kategoriye göre liste göster
             const displayVideos = useMemo(() => {
-                if (searchTerm) return []; // Arama modundaysa boş döndür, sonuçlar searchResults'te
+                if (searchTerm) return []; 
                 return videos.filter(video => {
                     if (activeCategory === 'all') return true;
                     return normalizeText(video.category) === normalizeText(activeCategory);
@@ -433,7 +424,6 @@
                     <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                             
-                            {/* Sol Kolon: Ana Player */}
                             <div className="lg:col-span-8 space-y-6">
                                 <div className="animate-slide-up">
                                     <VideoPlayer video={selectedVideo} startTime={startTime} />
@@ -455,7 +445,6 @@
                                 </div>
                             </div>
 
-                            {/* Sağ Kolon: Arama ve Liste */}
                             <div className="lg:col-span-4 space-y-6 animate-slide-up" style={{animationDelay: '100ms'}}>
                                 <div className="relative group">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -470,19 +459,16 @@
                                     />
                                 </div>
 
-                                {/* List Header */}
                                 <div className="flex items-center justify-between px-2 sticky top-0 bg-[#020617] z-10 py-2">
                                     <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">
                                         {isSearchingText ? 'Metin taranıyor...' : (searchTerm ? 'Arama Sonuçları' : `${displayVideos.length} Video`)}
                                     </h3>
                                 </div>
 
-                                {/* Scrollable List Area */}
                                 <div className="space-y-4 overflow-y-auto h-[600px] pr-2 pb-4">
                                     {loading ? (
                                         <div className="text-center py-8 text-slate-500 animate-pulse">Videolar yükleniyor...</div>
                                     ) : searchResults.length > 0 ? (
-                                        // Arama Sonuçları Listesi (Video + Zaman Damgası)
                                         searchResults.map((item, idx) => (
                                             <SearchResultCard 
                                                 key={item.id || idx} 
@@ -494,9 +480,9 @@
                                     ) : searchTerm ? (
                                         <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">
                                             <p>Sonuç bulunamadı.</p>
+                                            <p className="text-xs mt-2 opacity-60">Dosya isimleri başlık ile birebir aynı mı?</p>
                                         </div>
                                     ) : (
-                                        // Normal Video Listesi
                                         displayVideos.map((video) => (
                                             <SearchResultCard 
                                                 key={video.id} 
