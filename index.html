@@ -1,4 +1,3 @@
-33333
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -182,6 +181,11 @@
             return `text/${filename}`;
         };
 
+        const getCategoryName = (id) => {
+            const cat = CATEGORIES.find(c => c.id === id);
+            return cat ? cat.name : id;
+        };
+
         // --- UI Components ---
 
         const Navbar = ({ categories, activeCategory, setActiveCategory, lastUpdate }) => (
@@ -269,7 +273,6 @@
         };
 
         // --- COMPONENT 2: Sadece Arama Sonuçları için Kart ---
-        // Hem Video hem Timestamp içerebilir
         const SearchResultItem = ({ item, onClick }) => {
             if (item.type === 'video') {
                 return (
@@ -294,7 +297,6 @@
                     </div>
                 );
             } else if (item.type === 'timestamp') {
-                // HTML içeriğini güvenli şekilde oluştur
                 const contentHtml = `<span class="text-indigo-400 font-mono mr-1">[${item.timestamp}]</span>` + 
                     item.snippet.replace(new RegExp(`(${item.searchTerm})`, 'gi'), '<mark class="bg-indigo-500/40 text-white px-0.5 rounded">$1</mark>');
 
@@ -407,20 +409,17 @@
                 fetchVideos();
             }, []);
 
-            // Mod Değişikliğinde Temizleme (Critical Fix)
+            // Mod Değişikliğinde Temizleme
             useEffect(() => {
                 if (!isSearchActive) {
                     setSearchResults([]); 
                     setIsSearchingText(false);
-                    searchIdRef.current++; // Async operasyonları iptal etmek için ID artır
+                    searchIdRef.current++;
                     if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
-                    // Seçili videoyu sıfırlama isteği yoksa, son video kalsın dedik ama sen istersen buraya ekleyebilirsin.
-                    // setSelectedVideo(null); 
-                    // setStartTime(null);
                 }
             }, [isSearchActive]);
 
-            // Arama Logic
+            // Arama Logic (Kategori Bazlı)
             useEffect(() => {
                 const term = cleanSearch(searchTerm).toLowerCase();
                 if (!term) return;
@@ -435,25 +434,28 @@
 
                     if (videos.length === 0) return;
 
-                    // Başlık Filtreleme
-                    const titleMatches = videos.filter(v => {
-                        const catMatch = activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory);
+                    // 🔥 KRİTİK: Kategori Filtreleme
+                    // Eğer 'all' ise tüm videolar, değilse seçili kategorideki videolar
+                    const videosToSearch = videos.filter(v => 
+                        activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory)
+                    );
+
+                    // Başlık Filtreleme (Sadece seçili kategori içinde)
+                    const titleMatches = videosToSearch.filter(v => {
                         const textMatch = normalizeText(v.title).includes(term);
-                        return catMatch && textMatch;
+                        return textMatch;
                     });
 
                     let results = titleMatches.map(v => ({
                         type: 'video',
                         video: v,
                         id: `video-${v.id}`,
-                        isActive: false // isActive burada hesaplanmayacak, render'da yapılacak
+                        isActive: false
                     }));
 
-                    // Metin Dosyası Araması
-                    const videosToSearch = videos.filter(v => activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory));
-
+                    // Metin Dosyası Araması (Sadece seçili kategori içindeki dosyalar)
+                    // Not: Başlık eşleşenlerin txt dosyalarını tekrar aramaya gerek yok (performans)
                     const fetchPromises = videosToSearch.map(async (v) => {
-                        // Eğer başlık zaten eşleştiyse metin içine bakmaya gerek yok (performans)
                         if (normalizeText(v.title).includes(term)) return []; 
 
                         const path = getTxtPath(v.title); 
@@ -578,20 +580,19 @@
 
                                 <div className="flex items-center justify-between px-2 sticky top-0 bg-[#020617] z-10 py-2">
                                     <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">
-                                        {isSearchingText ? 'Metin taranıyor...' : (isSearchActive ? `Arama: ${searchTerm}` : `${displayVideos.length} Video`)}
+                                        {isSearchingText ? 'Metin taranıyor...' : (isSearchActive ? (
+                                            <span>
+                                                <span className="text-white">{searchTerm}</span>
+                                                <span className="text-indigo-400 mx-1">•</span>
+                                                <span className="text-slate-500 font-normal text-[10px] uppercase tracking-widest">
+                                                    {getCategoryName(activeCategory)} içinde
+                                                </span>
+                                            </span>
+                                        ) : `${displayVideos.length} Video`)}
                                     </h3>
                                 </div>
 
-                                {/* 
-                                    🔥 KRİTİK DÜZELTME NOKTASI 
-                                    
-                                    Buradaki key değişimi, mod değiştiğinde React'in tüm alt ağacı (children)
-                                    yok edip sıfırdan oluşturmasını garanti eder. "Nükleer seçenek".
-                                    
-                                    Ayrıca içerideki componentler tamamen ayrılmıştır:
-                                    - NormalVideoCard (Sadece Video)
-                                    - SearchResultItem (Video veya Timestamp)
-                                */}
+                                {/* 🔥 KRİTİK DÜZELTME NOKTASI: Nükleer Seçenek + Fiziksel Ayrım */}
                                 <div 
                                     key={isSearchActive ? 'search-mode' : 'normal-mode'} 
                                     className="space-y-4 overflow-y-auto h-[600px] pr-2 pb-4"
