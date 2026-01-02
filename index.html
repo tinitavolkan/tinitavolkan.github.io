@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volkan'ın Video Arşivi</title>
+    <title>Volkan'ın Video Arşivi | Yayıncılar</title>
     <style>
         :root {
-            --bg-color: #0f0f0f;
-            --card-bg: #1e1e1e;
-            --accent-color: #85c742; /* Rumble yeşili */
+            --bg-color: #0a0a0a;
+            --header-bg: rgba(20, 20, 20, 0.85);
+            --card-bg: #161616;
+            --accent-color: #6366f1; /* İndigo/Morumsu modern ton */
+            --accent-hover: #818cf8;
             --text-main: #ffffff;
-            --text-secondary: #aaaaaa;
-            --hover-bg: #2a2a2a;
+            --text-secondary: #a1a1aa;
+            --border-color: #27272a;
+            --active-bg: #27272a;
         }
 
         * {
@@ -23,458 +26,672 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        /* Scrollbar Tasarımı */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
         }
 
         /* Header */
         header {
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #333;
-            background-color: rgba(15, 15, 15, 0.95);
+            background-color: var(--header-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         h1 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            letter-spacing: 0.5px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        h1 span {
-            color: var(--accent-color);
-        }
-
-        /* Arama Kutusu */
-        .search-container {
-            max-width: 600px;
-            margin: 0 auto;
+        .search-box {
             position: relative;
+            max-width: 300px;
+            width: 100%;
         }
 
         #search-input {
             width: 100%;
-            padding: 12px 25px;
-            border-radius: 30px;
-            border: 2px solid #333;
-            background-color: var(--card-bg);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 15px 10px 40px;
+            border-radius: 8px;
             color: white;
-            font-size: 16px;
-            outline: none;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
         }
 
         #search-input:focus {
+            outline: none;
             border-color: var(--accent-color);
-            background-color: #252525;
-            box-shadow: 0 0 0 4px rgba(133, 199, 66, 0.1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
         }
 
-        /* Ana İçerik Düzeni */
-        main {
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Kategori Navigasyonu */
+        .category-nav {
             display: flex;
-            flex-direction: column;
-            max-width: 1200px;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            /* Mobilde scrollbar gizle ama kaydır olabilsin */
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
+        }
+        .category-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--text-secondary);
+            color: white;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .nav-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Ana İçerik */
+        main {
+            max-width: 1400px;
             margin: 0 auto;
-            width: 100%;
             padding: 20px;
-            flex-grow: 1;
-        }
-
-        /* Ana Oynatıcı Alanı */
-        .player-wrapper {
             width: 100%;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 20px;
-            aspect-ratio: 16 / 9;
-            position: relative;
-            border: 1px solid #333;
         }
 
-        .player-wrapper iframe {
+        /* Oynatıcı Alanı */
+        .player-section {
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: none;
         }
 
-        .current-video-info {
+        .player-info {
+            padding: 20px;
+            background: #111;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .player-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .player-category-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent-hover);
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Video Grid */
+        .grid-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 10px;
+            margin-bottom: 20px;
+            padding-left: 5px;
+            border-left: 4px solid var(--accent-color);
         }
 
-        .current-video-title {
-            font-size: 1.4rem;
+        .grid-title {
+            font-size: 1.3rem;
             font-weight: 600;
-            color: var(--text-main);
         }
 
-        .breadcrumb {
-            color: var(--accent-color);
+        .video-count {
+            color: var(--text-secondary);
             font-size: 0.9rem;
-            font-weight: bold;
         }
 
-        /* Video Listesi Grid */
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            align-items: stretch;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
         }
 
         /* Video Kartı */
-        .video-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
             overflow: hidden;
+            border: 1px solid transparent;
             cursor: pointer;
-            transition: all 0.2s ease-in-out;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             display: flex;
             flex-direction: column;
-            border: 1px solid #333;
-            height: 100%;
             position: relative;
         }
 
-        .video-card:hover {
+        .card:hover {
             transform: translateY(-5px);
-            background-color: var(--hover-bg);
-            border-color: #444;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        /* Aktif (Oynayan) Video Kartı Stili */
-        .video-card.active {
+            background: #1f1f1f;
             border-color: var(--accent-color);
-            box-shadow: 0 0 20px rgba(133, 199, 66, 0.15);
-            background-color: #1f2a18;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        .thumbnail-container {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background-color: #000;
+        .card.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+            background: #1f1f1f;
+        }
+
+        .thumb-wrapper {
             position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #000;
+        }
+
+        .thumb-wrapper img {
+            /* Eğer görsel olsaydı, şimdilik CSS ile yer tutucu yapıyoruz */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none; /* Rumble embed thumb olmadığı için CSS pattern kullanacağız */
+        }
+        
+        /* Kapak Resmi Yerine CSS Tasarım */
+        .thumb-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #2a2a2a 0%, #000 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
-            overflow: hidden;
+            transition: all 0.3s ease;
         }
 
-        .play-icon {
-            width: 0; 
-            height: 0; 
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            border-left: 28px solid white;
-            opacity: 0.8;
-            transition: all 0.2s;
-            z-index: 2;
+        .card:hover .thumb-placeholder {
+            background: radial-gradient(circle at center, #3a3a3a 0%, #111 100%);
         }
-        
-        .video-card:hover .play-icon, .video-card.active .play-icon {
-            opacity: 1;
-            border-left-color: var(--accent-color);
+
+        .play-overlay {
+            width: 50px;
+            height: 50px;
+            background: rgba(99, 102, 241, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .play-overlay {
+            background: var(--accent-color);
             transform: scale(1.1);
         }
 
-        /* Rumble markası için köşe ikonu */
-        .brand-icon {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(0,0,0,0.7);
-            color: var(--accent-color);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            z-index: 2;
-            text-transform: uppercase;
+        .play-triangle {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 18px solid white;
+            margin-left: 4px;
         }
 
-        .card-content {
+        .card-body {
             padding: 15px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
             flex-grow: 1;
         }
 
         .card-title {
-            font-size: 1rem;
-            font-weight: 500;
+            color: #eee;
+            font-size: 0.95rem;
             line-height: 1.4;
-            color: var(--text-main);
+            margin-bottom: 10px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            overflow-wrap: break-word;
+            font-weight: 500;
         }
 
-        .card-date {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+        .card-meta {
             margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
+
+        .card-tag {
+            color: var(--accent-hover);
+            font-weight: 600;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Boş Durum ve Hata */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px;
+            color: var(--text-secondary);
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+        }
+
+        .loading-spinner {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .spinner-circle {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(99, 102, 241, 0.3);
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px 20px;
+            padding: 40px 20px;
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            border-top: 1px solid #333;
-            margin-top: auto;
-        }
-
-        /* Yükleniyor ve Hata Mesajları */
-        .loading {
-            text-align: center;
-            padding: 60px;
-            color: var(--accent-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(133, 199, 66, 0.1);
-            border-left-color: var(--accent-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        .error-msg {
-            text-align: center;
-            padding: 40px;
-            background: rgba(255, 85, 85, 0.1);
-            border: 1px solid #ff5555;
-            border-radius: 8px;
-            color: #ff9999;
-            line-height: 1.5;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            header { padding: 15px; }
-            h1 { font-size: 1.5rem; }
-            
-            /* Mobilde oynatıcı yukarıda sabit kalsın */
-            .player-wrapper {
-                position: sticky;
-                top: 70px; /* Header yüksekliği + boşluk */
-                z-index: 50;
-                border-radius: 0;
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .search-box {
+                max-width: 100%;
+            }
+            .player-section {
                 margin-left: -20px;
                 margin-right: -20px;
-                width: calc(100% + 40px);
-                max-height: 50vh;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
             }
-            .current-video-title { margin-top: 10px; font-size: 1.1rem; }
+            /* Mobilde oynatıcı sticky olsun */
+            /* Not: JS ile scroll event ekleyerek daha da geliştirilebilir ama CSS sticky header yeterli */
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>🎬 Rumble Video <span>Arşivi</span></h1>
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Video başlığı ara...">
+        <div class="header-top">
+            <h1>🎬 Video Arşivi</h1>
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-input" placeholder="Video başlığı ara...">
+            </div>
         </div>
+        
+        <!-- Kategoriler Buraya JS ile Doldurulacak -->
+        <nav class="category-nav" id="category-nav">
+            <!-- Butonlar buraya gelecek -->
+        </nav>
     </header>
 
     <main>
-        <!-- Ana Oynatıcı Alanı -->
-        <div class="current-video-info">
-            <div class="current-video-title" id="main-title">Hazırlanıyor...</div>
-            <div class="breadcrumb">VOLKAN ARŞİV</div>
-        </div>
-        
-        <div class="player-wrapper">
-            <iframe 
-                id="main-player" 
-                src="" 
-                allowfullscreen
-                title="Rumble Video Player">
-            </iframe>
+        <!-- Oynatıcı Alanı -->
+        <section class="player-section">
+            <div class="video-container">
+                <iframe 
+                    id="main-player" 
+                    src="" 
+                    allowfullscreen
+                    title="Video Player">
+                </iframe>
+            </div>
+            <div class="player-info">
+                <div class="player-category-tag" id="player-tag">KATEGORİ</div>
+                <div class="player-title" id="player-title">Video seçilmedi</div>
+            </div>
+        </section>
+
+        <!-- Liste Alanı -->
+        <div class="grid-header">
+            <div class="grid-title" id="section-title">Tüm Videolar</div>
+            <div class="video-count" id="video-count">0 video</div>
         </div>
 
-        <!-- Video Listesi Alanı -->
-        <div id="video-list-container" class="loading">
-            <div class="spinner"></div>
-            <div>Videolar yükleniyor...</div>
+        <div class="video-grid" id="video-grid">
+            <div class="loading-spinner">
+                <div class="spinner-circle"></div>
+                Videolar yükleniyor...
+            </div>
         </div>
     </main>
 
     <footer>
-        &copy; 2025 Volkan'ın Video Arşivi. Tüm hakları saklıdır.
+        &copy; 2025 Volkan'ın Video Arşivi. Yayın içerileri Rumble üzerinden sunulmaktadır.
     </footer>
 
     <script>
+        // Yapılandırma
+        const categories = [
+            { id: 'all', name: 'Tümü' },
+            { id: 'Triel', name: 'Triel' },
+            { id: 'Sinasi', name: 'Şinasi' }, // Arama "ş" ve "s" için
+            { id: 'Prensesperver', name: 'Prensesperver' },
+            { id: 'Nuriben', name: 'Nuriben' },
+            { id: 'Nesrin', name: 'Nesrin' },
+            { id: 'Egearseven', name: 'Egearseven' },
+            { id: 'Blush', name: 'Blush' }
+        ];
+
         let allVideos = [];
+        let currentCategory = 'all';
         let currentVideoId = null;
 
-        /**
-         * Rumble Embed IFRAME URL oluşturucu.
-         * videos.json dosyasındaki "embed_id" değerini alır.
-         * Örnek ID: "v71kyms"
-         */
-        function getEmbedUrl(embedId) {
-            // Pub parametresi size özel (4o7uxk)
-            // Autoplay=1 ile video otomatik başlar
-            return `https://rumble.com/embed/${embedId}/?pub=4o7uxk&autoplay=1`;
-        }
-
-        // Başlıktan tarih çıkarma yardımcı fonksiyonu (Opsiyonel)
-        function extractDate(title) {
-            const dateMatch = title.match(/\d{2}\.\d{2}\.\d{4}/);
-            return dateMatch ? dateMatch[0] : "Rumble Arşivi";
-        }
-
-        function renderVideos(videos) {
-            const container = document.getElementById('video-list-container');
-            container.innerHTML = "";
-            
-            if(videos.length === 0) {
-                container.innerHTML = `
-                    <div class="error-msg" style="border-color: #555; color: #aaa;">
-                        <p>Aradığınız kriterde video bulunamadı.</p>
-                    </div>`;
-                return;
-            }
-
-            const grid = document.createElement('div');
-            grid.className = 'video-grid';
-
-            videos.forEach(video => {
-                const embedUrl = getEmbedUrl(video.embed_id);
-                const dateStr = extractDate(video.title);
-
-                const card = document.createElement('div');
-                card.className = 'video-card';
-                card.dataset.embedId = video.embed_id; // İleride kullanmak üzere ID'yi sakla
-                
-                // Tıklama olayı
-                card.onclick = function() { 
-                    // Eğer zaten oynanıyorsa tekrar yükleme
-                    if(currentVideoId !== video.embed_id) {
-                        playVideo(embedUrl, video.title, this); 
-                    }
-                };
-
-                card.innerHTML = `
-                    <div class="thumbnail-container">
-                        <span class="brand-icon">RUMBLE</span>
-                        <div class="play-icon"></div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title" title="${video.title}">${video.title}</div>
-                        <div class="card-date">${dateStr}</div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-
-            container.appendChild(grid);
-        }
-
-        function playVideo(url, title, cardElement) {
-            const player = document.getElementById('main-player');
-            const mainTitle = document.getElementById('main-title');
-            
-            // URL güncelle
-            player.src = url;
-            mainTitle.textContent = title;
-            
-            // ID'yi güncelle (tekrarlı tıklamayı önlemek için)
-            if(cardElement) {
-                currentVideoId = cardElement.dataset.embedId;
-                
-                // Tüm kartlardan aktif sınıfını kaldır
-                document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active'));
-                
-                // Seçilen karta aktif sınıfını ekle
-                cardElement.classList.add('active');
-            }
-
-            // Mobilde oynatıcıya yumuşak kaydırma
-            if(window.innerWidth <= 768) {
-                const playerWrapper = document.querySelector('.player-wrapper');
-                playerWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-
-        // Demo Verisi (Eğer videos.json yoksa bunu kullanır)
+        // Demo Verisi (JSON çekilemezse kullanılır)
         const fallbackVideos = [
-            { "title": "Rumble Kullanımı ve Kurulumu 01.01.2025", "embed_id": "v4o7uxk" },
-            { "title": "Sinasi Yayını - 15.12.2025 (1. Parça)", "embed_id": "v73rmn0" },
-            { "title": "Günlük Vlog - Tech Setup Turu", "embed_id": "v5a1b2c" }, 
-            { "title": "Canlı Yayın Kaydı - Soru Cevap", "embed_id": "v6d3e4f" }
+            { "title": "Triel - Epik Oyun Anları 01.01.2025", "embed_id": "v123abc", "link": "#" },
+            { "title": "Şinasi - Sohbet ve Muhabbet 15.12.2024", "embed_id": "v456def", "link": "#" },
+            { "title": "Prensesperver - Yeni Yıl Özel Yayını", "embed_id": "v789ghi", "link": "#" },
+            { "title": "Nuriben - Vlog #3", "embed_id": "v321jkl", "link": "#" },
+            { "title": "Blush - Setup Turu", "embed_id": "v654mno", "link": "#" },
+            { "title": "Egearseven - Teknoloji İncelemesi", "embed_id": "v987pqr", "link": "#" },
+            { "title": "Nesrin - Canlı Yayın Kaydı", "embed_id": "v147stu", "link": "#" },
+            { "title": "Triel - FPS İpuçları", "embed_id": "v258vwx", "link": "#" }
         ];
+
+        // Başlıktan kategori çıkarma yardımcısı
+        function detectCategoryFromTitle(title) {
+            // Başlığın içinde hangi kategori adı geçiyor?
+            // "Şinasi" için "Sinasi" veya "Şinasi" kontrolü
+            for (let cat of categories) {
+                if (cat.id === 'all') continue;
+                // Başlıkta kategori adı var mı (Büyük/küçük harf duyarsız, Türkçe karakter duyarsız)
+                // Basit replace ile türkçe karakterleri normalize edelim
+                const normalizedTitle = title.toLowerCase()
+                    .replace('ş', 's').replace('ı', 'i').replace('ç', 'c').replace('ğ', 'g').replace('ü', 'u').replace('ö', 'o');
+                const normalizedCat = cat.id.toLowerCase();
+                
+                if (normalizedTitle.includes(normalizedCat)) {
+                    return cat.name; // Görünen adını döndür (Örn: Şinasi)
+                }
+            }
+            return 'Diğer';
+        }
+
+        function getCategoryForLogic(categoryName) {
+            // ID'ye göre kategori objesini bul
+            return categories.find(c => c.id === categoryName) || { id: 'all', name: 'Tümü' };
+        }
+
+        function init() {
+            renderNav();
+            fetchVideos();
+            
+            // Arama Event Listener
+            document.getElementById('search-input').addEventListener('input', (e) => {
+                filterAndRender();
+            });
+        }
+
+        function renderNav() {
+            const nav = document.getElementById('category-nav');
+            nav.innerHTML = '';
+            
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `nav-btn ${cat.id === currentCategory ? 'active' : ''}`;
+                btn.textContent = cat.name;
+                btn.onclick = () => {
+                    // Aktif sınıfını güncelle
+                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Kategoriyi değiştir
+                    currentCategory = cat.id;
+                    filterAndRender();
+                    
+                    // Mobilde menü kaydırmasını düzelt (seçilen butona kaydır)
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                };
+                nav.appendChild(btn);
+            });
+        }
 
         async function fetchVideos() {
             try {
-                // Önce kendi sunucunuzdaki videos.json dosyasını dener
                 const response = await fetch('videos.json');
-                
-                if (!response.ok) throw new Error("JSON dosyası bulunamadı");
-                
+                if (!response.ok) throw new Error("Yükleme hatası");
                 allVideos = await response.json();
-                
             } catch (error) {
-                console.warn('videos.json yüklenemedi, demo verisi kullanılıyor:', error);
-                // Eğer dosya yoksa demo veriyi kullan (Kullanıcı deneyimi için)
+                console.warn("videos.json bulunamadı, demo verisi kullanılıyor.", error);
                 allVideos = fallbackVideos;
-                
-                // Uyarı mesajını konsola veya ekrana basabiliriz (opsiyonel)
-                // const container = document.getElementById('video-list-container');
-                // container.innerHTML += "<div style='color:#777; font-size:0.8rem; text-align:center; margin-top:10px;'>Demo Modu Aktif: videos.json bulunamadı.</div>";
             }
             
-            // Render işlemi
-            renderVideos(allVideos);
+            // Veri yüklendikten sonra ilk render
+            filterAndRender();
             
-            // İlk videoyu otomatik yükle (Listedeki ilk kartı bulup ona göre)
+            // İlk videoyu yükle
             if (allVideos.length > 0) {
-                const firstEmbedUrl = getEmbedUrl(allVideos[0].embed_id);
-                // DOM'daki ilk kartı seç
-                setTimeout(() => {
-                    const firstCard = document.querySelector('.video-card');
-                    playVideo(firstEmbedUrl, allVideos[0].title, firstCard);
-                }, 100); // DOM güncellenmesi için minik gecikme
+                playVideo(allVideos[0]);
             }
         }
 
-        // Arama Fonksiyonu
-        document.getElementById('search-input').addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredVideos = allVideos.filter(video => 
-                video.title.toLowerCase().includes(searchTerm)
-            );
-            renderVideos(filteredVideos);
-        });
+        function filterAndRender() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const grid = document.getElementById('video-grid');
+            
+            // Başlık güncellemeleri
+            const activeCatObj = getCategoryForLogic(currentCategory);
+            document.getElementById('section-title').textContent = activeCatObj.name === 'Tümü' ? 'Tüm Videolar' : `${activeCatObj.name} Videoları`;
 
-        // Sayfa Yüklendiğinde Başlat
-        window.addEventListener('DOMContentLoaded', fetchVideos);
+            // Filtreleme Mantığı
+            const filtered = allVideos.filter(video => {
+                const title = video.title.toLowerCase();
+                
+                // 1. Kategori Filtresi
+                let categoryMatch = false;
+                if (currentCategory === 'all') {
+                    categoryMatch = true;
+                } else {
+                    // Seçilen kategori ID'si başlıkta geçiyor mu?
+                    const normalizedTitle = title.replace('ş','s').replace('ı','i').replace('ç','c').replace('ğ','g').replace('ü','u').replace('ö','o');
+                    const normalizedCat = currentCategory.toLowerCase();
+                    categoryMatch = normalizedTitle.includes(normalizedCat);
+                }
+
+                // 2. Arama Filtresi
+                const searchMatch = title.includes(searchTerm);
+
+                return categoryMatch && searchMatch;
+            });
+
+            // Sayı güncelleme
+            document.getElementById('video-count').textContent = `${filtered.length} video`;
+
+            // Render
+            grid.innerHTML = '';
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="empty-state">Bu kriterlere uygun video bulunamadı.</div>`;
+                return;
+            }
+
+            filtered.forEach(video => {
+                const card = createVideoCard(video);
+                grid.appendChild(card);
+            });
+        }
+
+        function createVideoCard(video) {
+            const card = document.createElement('div');
+            card.className = 'video-card card';
+            if(currentVideoId === video.embed_id) card.classList.add('active');
+            
+            const detectedCat = detectCategoryFromTitle(video.title);
+            
+            card.innerHTML = `
+                <div class="thumb-wrapper">
+                    <div class="thumb-placeholder">
+                        <div class="play-overlay">
+                            <div class="play-triangle"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-title" title="${video.title}">${video.title}</div>
+                    <div class="card-meta">
+                        <span class="card-tag">${detectedCat}</span>
+                        <span>Rumble</span>
+                    </div>
+                </div>
+            `;
+            
+            card.onclick = () => {
+                playVideo(video);
+                // Aktif sınıfını güncelle
+                document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+            };
+            
+            return card;
+        }
+
+        function playVideo(video) {
+            const player = document.getElementById('main-player');
+            const title = document.getElementById('player-title');
+            const tag = document.getElementById('player-tag');
+            
+            // Rumble Embed URL oluşturucu
+            const embedUrl = `https://rumble.com/embed/${video.embed_id}/?pub=4o7uxk&autoplay=1`;
+            
+            player.src = embedUrl;
+            title.textContent = video.title;
+            
+            const detectedCat = detectCategoryFromTitle(video.title);
+            tag.textContent = detectedCat;
+            
+            currentVideoId = video.embed_id;
+
+            // Eğer mobil ise, oynatıcıya kaydır
+            if(window.innerWidth < 768) {
+                document.querySelector('.player-section').scrollIntoView({behavior: 'smooth'});
+            }
+        }
+
+        // Başlat
+        window.addEventListener('DOMContentLoaded', init);
+
     </script>
 </body>
 </html>
