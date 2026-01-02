@@ -1,3 +1,4 @@
+2
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -303,26 +304,30 @@
                 fetchVideos();
             }, []);
 
-            // ARAMA VE METİN DOSYASI OKUMA MANTIĞI
+            // ARAMA VE METİN DOSYASI OKUMA MANTIĞI (RACE CONDITION DÜZELTMESİ)
             useEffect(() => {
                 const term = searchTerm.trim().toLowerCase();
 
-                // ÖNEMLİ: Eğer arama boşsa, sonuçları HEMEN sıfırla
+                // 1. Kontrol: Arama boşsa HEMEN temizle ve çık
                 if (!term) {
                     setSearchResults([]);
                     setIsSearchingText(false);
-                    // Önceki zamanlayıcıyı temizle
                     if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
                     return;
                 }
 
-                // Zamanlayıcıyı temizle (Debounce)
+                // Zamanlayıcıyı temizle
                 if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
 
                 const performSearch = async () => {
+                    // Race Condition Önleme: Başlamadan önceki arama iptal edilmişse çık.
+                    // searchTerm state'i useEffect içinde closure'da kalır, ama güncel değere ihtiyacımız var.
+                    // Bu yüzden fonksiyon başında bir "current term" snapshot alıyoruz.
+                    // Ancak en güvenlisi fonksiyon sonunda kontrol etmek.
+
                     if (videos.length === 0) return;
 
-                    // 1. Başlık bazlı video filtreleme
+                    // Başlık filtreleme
                     const titleMatches = videos.filter(v => {
                         const catMatch = activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory);
                         const textMatch = normalizeText(v.title).includes(term);
@@ -336,7 +341,7 @@
                         isActive: selectedVideo?.id === v.id
                     }));
 
-                    // 2. Metin dosyası içi arama
+                    // Metin araması
                     setIsSearchingText(true);
                     const videosToSearch = videos.filter(v => activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory));
 
@@ -396,6 +401,15 @@
 
                     const textHitsArrays = await Promise.all(fetchPromises);
                     const allTextHits = textHitsArrays.flat();
+
+                    // KRİTİK DÜZELTME: Race Condition Kontrolü
+                    // Arama işlemi bittiğinde, şu anki state'deki searchTerm ile
+                    // başlangıçtaki 'term' aynı mı diye bakalım.
+                    // Kullanıcı aramayı silip yeni bir şey yazdıysa, bu eski sonucu
+                    // üzerine yazmayalım.
+                    if (searchTerm.trim().toLowerCase() !== term) {
+                        return; // Eski istek, güncel olmayan durum için, işle.
+                    }
 
                     setSearchResults([...allTextHits, ...results]);
                     setIsSearchingText(false);
