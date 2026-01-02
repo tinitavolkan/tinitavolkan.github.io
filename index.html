@@ -1,3 +1,4 @@
+1
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -279,6 +280,15 @@
             const [isSearchingText, setIsSearchingText] = useState(false);
             const textCache = useRef({}); 
             const debounceTimerRef = useRef(null);
+            const searchIdRef = useRef(0); // KESİN ÇÖZÜM İÇİN
+
+            // EFEKT: Arama değişince seçili videoyu sıfırla
+            useEffect(() => {
+                if (searchTerm.trim()) {
+                    setSelectedVideo(null);
+                    setStartTime(null);
+                }
+            }, [searchTerm]);
 
             useEffect(() => {
                 const fetchVideos = async () => {
@@ -303,11 +313,11 @@
                 fetchVideos();
             }, []);
 
-            // ARAMA VE METİN DOSYASI OKUMA MANTIĞI (STALE RESULT FIX)
+            // ARAMA MANTIĞI (searchIdRef ile Race Condition Düzeltmesi)
             useEffect(() => {
                 const term = searchTerm.trim().toLowerCase();
 
-                // 1. Eğer arama boşsa HEMEN temizle
+                // 1. Arama boşsa hemen temizle
                 if (!term) {
                     setSearchResults([]);
                     setIsSearchingText(false);
@@ -315,12 +325,14 @@
                     return;
                 }
 
-                // Zamanlayıcıyı temizle
+                // Timer'ı temizle
                 if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
 
                 const performSearch = async () => {
-                    // 2. KRİTİK DÜZELTME: Yeni arama başladığında ESKİ SONUÇLARI HEMEN TEMİZLE
-                    // Bu, yeni veri yüklenirken eski verinin ekranda kalmasını engeller.
+                    // 2. KESİN ÇÖZÜM: Yeni benzersiz ID oluştur
+                    const currentSearchId = ++searchIdRef.current;
+
+                    // 3. Yeni arama başladığında listeyi hemen temizle (UI anında boşalır)
                     setSearchResults([]);
                     setIsSearchingText(true);
 
@@ -340,7 +352,7 @@
                         isActive: selectedVideo?.id === v.id
                     }));
 
-                    // Metin dosyası içi arama
+                    // Metin dosyası araması
                     const videosToSearch = videos.filter(v => activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory));
 
                     const fetchPromises = videosToSearch.map(async (v) => {
@@ -400,16 +412,17 @@
                     const textHitsArrays = await Promise.all(fetchPromises);
                     const allTextHits = textHitsArrays.flat();
 
-                    // Race Condition Kontrolü
-                    if (searchTerm.trim().toLowerCase() !== term) {
-                        return; // Eski istek, güncel olmayan durum için, işle.
+                    // 4. KESİN ÇÖZÜM: Bu arama hala geçerli mi?
+                    // Eğer kullanıcı yeni bir arama yapmışsa (ID değişmişse), bu sonucu yazma.
+                    if (currentSearchId !== searchIdRef.current) {
+                        return; 
                     }
 
                     setSearchResults([...allTextHits, ...results]);
                     setIsSearchingText(false);
                 };
 
-                // Yeni zamanlayıcı başlat
+                // Yeni timer başlat
                 debounceTimerRef.current = setTimeout(() => {
                     performSearch();
                 }, 500);
