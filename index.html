@@ -1,4 +1,3 @@
-1
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -170,11 +169,8 @@
             return processed;
         };
 
-        // METİN DOSYASI ADINI TAHMİN ETME FONKSİYONU (GÜNCELLENDİ)
         const getTxtPath = (title) => {
-            // Sondaki .html varsa kaldır
             let cleanTitle = title.replace(/\.html$/, '');
-            // Boşlukları KORU, sadece .txt ekle
             let filename = cleanTitle + ".txt";
             return `text/${filename}`;
         };
@@ -255,11 +251,11 @@
                                 <span className="text-[10px] font-mono">{item.timestamp}</span>
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-xs text-slate-300 line-clamp-3 leading-snug group-hover:text-white">
+                                <p className="text-xs text-slate-300 leading-snug group-hover:text-white whitespace-pre-wrap">
                                     <span className="text-indigo-400 font-mono mr-1">[{item.timestamp}]</span>
                                     {item.snippet.replace(new RegExp(`(${item.searchTerm})`, 'gi'), '<mark class="bg-indigo-500/40 text-white px-0.5 rounded">$1</mark>')}
                                 </p>
-                                <p className="text-[10px] text-slate-500 mt-1 truncate uppercase">{item.video.title}</p>
+                                <p className="text-[10px] text-slate-500 mt-2 uppercase truncate">{item.video.title}</p>
                             </div>
                         </div>
                     </div>
@@ -332,16 +328,14 @@
                     const fetchPromises = videosToSearch.map(async (v) => {
                         if (normalizeText(v.title).includes(term)) return []; 
 
-                        const path = getTxtPath(v.title); // Artık boşlukları koruyor
+                        const path = getTxtPath(v.title); 
                         
                         let content = textCache.current[path];
                         if (!content) {
                             try {
                                 let res = await fetch(path);
                                 if (!res.ok) {
-                                    // Büyük/küçük harf farklılığı için fallback
                                     const lowerPath = path.toLowerCase(); 
-                                    // Boşlukları koruyarak lowercase yap
                                     console.log(`Not found: ${path}, trying lowercase: ${lowerPath}`);
                                     res = await fetch(lowerPath);
                                     
@@ -369,9 +363,9 @@
                                     const s = parseInt(timeMatch[3]);
                                     const totalSeconds = h * 3600 + m * 60 + s;
                                     
-                                    let snippet = line.replace(timeMatch[0], '').trim();
-                                    if (snippet.length > 100) snippet = snippet.substring(0, 100) + '...';
-
+                                    // DÜZELTME: Kesmeyi kaldır, tüm satırı al
+                                    let snippet = line.replace(timeMatch[0], '').trim(); 
+                                    
                                     hits.push({
                                         type: 'timestamp',
                                         video: v,
@@ -480,7 +474,6 @@
                                     ) : searchTerm ? (
                                         <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">
                                             <p>Sonuç bulunamadı.</p>
-                                            <p className="text-xs mt-2 opacity-60">Konsolu (F12) kontrol edin.</p>
                                         </div>
                                     ) : (
                                         displayVideos.map((video) => (
