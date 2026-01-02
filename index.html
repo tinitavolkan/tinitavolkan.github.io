@@ -1,3 +1,4 @@
+1
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -243,6 +244,10 @@
                     </div>
                 );
             } else if (item.type === 'timestamp') {
+                // dangerouslySetInnerHTML kullanarak HTML etiketlerini yorumluyoruz
+                const contentHtml = `<span class="text-indigo-400 font-mono mr-1">[${item.timestamp}]</span>` + 
+                    item.snippet.replace(new RegExp(`(${item.searchTerm})`, 'gi'), '<mark class="bg-indigo-500/40 text-white px-0.5 rounded">$1</mark>');
+
                 return (
                     <div onClick={onClick} className="group cursor-pointer rounded-xl overflow-hidden border border-indigo-500/30 bg-slate-900/80 backdrop-blur hover:bg-indigo-900/20 hover:border-indigo-500 transition-all p-3 relative">
                         <div className="flex items-start gap-3">
@@ -251,10 +256,10 @@
                                 <span className="text-[10px] font-mono">{item.timestamp}</span>
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-xs text-slate-300 leading-snug group-hover:text-white whitespace-pre-wrap">
-                                    <span className="text-indigo-400 font-mono mr-1">[{item.timestamp}]</span>
-                                    {item.snippet.replace(new RegExp(`(${item.searchTerm})`, 'gi'), '<mark class="bg-indigo-500/40 text-white px-0.5 rounded">$1</mark>')}
-                                </p>
+                                <p 
+                                    className="text-xs text-slate-300 leading-snug group-hover:text-white whitespace-pre-wrap"
+                                    dangerouslySetInnerHTML={{ __html: contentHtml }}
+                                ></p>
                                 <p className="text-[10px] text-slate-500 mt-2 uppercase truncate">{item.video.title}</p>
                             </div>
                         </div>
@@ -336,7 +341,7 @@
                                 let res = await fetch(path);
                                 if (!res.ok) {
                                     const lowerPath = path.toLowerCase(); 
-                                    console.log(`Not found: ${path}, trying lowercase: ${lowerPath}`);
+                                    // console.log(`Not found: ${path}, trying lowercase: ${lowerPath}`); // Hata ayıklama için
                                     res = await fetch(lowerPath);
                                     
                                     if (!res.ok) return []; 
@@ -363,7 +368,6 @@
                                     const s = parseInt(timeMatch[3]);
                                     const totalSeconds = h * 3600 + m * 60 + s;
                                     
-                                    // DÜZELTME: Kesmeyi kaldır, tüm satırı al
                                     let snippet = line.replace(timeMatch[0], '').trim(); 
                                     
                                     hits.push({
