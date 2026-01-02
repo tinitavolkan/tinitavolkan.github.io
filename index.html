@@ -1,4 +1,3 @@
-1
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -244,7 +243,6 @@
                     </div>
                 );
             } else if (item.type === 'timestamp') {
-                // dangerouslySetInnerHTML kullanarak HTML etiketlerini yorumluyoruz
                 const contentHtml = `<span class="text-indigo-400 font-mono mr-1">[${item.timestamp}]</span>` + 
                     item.snippet.replace(new RegExp(`(${item.searchTerm})`, 'gi'), '<mark class="bg-indigo-500/40 text-white px-0.5 rounded">$1</mark>');
 
@@ -280,6 +278,7 @@
             const [searchResults, setSearchResults] = useState([]); 
             const [isSearchingText, setIsSearchingText] = useState(false);
             const textCache = useRef({}); 
+            const debounceTimerRef = useRef(null);
 
             useEffect(() => {
                 const fetchVideos = async () => {
@@ -306,14 +305,24 @@
 
             // ARAMA VE METİN DOSYASI OKUMA MANTIĞI
             useEffect(() => {
-                const performSearch = async () => {
-                    const term = searchTerm.trim().toLowerCase();
-                    if (!term || videos.length === 0) {
-                        setSearchResults([]);
-                        setIsSearchingText(false);
-                        return;
-                    }
+                const term = searchTerm.trim().toLowerCase();
 
+                // ÖNEMLİ: Eğer arama boşsa, sonuçları HEMEN sıfırla
+                if (!term) {
+                    setSearchResults([]);
+                    setIsSearchingText(false);
+                    // Önceki zamanlayıcıyı temizle
+                    if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+                    return;
+                }
+
+                // Zamanlayıcıyı temizle (Debounce)
+                if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+
+                const performSearch = async () => {
+                    if (videos.length === 0) return;
+
+                    // 1. Başlık bazlı video filtreleme
                     const titleMatches = videos.filter(v => {
                         const catMatch = activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory);
                         const textMatch = normalizeText(v.title).includes(term);
@@ -327,6 +336,7 @@
                         isActive: selectedVideo?.id === v.id
                     }));
 
+                    // 2. Metin dosyası içi arama
                     setIsSearchingText(true);
                     const videosToSearch = videos.filter(v => activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory));
 
@@ -341,7 +351,6 @@
                                 let res = await fetch(path);
                                 if (!res.ok) {
                                     const lowerPath = path.toLowerCase(); 
-                                    // console.log(`Not found: ${path}, trying lowercase: ${lowerPath}`); // Hata ayıklama için
                                     res = await fetch(lowerPath);
                                     
                                     if (!res.ok) return []; 
@@ -392,11 +401,11 @@
                     setIsSearchingText(false);
                 };
 
-                const timer = setTimeout(() => {
+                // Yeni zamanlayıcı başlat
+                debounceTimerRef.current = setTimeout(() => {
                     performSearch();
                 }, 500);
 
-                return () => clearTimeout(timer);
             }, [searchTerm, videos, activeCategory, selectedVideo]);
 
             const displayVideos = useMemo(() => {
