@@ -107,6 +107,21 @@
                     "link": "https://rumble.com/v73rpbc-sinasi-24.12.2025-1.html"
                 },
                 {
+                    "title": "sinasi 22.12.2025 1_Parca_000",
+                    "embed_id": "v71l182",
+                    "link": "https://rumble.com/v73rp8a-sinasi-22.12.2025-1-parca-000.html"
+                },
+                {
+                    "title": "sinasi 22.12.2025 1_Parca_001",
+                    "embed_id": "v71l183",
+                    "link": "https://rumble.com/v73rp8b-sinasi-22.12.2025-1-parca-001.html"
+                },
+                {
+                    "title": "sinasi 22.12.2025 2_Parca_000",
+                    "embed_id": "v71l184",
+                    "link": "https://rumble.com/v73rp8c-sinasi-22.12.2025-2-parca-000.html"
+                },
+                {
                     "title": "Hype - Turnuva Finali 01.01.2025",
                     "embed_id": "v999zzz",
                     "link": "https://rumble.com/v999zzz-hype-final.html"
@@ -124,8 +139,24 @@
                 .replace('ç', 'c');
         };
 
+        // --- GELİŞMİŞ SIRALAMA MANTIĞI ---
         const processVideoData = (rawVideos) => {
-            return rawVideos.map((v, index) => {
+            // Sıralama için helper fonksiyon
+            const getSortParts = (title) => {
+                // Regex: "1 _Parca_000" veya "2_Parca_001" kalıbını yakalar
+                // 1. Grup: Ana Parça (1, 2, 3...)
+                // 2. Grup: Alt Parça (000, 001...)
+                const match = title.match(/(\d+)\s*_Parca_\s*(\d+)/);
+                if (match) {
+                    return {
+                        mainPart: parseInt(match[1], 10),
+                        subPart: parseInt(match[2], 10)
+                    };
+                }
+                return { mainPart: 0, subPart: 0 }; // Eşleşme yoksa en başa koyar
+            };
+
+            const processed = rawVideos.map((v, index) => {
                 const dateMatch = v.title.match(/(\d{2})\.(\d{2})\.(\d{4})/);
                 const date = dateMatch ? new Date(dateMatch[3], dateMatch[2] - 1, dateMatch[1]) : new Date();
 
@@ -145,12 +176,31 @@
                     title: v.title,
                     embedId: v.embed_id,
                     date: date,
-                    category: category
+                    category: category,
+                    sortMetrics: getSortParts(v.title) // Sıralama metriklerini kaydet
                 };
-            }).sort((a, b) => b.date - a.date);
+            });
+
+            // KARMAŞIK SIRALAMA (Complex Sort)
+            processed.sort((a, b) => {
+                // 1. Tarih Karşılaştırması (Yeniden Eskisine -> Büyükten Küçüğe)
+                const dateDiff = b.date - a.date;
+                if (dateDiff !== 0) return dateDiff;
+
+                // 2. Tarihler Eşitse -> Ana Parça Karşılaştırması (Küçükten Büyüğe)
+                // Örn: 1 önce, 2 sonra gelir
+                if (a.sortMetrics.mainPart !== b.sortMetrics.mainPart) {
+                    return a.sortMetrics.mainPart - b.sortMetrics.mainPart;
+                }
+
+                // 3. Ana Parçalar Eşitse -> Alt Parça Karşılaştırması (Küçükten Büyüğe)
+                // Örn: 000 önce, 001 sonra gelir
+                return a.sortMetrics.subPart - b.sortMetrics.subPart;
+            });
+
+            return processed;
         };
 
-        // Navbar'a lastUpdate prop'u eklendi
         const Navbar = ({ categories, activeCategory, setActiveCategory, lastUpdate }) => {
             return (
                 <div className="border-b border-white/10 glass-panel sticky top-0 z-50">
@@ -167,7 +217,6 @@
                                             Katman yayın geçmişi arşiv
                                         </h1>
                                     </div>
-                                    {/* Son Güncelleme Tarihi Sol Üst (Navbar) */}
                                     {lastUpdate && (
                                         <div className="ml-[52px] text-[10px] sm:text-xs text-indigo-400 font-medium tracking-wide mt-0.5">
                                             Son Güncelleme: {lastUpdate}
@@ -290,8 +339,6 @@
             useEffect(() => {
                 const fetchVideos = async () => {
                     try {
-                        // CACHE BUSTING: Tarihi URL sonuna ekliyoruz
-                        // Bu sayede tarayıcı her zaman yeni videos.json dosyasını çeker (204 video)
                         const response = await fetch(`videos.json?t=${new Date().getTime()}`);
                         if (!response.ok) throw new Error("Dosya bulunamadı");
                         const data = await response.json();
@@ -299,10 +346,8 @@
                         const rawVideos = Array.isArray(data) ? data : (data.videos || []);
                         const tarih = Array.isArray(data) ? "" : (data.tarih || "");
                         
-                        console.log(`JSON'dan çekilen video sayısı: ${rawVideos.length}`);
-                        
                         setLastUpdate(tarih);
-                        const processed = processVideoData(rawVideos);
+                        const processed = processVideoData(rawVideos); // Gelişmiş sort burada çalışır
                         setVideos(processed);
                     } catch (error) {
                         console.warn("videos.json yüklenemedi, yedek veri kullanılıyor.", error);
@@ -348,7 +393,7 @@
                         categories={CATEGORIES} 
                         activeCategory={activeCategory} 
                         setActiveCategory={setActiveCategory}
-                        lastUpdate={lastUpdate} 
+                        lastUpdate={lastUpdate}
                     />
 
                     <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
