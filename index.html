@@ -3,50 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volkan'ın Video Arşivi | Yayıncılar</title>
+    <title>Volkan'ın Video Arşivi | Premium</title>
+    <!-- Modern Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --header-bg: rgba(20, 20, 20, 0.85);
-            --card-bg: #161616;
-            --accent-color: #6366f1; 
-            --accent-hover: #818cf8;
+            /* Renk Paleti - Modern Deep Dark */
+            --bg-body: #0f1115;
+            --bg-surface: #181b21;
+            --bg-card: #1f232a;
+            --bg-card-hover: #262b33;
+            
+            --primary: #6366f1; /* İndigo */
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --primary-hover: #818cf8;
+            
             --text-main: #ffffff;
-            --text-secondary: #a1a1aa;
-            --border-color: #27272a;
-            --active-bg: #27272a;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.15);
+            
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-body);
             color: var(--text-main);
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            min-height: 100vh;
-            padding-bottom: 40px;
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 80px;
+        }
+
+        /* Arka Plan Efekti (Subtle Mesh Gradient) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -20%; left: -10%;
+            width: 50%; height: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+            z-index: -1;
+            pointer-events: none;
         }
 
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-        /* Header */
+        /* --- Header & Nav --- */
         header {
-            background-color: var(--header-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            padding: 15px 20px;
+            z-index: 100;
+            background: rgba(15, 17, 21, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            gap: 20px;
         }
 
         .header-top {
@@ -54,383 +89,448 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
             gap: 10px;
         }
 
+        .brand-icon {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--primary), #a855f7);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            background: linear-gradient(90deg, #fff, #a1a1aa);
+            background: linear-gradient(to right, #fff, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            letter-spacing: -0.02em;
         }
 
-        .search-box { position: relative; max-width: 300px; width: 100%; }
-
-        #search-input {
+        /* Search Bar */
+        .search-wrapper {
+            position: relative;
             width: 100%;
-            background: var(--card-bg);
+            max-width: 320px;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--bg-surface);
             border: 1px solid var(--border-color);
-            padding: 10px 15px 10px 40px;
-            border-radius: 8px;
+            padding: 12px 16px 12px 42px;
+            border-radius: var(--radius-md);
             color: white;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
-        #search-input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            background: var(--bg-card);
         }
 
         .search-icon {
             position: absolute;
-            left: 12px;
+            left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+            color: var(--text-muted);
+            pointer-events: none;
         }
 
-        /* Kategori Navigasyonu */
-        .category-nav {
+        /* Category Pills */
+        .category-scroll {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             overflow-x: auto;
             padding-bottom: 4px;
-            scrollbar-width: none; -ms-overflow-style: none;
+            scrollbar-width: none; /* Firefox */
         }
-        .category-nav::-webkit-scrollbar { display: none; }
+        .category-scroll::-webkit-scrollbar { display: none; }
 
-        .nav-btn {
-            background: transparent;
+        .cat-pill {
+            background: var(--bg-surface);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            white-space: nowrap;
+            padding: 8px 18px;
+            border-radius: 100px;
             font-size: 0.85rem;
             font-weight: 500;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+            user-select: none;
         }
 
-        .nav-btn:hover {
-            border-color: var(--text-secondary);
-            color: white;
-            background: rgba(255,255,255,0.05);
+        .cat-pill:hover {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border-color: var(--border-hover);
+            transform: translateY(-1px);
         }
 
-        .nav-btn.active {
-            background: var(--accent-color);
-            border-color: var(--accent-color);
-            color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        .cat-pill.active {
+            background: var(--text-main);
+            color: var(--bg-body);
+            border-color: var(--text-main);
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
         }
 
-        /* Ana İçerik */
+        /* --- Main Layout --- */
         main {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 30px 24px;
+            display: grid;
+            grid-template-columns: 1fr 380px; /* Video Player Sol, Liste Sağ (Desktop) */
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* --- Video Player Section --- */
+        .player-wrapper {
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            position: sticky;
+            top: 100px; /* Scroll edildiğinde sabit kalır */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transition: var(--transition);
+        }
+        
+        /* Video oynatılırken hafif bir parlama efekti */
+        .player-wrapper.has-active {
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.15);
+        }
+
+        .video-frame-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            background: #000;
             width: 100%;
         }
 
-        /* Oynatıcı Alanı */
-        .player-section {
-            background: #000;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
-            position: relative;
-            min-height: 300px;
-        }
-
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; 
-            height: 0;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .empty-player-msg {
+        .video-frame-container iframe {
             position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            color: #555;
-            font-size: 1.2rem;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: none;
+            display: none;
+        }
+
+        .placeholder-state {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            z-index: 1;
+            justify-content: center;
+            color: var(--text-muted);
+            background: radial-gradient(circle at center, #1f232a 0%, #000 100%);
         }
         
-        .empty-player-icon { font-size: 3rem; opacity: 0.5; }
-
-        .video-container iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            border: none; z-index: 10; display: none;
+        .placeholder-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
         }
-        
-        .video-container.has-video .empty-player-msg { display: none; }
-        .video-container.has-video iframe { display: block; }
 
-        .player-info {
+        .player-details {
             padding: 20px;
-            background: #111;
+            background: var(--bg-surface);
             border-top: 1px solid var(--border-color);
         }
 
-        .player-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 5px; color: white; }
+        .tag-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
 
-        .player-category-tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            padding: 4px 8px;
-            background: rgba(99, 102, 241, 0.15);
-            color: var(--accent-hover);
-            border-radius: 4px;
-            font-weight: 600;
+        .status-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary-hover);
         }
 
-        /* Video Grid */
-        .grid-header {
+        .video-title-display {
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--text-main);
+        }
+
+        /* --- Video Grid Section --- */
+        .content-area {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-left: 5px;
-            border-left: 4px solid var(--accent-color);
-        }
-
-        .grid-title { font-size: 1.3rem; font-weight: 600; }
-        .video-count { color: var(--text-secondary); font-size: 0.9rem; }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            flex-direction: column;
             gap: 20px;
         }
 
-        /* Video Kartı */
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .result-count {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .video-list {
             display: flex;
             flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Modern List Card Design */
+        .video-card {
+            display: flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 12px;
+            gap: 16px;
+            cursor: pointer;
+            transition: var(--transition);
             position: relative;
+            overflow: hidden;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            background: #1f1f1f;
-            border-color: var(--accent-color);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        .video-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+            border-color: var(--border-hover);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        .card.active {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
-            background: #1f1f1f;
+        .video-card.active {
+            background: rgba(99, 102, 241, 0.05);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px var(--primary);
         }
 
-        .thumb-wrapper {
+        .card-thumb {
+            width: 160px;
+            flex-shrink: 0;
             position: relative;
-            width: 100%;
-            padding-top: 56.25%;
+            border-radius: 8px;
+            overflow: hidden;
             background: #000;
+            aspect-ratio: 16/9;
+        }
+
+        .thumb-placeholder {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(45deg, #2a2d35, #1a1c21);
         }
         
-        .thumb-placeholder {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #2a2a2a 0%, #000 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+        .play-icon-small {
+            color: rgba(255,255,255,0.7);
+            transition: var(--transition);
         }
 
-        .card:hover .thumb-placeholder { background: radial-gradient(circle at center, #3a3a3a 0%, #111 100%); }
-
-        .play-overlay {
-            width: 50px; height: 50px;
-            background: rgba(99, 102, 241, 0.8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+        .video-card:hover .play-icon-small {
+            color: white;
+            transform: scale(1.1);
         }
 
-        .card:hover .play-overlay { background: var(--accent-color); transform: scale(1.1); }
-
-        .play-triangle {
-            width: 0; height: 0;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-left: 18px solid white;
-            margin-left: 4px;
-        }
-
-        .card-body {
-            padding: 15px;
+        .card-info {
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
+            justify-content: center;
+            min-width: 0; /* Text truncation fix */
         }
 
         .card-title {
-            color: #eee;
             font-size: 0.95rem;
-            line-height: 1.4;
-            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 8px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            font-weight: 500;
+            line-height: 1.4;
         }
 
         .card-meta {
-            margin-top: auto;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 10px;
             font-size: 0.8rem;
             color: var(--text-secondary);
+            flex-wrap: wrap;
         }
 
-        .card-date {
-            color: #888;
+        .meta-date {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .meta-cat {
+            color: var(--primary-hover);
+            background: rgba(99, 102, 241, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
             font-size: 0.75rem;
         }
 
-        .card-tag {
-            color: var(--accent-hover);
-            font-weight: 600;
-            background: rgba(99, 102, 241, 0.1);
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px;
-            color: var(--text-secondary);
-            border: 2px dashed var(--border-color);
-            border-radius: 12px;
-        }
-
-        .loading-spinner {
-            grid-column: 1 / -1;
-            text-align: center;
+        /* Loading & Empty States */
+        .loading-box, .empty-box {
             padding: 40px;
-            color: var(--accent-color);
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .spinner-circle {
-            width: 24px; height: 24px;
-            border: 3px solid rgba(99, 102, 241, 0.3);
-            border-top-color: var(--accent-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+            text-align: center;
+            color: var(--text-muted);
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px dashed var(--border-color);
         }
 
+        .spinner {
+            width: 30px; height: 30px;
+            border: 3px solid rgba(255,255,255,0.05);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 15px;
+        }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         footer {
             text-align: center;
             padding: 40px 20px;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
             border-top: 1px solid var(--border-color);
-            margin-top: 40px;
+            margin-top: auto;
         }
 
-        @media (max-width: 768px) {
-            .header-top { flex-direction: column; align-items: flex-start; }
-            .search-box { max-width: 100%; }
-            .player-section { margin-left: -20px; margin-right: -20px; border-radius: 0; border-left: none; border-right: none; }
+        /* --- Responsive --- */
+        @media (max-width: 1024px) {
+            main {
+                grid-template-columns: 1fr; /* Stack vertically */
+            }
+            
+            .player-wrapper {
+                position: relative;
+                top: 0;
+                order: -1; /* Player always on top */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .video-card {
+                flex-direction: column;
+                padding: 10px;
+            }
+            .card-thumb {
+                width: 100%;
+                aspect-ratio: 16/9;
+            }
+            .header-top { flex-direction: column; align-items: stretch; }
+            .search-wrapper { max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="header-top">
-            <h1>🎬 Video Arşivi</h1>
-            <div class="search-box">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="search-input" placeholder="Liste içinde ara...">
+        <div class="header-container">
+            <div class="header-top">
+                <div class="brand">
+                    <div class="brand-icon">📼</div>
+                    <h1>Volkan'ın Arşivi</h1>
+                </div>
+                <div class="search-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" class="search-input" placeholder="Video, yayın veya tarih ara...">
+                </div>
             </div>
+
+            <nav class="category-scroll" id="category-nav">
+                <!-- JS ile doldurulacak -->
+            </nav>
         </div>
-        
-        <nav class="category-nav" id="category-nav">
-            <!-- JS ile dolacak -->
-        </nav>
     </header>
 
     <main>
-        <section class="player-section">
-            <div class="video-container" id="video-container">
-                <div class="empty-player-msg">
-                    <div class="empty-player-icon">📺</div>
-                    <div>Bir kategori seçerek video izleyebilirsiniz</div>
+        <!-- Sol/Sıralı: Video Listesi (Order changed for better flow on desktop: List right, Player left - wait, usually player left is better. Let's check CSS Grid Order) -->
+        <!-- CSS Grid: 1fr (List) 380px (Player). No, usually Player is main focus. Let's swap in CSS for better UX: Player Left (or Top), List Right (or Bottom) -->
+        
+        <div class="content-area">
+            <div class="section-header">
+                <div class="section-title" id="section-title">Tüm Videolar</div>
+                <div class="result-count" id="video-count">0 video</div>
+            </div>
+            
+            <div id="video-list-container" class="video-list">
+                <div class="loading-box">
+                    <div class="spinner"></div>
+                    Arşiv taranıyor...
+                </div>
+            </div>
+        </div>
+
+        <aside class="player-wrapper" id="player-wrapper">
+            <div class="video-frame-container">
+                <div class="placeholder-state" id="placeholder-state">
+                    <div class="placeholder-icon">🎬</div>
+                    <div>İzlemek için bir video seçin</div>
                 </div>
                 <iframe id="main-player" src="" allowfullscreen title="Video Player"></iframe>
             </div>
-            <div class="player-info">
-                <div class="player-category-tag" id="player-tag">-</div>
-                <div class="player-title" id="player-title">Bir video seçin</div>
+            <div class="player-details">
+                <div class="tag-row">
+                    <span class="status-badge" id="player-tag">-</span>
+                    <span class="status-badge" style="background:rgba(255,255,255,0.1); color:#fff;">Canlı Kayıt</span>
+                </div>
+                <div class="video-title-display" id="player-title">Bir video seçin</div>
             </div>
-        </section>
+        </aside>
 
-        <div class="grid-header">
-            <div class="grid-title" id="section-title">Tüm Videolar</div>
-            <div class="video-count" id="video-count">0 video</div>
-        </div>
-
-        <div class="video-grid" id="video-grid">
-            <div class="loading-spinner">
-                <div class="spinner-circle"></div>
-                Videolar yükleniyor...
-            </div>
-        </div>
     </main>
 
     <footer>
-        &copy; 2025 Volkan'ın Video Arşivi. Videolar tarihe göre sıralanmıştır.
+        &copy; 2025 Volkan'ın Video Arşivi. Tüm hakları saklıdır. Tasarım: AI Assistant.
     </footer>
 
     <script>
+        // --- Veri Yapısı ve Ayarlar ---
         const categories = [
-            { id: 'all', name: 'Tümü' },
+            { id: 'all', name: 'Tüm Arşiv' },
             { id: 'Hype', name: 'Hype' },
             { id: 'Triel', name: 'Triel' },
             { id: 'Sinasi', name: 'Şinasi' },
@@ -445,6 +545,7 @@
         let currentCategory = 'all';
         let currentVideoId = null;
 
+        // Demo Veri (JSON çekilemezse kullanılır)
         const fallbackVideos = [
             { "title": "Hype - Turnuva Finali 01.01.2025", "embed_id": "v999zzz", "link": "#" },
             { "title": "Triel - Epik Oyun Anları 01.01.2025", "embed_id": "v123abc", "link": "#" },
@@ -457,41 +558,37 @@
             { "title": "Triel - FPS İpuçları", "embed_id": "v258vwx", "link": "#" }
         ];
 
-        // Tarih çıkarma fonksiyonu
+        // --- Yardımcı Fonksiyonlar ---
         function parseDate(title) {
-            // "15.12.2025" formatını yakalar
             const match = title.match(/(\d{2})\.(\d{2})\.(\d{4})/);
-            if (match) {
-                // Ay 0-11 arasında olduğu için match[2] - 1
-                return new Date(match[3], match[2] - 1, match[1]);
-            }
-            return null; // Tarih yoksa
+            if (match) return new Date(match[3], match[2] - 1, match[1]);
+            return null;
         }
 
-        // Tarih formatlama fonksiyonu (Kartlarda göstermek için)
         function formatDate(dateObj) {
-            if (!dateObj) return "";
+            if (!dateObj) return "Tarih Yok";
             const day = String(dateObj.getDate()).padStart(2, '0');
             const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-            const year = dateObj.getFullYear();
-            return `${day}.${month}.${year}`;
+            return `${day}.${month}.${dateObj.getFullYear()}`;
         }
 
         function detectCategoryFromTitle(title) {
             for (let cat of categories) {
                 if (cat.id === 'all') continue;
                 const normalizedTitle = title.toLowerCase()
-                    .replace('ş', 's').replace('ı', 'i').replace('ç', 'c').replace('ğ', 'g').replace('ü', 'u').replace('ö', 'o');
+                    .replace('ş', 's').replace('ı', 'i').replace('ç', 'c')
+                    .replace('ğ', 'g').replace('ü', 'u').replace('ö', 'o');
                 const normalizedCat = cat.id.toLowerCase();
                 if (normalizedTitle.includes(normalizedCat)) return cat.name;
             }
             return 'Diğer';
         }
 
+        // --- Başlatma ---
         function init() {
             renderNav();
             fetchVideos();
-            document.getElementById('search-input').addEventListener('input', filterAndRender);
+            document.getElementById('search-input').addEventListener('input', debounce(filterAndRender, 300));
         }
 
         function renderNav() {
@@ -500,54 +597,53 @@
             
             categories.forEach(cat => {
                 const btn = document.createElement('button');
-                btn.className = `nav-btn ${cat.id === currentCategory ? 'active' : ''}`;
+                btn.className = `cat-pill ${cat.id === currentCategory ? 'active' : ''}`;
                 btn.textContent = cat.name;
                 
                 btn.onclick = () => {
-                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    
                     currentCategory = cat.id;
                     
-                    const filteredVideos = filterAndRender();
+                    const filtered = filterAndRender();
                     
-                    if (filteredVideos.length > 0) {
-                        const firstCard = document.querySelector('.video-card');
-                        if(firstCard) {
-                            playVideo(filteredVideos[0], firstCard);
-                        }
-                    } else {
-                        resetPlayer();
+                    // Kategori değişince ilk videoyu otomatik oynatma (isteğe bağlı, şimdilik kapalı)
+                    // if(filtered.length > 0) playVideo(filtered[0]);
+                    
+                    // Scroll to start of list
+                    if(window.innerWidth < 1024) {
+                        document.querySelector('.content-area').scrollIntoView({behavior: 'smooth'});
                     }
-
-                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 };
                 nav.appendChild(btn);
             });
         }
 
+        // Debounce: Arama yaparken çok fazla istek atmayı engeller
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
         async function fetchVideos() {
             try {
                 const response = await fetch('videos.json');
-                if (!response.ok) throw new Error("Hata");
+                if (!response.ok) throw new Error("JSON not found");
                 allVideos = await response.json();
             } catch (error) {
                 console.warn("videos.json bulunamadı, demo veri kullanılıyor.", error);
                 allVideos = fallbackVideos;
             }
             
-            // --- SIRALAMA MANTIĞI BURADA ---
-            // 1. Her videoya tarih objesi ekle
-            allVideos.forEach(v => {
-                v.parsedDate = parseDate(v.title);
-            });
-
-            // 2. Tarihe göre sırala (Yeniden eskiye)
-            // Tarih null olanları en sona atar
+            // Tarihe göre sırala (Yeniden Eskie)
+            allVideos.forEach(v => v.parsedDate = parseDate(v.title));
             allVideos.sort((a, b) => {
                 const dateA = a.parsedDate ? a.parsedDate.getTime() : 0;
                 const dateB = b.parsedDate ? b.parsedDate.getTime() : 0;
-                return dateB - dateA; // Büyük tarih (yeni) küçük tarihin (eski) üstüne gelir
+                return dateB - dateA;
             });
 
             filterAndRender();
@@ -557,12 +653,13 @@
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
             const activeCatObj = categories.find(c => c.id === currentCategory) || { id: 'all' };
             
-            document.getElementById('section-title').textContent = activeCatObj.name === 'Tümü' ? 'Tüm Videolar' : `${activeCatObj.name} Videoları`;
+            document.getElementById('section-title').textContent = activeCatObj.name === 'Tüm Arşiv' ? 'Tüm Videolar' : `${activeCatObj.name} Videoları`;
 
             return allVideos.filter(video => {
                 const title = video.title.toLowerCase();
-                let categoryMatch = false;
                 
+                // Kategori Filtresi
+                let categoryMatch = false;
                 if (currentCategory === 'all') {
                     categoryMatch = true;
                 } else {
@@ -578,19 +675,23 @@
 
         function filterAndRender() {
             const filtered = getFilteredVideos();
-            const grid = document.getElementById('video-grid');
+            const listContainer = document.getElementById('video-list-container');
             
             document.getElementById('video-count').textContent = `${filtered.length} video`;
-            grid.innerHTML = '';
+            listContainer.innerHTML = '';
             
             if (filtered.length === 0) {
-                grid.innerHTML = `<div class="empty-state">Bu kriterlere uygun video bulunamadı.</div>`;
+                listContainer.innerHTML = `
+                    <div class="empty-box">
+                        <div style="font-size:2rem; margin-bottom:10px;">🔭</div>
+                        <p>"${document.getElementById('search-input').value}" için sonuç bulunamadı.</p>
+                    </div>`;
                 return [];
             }
 
             filtered.forEach(video => {
                 const card = createVideoCard(video);
-                grid.appendChild(card);
+                listContainer.appendChild(card);
             });
 
             return filtered;
@@ -598,25 +699,23 @@
 
         function createVideoCard(video) {
             const card = document.createElement('div');
-            card.className = 'video-card card';
+            card.className = 'video-card';
             if(currentVideoId === video.embed_id) card.classList.add('active');
             
             const detectedCat = detectCategoryFromTitle(video.title);
-            const dateStr = formatDate(video.parsedDate); // Tarihi string'e çevir
+            const dateStr = formatDate(video.parsedDate);
             
             card.innerHTML = `
-                <div class="thumb-wrapper">
+                <div class="card-thumb">
                     <div class="thumb-placeholder">
-                        <div class="play-overlay">
-                            <div class="play-triangle"></div>
-                        </div>
+                        <span class="play-icon-small">▶</span>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-info">
                     <div class="card-title" title="${video.title}">${video.title}</div>
                     <div class="card-meta">
-                        <span class="card-date">${dateStr}</span>
-                        <span class="card-tag">${detectedCat}</span>
+                        <span class="meta-cat">${detectedCat}</span>
+                        <span class="meta-date">📅 ${dateStr}</span>
                     </div>
                 </div>
             `;
@@ -624,44 +723,35 @@
             card.onclick = () => {
                 document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active'));
                 card.classList.add('active');
-                playVideo(video, card);
+                playVideo(video);
+                
+                // Mobilde video alanına kaydır
+                if(window.innerWidth < 1024) {
+                    document.getElementById('player-wrapper').scrollIntoView({behavior: 'smooth'});
+                }
             };
             
             return card;
         }
 
-        function playVideo(video, cardElement) {
+        function playVideo(video) {
             const player = document.getElementById('main-player');
-            const container = document.getElementById('video-container');
+            const placeholder = document.getElementById('placeholder-state');
             const title = document.getElementById('player-title');
             const tag = document.getElementById('player-tag');
+            const wrapper = document.getElementById('player-wrapper');
             
             const embedUrl = `https://rumble.com/embed/${video.embed_id}/?pub=4o7uxk&autoplay=1`;
             
             player.src = embedUrl;
+            player.style.display = 'block';
+            placeholder.style.display = 'none';
+            
             title.textContent = video.title;
             tag.textContent = detectCategoryFromTitle(video.title);
             
             currentVideoId = video.embed_id;
-
-            container.classList.add('has-video');
-
-            if(window.innerWidth < 768) {
-                document.querySelector('.player-section').scrollIntoView({behavior: 'smooth'});
-            }
-        }
-
-        function resetPlayer() {
-            const player = document.getElementById('main-player');
-            const container = document.getElementById('video-container');
-            const title = document.getElementById('player-title');
-            const tag = document.getElementById('player-tag');
-
-            player.src = "";
-            container.classList.remove('has-video');
-            title.textContent = "Bir video seçin";
-            tag.textContent = "-";
-            currentVideoId = null;
+            wrapper.classList.add('has-active');
         }
 
         window.addEventListener('DOMContentLoaded', init);
