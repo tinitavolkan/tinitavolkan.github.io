@@ -39,6 +39,7 @@
                     animation: {
                         'fade-in': 'fadeIn 0.5s ease-out',
                         'slide-up': 'slideUp 0.4s ease-out',
+                        'spin-slow': 'spin 3s linear infinite',
                     },
                     keyframes: {
                         fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
@@ -51,7 +52,6 @@
 
     <style>
         body { background-color: #020617; }
-        /* Genel sayfa kaydırma çubuğu stilini koruyoruz ama bileşen içlerini kaldırdık */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #020617; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
@@ -72,6 +72,17 @@
             background: rgba(30, 41, 59, 0.4);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        /* Image Loading Skeleton Animation */
+        .shimmer {
+            background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
     </style>
 </head>
@@ -103,22 +114,22 @@
             {
                 "title": "sinasi 26.12.2025 1_Parca_000",
                 "embed_id": "v71l0d4",
-                "link": "https://rumble.com/v73rodc-sinasi-26.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
+                "link": "https://rumble.com/v73rodc-sinasi-26.12.2025-1-parca-000.html"
             },
             {
                 "title": "sinasi 14.12.2025 1_Parca_000",
                 "embed_id": "v71l08q",
-                "link": "https://rumble.com/v73ro8y-sinasi-14.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
+                "link": "https://rumble.com/v73ro8y-sinasi-14.12.2025-1-parca-000.html"
             },
             {
                 "title": "sinasi 06.12.2025 1",
                 "embed_id": "v71l044",
-                "link": "https://rumble.com/v73ro4c-sinasi-06.12.2025-1.html?e9s=src_v1_upp_a"
+                "link": "https://rumble.com/v73ro4c-sinasi-06.12.2025-1.html"
             },
             {
                 "title": "Hype - Turnuva Finali 01.01.2025",
-                "embed_id": "v999zzz",
-                "link": "#"
+                "embed_id": "v999zzz", // Fake ID for demo
+                "link": "https://rumble.com/v999zzz-hype-final.html"
             }
         ];
 
@@ -143,7 +154,8 @@
                     embedId: v.embed_id,
                     date: date,
                     category: category,
-                    link: v.link
+                    link: v.link,
+                    thumbnail: null // Başlangıçta resim yok, yüklenecek
                 };
             }).sort((a, b) => b.date - a.date);
         };
@@ -154,7 +166,6 @@
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-4 md:py-0 md:h-20">
                             
-                            {/* Logo Area */}
                             <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
                                 <div className="flex items-center gap-3">
                                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
@@ -166,10 +177,8 @@
                                         </h1>
                                     </div>
                                 </div>
-                                {/* Mobile Menu Button Placeholder (Optional) */}
                             </div>
 
-                            {/* Kategoriler - DEĞİŞİKLİK: overflow-x-auto yerine flex-wrap kullanıldı */}
                             <div className="hidden md:flex items-center gap-2 flex-wrap justify-center md:justify-end">
                                 {categories.map((cat) => (
                                     <button
@@ -188,7 +197,6 @@
                                 ))}
                             </div>
                             
-                            {/* Mobil Kategori Scroll (Mobil için yatay scroll kalsın, masaüstü yok) */}
                             <div className="md:hidden flex gap-2 overflow-x-auto w-full pb-2 no-scrollbar">
                                 {categories.map((cat) => (
                                     <button
@@ -245,6 +253,16 @@
                 return `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
             };
 
+            // Image Loading State Logic
+            const [imgLoaded, setImgLoaded] = useState(false);
+            const [imgError, setImgError] = useState(false);
+
+            // Reset load state if video changes
+            useEffect(() => {
+                setImgLoaded(false);
+                setImgError(false);
+            }, [video.id]);
+
             return (
                 <div 
                     onClick={onClick}
@@ -256,11 +274,43 @@
                         }
                     `}
                 >
-                    <div className="relative w-full sm:w-48 aspect-video bg-black rounded-lg overflow-hidden flex-shrink-0">
-                        <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-black flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                            <span className="text-white/20 text-3xl group-hover:text-indigo-500 transition-colors">▶</span>
+                    <div className="relative w-full sm:w-48 aspect-video rounded-lg overflow-hidden flex-shrink-0 bg-black">
+                        
+                        {/* 1. Real Image (Yüklendiyse) */}
+                        {video.thumbnail && !imgError ? (
+                            <img 
+                                src={video.thumbnail} 
+                                alt={video.title}
+                                onLoad={() => setImgLoaded(true)}
+                                onError={() => setImgError(true)}
+                                className={`
+                                    absolute inset-0 w-full h-full object-cover transition-all duration-500
+                                    ${imgLoaded ? 'opacity-100' : 'opacity-0'}
+                                `}
+                            />
+                        ) : null}
+
+                        {/* 2. Shimmer Loading Placeholder (Resim yüklenene kadar veya hata varsa) */}
+                        {(!video.thumbnail || imgError || !imgLoaded) && (
+                            <div className="absolute inset-0 shimmer flex items-center justify-center bg-slate-800">
+                                {!video.thumbnail ? (
+                                    // Henüz API'den veri gelmediyse
+                                    <span className="text-xs text-slate-400">Yükleniyor...</span>
+                                ) : imgError ? (
+                                    // Resim hatasıysa
+                                    <span className="text-xs text-slate-500">Resim Yok</span>
+                                ) : null}
+                            </div>
+                        )}
+
+                        {/* Hover Overlay & Play Button */}
+                        <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                <span className="text-white text-sm">▶</span>
+                            </div>
                         </div>
-                        {isActive && <div className="absolute inset-0 ring-2 ring-indigo-500 rounded-lg pointer-events-none"></div>}
+
+                        {isActive && <div className="absolute inset-0 ring-2 ring-indigo-500 rounded-lg pointer-events-none z-10"></div>}
                     </div>
                     
                     <div className="flex flex-col justify-center flex-1 min-w-0">
@@ -288,6 +338,7 @@
             const [activeCategory, setActiveCategory] = useState('all');
             const [searchTerm, setSearchTerm] = useState('');
 
+            // 1. Ana veri yükleme
             useEffect(() => {
                 const fetchVideos = async () => {
                     try {
@@ -296,16 +347,48 @@
                         const data = await response.json();
                         const processed = processVideoData(data);
                         setVideos(processed);
+                        
+                        // Resimleri çekmeye başla
+                        fetchThumbnails(processed);
+
                     } catch (error) {
                         console.warn("videos.json yüklenemedi, yedek veri kullanılıyor.", error);
                         const processed = processVideoData(FALLBACK_DATA);
                         setVideos(processed);
+                        fetchThumbnails(processed);
                     } finally {
                         setLoading(false);
                     }
                 };
                 fetchVideos();
             }, []);
+
+            // 2. Resimleri (Thumbnail) Rumble API'den çekme fonksiyonu
+            const fetchThumbnails = async (videoList) => {
+                console.log("Gerçek resimler çekiliyor...");
+                
+                // Her bir video için asenkron istek atıyoruz
+                const updatedVideos = await Promise.all(videoList.map(async (video) => {
+                    try {
+                        // Rumble oEmbed API kullanarak gerçek resim URL'sini alıyoruz
+                        const apiUrl = `https://rumble.com/api/oembed.json?url=${encodeURIComponent(video.link)}`;
+                        const response = await fetch(apiUrl);
+                        
+                        if (!response.ok) return video;
+                        
+                        const data = await response.json();
+                        if (data && data.thumbnail_url) {
+                            return { ...video, thumbnail: data.thumbnail_url };
+                        }
+                    } catch (e) {
+                        console.warn(`Resim çekilemedi: ${video.title}`, e);
+                    }
+                    return video; // Hata olursa orijinali döndür
+                }));
+
+                // State'i güncelle (Sadece resimler eklenmiş halde)
+                setVideos(updatedVideos);
+            };
 
             const filteredVideos = useMemo(() => {
                 return videos.filter(video => {
@@ -353,7 +436,7 @@
                                 </div>
                             </div>
 
-                            {/* Sağ Kolon: Liste - DEĞİŞİKLİK: Scroll kısıtlamaları kaldırıldı */}
+                            {/* Sağ Kolon: Liste */}
                             <div className="lg:col-span-4 space-y-6 animate-slide-up" style={{animationDelay: '100ms'}}>
                                 <div className="relative group">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -370,11 +453,6 @@
                                     />
                                 </div>
 
-                                {/* 
-                                    DEĞİŞİKLİK ALANI:
-                                    max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar pb-20 lg:pb-0
-                                    yerine sadece space-y-3 kullanıldı.
-                                */}
                                 <div className="space-y-3">
                                     <div className="flex items-center justify-between mb-4 px-2">
                                         <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">
@@ -405,7 +483,7 @@
                     
                     <footer className="border-t border-white/5 mt-12 py-8 bg-black/20 backdrop-blur-sm">
                         <div className="max-w-7xl mx-auto px-4 text-center">
-                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Video Arşivi.</p>
+                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Video Arşivi. Realtime Previews Enabled.</p>
                         </div>
                     </footer>
                 </div>
