@@ -1,4 +1,3 @@
-333
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -125,8 +124,8 @@
 
         // Unicode Temizleyici (Zero-width karakterler için)
         const cleanSearch = (val) => (val || '')
-            .replace(/[\u200B-\u200D\uFEFF]/g, '') // zero-width characters
-            .replace(/\u00A0/g, ' ')              // nbsp to normal space
+            .replace(/[\u200B-\u200D\uFEFF]/g, '') // zero-width
+            .replace(/\u00A0/g, ' ')              // nbsp
             .trim();
 
         const normalizeText = (str) => {
@@ -288,7 +287,7 @@
             const debounceTimerRef = useRef(null);
             const searchIdRef = useRef(0);
 
-            // isSearchActive hesaplaması için cleanSearch kullanıyoruz
+            // isSearchActive hesaplaması cleanSearch kullanıyor
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
             useEffect(() => {
@@ -314,9 +313,20 @@
                 fetchVideos();
             }, []);
 
-            // Arama değişince seçili videoyu sıfırla
+            // 🔥 KRİTİK KİLİT: Arama modu kapanınca HER ŞEYİ TEMİZLE
             useEffect(() => {
                 if (!isSearchActive) {
+                    // 1. Sonuçları boşalt
+                    setSearchResults([]); 
+                    setIsSearchingText(false);
+                    
+                    // 2. Bekleyen async istekleri öldür (ID artır)
+                    searchIdRef.current++;
+                    
+                    // 3. Timer'ı iptal et
+                    if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+                    
+                    // 4. Seçili videoyu sıfırla
                     setSelectedVideo(null);
                     setStartTime(null);
                 }
@@ -324,16 +334,11 @@
 
             // ARAMA EFEKTİ
             useEffect(() => {
-                // cleanSearch ile temizlenmiş terimi al
+                // selectedVideo bağımlılığı KALDIRILDI (User Tavsiyesi)
                 const term = cleanSearch(searchTerm).toLowerCase();
 
-                // 1. Eğer temizlenen terim boşsa, hemen temizle ve çık
-                if (!term) {
-                    setSearchResults([]); 
-                    setIsSearchingText(false);
-                    if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
-                    return;
-                }
+                // 1. KONTROL: Eğer temizlenen terim boşsa, hemen çık
+                if (!term) return;
 
                 // Timer temizle
                 if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
@@ -427,11 +432,12 @@
                     setIsSearchingText(false);
                 };
 
+                // Timer başlat
                 debounceTimerRef.current = setTimeout(() => {
                     performSearch();
                 }, 500);
 
-            }, [searchTerm, videos, activeCategory, selectedVideo]);
+            }, [searchTerm, videos, activeCategory]); // selectedVideo ÇIKARILDI
 
             const displayVideos = useMemo(() => {
                 if (activeCategory === 'all') return videos;
@@ -483,14 +489,7 @@
                                         type="text"
                                         placeholder="Kelime veya söz arayın..."
                                         value={searchTerm}
-                                        onChange={(e) => {
-                                            const val = e.target.value;
-                                            // KİLİT: Input'tan gelen veriyi cleanSearch'ten geçirip state'e koy
-                                            setSearchTerm(cleanSearch(val));
-                                            
-                                            // DEBUG LOG
-                                            console.log("searchTerm:", JSON.stringify(val), "cleanLen:", cleanSearch(val).length);
-                                        }}
+                                        onChange={(e) => setSearchTerm(cleanSearch(e.target.value))}
                                         className="w-full bg-slate-900/50 border border-white/10 text-slate-100 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 block w-full pl-11 p-4 transition-all duration-300 placeholder:text-slate-600"
                                     />
                                 </div>
