@@ -9,7 +9,7 @@
             --bg-color: #0a0a0a;
             --header-bg: rgba(20, 20, 20, 0.85);
             --card-bg: #161616;
-            --accent-color: #6366f1; /* İndigo/Morumsu modern ton */
+            --accent-color: #6366f1; 
             --accent-hover: #818cf8;
             --text-main: #ffffff;
             --text-secondary: #a1a1aa;
@@ -17,11 +17,7 @@
             --active-bg: #27272a;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             background-color: var(--bg-color);
@@ -72,11 +68,7 @@
             gap: 8px;
         }
 
-        .search-box {
-            position: relative;
-            max-width: 300px;
-            width: 100%;
-        }
+        .search-box { position: relative; max-width: 300px; width: 100%; }
 
         #search-input {
             width: 100%;
@@ -110,8 +102,7 @@
             gap: 8px;
             overflow-x: auto;
             padding-bottom: 4px;
-            scrollbar-width: none; 
-            -ms-overflow-style: none;
+            scrollbar-width: none; -ms-overflow-style: none;
         }
         .category-nav::-webkit-scrollbar { display: none; }
 
@@ -161,12 +152,12 @@
             margin-bottom: 30px;
             border: 1px solid var(--border-color);
             position: relative;
-            min-height: 300px; /* Boşken çok ince olmasın */
+            min-height: 300px;
         }
 
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
+            padding-bottom: 56.25%; 
             height: 0;
             background: #000;
             display: flex;
@@ -174,11 +165,9 @@
             justify-content: center;
         }
 
-        /* Boş Oynatıcı Göstergesi */
         .empty-player-msg {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             color: #555;
             font-size: 1.2rem;
@@ -189,23 +178,13 @@
             z-index: 1;
         }
         
-        .empty-player-icon {
-            font-size: 3rem;
-            opacity: 0.5;
-        }
+        .empty-player-icon { font-size: 3rem; opacity: 0.5; }
 
         .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            z-index: 10;
-            display: none; /* Başlangıçta gizli */
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border: none; z-index: 10; display: none;
         }
         
-        /* Video yüklendiğinde iframe'i göster, mesajı gizle */
         .video-container.has-video .empty-player-msg { display: none; }
         .video-container.has-video iframe { display: block; }
 
@@ -215,12 +194,7 @@
             border-top: 1px solid var(--border-color);
         }
 
-        .player-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: white;
-        }
+        .player-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 5px; color: white; }
 
         .player-category-tag {
             display: inline-block;
@@ -244,15 +218,8 @@
             border-left: 4px solid var(--accent-color);
         }
 
-        .grid-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .video-count {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
+        .grid-title { font-size: 1.3rem; font-weight: 600; }
+        .video-count { color: var(--text-secondary); font-size: 0.9rem; }
 
         .video-grid {
             display: grid;
@@ -295,10 +262,7 @@
         
         .thumb-placeholder {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #2a2a2a 0%, #000 100%);
             display: flex;
             align-items: center;
@@ -306,13 +270,10 @@
             transition: all 0.3s ease;
         }
 
-        .card:hover .thumb-placeholder {
-            background: radial-gradient(circle at center, #3a3a3a 0%, #111 100%);
-        }
+        .card:hover .thumb-placeholder { background: radial-gradient(circle at center, #3a3a3a 0%, #111 100%); }
 
         .play-overlay {
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             background: rgba(99, 102, 241, 0.8);
             border-radius: 50%;
             display: flex;
@@ -321,14 +282,10 @@
             transition: all 0.3s ease;
         }
 
-        .card:hover .play-overlay {
-            background: var(--accent-color);
-            transform: scale(1.1);
-        }
+        .card:hover .play-overlay { background: var(--accent-color); transform: scale(1.1); }
 
         .play-triangle {
-            width: 0;
-            height: 0;
+            width: 0; height: 0;
             border-top: 10px solid transparent;
             border-bottom: 10px solid transparent;
             border-left: 18px solid white;
@@ -363,6 +320,11 @@
             color: var(--text-secondary);
         }
 
+        .card-date {
+            color: #888;
+            font-size: 0.75rem;
+        }
+
         .card-tag {
             color: var(--accent-hover);
             font-weight: 600;
@@ -393,8 +355,7 @@
         }
         
         .spinner-circle {
-            width: 24px;
-            height: 24px;
+            width: 24px; height: 24px;
             border: 3px solid rgba(99, 102, 241, 0.3);
             border-top-color: var(--accent-color);
             border-radius: 50%;
@@ -436,21 +397,13 @@
     </header>
 
     <main>
-        <!-- Oynatıcı Alanı -->
         <section class="player-section">
             <div class="video-container" id="video-container">
-                <!-- Başlangıçta boş mesajı -->
                 <div class="empty-player-msg">
                     <div class="empty-player-icon">📺</div>
                     <div>Bir kategori seçerek video izleyebilirsiniz</div>
                 </div>
-
-                <iframe 
-                    id="main-player" 
-                    src="" 
-                    allowfullscreen
-                    title="Video Player">
-                </iframe>
+                <iframe id="main-player" src="" allowfullscreen title="Video Player"></iframe>
             </div>
             <div class="player-info">
                 <div class="player-category-tag" id="player-tag">-</div>
@@ -458,7 +411,6 @@
             </div>
         </section>
 
-        <!-- Liste Alanı -->
         <div class="grid-header">
             <div class="grid-title" id="section-title">Tüm Videolar</div>
             <div class="video-count" id="video-count">0 video</div>
@@ -473,14 +425,13 @@
     </main>
 
     <footer>
-        &copy; 2025 Volkan'ın Video Arşivi. Yayın içerikleri Rumble üzerinden sunulmaktadır.
+        &copy; 2025 Volkan'ın Video Arşivi. Videolar tarihe göre sıralanmıştır.
     </footer>
 
     <script>
-        // Kategori Listesi Güncellendi: Hype en başa eklendi
         const categories = [
             { id: 'all', name: 'Tümü' },
-            { id: 'Hype', name: 'Hype' }, // <--- HYPE BURAYA EKLENDİ
+            { id: 'Hype', name: 'Hype' },
             { id: 'Triel', name: 'Triel' },
             { id: 'Sinasi', name: 'Şinasi' },
             { id: 'Prensesperver', name: 'Prensesperver' },
@@ -505,6 +456,26 @@
             { "title": "Nesrin - Canlı Yayın Kaydı", "embed_id": "v147stu", "link": "#" },
             { "title": "Triel - FPS İpuçları", "embed_id": "v258vwx", "link": "#" }
         ];
+
+        // Tarih çıkarma fonksiyonu
+        function parseDate(title) {
+            // "15.12.2025" formatını yakalar
+            const match = title.match(/(\d{2})\.(\d{2})\.(\d{4})/);
+            if (match) {
+                // Ay 0-11 arasında olduğu için match[2] - 1
+                return new Date(match[3], match[2] - 1, match[1]);
+            }
+            return null; // Tarih yoksa
+        }
+
+        // Tarih formatlama fonksiyonu (Kartlarda göstermek için)
+        function formatDate(dateObj) {
+            if (!dateObj) return "";
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const year = dateObj.getFullYear();
+            return `${day}.${month}.${year}`;
+        }
 
         function detectCategoryFromTitle(title) {
             for (let cat of categories) {
@@ -533,25 +504,19 @@
                 btn.textContent = cat.name;
                 
                 btn.onclick = () => {
-                    // Buton aktiflik durumu
                     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     
-                    // Kategori değişimi
                     currentCategory = cat.id;
                     
-                    // Listeyi filtrele ve DOM'a bas
                     const filteredVideos = filterAndRender();
                     
-                    // İSTEĞE GÖRE: Kategori değişince ilk videoyu oynat
                     if (filteredVideos.length > 0) {
-                        // DOM'a basılan ilk kartı bul
                         const firstCard = document.querySelector('.video-card');
                         if(firstCard) {
                             playVideo(filteredVideos[0], firstCard);
                         }
                     } else {
-                        // Kategori boşsa oynatıcıyı sıfırla
                         resetPlayer();
                     }
 
@@ -571,7 +536,20 @@
                 allVideos = fallbackVideos;
             }
             
-            // Sadece listeyi bas, oynatma yapma (İstek: Boş başlangıç)
+            // --- SIRALAMA MANTIĞI BURADA ---
+            // 1. Her videoya tarih objesi ekle
+            allVideos.forEach(v => {
+                v.parsedDate = parseDate(v.title);
+            });
+
+            // 2. Tarihe göre sırala (Yeniden eskiye)
+            // Tarih null olanları en sona atar
+            allVideos.sort((a, b) => {
+                const dateA = a.parsedDate ? a.parsedDate.getTime() : 0;
+                const dateB = b.parsedDate ? b.parsedDate.getTime() : 0;
+                return dateB - dateA; // Büyük tarih (yeni) küçük tarihin (eski) üstüne gelir
+            });
+
             filterAndRender();
         }
 
@@ -579,7 +557,6 @@
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
             const activeCatObj = categories.find(c => c.id === currentCategory) || { id: 'all' };
             
-            // Başlık Güncelleme
             document.getElementById('section-title').textContent = activeCatObj.name === 'Tümü' ? 'Tüm Videolar' : `${activeCatObj.name} Videoları`;
 
             return allVideos.filter(video => {
@@ -625,6 +602,7 @@
             if(currentVideoId === video.embed_id) card.classList.add('active');
             
             const detectedCat = detectCategoryFromTitle(video.title);
+            const dateStr = formatDate(video.parsedDate); // Tarihi string'e çevir
             
             card.innerHTML = `
                 <div class="thumb-wrapper">
@@ -637,8 +615,8 @@
                 <div class="card-body">
                     <div class="card-title" title="${video.title}">${video.title}</div>
                     <div class="card-meta">
+                        <span class="card-date">${dateStr}</span>
                         <span class="card-tag">${detectedCat}</span>
-                        <span>Rumble</span>
                     </div>
                 </div>
             `;
@@ -666,7 +644,6 @@
             
             currentVideoId = video.embed_id;
 
-            // Oynatıcı aktif durumuna geç
             container.classList.add('has-video');
 
             if(window.innerWidth < 768) {
@@ -681,7 +658,7 @@
             const tag = document.getElementById('player-tag');
 
             player.src = "";
-            container.classList.remove('has-video'); // Boş mesajını geri getir
+            container.classList.remove('has-video');
             title.textContent = "Bir video seçin";
             tag.textContent = "-";
             currentVideoId = null;
