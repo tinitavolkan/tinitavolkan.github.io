@@ -1,3 +1,4 @@
+333
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -121,6 +122,12 @@
                 { "title": "Blush 15.12.2025 2_Parca_000", "embed_id": "v71l1b5", "link": "https://rumble.com/v71l1b5-blush.html" }
             ]
         };
+
+        // Unicode Temizleyici (Zero-width karakterler için)
+        const cleanSearch = (val) => (val || '')
+            .replace(/[\u200B-\u200D\uFEFF]/g, '') // zero-width characters
+            .replace(/\u00A0/g, ' ')              // nbsp to normal space
+            .trim();
 
         const normalizeText = (str) => {
             return str.toString().toLowerCase()
@@ -281,8 +288,8 @@
             const debounceTimerRef = useRef(null);
             const searchIdRef = useRef(0);
 
-            // KESİN ÇÖZÜM: Arama modunu belirten flag
-            const isSearchActive = searchTerm.trim().length > 0;
+            // isSearchActive hesaplaması için cleanSearch kullanıyoruz
+            const isSearchActive = cleanSearch(searchTerm).length > 0;
 
             useEffect(() => {
                 const fetchVideos = async () => {
@@ -315,15 +322,15 @@
                 }
             }, [isSearchActive]);
 
-            // ARAMA EFEKTİ (State Clear Fix)
+            // ARAMA EFEKTİ
             useEffect(() => {
-                const term = searchTerm.trim().toLowerCase();
+                // cleanSearch ile temizlenmiş terimi al
+                const term = cleanSearch(searchTerm).toLowerCase();
 
-                // 1. KESİN KONTROL: Eğer input boşsa, HEMEN return et ve temizle
+                // 1. Eğer temizlenen terim boşsa, hemen temizle ve çık
                 if (!term) {
                     setSearchResults([]); 
                     setIsSearchingText(false);
-                    // Herhangi bir bekleyen aramayı iptal et
                     if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
                     return;
                 }
@@ -413,7 +420,7 @@
                     const textHitsArrays = await Promise.all(fetchPromises);
                     const allTextHits = textHitsArrays.flat();
 
-                    // Race Condition Koruması
+                    // Race Condition Kontrolü
                     if (currentSearchId !== searchIdRef.current) return; 
 
                     setSearchResults([...allTextHits, ...results]);
@@ -478,7 +485,11 @@
                                         value={searchTerm}
                                         onChange={(e) => {
                                             const val = e.target.value;
-                                            setSearchTerm(val === "" ? "" : val); // Önerilen fix
+                                            // KİLİT: Input'tan gelen veriyi cleanSearch'ten geçirip state'e koy
+                                            setSearchTerm(cleanSearch(val));
+                                            
+                                            // DEBUG LOG
+                                            console.log("searchTerm:", JSON.stringify(val), "cleanLen:", cleanSearch(val).length);
                                         }}
                                         className="w-full bg-slate-900/50 border border-white/10 text-slate-100 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 block w-full pl-11 p-4 transition-all duration-300 placeholder:text-slate-600"
                                     />
@@ -494,7 +505,7 @@
                                     {loading ? (
                                         <div className="text-center py-8 text-slate-500 animate-pulse">Videolar yükleniyor...</div>
                                     ) : isSearchActive ? (
-                                        // ARAMA MODU: Sadece aktifse sonuçları göster
+                                        // ARAMA MODU
                                         searchResults.length > 0 ? (
                                             searchResults.map((item, idx) => (
                                                 <SearchResultCard 
@@ -510,7 +521,7 @@
                                             </div>
                                         )
                                     ) : (
-                                        // NORMAL MODU: Search aktif değilse, her zaman video listesini göster
+                                        // NORMAL MODU
                                         displayVideos.map((video) => (
                                             <SearchResultCard 
                                                 key={video.id} 
