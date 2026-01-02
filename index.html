@@ -17,7 +17,7 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
-    <!-- Babel (JSX'i tarayıcıda okumak için) -->
+    <!-- Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <!-- Tailwind Config -->
@@ -41,14 +41,8 @@
                         'slide-up': 'slideUp 0.4s ease-out',
                     },
                     keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideUp: {
-                            '0%': { transform: 'translateY(20px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        }
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } }
                     }
                 }
             }
@@ -57,28 +51,19 @@
 
     <style>
         body { background-color: #020617; }
-        
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #020617; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-        /* Aurora Effect Classes */
         .aurora-glow {
-            position: absolute;
-            width: 600px; height: 600px;
+            position: absolute; width: 600px; height: 600px;
             background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-            animation: aurora 15s infinite alternate;
-            pointer-events: none;
+            border-radius: 50%; filter: blur(80px); z-index: -1;
+            animation: aurora 15s infinite alternate; pointer-events: none;
         }
-        
         @keyframes aurora {
             0% { transform: translate(-20%, -20%) scale(1); opacity: 0.5; }
-            50% { transform: translate(10%, 10%) scale(1.1); opacity: 0.7; }
             100% { transform: translate(-10%, 20%) scale(0.9); opacity: 0.5; }
         }
 
@@ -91,20 +76,17 @@
 </head>
 <body class="text-slate-100 antialiased overflow-x-hidden min-h-screen">
     
-    <!-- Arkaplan Efekti -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
         <div class="aurora-glow top-[-200px] left-[-200px] bg-indigo-500/20"></div>
         <div class="aurora-glow bottom-[-200px] right-[-200px] bg-purple-500/10 delay-1000"></div>
     </div>
 
-    <!-- React Root -->
     <div id="root"></div>
 
-    <!-- React Kodu (Script Babel) -->
     <script type="text/babel">
         const { useState, useEffect, useMemo } = React;
 
-        // --- Mock Data ---
+        // --- Kategoriler ---
         const CATEGORIES = [
             { id: 'all', name: 'Tüm Arşiv' },
             { id: 'Hype', name: 'Hype' },
@@ -117,26 +99,66 @@
             { id: 'Blush', name: 'Blush' }
         ];
 
-        const INITIAL_VIDEOS = [
-            { id: 1, title: "Hype - Turnuva Finali 01.01.2025", embedId: "v999zzz", date: "2025-01-01", category: "Hype" },
-            { id: 2, title: "Triel - Epik Oyun Anları 01.01.2025", embedId: "v123abc", date: "2025-01-01", category: "Triel" },
-            { id: 3, title: "Şinasi - Sohbet ve Muhabbet 15.12.2024", embedId: "v456def", date: "2024-12-15", category: "Sinasi" },
-            { id: 4, title: "Prensesperver - Yeni Yıl Özel Yayını", embedId: "v789ghi", date: "2024-12-31", category: "Prensesperver" },
-            { id: 5, title: "Nuriben - Vlog #3", embedId: "v321jkl", date: "2024-11-20", category: "Nuriben" },
-            { id: 6, title: "Blush - Setup Turu", embedId: "v654mno", date: "2024-11-10", category: "Blush" },
-            { id: 7, title: "Egearseven - Teknoloji İncelemesi", embedId: "v987pqr", date: "2024-10-05", category: "Egearseven" },
-            { id: 8, title: "Nesrin - Canlı Yayın Kaydı", embedId: "v147stu", date: "2024-10-01", category: "Nesrin" },
+        // --- Yedek (Fallback) Veri (JSON yüklenemezse kullanılır) ---
+        const FALLBACK_DATA = [
+            {
+                "title": "sinasi 26.12.2025 1_Parca_000",
+                "embed_id": "v71l0d4",
+                "link": "https://rumble.com/v73rodc-sinasi-26.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
+            },
+            {
+                "title": "sinasi 14.12.2025 1_Parca_000",
+                "embed_id": "v71l08q",
+                "link": "https://rumble.com/v73ro8y-sinasi-14.12.2025-1-parca-000.html?e9s=src_v1_upp_a"
+            },
+            {
+                "title": "sinasi 06.12.2025 1",
+                "embed_id": "v71l044",
+                "link": "https://rumble.com/v73ro4c-sinasi-06.12.2025-1.html?e9s=src_v1_upp_a"
+            },
+            {
+                "title": "Hype - Turnuva Finali 01.01.2025",
+                "embed_id": "v999zzz",
+                "link": "#"
+            }
         ];
 
-        // --- Components ---
+        // --- Veri İşleme Yardımcıları ---
+        const processVideoData = (rawVideos) => {
+            return rawVideos.map((v, index) => {
+                // 1. Tarih Çıkarma (Regex: dd.mm.yyyy)
+                const dateMatch = v.title.match(/(\d{2})\.(\d{2})\.(\d{4})/);
+                const date = dateMatch ? new Date(dateMatch[3], dateMatch[2] - 1, dateMatch[1]) : new Date();
 
-        // 1. Navbar Component
+                // 2. Kategori Tespiti
+                let category = "Diğer";
+                const lowerTitle = v.title.toLowerCase();
+                for (let cat of CATEGORIES) {
+                    if (cat.id === 'all') continue;
+                    // 'sinasi' ile 'Şinasi' eşleşmesi için küçük harf kontrolü
+                    if (lowerTitle.includes(cat.id.toLowerCase())) {
+                        category = cat.name;
+                        break;
+                    }
+                }
+
+                return {
+                    id: v.embed_id || index, // ID olarak embed_id kullan
+                    title: v.title,
+                    embedId: v.embed_id,
+                    date: date,
+                    category: category,
+                    link: v.link
+                };
+            }).sort((a, b) => b.date - a.date); // Tarihe göre sırala (Yeniden eskiye)
+        };
+
+        // --- Components ---
         const Navbar = ({ categories, activeCategory, setActiveCategory }) => {
             return (
                 <div className="border-b border-white/10 glass-panel sticky top-0 z-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-between h-20">
-                            {/* Logo */}
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
                                     <span className="text-xl">📼</span>
@@ -145,11 +167,9 @@
                                     <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
                                         Volkan'ın Arşivi
                                     </h1>
-                                    <p className="text-xs text-slate-500 font-medium tracking-wide">NEXT-GEN ARCHIVE</p>
                                 </div>
                             </div>
 
-                            {/* Desktop Nav */}
                             <div className="hidden md:flex items-center gap-2 overflow-x-auto max-w-2xl no-scrollbar">
                                 {categories.map((cat) => (
                                     <button
@@ -173,17 +193,16 @@
             );
         };
 
-        // 2. Video Player Component
         const VideoPlayer = ({ video }) => {
             if (!video) {
                 return (
                     <div className="w-full aspect-video bg-slate-900/50 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden group">
-                        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] opacity-30"></div>
+                         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] opacity-30"></div>
                         <div className="w-20 h-20 rounded-full bg-slate-800 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-xl">
                             <span className="text-3xl">▶</span>
                         </div>
                         <h3 className="text-xl font-semibold text-white mb-2">İzlemeye Başla</h3>
-                        <p className="text-slate-400 max-w-sm">Listeden bir video seçerek yüksek kaliteli arşivi keşfetmeye başla.</p>
+                        <p className="text-slate-400">Listeden bir video seç.</p>
                     </div>
                 );
             }
@@ -200,8 +219,14 @@
             );
         };
 
-        // 3. Video Card Component
         const VideoCard = ({ video, isActive, onClick }) => {
+            // Tarih formatlama (Örn: 26.12.2025)
+            const formatDate = (date) => {
+                const d = new Date(date);
+                if(isNaN(d.getTime())) return "Tarih Yok";
+                return `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
+            };
+
             return (
                 <div 
                     onClick={onClick}
@@ -230,7 +255,7 @@
                             </span>
                             <span className="flex items-center gap-1">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                {new Date(video.date).toLocaleDateString('tr-TR')}
+                                {formatDate(video.date)}
                             </span>
                         </div>
                     </div>
@@ -238,14 +263,36 @@
             );
         };
 
-        // --- Main App Component ---
         const App = () => {
-            const [videos, setVideos] = useState(INITIAL_VIDEOS);
+            const [videos, setVideos] = useState([]);
+            const [loading, setLoading] = useState(true);
             const [selectedVideo, setSelectedVideo] = useState(null);
             const [activeCategory, setActiveCategory] = useState('all');
             const [searchTerm, setSearchTerm] = useState('');
 
-            // Filter Logic
+            // useEffect ile video verisini çek
+            useEffect(() => {
+                const fetchVideos = async () => {
+                    try {
+                        // videos.json dosyasını çekmeyi dene
+                        const response = await fetch('videos.json');
+                        if (!response.ok) throw new Error("Dosya bulunamadı");
+                        const data = await response.json();
+                        const processed = processVideoData(data);
+                        setVideos(processed);
+                    } catch (error) {
+                        console.warn("videos.json yüklenemedi, yedek veri kullanılıyor.", error);
+                        // Hata varsa yedek veriyi kullan
+                        const processed = processVideoData(FALLBACK_DATA);
+                        setVideos(processed);
+                    } finally {
+                        setLoading(false);
+                    }
+                };
+                fetchVideos();
+            }, []);
+
+            // Filtreleme Mantığı
             const filteredVideos = useMemo(() => {
                 return videos.filter(video => {
                     const matchCategory = activeCategory === 'all' || video.category === activeCategory;
@@ -254,10 +301,8 @@
                 });
             }, [activeCategory, searchTerm, videos]);
 
-            // Handle Video Select
             const handleVideoSelect = (video) => {
                 setSelectedVideo(video);
-                // Scroll to top on mobile
                 if (window.innerWidth < 1024) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
@@ -275,7 +320,7 @@
                         
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                             
-                            {/* LEFT COLUMN: Player & Active Info */}
+                            {/* Sol Kolon: Player */}
                             <div className="lg:col-span-8 space-y-6">
                                 <div className="animate-slide-up">
                                     <VideoPlayer video={selectedVideo} />
@@ -287,17 +332,15 @@
                                             </div>
                                             <div>
                                                 <h2 className="text-xl font-bold text-white mb-1">{selectedVideo.title}</h2>
-                                                <p className="text-slate-400 text-sm">Şu an oynatılıyor • Arşiv'de yer alan {selectedVideo.category} kategorisi içerisinden.</p>
+                                                <p className="text-slate-400 text-sm">Oynatılıyor • {selectedVideo.category}</p>
                                             </div>
                                         </div>
                                     )}
                                 </div>
                             </div>
 
-                            {/* RIGHT COLUMN: List & Controls */}
+                            {/* Sağ Kolon: Liste */}
                             <div className="lg:col-span-4 space-y-6 animate-slide-up" style={{animationDelay: '100ms'}}>
-                                
-                                {/* Search Input */}
                                 <div className="relative group">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                         <svg className="h-5 w-5 text-slate-500 group-focus-within:text-indigo-500 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -313,15 +356,16 @@
                                     />
                                 </div>
 
-                                {/* Video List */}
                                 <div className="space-y-3 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar pb-20 lg:pb-0">
                                     <div className="flex items-center justify-between mb-4 px-2">
                                         <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">
-                                            {filteredVideos.length} Video Bulundu
+                                            {loading ? 'Yükleniyor...' : `${filteredVideos.length} Video`}
                                         </h3>
                                     </div>
 
-                                    {filteredVideos.length === 0 ? (
+                                    {loading ? (
+                                        <div className="text-center py-8 text-slate-500 animate-pulse">Videolar yükleniyor...</div>
+                                    ) : filteredVideos.length === 0 ? (
                                         <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">
                                             <p>Sonuç bulunamadı.</p>
                                         </div>
@@ -340,17 +384,15 @@
                         </div>
                     </main>
                     
-                    {/* Footer */}
                     <footer className="border-t border-white/5 mt-12 py-8 bg-black/20 backdrop-blur-sm">
                         <div className="max-w-7xl mx-auto px-4 text-center">
-                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Video Arşivi. React + Tailwind + Next-Gen Tech.</p>
+                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Video Arşivi.</p>
                         </div>
                     </footer>
                 </div>
             );
         };
 
-        // Render
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
