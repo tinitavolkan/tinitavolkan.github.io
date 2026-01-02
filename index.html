@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katman Yayın Geçmişi Arşiv</title>
+    <title>Katman Yayın Geçmişi Arşiv + AI</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -39,6 +39,7 @@
                     animation: {
                         'fade-in': 'fadeIn 0.5s ease-out',
                         'slide-up': 'slideUp 0.4s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
@@ -72,6 +73,14 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
+
+        /* AI Panel Special Styles */
+        #ai-widget-container {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ai-item:hover {
+            transform: translateX(4px);
+        }
     </style>
 </head>
 <body class="text-slate-100 antialiased overflow-x-hidden min-h-screen">
@@ -81,8 +90,13 @@
         <div class="aurora-glow bottom-[-200px] right-[-200px] bg-purple-500/10 delay-1000"></div>
     </div>
 
+    <!-- React Root -->
     <div id="root"></div>
 
+    <!-- AI Widget Container (Vanilla JS will inject UI here) -->
+    <div id="ai-widget-root" class="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none"></div>
+
+    <!-- REACT APP -->
     <script type="text/babel">
         const { useState, useEffect, useMemo } = React;
 
@@ -139,13 +153,8 @@
                 .replace('ç', 'c');
         };
 
-        // --- GELİŞMİŞ SIRALAMA MANTIĞI ---
         const processVideoData = (rawVideos) => {
-            // Sıralama için helper fonksiyon
             const getSortParts = (title) => {
-                // Regex: "1 _Parca_000" veya "2_Parca_001" kalıbını yakalar
-                // 1. Grup: Ana Parça (1, 2, 3...)
-                // 2. Grup: Alt Parça (000, 001...)
                 const match = title.match(/(\d+)\s*_Parca_\s*(\d+)/);
                 if (match) {
                     return {
@@ -153,7 +162,7 @@
                         subPart: parseInt(match[2], 10)
                     };
                 }
-                return { mainPart: 0, subPart: 0 }; // Eşleşme yoksa en başa koyar
+                return { mainPart: 0, subPart: 0 };
             };
 
             const processed = rawVideos.map((v, index) => {
@@ -177,24 +186,16 @@
                     embedId: v.embed_id,
                     date: date,
                     category: category,
-                    sortMetrics: getSortParts(v.title) // Sıralama metriklerini kaydet
+                    sortMetrics: getSortParts(v.title)
                 };
             });
 
-            // KARMAŞIK SIRALAMA (Complex Sort)
             processed.sort((a, b) => {
-                // 1. Tarih Karşılaştırması (Yeniden Eskisine -> Büyükten Küçüğe)
                 const dateDiff = b.date - a.date;
                 if (dateDiff !== 0) return dateDiff;
-
-                // 2. Tarihler Eşitse -> Ana Parça Karşılaştırması (Küçükten Büyüğe)
-                // Örn: 1 önce, 2 sonra gelir
                 if (a.sortMetrics.mainPart !== b.sortMetrics.mainPart) {
                     return a.sortMetrics.mainPart - b.sortMetrics.mainPart;
                 }
-
-                // 3. Ana Parçalar Eşitse -> Alt Parça Karşılaştırması (Küçükten Büyüğe)
-                // Örn: 000 önce, 001 sonra gelir
                 return a.sortMetrics.subPart - b.sortMetrics.subPart;
             });
 
@@ -203,7 +204,7 @@
 
         const Navbar = ({ categories, activeCategory, setActiveCategory, lastUpdate }) => {
             return (
-                <div className="border-b border-white/10 glass-panel sticky top-0 z-50">
+                <div className="border-b border-white/10 glass-panel sticky top-0 z-40">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-4 md:py-0 md:h-20">
                             
@@ -275,7 +276,7 @@
                             <span className="text-3xl">▶</span>
                         </div>
                         <h3 className="text-xl font-semibold text-white mb-2">İzlemeye Başla</h3>
-                        <p className="text-slate-400">Listeden bir video seç.</p>
+                        <p className="text-slate-400">Listeden bir video seç veya AI Asistanı kullan.</p>
                     </div>
                 );
             }
@@ -347,7 +348,7 @@
                         const tarih = Array.isArray(data) ? "" : (data.tarih || "");
                         
                         setLastUpdate(tarih);
-                        const processed = processVideoData(rawVideos); // Gelişmiş sort burada çalışır
+                        const processed = processVideoData(rawVideos);
                         setVideos(processed);
                     } catch (error) {
                         console.warn("videos.json yüklenemedi, yedek veri kullanılıyor.", error);
@@ -360,6 +361,26 @@
                 };
                 fetchVideos();
             }, []);
+
+            // ✅ AI PANEL BAĞLANTISI (KRİTİK)
+            useEffect(() => {
+                // Normal postMessage dinleyicisi
+                const handleMessage = (event) => {
+                    if (event.data?.type === "AI_SELECT_VIDEO") {
+                        const video = videos.find(v => v.embedId === event.data.embedId);
+                        if (video) {
+                            setSelectedVideo(video);
+                            // Mobilde ise yukarı kaydır
+                            if (window.innerWidth < 1024) {
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }
+                        }
+                    }
+                };
+
+                window.addEventListener("message", handleMessage);
+                return () => window.removeEventListener("message", handleMessage);
+            }, [videos]);
 
             const filteredVideos = useMemo(() => {
                 return videos.filter(video => {
@@ -467,12 +488,10 @@
                     <footer className="border-t border-white/5 mt-12 py-8 bg-black/20 backdrop-blur-sm">
                         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
                             
-                            {/* Sol Taraf: Telif Hakkı */}
                             <p className="text-slate-600 text-sm order-2 md:order-1">
                                 © 2025 Katman Yayın Geçmişi Arşiv.
                             </p>
 
-                            {/* Orta/Sağ Taraf: Instagram Butonu */}
                             <a 
                                 href="https://www.instagram.com/tinitavolkan/" 
                                 target="_blank" 
@@ -494,6 +513,196 @@
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
+    </script>
+
+    <!-- AI LOGIC - AYRI DOSYA MANTIĞINDA ÇALIŞIR -->
+    <script>
+        (function() {
+            // AYARLAR VE STATE
+            let VIDEOS = [];
+            let isPanelOpen = false;
+            
+            // DOM Elementleri
+            const rootContainer = document.getElementById('ai-widget-root');
+            
+            // Veri Normalize Fonksiyonu (Kullanıcı kodu aynen alındı)
+            function normalize(s) {
+                return s.toLowerCase()
+                    .replace(/[ğüşıöç]/g, m => ({
+                        ğ:'g', ü:'u', ş:'s', ı:'i', ö:'o', ç:'c'
+                    }[m]));
+            }
+
+            // AI UI Oluşturucu
+            function createAIUI() {
+                // Ana Konteyner
+                const container = document.createElement('div');
+                container.id = 'ai-widget-container';
+                container.className = 'pointer-events-auto flex flex-col items-end';
+                
+                // Panel (Gizli başlar)
+                const panel = document.createElement('div');
+                panel.id = 'ai-panel';
+                panel.className = 'hidden mb-4 w-[350px] max-w-[calc(100vw-3rem)] bg-slate-900/90 backdrop-blur-xl border border-indigo-500/30 rounded-2xl shadow-2xl shadow-indigo-500/20 overflow-hidden transform transition-all duration-300 origin-bottom-right scale-95 opacity-0';
+                
+                panel.innerHTML = `
+                    <div class="p-4 bg-gradient-to-r from-indigo-900/50 to-slate-900 border-b border-white/5 flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <span class="text-lg">🤖</span>
+                            <h3 class="font-bold text-white text-sm">AI Arşiv Asistanı</h3>
+                        </div>
+                        <button id="close-ai" class="text-slate-400 hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <div class="relative">
+                            <textarea 
+                                id="ai-prompt" 
+                                class="w-full h-20 bg-slate-950/50 border border-white/10 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 resize-none transition-colors placeholder-slate-600" 
+                                placeholder="Örn: sinasi aralık ayı 2. parça"
+                            ></textarea>
+                        </div>
+                        <button 
+                            id="ai-search-btn"
+                            class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2.5 rounded-xl text-sm font-semibold transition-all shadow-lg shadow-indigo-600/20 active:scale-95 flex items-center justify-center gap-2"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            Bul
+                        </button>
+                        <div id="ai-result" class="space-y-2 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar"></div>
+                    </div>
+                `;
+
+                // Toggle Button (FAB)
+                const toggleBtn = document.createElement('button');
+                toggleBtn.id = 'ai-toggle-btn';
+                toggleBtn.className = 'w-14 h-14 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-xl shadow-indigo-600/30 hover:scale-110 transition-transform duration-300 z-50 animate-pulse-slow';
+                toggleBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                    </svg>
+                `;
+
+                // Event Listeners
+                toggleBtn.addEventListener('click', togglePanel);
+                panel.querySelector('#close-ai').addEventListener('click', togglePanel);
+                panel.querySelector('#ai-search-btn').addEventListener('click', askAI);
+                
+                // Enter tuşu desteği
+                panel.querySelector('#ai-prompt').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        askAI();
+                    }
+                });
+
+                container.appendChild(panel);
+                container.appendChild(toggleBtn);
+                rootContainer.appendChild(container);
+            }
+
+            function togglePanel() {
+                const panel = document.getElementById('ai-panel');
+                const btn = document.getElementById('ai-toggle-btn');
+                isPanelOpen = !isPanelOpen;
+
+                if (isPanelOpen) {
+                    panel.classList.remove('hidden');
+                    // Küçük gecikme ile animasyon tetikle
+                    setTimeout(() => {
+                        panel.classList.remove('scale-95', 'opacity-0');
+                        panel.classList.add('scale-100', 'opacity-100');
+                    }, 10);
+                    btn.classList.add('rotate-90');
+                    // Odaklan
+                    setTimeout(() => document.getElementById('ai-prompt').focus(), 100);
+                } else {
+                    panel.classList.remove('scale-100', 'opacity-100');
+                    panel.classList.add('scale-95', 'opacity-0');
+                    setTimeout(() => {
+                        panel.classList.add('hidden');
+                    }, 300);
+                    btn.classList.remove('rotate-90');
+                }
+            }
+
+            // AI ASİSTANI MANTIĞI (Kullanıcı kodu)
+            async function askAI() {
+                const promptInput = document.getElementById('ai-prompt');
+                const resultBox = document.getElementById('ai-result');
+                const searchBtn = document.getElementById('ai-search-btn');
+                
+                const q = normalize(promptInput.value);
+                resultBox.innerHTML = "";
+
+                // Yükleniyor durumu
+                searchBtn.innerHTML = 'Aranıyor...';
+                searchBtn.disabled = true;
+
+                // Veri yoksa yükle (React'tan bağımsız)
+                if (VIDEOS.length === 0) {
+                    try {
+                        const response = await fetch("videos.json");
+                        const data = await response.json();
+                        VIDEOS = Array.isArray(data) ? data : data.videos;
+                    } catch (e) {
+                        console.warn("AI videos.json yükleyemedi, yedek veri kullanılıyor.");
+                        // Eğer React app yüklendiyse, onun state'ini kullanmaya çalışalım (Advanced hack) veya fallback kullanalım
+                        // Basitlik için burada da bir fallback verisi koyabiliriz ama kullanıcı JS yapısını bozmamak için
+                        // hata mesajı basarız.
+                        resultBox.innerHTML = `<div class="p-3 text-red-400 text-xs text-center">Veri bağlantı hatası.</div>`;
+                        searchBtn.innerHTML = 'Bul';
+                        searchBtn.disabled = false;
+                        return;
+                    }
+                }
+
+                const hits = VIDEOS.filter(v => normalize(v.title).includes(q)).slice(0, 5);
+
+                searchBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    Bul
+                `;
+                searchBtn.disabled = false;
+
+                if (!hits.length) {
+                    resultBox.innerHTML = `<div class="p-3 text-slate-500 text-xs text-center">Sonuç bulunamadı.</div>`;
+                    return;
+                }
+
+                hits.forEach(v => {
+                    const div = document.createElement("div");
+                    div.className = "ai-item p-3 bg-slate-950/50 rounded-xl cursor-pointer border border-white/5 hover:border-indigo-500/50 hover:bg-indigo-500/10 transition-all group";
+                    div.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center flex-shrink-0 group-hover:bg-indigo-600 transition-colors">
+                                <span class="text-xs">▶</span>
+                            </div>
+                            <p class="text-xs text-slate-300 line-clamp-2 group-hover:text-white">${v.title}</p>
+                        </div>
+                    `;
+
+                    div.onclick = () => {
+                        // MESAJ GÖNDERME (React App'e)
+                        window.postMessage({
+                            type: "AI_SELECT_VIDEO",
+                            embedId: v.embed_id
+                        }, "*");
+                        
+                        // Paneli kapat
+                        togglePanel();
+                        // Inputu temizle
+                        promptInput.value = "";
+                    };
+
+                    resultBox.appendChild(div);
+                });
+            }
+
+            // Başlat
+            createAIUI();
+        })();
     </script>
 </body>
 </html>
