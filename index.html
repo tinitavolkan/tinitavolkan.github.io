@@ -90,7 +90,7 @@
             { id: 'all', name: 'Tüm Arşiv' },
             { id: 'Hype', name: 'Hype' },
             { id: 'Triel', name: 'Triel' },
-            { id: 'Sinasi', name: 'Şinasi' },
+            { id: 'Sinasi', name: 'Şinasi' }, // ID'si "Sinasi" (S ile), Display'de "Şinasi"
             { id: 'Prensesperver', name: 'Prensesperver' },
             { id: 'Nuriben', name: 'Nuriben' },
             { id: 'Nesrin', name: 'Nesrin' },
@@ -105,12 +105,12 @@
                 "link": "https://rumble.com/v73rodc-sinasi-26.12.2025-1-parca-000.html"
             },
             {
-                "title": "sinasi 14.12.2025 1_Parca_000",
+                "title": "şinasi 14.12.2025 1_Parca_000", // Türkçe karakter testi
                 "embed_id": "v71l08q",
                 "link": "https://rumble.com/v73ro8y-sinasi-14.12.2025-1-parca-000.html"
             },
             {
-                "title": "sinasi 06.12.2025 1",
+                "title": "Şinasi 06.12.2025 1",
                 "embed_id": "v71l044",
                 "link": "https://rumble.com/v73ro4c-sinasi-06.12.2025-1.html"
             },
@@ -121,17 +121,33 @@
             }
         ];
 
+        // --- TÜRKÇE KARAKTER NORMALİZASYONU (Ş -> S, İ -> I vb.) ---
+        const normalizeText = (str) => {
+            return str.toString().toLowerCase()
+                .replace('ğ', 'g')
+                .replace('ü', 'u')
+                .replace('ş', 's')
+                .replace('ı', 'i')
+                .replace('ö', 'o')
+                .replace('ç', 'c');
+        };
+
         const processVideoData = (rawVideos) => {
             return rawVideos.map((v, index) => {
                 const dateMatch = v.title.match(/(\d{2})\.(\d{2})\.(\d{4})/);
                 const date = dateMatch ? new Date(dateMatch[3], dateMatch[2] - 1, dateMatch[1]) : new Date();
 
+                // Normalize edilmiş başlık (Kategori tespiti için)
+                const normalizedTitle = normalizeText(v.title);
+
                 let category = "Diğer";
-                const lowerTitle = v.title.toLowerCase();
                 for (let cat of CATEGORIES) {
                     if (cat.id === 'all') continue;
-                    if (lowerTitle.includes(cat.id.toLowerCase())) {
-                        category = cat.name;
+                    // ID'yi de normalize et ("Sinasi" -> "sinasi")
+                    const normalizedCat = normalizeText(cat.id);
+                    
+                    if (normalizedTitle.includes(normalizedCat)) {
+                        category = cat.name; // Görünen adı (Şinasi) kullan
                         break;
                     }
                 }
@@ -232,7 +248,7 @@
             );
         };
 
-        // --- İSTENEN ÇALIŞAN VİDEO CARD (IFRAME TABANLI) ---
+        // İstenen IFrame Video Kartı
         const VideoCard = ({ video, isActive, onClick }) => {
             return (
                 <div
@@ -248,14 +264,13 @@
                     <div className="relative w-full aspect-video bg-black">
                         <iframe
                             src={`https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`}
-                            className="absolute inset-0 w-full h-full pointer-events-none" /* Tıklamayı dive aktarıyoruz */
+                            className="absolute inset-0 w-full h-full pointer-events-none"
                             loading="lazy"
                             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
                             title={video.title}
                         ></iframe>
                         
-                        {/* Active Overlay */}
                         {isActive && (
                             <div className="absolute inset-0 bg-indigo-500/20 z-10 ring-2 ring-inset ring-indigo-500 pointer-events-none"></div>
                         )}
@@ -298,9 +313,25 @@
 
             const filteredVideos = useMemo(() => {
                 return videos.filter(video => {
-                    const matchCategory = activeCategory === 'all' || video.category === activeCategory;
-                    const matchSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase());
-                    return matchCategory && matchSearch;
+                    // Kategori Filtresi
+                    let categoryMatch = false;
+                    if (activeCategory === 'all') {
+                        categoryMatch = true;
+                    } else {
+                        // Kategori eşleşmesini string değil, atanmış değer üzerinden yap (daha sağlıklı)
+                        // processVideoData içinde category zaten normalize edilmiş kategori adına atanmıştı
+                        // Ancak "Şinasi" vs "Şinasi" kontrolü için her ikisini de normalize edelim
+                        if (normalizeText(video.category) === normalizeText(activeCategory)) {
+                             categoryMatch = true;
+                        }
+                    }
+
+                    // Arama Filtresi (Normalize Edilmiş)
+                    const normalizedTitle = normalizeText(video.title);
+                    const normalizedSearch = normalizeText(searchTerm);
+                    const matchSearch = normalizedTitle.includes(normalizedSearch);
+
+                    return categoryMatch && matchSearch;
                 });
             }, [activeCategory, searchTerm, videos]);
 
@@ -389,7 +420,7 @@
                     
                     <footer className="border-t border-white/5 mt-12 py-8 bg-black/20 backdrop-blur-sm">
                         <div className="max-w-7xl mx-auto px-4 text-center">
-                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Video Arşivi. Native IFrame Gallery Mode.</p>
+                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Video Arşivi. Turkish Character Support Enabled.</p>
                         </div>
                     </footer>
                 </div>
