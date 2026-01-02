@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volkan'ın Arşivi | IFrame Gallery</title>
+    <title>Katman Yayın Geçmişi Arşiv</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -90,7 +90,7 @@
             { id: 'all', name: 'Tüm Arşiv' },
             { id: 'Hype', name: 'Hype' },
             { id: 'Triel', name: 'Triel' },
-            { id: 'Sinasi', name: 'Şinasi' }, // ID'si "Sinasi" (S ile), Display'de "Şinasi"
+            { id: 'Sinasi', name: 'Şinasi' }, 
             { id: 'Prensesperver', name: 'Prensesperver' },
             { id: 'Nuriben', name: 'Nuriben' },
             { id: 'Nesrin', name: 'Nesrin' },
@@ -98,30 +98,29 @@
             { id: 'Blush', name: 'Blush' }
         ];
 
-        const FALLBACK_DATA = [
-            {
-                "title": "sinasi 26.12.2025 1_Parca_000",
-                "embed_id": "v71l0d4",
-                "link": "https://rumble.com/v73rodc-sinasi-26.12.2025-1-parca-000.html"
-            },
-            {
-                "title": "şinasi 14.12.2025 1_Parca_000", // Türkçe karakter testi
-                "embed_id": "v71l08q",
-                "link": "https://rumble.com/v73ro8y-sinasi-14.12.2025-1-parca-000.html"
-            },
-            {
-                "title": "Şinasi 06.12.2025 1",
-                "embed_id": "v71l044",
-                "link": "https://rumble.com/v73ro4c-sinasi-06.12.2025-1.html"
-            },
-            {
-                "title": "Hype - Turnuva Finali 01.01.2025",
-                "embed_id": "v999zzz",
-                "link": "https://rumble.com/v999zzz-hype-final.html"
-            }
-        ];
+        // YENİ JSON YAPISINA UYGUN FALLBACK DATA
+        const FALLBACK_DATA = {
+            "tarih": "02.01.2026",
+            "videos": [
+                {
+                    "title": "sinasi 24.12.2025 1",
+                    "embed_id": "v71l1b4",
+                    "link": "https://rumble.com/v73rpbc-sinasi-24.12.2025-1.html"
+                },
+                {
+                    "title": "sinasi 22.12.2025 1_Parca_000",
+                    "embed_id": "v71l182",
+                    "link": "https://rumble.com/v73rp8a-sinasi-22.12.2025-1-parca-000.html"
+                },
+                {
+                    "title": "Hype - Turnuva Finali 01.01.2025",
+                    "embed_id": "v999zzz",
+                    "link": "https://rumble.com/v999zzz-hype-final.html"
+                }
+            ]
+        };
 
-        // --- TÜRKÇE KARAKTER NORMALİZASYONU (Ş -> S, İ -> I vb.) ---
+        // Türkçe Karakter Normalizasyonu
         const normalizeText = (str) => {
             return str.toString().toLowerCase()
                 .replace('ğ', 'g')
@@ -137,17 +136,13 @@
                 const dateMatch = v.title.match(/(\d{2})\.(\d{2})\.(\d{4})/);
                 const date = dateMatch ? new Date(dateMatch[3], dateMatch[2] - 1, dateMatch[1]) : new Date();
 
-                // Normalize edilmiş başlık (Kategori tespiti için)
                 const normalizedTitle = normalizeText(v.title);
-
                 let category = "Diğer";
                 for (let cat of CATEGORIES) {
                     if (cat.id === 'all') continue;
-                    // ID'yi de normalize et ("Sinasi" -> "sinasi")
                     const normalizedCat = normalizeText(cat.id);
-                    
                     if (normalizedTitle.includes(normalizedCat)) {
-                        category = cat.name; // Görünen adı (Şinasi) kullan
+                        category = cat.name;
                         break;
                     }
                 }
@@ -175,7 +170,7 @@
                                     </div>
                                     <div>
                                         <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-                                            Volkan'ın Arşivi
+                                            Katman yayın geçmişi arşiv
                                         </h1>
                                     </div>
                                 </div>
@@ -248,7 +243,6 @@
             );
         };
 
-        // İstenen IFrame Video Kartı
         const VideoCard = ({ video, isActive, onClick }) => {
             return (
                 <div
@@ -287,6 +281,7 @@
 
         const App = () => {
             const [videos, setVideos] = useState([]);
+            const [lastUpdate, setLastUpdate] = useState("");
             const [loading, setLoading] = useState(true);
             const [selectedVideo, setSelectedVideo] = useState(null);
             const [activeCategory, setActiveCategory] = useState('all');
@@ -298,11 +293,18 @@
                         const response = await fetch('videos.json');
                         if (!response.ok) throw new Error("Dosya bulunamadı");
                         const data = await response.json();
-                        const processed = processVideoData(data);
+                        
+                        // JSON yapısını analiz et: Array mi Object mi?
+                        const rawVideos = Array.isArray(data) ? data : (data.videos || []);
+                        const tarih = Array.isArray(data) ? "" : (data.tarih || "");
+                        
+                        setLastUpdate(tarih);
+                        const processed = processVideoData(rawVideos);
                         setVideos(processed);
                     } catch (error) {
                         console.warn("videos.json yüklenemedi, yedek veri kullanılıyor.", error);
-                        const processed = processVideoData(FALLBACK_DATA);
+                        const processed = processVideoData(FALLBACK_DATA.videos);
+                        setLastUpdate(FALLBACK_DATA.tarih);
                         setVideos(processed);
                     } finally {
                         setLoading(false);
@@ -313,20 +315,15 @@
 
             const filteredVideos = useMemo(() => {
                 return videos.filter(video => {
-                    // Kategori Filtresi
                     let categoryMatch = false;
                     if (activeCategory === 'all') {
                         categoryMatch = true;
                     } else {
-                        // Kategori eşleşmesini string değil, atanmış değer üzerinden yap (daha sağlıklı)
-                        // processVideoData içinde category zaten normalize edilmiş kategori adına atanmıştı
-                        // Ancak "Şinasi" vs "Şinasi" kontrolü için her ikisini de normalize edelim
                         if (normalizeText(video.category) === normalizeText(activeCategory)) {
                              categoryMatch = true;
                         }
                     }
 
-                    // Arama Filtresi (Normalize Edilmiş)
                     const normalizedTitle = normalizeText(video.title);
                     const normalizedSearch = normalizeText(searchTerm);
                     const matchSearch = normalizedTitle.includes(normalizedSearch);
@@ -420,7 +417,12 @@
                     
                     <footer className="border-t border-white/5 mt-12 py-8 bg-black/20 backdrop-blur-sm">
                         <div className="max-w-7xl mx-auto px-4 text-center">
-                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Video Arşivi. Turkish Character Support Enabled.</p>
+                            <p className="text-slate-600 text-sm">© 2025 Katman Yayın Geçmişi Arşiv.</p>
+                            {lastUpdate && (
+                                <p className="text-slate-500 text-xs mt-2 font-medium tracking-wide">
+                                    Son Güncelleme: {lastUpdate}
+                                </p>
+                            )}
                         </div>
                     </footer>
                 </div>
