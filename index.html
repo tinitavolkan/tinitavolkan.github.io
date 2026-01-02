@@ -1,4 +1,3 @@
-2
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -304,11 +303,11 @@
                 fetchVideos();
             }, []);
 
-            // ARAMA VE METİN DOSYASI OKUMA MANTIĞI (RACE CONDITION DÜZELTMESİ)
+            // ARAMA VE METİN DOSYASI OKUMA MANTIĞI (STALE RESULT FIX)
             useEffect(() => {
                 const term = searchTerm.trim().toLowerCase();
 
-                // 1. Kontrol: Arama boşsa HEMEN temizle ve çık
+                // 1. Eğer arama boşsa HEMEN temizle
                 if (!term) {
                     setSearchResults([]);
                     setIsSearchingText(false);
@@ -320,10 +319,10 @@
                 if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
 
                 const performSearch = async () => {
-                    // Race Condition Önleme: Başlamadan önceki arama iptal edilmişse çık.
-                    // searchTerm state'i useEffect içinde closure'da kalır, ama güncel değere ihtiyacımız var.
-                    // Bu yüzden fonksiyon başında bir "current term" snapshot alıyoruz.
-                    // Ancak en güvenlisi fonksiyon sonunda kontrol etmek.
+                    // 2. KRİTİK DÜZELTME: Yeni arama başladığında ESKİ SONUÇLARI HEMEN TEMİZLE
+                    // Bu, yeni veri yüklenirken eski verinin ekranda kalmasını engeller.
+                    setSearchResults([]);
+                    setIsSearchingText(true);
 
                     if (videos.length === 0) return;
 
@@ -341,8 +340,7 @@
                         isActive: selectedVideo?.id === v.id
                     }));
 
-                    // Metin araması
-                    setIsSearchingText(true);
+                    // Metin dosyası içi arama
                     const videosToSearch = videos.filter(v => activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory));
 
                     const fetchPromises = videosToSearch.map(async (v) => {
@@ -402,11 +400,7 @@
                     const textHitsArrays = await Promise.all(fetchPromises);
                     const allTextHits = textHitsArrays.flat();
 
-                    // KRİTİK DÜZELTME: Race Condition Kontrolü
-                    // Arama işlemi bittiğinde, şu anki state'deki searchTerm ile
-                    // başlangıçtaki 'term' aynı mı diye bakalım.
-                    // Kullanıcı aramayı silip yeni bir şey yazdıysa, bu eski sonucu
-                    // üzerine yazmayalım.
+                    // Race Condition Kontrolü
                     if (searchTerm.trim().toLowerCase() !== term) {
                         return; // Eski istek, güncel olmayan durum için, işle.
                     }
