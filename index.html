@@ -51,7 +51,8 @@
 
     <style>
         body { background-color: #020617; }
-        ::-webkit-scrollbar { width: 6px; }
+        /* Genel sayfa kaydırma çubuğu stilini koruyoruz ama bileşen içlerini kaldırdık */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #020617; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #475569; }
@@ -86,7 +87,6 @@
     <script type="text/babel">
         const { useState, useEffect, useMemo } = React;
 
-        // --- Kategoriler ---
         const CATEGORIES = [
             { id: 'all', name: 'Tüm Arşiv' },
             { id: 'Hype', name: 'Hype' },
@@ -99,7 +99,6 @@
             { id: 'Blush', name: 'Blush' }
         ];
 
-        // --- Yedek (Fallback) Veri (JSON yüklenemezse kullanılır) ---
         const FALLBACK_DATA = [
             {
                 "title": "sinasi 26.12.2025 1_Parca_000",
@@ -123,19 +122,15 @@
             }
         ];
 
-        // --- Veri İşleme Yardımcıları ---
         const processVideoData = (rawVideos) => {
             return rawVideos.map((v, index) => {
-                // 1. Tarih Çıkarma (Regex: dd.mm.yyyy)
                 const dateMatch = v.title.match(/(\d{2})\.(\d{2})\.(\d{4})/);
                 const date = dateMatch ? new Date(dateMatch[3], dateMatch[2] - 1, dateMatch[1]) : new Date();
 
-                // 2. Kategori Tespiti
                 let category = "Diğer";
                 const lowerTitle = v.title.toLowerCase();
                 for (let cat of CATEGORIES) {
                     if (cat.id === 'all') continue;
-                    // 'sinasi' ile 'Şinasi' eşleşmesi için küçük harf kontrolü
                     if (lowerTitle.includes(cat.id.toLowerCase())) {
                         category = cat.name;
                         break;
@@ -143,34 +138,39 @@
                 }
 
                 return {
-                    id: v.embed_id || index, // ID olarak embed_id kullan
+                    id: v.embed_id || index,
                     title: v.title,
                     embedId: v.embed_id,
                     date: date,
                     category: category,
                     link: v.link
                 };
-            }).sort((a, b) => b.date - a.date); // Tarihe göre sırala (Yeniden eskiye)
+            }).sort((a, b) => b.date - a.date);
         };
 
-        // --- Components ---
         const Navbar = ({ categories, activeCategory, setActiveCategory }) => {
             return (
                 <div className="border-b border-white/10 glass-panel sticky top-0 z-50">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex items-center justify-between h-20">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                                    <span className="text-xl">📼</span>
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-4 md:py-0 md:h-20">
+                            
+                            {/* Logo Area */}
+                            <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                                        <span className="text-xl">📼</span>
+                                    </div>
+                                    <div>
+                                        <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+                                            Volkan'ın Arşivi
+                                        </h1>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-                                        Volkan'ın Arşivi
-                                    </h1>
-                                </div>
+                                {/* Mobile Menu Button Placeholder (Optional) */}
                             </div>
 
-                            <div className="hidden md:flex items-center gap-2 overflow-x-auto max-w-2xl no-scrollbar">
+                            {/* Kategoriler - DEĞİŞİKLİK: overflow-x-auto yerine flex-wrap kullanıldı */}
+                            <div className="hidden md:flex items-center gap-2 flex-wrap justify-center md:justify-end">
                                 {categories.map((cat) => (
                                     <button
                                         key={cat.id}
@@ -180,6 +180,25 @@
                                             ${activeCategory === cat.id 
                                                 ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/25' 
                                                 : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                            }
+                                        `}
+                                    >
+                                        {cat.name}
+                                    </button>
+                                ))}
+                            </div>
+                            
+                            {/* Mobil Kategori Scroll (Mobil için yatay scroll kalsın, masaüstü yok) */}
+                            <div className="md:hidden flex gap-2 overflow-x-auto w-full pb-2 no-scrollbar">
+                                {categories.map((cat) => (
+                                    <button
+                                        key={cat.id}
+                                        onClick={() => setActiveCategory(cat.id)}
+                                        className={`
+                                            px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 whitespace-nowrap flex-shrink-0
+                                            ${activeCategory === cat.id 
+                                                ? 'bg-indigo-600 text-white' 
+                                                : 'text-slate-400 bg-slate-800/50'
                                             }
                                         `}
                                     >
@@ -220,7 +239,6 @@
         };
 
         const VideoCard = ({ video, isActive, onClick }) => {
-            // Tarih formatlama (Örn: 26.12.2025)
             const formatDate = (date) => {
                 const d = new Date(date);
                 if(isNaN(d.getTime())) return "Tarih Yok";
@@ -270,11 +288,9 @@
             const [activeCategory, setActiveCategory] = useState('all');
             const [searchTerm, setSearchTerm] = useState('');
 
-            // useEffect ile video verisini çek
             useEffect(() => {
                 const fetchVideos = async () => {
                     try {
-                        // videos.json dosyasını çekmeyi dene
                         const response = await fetch('videos.json');
                         if (!response.ok) throw new Error("Dosya bulunamadı");
                         const data = await response.json();
@@ -282,7 +298,6 @@
                         setVideos(processed);
                     } catch (error) {
                         console.warn("videos.json yüklenemedi, yedek veri kullanılıyor.", error);
-                        // Hata varsa yedek veriyi kullan
                         const processed = processVideoData(FALLBACK_DATA);
                         setVideos(processed);
                     } finally {
@@ -292,7 +307,6 @@
                 fetchVideos();
             }, []);
 
-            // Filtreleme Mantığı
             const filteredVideos = useMemo(() => {
                 return videos.filter(video => {
                     const matchCategory = activeCategory === 'all' || video.category === activeCategory;
@@ -339,7 +353,7 @@
                                 </div>
                             </div>
 
-                            {/* Sağ Kolon: Liste */}
+                            {/* Sağ Kolon: Liste - DEĞİŞİKLİK: Scroll kısıtlamaları kaldırıldı */}
                             <div className="lg:col-span-4 space-y-6 animate-slide-up" style={{animationDelay: '100ms'}}>
                                 <div className="relative group">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -356,7 +370,12 @@
                                     />
                                 </div>
 
-                                <div className="space-y-3 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar pb-20 lg:pb-0">
+                                {/* 
+                                    DEĞİŞİKLİK ALANI:
+                                    max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar pb-20 lg:pb-0
+                                    yerine sadece space-y-3 kullanıldı.
+                                */}
+                                <div className="space-y-3">
                                     <div className="flex items-center justify-between mb-4 px-2">
                                         <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">
                                             {loading ? 'Yükleniyor...' : `${filteredVideos.length} Video`}
