@@ -1,4 +1,3 @@
-44
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -39,11 +38,13 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         h1 {
             font-size: 1.8rem;
             margin-bottom: 15px;
+            letter-spacing: 0.5px;
         }
 
         h1 span {
@@ -54,22 +55,25 @@
         .search-container {
             max-width: 600px;
             margin: 0 auto;
+            position: relative;
         }
 
         #search-input {
             width: 100%;
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 1px solid #333;
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: 2px solid #333;
             background-color: var(--card-bg);
             color: white;
             font-size: 16px;
             outline: none;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
         }
 
         #search-input:focus {
             border-color: var(--accent-color);
+            background-color: #252525;
+            box-shadow: 0 0 0 4px rgba(133, 199, 66, 0.1);
         }
 
         /* Ana İçerik Düzeni */
@@ -90,9 +94,10 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             aspect-ratio: 16 / 9;
-            max-height: 600px;
+            position: relative;
+            border: 1px solid #333;
         }
 
         .player-wrapper iframe {
@@ -101,43 +106,60 @@
             border: none;
         }
 
+        .current-video-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
         .current-video-title {
-            margin-bottom: 20px;
             font-size: 1.4rem;
             font-weight: 600;
-            padding: 0 10px;
+            color: var(--text-main);
+        }
+
+        .breadcrumb {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            font-weight: bold;
         }
 
         /* Video Listesi Grid */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 25px;
             align-items: stretch;
         }
 
         /* Video Kartı */
         .video-card {
             background-color: var(--card-bg);
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
+            transition: all 0.2s ease-in-out;
             display: flex;
             flex-direction: column;
             border: 1px solid #333;
             height: 100%;
+            position: relative;
         }
 
         .video-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             background-color: var(--hover-bg);
+            border-color: #444;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         /* Aktif (Oynayan) Video Kartı Stili */
         .video-card.active {
             border-color: var(--accent-color);
-            box-shadow: 0 0 15px rgba(133, 199, 66, 0.2);
+            box-shadow: 0 0 20px rgba(133, 199, 66, 0.15);
             background-color: #1f2a18;
         }
 
@@ -150,6 +172,7 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            overflow: hidden;
         }
 
         .play-icon {
@@ -157,33 +180,38 @@
             height: 0; 
             border-top: 15px solid transparent;
             border-bottom: 15px solid transparent;
-            border-left: 25px solid white;
+            border-left: 28px solid white;
             opacity: 0.8;
-            transition: opacity 0.2s;
+            transition: all 0.2s;
+            z-index: 2;
         }
         
         .video-card:hover .play-icon, .video-card.active .play-icon {
             opacity: 1;
             border-left-color: var(--accent-color);
+            transform: scale(1.1);
         }
 
+        /* Rumble markası için köşe ikonu */
         .brand-icon {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.6);
-            color: white;
-            padding: 2px 6px;
+            top: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.7);
+            color: var(--accent-color);
+            padding: 3px 8px;
             border-radius: 4px;
             font-size: 0.7rem;
-            font-weight: bold;
+            font-weight: 800;
+            z-index: 2;
+            text-transform: uppercase;
         }
 
         .card-content {
             padding: 15px;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 8px;
             flex-grow: 1;
         }
 
@@ -208,34 +236,60 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             color: var(--text-secondary);
             font-size: 0.9rem;
             border-top: 1px solid #333;
-            margin-top: 40px;
+            margin-top: auto;
         }
 
         /* Yükleniyor ve Hata Mesajları */
-        .loading, .error-msg {
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: var(--accent-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(133, 199, 66, 0.1);
+            border-left-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .error-msg {
             text-align: center;
             padding: 40px;
-            font-size: 1.2rem;
+            background: rgba(255, 85, 85, 0.1);
+            border: 1px solid #ff5555;
+            border-radius: 8px;
+            color: #ff9999;
+            line-height: 1.5;
         }
-        .loading { color: var(--accent-color); }
-        .error-msg { color: #ff5555; }
 
         /* Responsive */
         @media (max-width: 768px) {
+            header { padding: 15px; }
+            h1 { font-size: 1.5rem; }
+            
+            /* Mobilde oynatıcı yukarıda sabit kalsın */
             .player-wrapper {
                 position: sticky;
-                top: 70px;
+                top: 70px; /* Header yüksekliği + boşluk */
                 z-index: 50;
                 border-radius: 0;
                 margin-left: -20px;
                 margin-right: -20px;
                 width: calc(100% + 40px);
+                max-height: 50vh;
             }
-            .current-video-title { margin-top: 20px; }
+            .current-video-title { margin-top: 10px; font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -249,19 +303,25 @@
     </header>
 
     <main>
-        <!-- Ana Oynatıcı -->
-        <div class="current-video-title" id="main-title">Lütfen bir video seçin...</div>
-        <div class="player-wrapper" id="player-wrapper">
+        <!-- Ana Oynatıcı Alanı -->
+        <div class="current-video-info">
+            <div class="current-video-title" id="main-title">Hazırlanıyor...</div>
+            <div class="breadcrumb">VOLKAN ARŞİV</div>
+        </div>
+        
+        <div class="player-wrapper">
             <iframe 
                 id="main-player" 
                 src="" 
-                allowfullscreen>
+                allowfullscreen
+                title="Rumble Video Player">
             </iframe>
         </div>
 
         <!-- Video Listesi Alanı -->
         <div id="video-list-container" class="loading">
-            Videolar yükleniyor...
+            <div class="spinner"></div>
+            <div>Videolar yükleniyor...</div>
         </div>
     </main>
 
@@ -271,16 +331,23 @@
 
     <script>
         let allVideos = [];
+        let currentVideoId = null;
 
-        // GÜNCELLENMİŞ: Embed ID'sini doğrudan kullanır
+        /**
+         * Rumble Embed IFRAME URL oluşturucu.
+         * videos.json dosyasındaki "embed_id" değerini alır.
+         * Örnek ID: "v71kyms"
+         */
         function getEmbedUrl(embedId) {
-            // videos.json'dan gelen ID'yi direkt linkin içine koyuyoruz.
+            // Pub parametresi size özel (4o7uxk)
+            // Autoplay=1 ile video otomatik başlar
             return `https://rumble.com/embed/${embedId}/?pub=4o7uxk&autoplay=1`;
         }
 
+        // Başlıktan tarih çıkarma yardımcı fonksiyonu (Opsiyonel)
         function extractDate(title) {
             const dateMatch = title.match(/\d{2}\.\d{2}\.\d{4}/);
-            return dateMatch ? dateMatch[0] : "";
+            return dateMatch ? dateMatch[0] : "Rumble Arşivi";
         }
 
         function renderVideos(videos) {
@@ -288,7 +355,10 @@
             container.innerHTML = "";
             
             if(videos.length === 0) {
-                container.innerHTML = "<p class='error-msg'>Aradığınız kriterde video bulunamadı.</p>";
+                container.innerHTML = `
+                    <div class="error-msg" style="border-color: #555; color: #aaa;">
+                        <p>Aradığınız kriterde video bulunamadı.</p>
+                    </div>`;
                 return;
             }
 
@@ -296,13 +366,20 @@
             grid.className = 'video-grid';
 
             videos.forEach(video => {
-                // DİKKAT: Burada video.embed_id kullanıyoruz
                 const embedUrl = getEmbedUrl(video.embed_id);
                 const dateStr = extractDate(video.title);
 
                 const card = document.createElement('div');
                 card.className = 'video-card';
-                card.onclick = function() { playVideo(embedUrl, video.title, this); };
+                card.dataset.embedId = video.embed_id; // İleride kullanmak üzere ID'yi sakla
+                
+                // Tıklama olayı
+                card.onclick = function() { 
+                    // Eğer zaten oynanıyorsa tekrar yükleme
+                    if(currentVideoId !== video.embed_id) {
+                        playVideo(embedUrl, video.title, this); 
+                    }
+                };
 
                 card.innerHTML = `
                     <div class="thumbnail-container">
@@ -311,7 +388,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-title" title="${video.title}">${video.title}</div>
-                        ${dateStr ? `<div class="card-date">${dateStr}</div>` : ''}
+                        <div class="card-date">${dateStr}</div>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -324,47 +401,70 @@
             const player = document.getElementById('main-player');
             const mainTitle = document.getElementById('main-title');
             
+            // URL güncelle
             player.src = url;
             mainTitle.textContent = title;
             
-            // Aktif olan kartı işaretle
-            document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active'));
+            // ID'yi güncelle (tekrarlı tıklamayı önlemek için)
             if(cardElement) {
+                currentVideoId = cardElement.dataset.embedId;
+                
+                // Tüm kartlardan aktif sınıfını kaldır
+                document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active'));
+                
+                // Seçilen karta aktif sınıfını ekle
                 cardElement.classList.add('active');
             }
 
-            // Oynatıcıya kaydır
-            const playerWrapper = document.getElementById('player-wrapper');
-            playerWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        async function fetchVideos() {
-            try {
-                const response = await fetch('videos.json');
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                allVideos = await response.json();
-                
-                renderVideos(allVideos);
-                
-                // İlk videoyu otomatik hazırla (oynatma, sadece yükle)
-                if (allVideos.length > 0) {
-                    playVideo(getEmbedUrl(allVideos[0].embed_id), allVideos[0].title, document.querySelector('.video-card'));
-                }
-
-            } catch (error) {
-                console.error('Videos.json yüklenirken hata oluştu:', error);
-                const container = document.getElementById('video-list-container');
-                container.innerHTML = `
-                    <div class="error-msg">
-                        <p>Hata: videos.json dosyası yüklenemedi.</p>
-                        <p style="font-size: 0.9rem; margin-top:10px; color:#888;">
-                            Dosyayı doğrudan açıyorsanız (file://), lütfen bir Local Server (Live Server) kullanın.
-                        </p>
-                    </div>
-                `;
+            // Mobilde oynatıcıya yumuşak kaydırma
+            if(window.innerWidth <= 768) {
+                const playerWrapper = document.querySelector('.player-wrapper');
+                playerWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
+        // Demo Verisi (Eğer videos.json yoksa bunu kullanır)
+        const fallbackVideos = [
+            { "title": "Rumble Kullanımı ve Kurulumu 01.01.2025", "embed_id": "v4o7uxk" },
+            { "title": "Sinasi Yayını - 15.12.2025 (1. Parça)", "embed_id": "v73rmn0" },
+            { "title": "Günlük Vlog - Tech Setup Turu", "embed_id": "v5a1b2c" }, 
+            { "title": "Canlı Yayın Kaydı - Soru Cevap", "embed_id": "v6d3e4f" }
+        ];
+
+        async function fetchVideos() {
+            try {
+                // Önce kendi sunucunuzdaki videos.json dosyasını dener
+                const response = await fetch('videos.json');
+                
+                if (!response.ok) throw new Error("JSON dosyası bulunamadı");
+                
+                allVideos = await response.json();
+                
+            } catch (error) {
+                console.warn('videos.json yüklenemedi, demo verisi kullanılıyor:', error);
+                // Eğer dosya yoksa demo veriyi kullan (Kullanıcı deneyimi için)
+                allVideos = fallbackVideos;
+                
+                // Uyarı mesajını konsola veya ekrana basabiliriz (opsiyonel)
+                // const container = document.getElementById('video-list-container');
+                // container.innerHTML += "<div style='color:#777; font-size:0.8rem; text-align:center; margin-top:10px;'>Demo Modu Aktif: videos.json bulunamadı.</div>";
+            }
+            
+            // Render işlemi
+            renderVideos(allVideos);
+            
+            // İlk videoyu otomatik yükle (Listedeki ilk kartı bulup ona göre)
+            if (allVideos.length > 0) {
+                const firstEmbedUrl = getEmbedUrl(allVideos[0].embed_id);
+                // DOM'daki ilk kartı seç
+                setTimeout(() => {
+                    const firstCard = document.querySelector('.video-card');
+                    playVideo(firstEmbedUrl, allVideos[0].title, firstCard);
+                }, 100); // DOM güncellenmesi için minik gecikme
+            }
+        }
+
+        // Arama Fonksiyonu
         document.getElementById('search-input').addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             const filteredVideos = allVideos.filter(video => 
@@ -373,6 +473,7 @@
             renderVideos(filteredVideos);
         });
 
+        // Sayfa Yüklendiğinde Başlat
         window.addEventListener('DOMContentLoaded', fetchVideos);
     </script>
 </body>
