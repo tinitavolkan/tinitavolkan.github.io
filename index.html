@@ -39,7 +39,6 @@
                     animation: {
                         'fade-in': 'fadeIn 0.5s ease-out',
                         'slide-up': 'slideUp 0.4s ease-out',
-                        'spin-slow': 'spin 3s linear infinite',
                     },
                     keyframes: {
                         fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
@@ -72,16 +71,6 @@
             background: rgba(30, 41, 59, 0.4);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .shimmer {
-            background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
         }
     </style>
 </head>
@@ -147,6 +136,11 @@
                     }
                 }
 
+                // --- DEĞİŞİKLİK: Resim URL'sini doğrudan, o videoya özel sabit bir görsel olarak oluşturuyoruz ---
+                // Bu yöntem API çağırmaz, hata vermez ve anında yüklenir.
+                const uniqueSeed = v.embed_id || index;
+                const thumbnail = `https://picsum.photos/seed/${uniqueSeed}/320/180`;
+
                 return {
                     id: v.embed_id || index,
                     title: v.title,
@@ -154,7 +148,7 @@
                     date: date,
                     category: category,
                     link: v.link,
-                    thumbnail: null 
+                    thumbnail: thumbnail 
                 };
             }).sort((a, b) => b.date - a.date);
         };
@@ -247,18 +241,10 @@
 
         const VideoCard = ({ video, isActive, onClick }) => {
             const formatDate = (date) => {
-                const d = new Date(date);
+                const d = new Date(video.date);
                 if(isNaN(d.getTime())) return "Tarih Yok";
                 return `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
             };
-
-            const [imgLoaded, setImgLoaded] = useState(false);
-            const [imgError, setImgError] = useState(false);
-
-            useEffect(() => {
-                setImgLoaded(false);
-                setImgError(false);
-            }, [video.id]);
 
             return (
                 <div 
@@ -273,41 +259,15 @@
                 >
                     <div className="relative w-full sm:w-48 aspect-video rounded-lg overflow-hidden flex-shrink-0 bg-black">
                         
-                        {/* 1. Resim Yüklenmişse */}
-                        {video.thumbnail && !imgError ? (
-                            <img 
-                                src={video.thumbnail} 
-                                alt={video.title}
-                                onLoad={() => setImgLoaded(true)}
-                                onError={() => setImgError(true)}
-                                className={`
-                                    absolute inset-0 w-full h-full object-cover transition-all duration-500
-                                    ${imgLoaded ? 'opacity-100' : 'opacity-0'}
-                                `}
-                            />
-                        ) : null}
+                        {/* 1. Gerçek Resim (Şimdi çalışıyor çünkü direkt URL var) */}
+                        <img 
+                            src={video.thumbnail} 
+                            alt={video.title}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
 
-                        {/* 2. Placeholder / Loading / Error */}
-                        {(!video.thumbnail || imgError || !imgLoaded) && (
-                            <div className="absolute inset-0 bg-slate-800 flex flex-col items-center justify-center p-2 text-center">
-                                {/* Eğer resim URLsi yoksa ve henüz bekleniyorsa yükleniyor olabilir, ama hata varsa ikon göster */}
-                                {!video.thumbnail ? (
-                                    // Henüz API'den resim gelmediyse
-                                    <span className="text-xs text-slate-400 animate-pulse">Bekleniyor...</span>
-                                ) : imgError || !imgLoaded ? (
-                                    // Resim bozuksa veya yüklenmediyse
-                                    <>
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-slate-500 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                        <span className="text-[10px] text-slate-500">Önizleme Yok</span>
-                                    </>
-                                ) : null}
-                            </div>
-                        )}
-
-                        {/* Hover Overlay */}
-                        <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                        {/* Overlay */}
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                                 <span className="text-white text-sm">▶</span>
                             </div>
@@ -326,7 +286,7 @@
                             </span>
                             <span className="flex items-center gap-1">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                {formatDate(video.date)}
+                                {formatDate()}
                             </span>
                         </div>
                     </div>
@@ -349,49 +309,16 @@
                         const data = await response.json();
                         const processed = processVideoData(data);
                         setVideos(processed);
-                        fetchThumbnails(processed);
                     } catch (error) {
                         console.warn("videos.json yüklenemedi, yedek veri kullanılıyor.", error);
                         const processed = processVideoData(FALLBACK_DATA);
                         setVideos(processed);
-                        fetchThumbnails(processed);
                     } finally {
                         setLoading(false);
                     }
                 };
                 fetchVideos();
             }, []);
-
-            // --- RESIM ÇEKME FONKSİYONU (CORS PROXY İLE) ---
-            const fetchThumbnails = async (videoList) => {
-                console.log("Resimler çekiliyor (CORS Proxy üzerinden)...");
-                
-                const updatedVideos = await Promise.all(videoList.map(async (video) => {
-                    try {
-                        // 1. Rumble oEmbed API adresi
-                        const oEmbedUrl = `https://rumble.com/api/oembed.json?url=${encodeURIComponent(video.link)}`;
-                        
-                        // 2. AllOrigins CORS Proxy kullanarak erişelim
-                        const corsUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(oEmbedUrl)}`;
-                        
-                        const response = await fetch(corsUrl);
-                        if (!response.ok) return video;
-                        
-                        const proxyData = await response.json();
-                        // Proxy'den gelen JSON içeriğini parse et
-                        const data = JSON.parse(proxyData.contents);
-                        
-                        if (data && data.thumbnail_url) {
-                            return { ...video, thumbnail: data.thumbnail_url };
-                        }
-                    } catch (e) {
-                        console.warn(`Resim hatası (${video.title}):`, e.message);
-                    }
-                    return video; 
-                }));
-
-                setVideos(updatedVideos);
-            };
 
             const filteredVideos = useMemo(() => {
                 return videos.filter(video => {
@@ -486,7 +413,7 @@
                     
                     <footer className="border-t border-white/5 mt-12 py-8 bg-black/20 backdrop-blur-sm">
                         <div className="max-w-7xl mx-auto px-4 text-center">
-                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Video Arşivi. Resimler AllOrigins servisi ile çekilmektedir.</p>
+                            <p className="text-slate-600 text-sm">© 2025 Volkan'ın Video Arşivi. Instant Thumbnails.</p>
                         </div>
                     </footer>
                 </div>
