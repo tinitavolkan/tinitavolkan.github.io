@@ -117,9 +117,8 @@
         const FALLBACK_DATA = {
             "tarih": "02.01.2026",
             "videos": [
-                { "title": "sinasi 24.12.2025 1", "embed_id": "v71l1b4", "link": "https://rumble.com/v73rpbc-sinasi-24.12.2025-1.html" },
-                { "title": "sinasi 22.12.2025 1_Parca_000", "embed_id": "v71l182", "link": "https://rumble.com/v73rp8a-sinasi-22.12.2025-1-parca-000.html" },
-                { "title": "Blush 02.12.2025_Parca_000", "embed_id": "v71l1b4", "link": "https://rumble.com/v71l1b4-blush.html" } 
+                { "title": "Blush 15.12.2025 1", "embed_id": "v71l1b4", "link": "https://rumble.com/v71l1b4-blush.html" }, 
+                { "title": "Blush 15.12.2025 2_Parca_000", "embed_id": "v71l1b5", "link": "https://rumble.com/v71l1b5-blush.html" }
             ]
         };
 
@@ -174,12 +173,9 @@
         const getTxtPath = (title) => {
             // Sondaki .html varsa kaldır
             let cleanTitle = title.replace(/\.html$/, '');
-            // Boşlukları _ ile değiştir (Büyük/Küçük harf duyarlılığını KORU)
-            let filename = cleanTitle.replace(/ /g, '_') + ".txt";
-            let path = `text/${filename}`;
-            // Hata ayıklama için konsola yazdır
-            // console.log("Searching file:", path);
-            return path;
+            // Boşlukları KORU, sadece .txt ekle
+            let filename = cleanTitle + ".txt";
+            return `text/${filename}`;
         };
 
         const Navbar = ({ categories, activeCategory, setActiveCategory, lastUpdate }) => (
@@ -226,7 +222,6 @@
                 </div>
             );
 
-            // Rumble Embed URL Construction
             const baseUrl = `https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`;
             const finalUrl = startTime ? `${baseUrl}&start=${startTime}` : baseUrl;
 
@@ -317,7 +312,6 @@
                         return;
                     }
 
-                    // 1. Başlık bazlı video filtreleme
                     const titleMatches = videos.filter(v => {
                         const catMatch = activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory);
                         const textMatch = normalizeText(v.title).includes(term);
@@ -331,32 +325,38 @@
                         isActive: selectedVideo?.id === v.id
                     }));
 
-                    // 2. Metin dosyası içi arama
                     setIsSearchingText(true);
-                    
                     const videosToSearch = videos.filter(v => activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory));
 
                     const fetchPromises = videosToSearch.map(async (v) => {
-                        if (normalizeText(v.title).includes(term)) return []; // Başlık eşleşmiyorsa metne bak (veya her durumda bakmak isterseniz bu satırı silin)
+                        if (normalizeText(v.title).includes(term)) return []; 
 
-                        const path = getTxtPath(v.title);
+                        const path = getTxtPath(v.title); // Artık boşlukları koruyor
                         
                         let content = textCache.current[path];
                         if (!content) {
                             try {
-                                const res = await fetch(path);
+                                let res = await fetch(path);
                                 if (!res.ok) {
-                                    // console.warn("Dosya bulunamadı:", path);
-                                    return []; 
+                                    // Büyük/küçük harf farklılığı için fallback
+                                    const lowerPath = path.toLowerCase(); 
+                                    // Boşlukları koruyarak lowercase yap
+                                    console.log(`Not found: ${path}, trying lowercase: ${lowerPath}`);
+                                    res = await fetch(lowerPath);
+                                    
+                                    if (!res.ok) return []; 
+                                    
+                                    content = await res.text();
+                                    textCache.current[lowerPath] = content;
+                                } else {
+                                    content = await res.text();
+                                    textCache.current[path] = content; 
                                 }
-                                content = await res.text();
-                                textCache.current[path] = content; 
                             } catch (e) {
                                 return []; 
                             }
                         }
 
-                        // Metin içinde arama
                         const lines = content.split('\n');
                         const hits = [];
                         lines.forEach(line => {
@@ -389,7 +389,6 @@
                     const textHitsArrays = await Promise.all(fetchPromises);
                     const allTextHits = textHitsArrays.flat();
 
-                    // Önce metin sonuçları, sonra başlık sonuçları
                     setSearchResults([...allTextHits, ...results]);
                     setIsSearchingText(false);
                 };
@@ -480,7 +479,7 @@
                                     ) : searchTerm ? (
                                         <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">
                                             <p>Sonuç bulunamadı.</p>
-                                            <p className="text-xs mt-2 opacity-60">Dosya isimleri başlık ile birebir aynı mı?</p>
+                                            <p className="text-xs mt-2 opacity-60">Konsolu (F12) kontrol edin.</p>
                                         </div>
                                     ) : (
                                         displayVideos.map((video) => (
