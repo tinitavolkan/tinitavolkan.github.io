@@ -1,3 +1,4 @@
+33333
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -37,7 +38,7 @@
                         }
                     },
                     animation: {
-                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.3s ease-out',
                         'slide-up': 'slideUp 0.4s ease-out',
                     },
                     keyframes: {
@@ -122,10 +123,10 @@
             ]
         };
 
-        // Unicode Temizleyici (Zero-width karakterler için)
+        // --- Utility Functions ---
         const cleanSearch = (val) => (val || '')
-            .replace(/[\u200B-\u200D\uFEFF]/g, '') // zero-width
-            .replace(/\u00A0/g, ' ')              // nbsp
+            .replace(/[\u200B-\u200D\uFEFF]/g, '')
+            .replace(/\u00A0/g, ' ')
             .trim();
 
         const normalizeText = (str) => {
@@ -181,6 +182,8 @@
             return `text/${filename}`;
         };
 
+        // --- UI Components ---
+
         const Navbar = ({ categories, activeCategory, setActiveCategory, lastUpdate }) => (
             <div className="border-b border-white/10 glass-panel sticky top-0 z-40">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -221,7 +224,7 @@
                         <span className="text-3xl">▶</span>
                     </div>
                     <h3 className="text-xl font-semibold text-white mb-2">İzlemeye Başla</h3>
-                    <p className="text-slate-400">Listeden bir video veya zaman damgası seç.</p>
+                    <p className="text-slate-400">Listeden bir video seçin veya arama yapın.</p>
                 </div>
             );
 
@@ -235,12 +238,54 @@
             );
         };
 
-        const SearchResultCard = ({ item, onClick }) => {
+        // --- COMPONENT 1: Sadece Normal Video Listesi için Kart ---
+        const NormalVideoCard = ({ video, isActive, onClick }) => {
+            return (
+                <div 
+                    onClick={onClick} 
+                    className={`group cursor-pointer rounded-xl overflow-hidden border transition-all animate-fade-in
+                        ${isActive ? 'border-indigo-500 ring-1 ring-indigo-500/30' : 'border-white/5 hover:border-white/10 hover:shadow-lg hover:shadow-indigo-900/10'}
+                    `}
+                >
+                    <div className="relative w-full aspect-video bg-black">
+                        <iframe 
+                            src={`https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`} 
+                            className="absolute inset-0 w-full h-full pointer-events-none" 
+                            loading="lazy" 
+                            allowFullScreen 
+                            title={video.title}
+                        ></iframe>
+                        {isActive && <div className="absolute inset-0 bg-indigo-500/10 z-10 ring-2 ring-inset ring-indigo-500 pointer-events-none"></div>}
+                    </div>
+                    <div className="p-3 bg-slate-900/70 backdrop-blur-sm border-t border-white/5">
+                        <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed group-hover:text-white">{video.title}</p>
+                        <div className="mt-2 flex items-center justify-between">
+                            <span className="text-[10px] text-indigo-400 font-medium bg-indigo-500/10 px-2 py-0.5 rounded">{video.category}</span>
+                            <span className="text-[10px] text-slate-500">{video.date.toLocaleDateString('tr-TR')}</span>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- COMPONENT 2: Sadece Arama Sonuçları için Kart ---
+        // Hem Video hem Timestamp içerebilir
+        const SearchResultItem = ({ item, onClick }) => {
             if (item.type === 'video') {
                 return (
-                    <div onClick={onClick} className={`group cursor-pointer rounded-xl overflow-hidden border transition-all ${item.isActive ? 'border-indigo-500 ring-1 ring-indigo-500/30' : 'border-white/5 hover:border-white/10 hover:shadow-lg hover:shadow-indigo-900/10'}`}>
+                    <div 
+                        onClick={onClick} 
+                        className={`group cursor-pointer rounded-xl overflow-hidden border transition-all animate-fade-in
+                            ${item.isActive ? 'border-indigo-500 ring-1 ring-indigo-500/30' : 'border-white/5 hover:border-white/10 hover:shadow-lg hover:shadow-indigo-900/10'}
+                        `}
+                    >
                         <div className="relative w-full aspect-video bg-black">
-                            <iframe src={`https://rumble.com/embed/${item.video.embedId}/?pub=4o7uxk`} className="absolute inset-0 w-full h-full pointer-events-none" loading="lazy" allowFullScreen></iframe>
+                            <iframe 
+                                src={`https://rumble.com/embed/${item.video.embedId}/?pub=4o7uxk`} 
+                                className="absolute inset-0 w-full h-full pointer-events-none" 
+                                loading="lazy" 
+                                allowFullScreen
+                            ></iframe>
                             {item.isActive && <div className="absolute inset-0 bg-indigo-500/20 z-10 ring-2 ring-inset ring-indigo-500 pointer-events-none"></div>}
                         </div>
                         <div className="p-3 bg-slate-900/70 backdrop-blur-sm border-t border-white/5">
@@ -249,11 +294,15 @@
                     </div>
                 );
             } else if (item.type === 'timestamp') {
+                // HTML içeriğini güvenli şekilde oluştur
                 const contentHtml = `<span class="text-indigo-400 font-mono mr-1">[${item.timestamp}]</span>` + 
                     item.snippet.replace(new RegExp(`(${item.searchTerm})`, 'gi'), '<mark class="bg-indigo-500/40 text-white px-0.5 rounded">$1</mark>');
 
                 return (
-                    <div onClick={onClick} className="group cursor-pointer rounded-xl overflow-hidden border border-indigo-500/30 bg-slate-900/80 backdrop-blur hover:bg-indigo-900/20 hover:border-indigo-500 transition-all p-3 relative">
+                    <div 
+                        onClick={onClick} 
+                        className="group cursor-pointer rounded-xl overflow-hidden border border-indigo-500/30 bg-slate-900/80 backdrop-blur hover:bg-indigo-900/20 hover:border-indigo-500 transition-all p-3 relative animate-fade-in"
+                    >
                         <div className="flex items-start gap-3">
                             <div className="flex-shrink-0 w-12 h-12 rounded bg-indigo-600/20 flex flex-col items-center justify-center text-indigo-400 border border-indigo-500/20 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
                                 <span className="text-[10px] font-bold leading-none mb-0.5">ZAMAN</span>
@@ -273,6 +322,51 @@
             return null;
         };
 
+        // --- COMPONENT 3: Normal Liste Konteyneri ---
+        const NormalVideoList = ({ videos, selectedVideoId, onSelect }) => {
+            if (videos.length === 0) {
+                return <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">Bu kategoride video bulunamadı.</div>;
+            }
+            return (
+                <>
+                    {videos.map((video) => (
+                        <NormalVideoCard
+                            key={`normal-${video.id}`}
+                            video={video}
+                            isActive={selectedVideoId === video.id}
+                            onClick={() => onSelect(video)}
+                        />
+                    ))}
+                </>
+            );
+        };
+
+        // --- COMPONENT 4: Arama Sonuçları Konteyneri ---
+        const SearchResultsList = ({ results, selectedVideoId, onSelect }) => {
+            if (results.length === 0) {
+                return (
+                    <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5 animate-fade-in">
+                        <p>Sonuç bulunamadı.</p>
+                    </div>
+                );
+            }
+            return (
+                <>
+                    {results.map((item, index) => (
+                        <SearchResultItem
+                            key={`search-${item.id || index}`}
+                            item={{
+                                ...item,
+                                isActive: item.type === 'video' ? selectedVideoId === item.video.id : false
+                            }}
+                            onClick={() => onSelect(item.video, item.seconds || null)}
+                        />
+                    ))}
+                </>
+            );
+        };
+
+        // --- MAIN APP ---
         const App = () => {
             const [videos, setVideos] = useState([]);
             const [lastUpdate, setLastUpdate] = useState("");
@@ -287,9 +381,9 @@
             const debounceTimerRef = useRef(null);
             const searchIdRef = useRef(0);
 
-            // isSearchActive hesaplaması cleanSearch kullanıyor
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
+            // Veri Çekme
             useEffect(() => {
                 const fetchVideos = async () => {
                     try {
@@ -313,34 +407,24 @@
                 fetchVideos();
             }, []);
 
-            // 🔥 KRİTİK KİLİT: Arama modu kapanınca HER ŞEYİ TEMİZLE
+            // Mod Değişikliğinde Temizleme (Critical Fix)
             useEffect(() => {
                 if (!isSearchActive) {
-                    // 1. Sonuçları boşalt
                     setSearchResults([]); 
                     setIsSearchingText(false);
-                    
-                    // 2. Bekleyen async istekleri öldür (ID artır)
-                    searchIdRef.current++;
-                    
-                    // 3. Timer'ı iptal et
+                    searchIdRef.current++; // Async operasyonları iptal etmek için ID artır
                     if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
-                    
-                    // 4. Seçili videoyu sıfırla
-                    setSelectedVideo(null);
-                    setStartTime(null);
+                    // Seçili videoyu sıfırlama isteği yoksa, son video kalsın dedik ama sen istersen buraya ekleyebilirsin.
+                    // setSelectedVideo(null); 
+                    // setStartTime(null);
                 }
             }, [isSearchActive]);
 
-            // ARAMA EFEKTİ
+            // Arama Logic
             useEffect(() => {
-                // selectedVideo bağımlılığı KALDIRILDI (User Tavsiyesi)
                 const term = cleanSearch(searchTerm).toLowerCase();
-
-                // 1. KONTROL: Eğer temizlenen terim boşsa, hemen çık
                 if (!term) return;
-
-                // Timer temizle
+                
                 if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
 
                 const performSearch = async () => {
@@ -351,7 +435,7 @@
 
                     if (videos.length === 0) return;
 
-                    // Başlık filtreleme
+                    // Başlık Filtreleme
                     const titleMatches = videos.filter(v => {
                         const catMatch = activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory);
                         const textMatch = normalizeText(v.title).includes(term);
@@ -362,13 +446,14 @@
                         type: 'video',
                         video: v,
                         id: `video-${v.id}`,
-                        isActive: selectedVideo?.id === v.id
+                        isActive: false // isActive burada hesaplanmayacak, render'da yapılacak
                     }));
 
-                    // Metin dosyası araması
+                    // Metin Dosyası Araması
                     const videosToSearch = videos.filter(v => activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory));
 
                     const fetchPromises = videosToSearch.map(async (v) => {
+                        // Eğer başlık zaten eşleştiyse metin içine bakmaya gerek yok (performans)
                         if (normalizeText(v.title).includes(term)) return []; 
 
                         const path = getTxtPath(v.title); 
@@ -380,7 +465,6 @@
                                 if (!res.ok) {
                                     const lowerPath = path.toLowerCase(); 
                                     res = await fetch(lowerPath);
-                                    
                                     if (!res.ok) return []; 
                                     
                                     content = await res.text();
@@ -425,19 +509,17 @@
                     const textHitsArrays = await Promise.all(fetchPromises);
                     const allTextHits = textHitsArrays.flat();
 
-                    // Race Condition Kontrolü
                     if (currentSearchId !== searchIdRef.current) return; 
 
                     setSearchResults([...allTextHits, ...results]);
                     setIsSearchingText(false);
                 };
 
-                // Timer başlat
                 debounceTimerRef.current = setTimeout(() => {
                     performSearch();
                 }, 500);
 
-            }, [searchTerm, videos, activeCategory]); // selectedVideo ÇIKARILDI
+            }, [searchTerm, videos, activeCategory]); 
 
             const displayVideos = useMemo(() => {
                 if (activeCategory === 'all') return videos;
@@ -496,38 +578,38 @@
 
                                 <div className="flex items-center justify-between px-2 sticky top-0 bg-[#020617] z-10 py-2">
                                     <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">
-                                        {isSearchingText ? 'Metin taranıyor...' : (isSearchActive ? 'Arama Sonuçları' : `${displayVideos.length} Video`)}
+                                        {isSearchingText ? 'Metin taranıyor...' : (isSearchActive ? `Arama: ${searchTerm}` : `${displayVideos.length} Video`)}
                                     </h3>
                                 </div>
 
-                                <div className="space-y-4 overflow-y-auto h-[600px] pr-2 pb-4">
+                                {/* 
+                                    🔥 KRİTİK DÜZELTME NOKTASI 
+                                    
+                                    Buradaki key değişimi, mod değiştiğinde React'in tüm alt ağacı (children)
+                                    yok edip sıfırdan oluşturmasını garanti eder. "Nükleer seçenek".
+                                    
+                                    Ayrıca içerideki componentler tamamen ayrılmıştır:
+                                    - NormalVideoCard (Sadece Video)
+                                    - SearchResultItem (Video veya Timestamp)
+                                */}
+                                <div 
+                                    key={isSearchActive ? 'search-mode' : 'normal-mode'} 
+                                    className="space-y-4 overflow-y-auto h-[600px] pr-2 pb-4"
+                                >
                                     {loading ? (
                                         <div className="text-center py-8 text-slate-500 animate-pulse">Videolar yükleniyor...</div>
                                     ) : isSearchActive ? (
-                                        // ARAMA MODU
-                                        searchResults.length > 0 ? (
-                                            searchResults.map((item, idx) => (
-                                                <SearchResultCard 
-                                                    key={item.id || idx} 
-                                                    item={item} 
-                                                    isActive={item.type === 'video' ? selectedVideo?.id === item.video.id : false}
-                                                    onClick={() => handleSelectVideo(item.video, item.seconds || null)}
-                                                />
-                                            ))
-                                        ) : (
-                                            <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">
-                                                <p>Sonuç bulunamadı.</p>
-                                            </div>
-                                        )
+                                        <SearchResultsList
+                                            results={searchResults}
+                                            selectedVideoId={selectedVideo?.id}
+                                            onSelect={handleSelectVideo}
+                                        />
                                     ) : (
-                                        // NORMAL MODU
-                                        displayVideos.map((video) => (
-                                            <SearchResultCard 
-                                                key={video.id} 
-                                                item={{type: 'video', video: video, isActive: selectedVideo?.id === video.id}} 
-                                                onClick={() => handleSelectVideo(video)}
-                                            />
-                                        ))
+                                        <NormalVideoList
+                                            videos={displayVideos}
+                                            selectedVideoId={selectedVideo?.id}
+                                            onSelect={handleSelectVideo}
+                                        />
                                     )}
                                 </div>
                             </div>
