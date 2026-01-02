@@ -31,21 +31,11 @@
             padding-bottom: 40px;
         }
 
-        /* Scrollbar Tasarımı */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-color);
-        }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
 
         /* Header */
         header {
@@ -120,13 +110,10 @@
             gap: 8px;
             overflow-x: auto;
             padding-bottom: 4px;
-            /* Mobilde scrollbar gizle ama kaydır olabilsin */
             scrollbar-width: none; 
             -ms-overflow-style: none;
         }
-        .category-nav::-webkit-scrollbar {
-            display: none;
-        }
+        .category-nav::-webkit-scrollbar { display: none; }
 
         .nav-btn {
             background: transparent;
@@ -174,12 +161,37 @@
             margin-bottom: 30px;
             border: 1px solid var(--border-color);
             position: relative;
+            min-height: 300px; /* Boşken çok ince olmasın */
         }
 
         .video-container {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 */
             height: 0;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Boş Oynatıcı Göstergesi */
+        .empty-player-msg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #555;
+            font-size: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 1;
+        }
+        
+        .empty-player-icon {
+            font-size: 3rem;
+            opacity: 0.5;
         }
 
         .video-container iframe {
@@ -189,7 +201,13 @@
             width: 100%;
             height: 100%;
             border: none;
+            z-index: 10;
+            display: none; /* Başlangıçta gizli */
         }
+        
+        /* Video yüklendiğinde iframe'i göster, mesajı gizle */
+        .video-container.has-video .empty-player-msg { display: none; }
+        .video-container.has-video iframe { display: block; }
 
         .player-info {
             padding: 20px;
@@ -274,19 +292,7 @@
             padding-top: 56.25%;
             background: #000;
         }
-
-        .thumb-wrapper img {
-            /* Eğer görsel olsaydı, şimdilik CSS ile yer tutucu yapıyoruz */
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none; /* Rumble embed thumb olmadığı için CSS pattern kullanacağız */
-        }
         
-        /* Kapak Resmi Yerine CSS Tasarım */
         .thumb-placeholder {
             position: absolute;
             top: 0;
@@ -365,7 +371,6 @@
             border-radius: 4px;
         }
 
-        /* Boş Durum ve Hata */
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
@@ -398,7 +403,6 @@
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -408,24 +412,10 @@
             margin-top: 40px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .header-top {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .search-box {
-                max-width: 100%;
-            }
-            .player-section {
-                margin-left: -20px;
-                margin-right: -20px;
-                border-radius: 0;
-                border-left: none;
-                border-right: none;
-            }
-            /* Mobilde oynatıcı sticky olsun */
-            /* Not: JS ile scroll event ekleyerek daha da geliştirilebilir ama CSS sticky header yeterli */
+            .header-top { flex-direction: column; align-items: flex-start; }
+            .search-box { max-width: 100%; }
+            .player-section { margin-left: -20px; margin-right: -20px; border-radius: 0; border-left: none; border-right: none; }
         }
     </style>
 </head>
@@ -436,20 +426,25 @@
             <h1>🎬 Video Arşivi</h1>
             <div class="search-box">
                 <span class="search-icon">🔍</span>
-                <input type="text" id="search-input" placeholder="Video başlığı ara...">
+                <input type="text" id="search-input" placeholder="Liste içinde ara...">
             </div>
         </div>
         
-        <!-- Kategoriler Buraya JS ile Doldurulacak -->
         <nav class="category-nav" id="category-nav">
-            <!-- Butonlar buraya gelecek -->
+            <!-- JS ile dolacak -->
         </nav>
     </header>
 
     <main>
         <!-- Oynatıcı Alanı -->
         <section class="player-section">
-            <div class="video-container">
+            <div class="video-container" id="video-container">
+                <!-- Başlangıçta boş mesajı -->
+                <div class="empty-player-msg">
+                    <div class="empty-player-icon">📺</div>
+                    <div>Bir kategori seçerek video izleyebilirsiniz</div>
+                </div>
+
                 <iframe 
                     id="main-player" 
                     src="" 
@@ -458,8 +453,8 @@
                 </iframe>
             </div>
             <div class="player-info">
-                <div class="player-category-tag" id="player-tag">KATEGORİ</div>
-                <div class="player-title" id="player-title">Video seçilmedi</div>
+                <div class="player-category-tag" id="player-tag">-</div>
+                <div class="player-title" id="player-title">Bir video seçin</div>
             </div>
         </section>
 
@@ -478,15 +473,14 @@
     </main>
 
     <footer>
-        &copy; 2025 Volkan'ın Video Arşivi. Yayın içerileri Rumble üzerinden sunulmaktadır.
+        &copy; 2025 Volkan'ın Video Arşivi. Yayın içerikleri Rumble üzerinden sunulmaktadır.
     </footer>
 
     <script>
-        // Yapılandırma
         const categories = [
             { id: 'all', name: 'Tümü' },
             { id: 'Triel', name: 'Triel' },
-            { id: 'Sinasi', name: 'Şinasi' }, // Arama "ş" ve "s" için
+            { id: 'Sinasi', name: 'Şinasi' },
             { id: 'Prensesperver', name: 'Prensesperver' },
             { id: 'Nuriben', name: 'Nuriben' },
             { id: 'Nesrin', name: 'Nesrin' },
@@ -498,7 +492,6 @@
         let currentCategory = 'all';
         let currentVideoId = null;
 
-        // Demo Verisi (JSON çekilemezse kullanılır)
         const fallbackVideos = [
             { "title": "Triel - Epik Oyun Anları 01.01.2025", "embed_id": "v123abc", "link": "#" },
             { "title": "Şinasi - Sohbet ve Muhabbet 15.12.2024", "embed_id": "v456def", "link": "#" },
@@ -510,38 +503,21 @@
             { "title": "Triel - FPS İpuçları", "embed_id": "v258vwx", "link": "#" }
         ];
 
-        // Başlıktan kategori çıkarma yardımcısı
         function detectCategoryFromTitle(title) {
-            // Başlığın içinde hangi kategori adı geçiyor?
-            // "Şinasi" için "Sinasi" veya "Şinasi" kontrolü
             for (let cat of categories) {
                 if (cat.id === 'all') continue;
-                // Başlıkta kategori adı var mı (Büyük/küçük harf duyarsız, Türkçe karakter duyarsız)
-                // Basit replace ile türkçe karakterleri normalize edelim
                 const normalizedTitle = title.toLowerCase()
                     .replace('ş', 's').replace('ı', 'i').replace('ç', 'c').replace('ğ', 'g').replace('ü', 'u').replace('ö', 'o');
                 const normalizedCat = cat.id.toLowerCase();
-                
-                if (normalizedTitle.includes(normalizedCat)) {
-                    return cat.name; // Görünen adını döndür (Örn: Şinasi)
-                }
+                if (normalizedTitle.includes(normalizedCat)) return cat.name;
             }
             return 'Diğer';
-        }
-
-        function getCategoryForLogic(categoryName) {
-            // ID'ye göre kategori objesini bul
-            return categories.find(c => c.id === categoryName) || { id: 'all', name: 'Tümü' };
         }
 
         function init() {
             renderNav();
             fetchVideos();
-            
-            // Arama Event Listener
-            document.getElementById('search-input').addEventListener('input', (e) => {
-                filterAndRender();
-            });
+            document.getElementById('search-input').addEventListener('input', filterAndRender);
         }
 
         function renderNav() {
@@ -552,16 +528,30 @@
                 const btn = document.createElement('button');
                 btn.className = `nav-btn ${cat.id === currentCategory ? 'active' : ''}`;
                 btn.textContent = cat.name;
+                
                 btn.onclick = () => {
-                    // Aktif sınıfını güncelle
+                    // Buton aktiflik durumu
                     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     
-                    // Kategoriyi değiştir
+                    // Kategori değişimi
                     currentCategory = cat.id;
-                    filterAndRender();
                     
-                    // Mobilde menü kaydırmasını düzelt (seçilen butona kaydır)
+                    // Listeyi filtrele ve DOM'a bas
+                    const filteredVideos = filterAndRender();
+                    
+                    // İSTEĞE GÖRE: Kategori değişince ilk videoyu oynat
+                    if (filteredVideos.length > 0) {
+                        // DOM'a basılan ilk kartı bul
+                        const firstCard = document.querySelector('.video-card');
+                        if(firstCard) {
+                            playVideo(filteredVideos[0], firstCard);
+                        }
+                    } else {
+                        // Kategori boşsa oynatıcıyı sıfırla
+                        resetPlayer();
+                    }
+
                     btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 };
                 nav.appendChild(btn);
@@ -571,66 +561,59 @@
         async function fetchVideos() {
             try {
                 const response = await fetch('videos.json');
-                if (!response.ok) throw new Error("Yükleme hatası");
+                if (!response.ok) throw new Error("Hata");
                 allVideos = await response.json();
             } catch (error) {
-                console.warn("videos.json bulunamadı, demo verisi kullanılıyor.", error);
+                console.warn("videos.json bulunamadı, demo veri kullanılıyor.", error);
                 allVideos = fallbackVideos;
             }
             
-            // Veri yüklendikten sonra ilk render
+            // Sadece listeyi bas, oynatma yapma (İstek: Boş başlangıç)
             filterAndRender();
-            
-            // İlk videoyu yükle
-            if (allVideos.length > 0) {
-                playVideo(allVideos[0]);
-            }
         }
 
-        function filterAndRender() {
+        function getFilteredVideos() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            const grid = document.getElementById('video-grid');
+            const activeCatObj = categories.find(c => c.id === currentCategory) || { id: 'all' };
             
-            // Başlık güncellemeleri
-            const activeCatObj = getCategoryForLogic(currentCategory);
+            // Başlık Güncelleme
             document.getElementById('section-title').textContent = activeCatObj.name === 'Tümü' ? 'Tüm Videolar' : `${activeCatObj.name} Videoları`;
 
-            // Filtreleme Mantığı
-            const filtered = allVideos.filter(video => {
+            return allVideos.filter(video => {
                 const title = video.title.toLowerCase();
-                
-                // 1. Kategori Filtresi
                 let categoryMatch = false;
+                
                 if (currentCategory === 'all') {
                     categoryMatch = true;
                 } else {
-                    // Seçilen kategori ID'si başlıkta geçiyor mu?
                     const normalizedTitle = title.replace('ş','s').replace('ı','i').replace('ç','c').replace('ğ','g').replace('ü','u').replace('ö','o');
                     const normalizedCat = currentCategory.toLowerCase();
                     categoryMatch = normalizedTitle.includes(normalizedCat);
                 }
 
-                // 2. Arama Filtresi
                 const searchMatch = title.includes(searchTerm);
-
                 return categoryMatch && searchMatch;
             });
+        }
 
-            // Sayı güncelleme
+        function filterAndRender() {
+            const filtered = getFilteredVideos();
+            const grid = document.getElementById('video-grid');
+            
             document.getElementById('video-count').textContent = `${filtered.length} video`;
-
-            // Render
             grid.innerHTML = '';
             
             if (filtered.length === 0) {
                 grid.innerHTML = `<div class="empty-state">Bu kriterlere uygun video bulunamadı.</div>`;
-                return;
+                return [];
             }
 
             filtered.forEach(video => {
                 const card = createVideoCard(video);
                 grid.appendChild(card);
             });
+
+            return filtered;
         }
 
         function createVideoCard(video) {
@@ -658,40 +641,50 @@
             `;
             
             card.onclick = () => {
-                playVideo(video);
-                // Aktif sınıfını güncelle
                 document.querySelectorAll('.video-card').forEach(c => c.classList.remove('active'));
                 card.classList.add('active');
+                playVideo(video, card);
             };
             
             return card;
         }
 
-        function playVideo(video) {
+        function playVideo(video, cardElement) {
             const player = document.getElementById('main-player');
+            const container = document.getElementById('video-container');
             const title = document.getElementById('player-title');
             const tag = document.getElementById('player-tag');
             
-            // Rumble Embed URL oluşturucu
             const embedUrl = `https://rumble.com/embed/${video.embed_id}/?pub=4o7uxk&autoplay=1`;
             
             player.src = embedUrl;
             title.textContent = video.title;
-            
-            const detectedCat = detectCategoryFromTitle(video.title);
-            tag.textContent = detectedCat;
+            tag.textContent = detectCategoryFromTitle(video.title);
             
             currentVideoId = video.embed_id;
 
-            // Eğer mobil ise, oynatıcıya kaydır
+            // Oynatıcı aktif durumuna geç
+            container.classList.add('has-video');
+
             if(window.innerWidth < 768) {
                 document.querySelector('.player-section').scrollIntoView({behavior: 'smooth'});
             }
         }
 
-        // Başlat
-        window.addEventListener('DOMContentLoaded', init);
+        function resetPlayer() {
+            const player = document.getElementById('main-player');
+            const container = document.getElementById('video-container');
+            const title = document.getElementById('player-title');
+            const tag = document.getElementById('player-tag');
 
+            player.src = "";
+            container.classList.remove('has-video'); // Boş mesajını geri getir
+            title.textContent = "Bir video seçin";
+            tag.textContent = "-";
+            currentVideoId = null;
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
