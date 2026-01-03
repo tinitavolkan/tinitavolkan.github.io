@@ -256,7 +256,8 @@
                         ${isActive ? 'border-indigo-500 ring-1 ring-indigo-500/30' : 'border-white/5 hover:border-white/10 hover:shadow-lg hover:shadow-indigo-900/10'}
                     `}
                 >
-                    <div className="relative w-full aspect-video bg-black">
+                    {/* Değişiklik: aspect-video -> aspect-[16/10] (Kısa ve daha kompakt) */}
+                    <div className="relative w-full aspect-[16/10] bg-black">
                         <iframe 
                             src={`https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`} 
                             className="absolute inset-0 w-full h-full pointer-events-none" 
@@ -266,11 +267,13 @@
                         ></iframe>
                         {isActive && <div className="absolute inset-0 bg-indigo-500/10 z-10 ring-2 ring-inset ring-indigo-500 pointer-events-none"></div>}
                     </div>
-                    <div className="p-3 bg-slate-900/70 backdrop-blur-sm border-t border-white/5">
-                        <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed group-hover:text-white">{video.title}</p>
-                        <div className="mt-2 flex items-center justify-between">
-                            <span className="text-[10px] text-indigo-400 font-medium bg-indigo-500/10 px-2 py-0.5 rounded">{video.category}</span>
-                            <span className="text-[10px] text-slate-500">{video.date.toLocaleDateString('tr-TR')}</span>
+                    {/* Değişiklik: p-3 -> p-2 (Daha az boşluk) */}
+                    <div className="p-2 bg-slate-900/70 backdrop-blur-sm border-t border-white/5">
+                        {/* Değişiklik: text-xs -> text-[11px] (Biraz daha küçük yazı) */}
+                        <p className="text-[11px] text-slate-300 line-clamp-2 leading-relaxed group-hover:text-white">{video.title}</p>
+                        <div className="mt-1.5 flex items-center justify-between">
+                            <span className="text-[9px] text-indigo-400 font-medium bg-indigo-500/10 px-1.5 py-0.5 rounded">{video.category}</span>
+                            <span className="text-[9px] text-slate-500">{video.date.toLocaleDateString('tr-TR')}</span>
                         </div>
                     </div>
                 </div>
@@ -287,7 +290,7 @@
                             ${item.isActive ? 'border-indigo-500 ring-1 ring-indigo-500/30' : 'border-white/5 hover:border-white/10 hover:shadow-lg hover:shadow-indigo-900/10'}
                         `}
                     >
-                        <div className="relative w-full aspect-video bg-black">
+                        <div className="relative w-full aspect-[16/10] bg-black">
                             <iframe 
                                 src={`https://rumble.com/embed/${item.video.embedId}/?pub=4o7uxk`} 
                                 className="absolute inset-0 w-full h-full pointer-events-none" 
@@ -296,8 +299,8 @@
                             ></iframe>
                             {item.isActive && <div className="absolute inset-0 bg-indigo-500/20 z-10 ring-2 ring-inset ring-indigo-500 pointer-events-none"></div>}
                         </div>
-                        <div className="p-3 bg-slate-900/70 backdrop-blur-sm border-t border-white/5">
-                            <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed group-hover:text-white">{item.video.title}</p>
+                        <div className="p-2 bg-slate-900/70 backdrop-blur-sm border-t border-white/5">
+                            <p className="text-[11px] text-slate-300 line-clamp-2 leading-relaxed group-hover:text-white">{item.video.title}</p>
                         </div>
                     </div>
                 );
@@ -308,19 +311,19 @@
                 return (
                     <div 
                         onClick={onClick} 
-                        className="group cursor-pointer rounded-xl overflow-hidden border border-indigo-500/30 bg-slate-900/80 backdrop-blur hover:bg-indigo-900/20 hover:border-indigo-500 transition-all p-3 relative animate-fade-in"
+                        className="group cursor-pointer rounded-xl overflow-hidden border border-indigo-500/30 bg-slate-900/80 backdrop-blur hover:bg-indigo-900/20 hover:border-indigo-500 transition-all p-2 relative animate-fade-in"
                     >
-                        <div className="flex items-start gap-3">
-                            <div className="flex-shrink-0 w-12 h-12 rounded bg-indigo-600/20 flex flex-col items-center justify-center text-indigo-400 border border-indigo-500/20 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                                <span className="text-[10px] font-bold leading-none mb-0.5">ATLA</span>
-                                <span className="text-[10px] font-mono">{item.timestamp}</span>
+                        <div className="flex items-start gap-2">
+                            <div className="flex-shrink-0 w-10 h-10 rounded bg-indigo-600/20 flex flex-col items-center justify-center text-indigo-400 border border-indigo-500/20 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                <span className="text-[9px] font-bold leading-none mb-0.5">ATLA</span>
+                                <span className="text-[9px] font-mono">{item.timestamp}</span>
                             </div>
                             <div className="flex-1 min-w-0">
                                 <p 
-                                    className="text-xs text-slate-300 leading-snug group-hover:text-white whitespace-pre-wrap"
+                                    className="text-[11px] text-slate-300 leading-snug group-hover:text-white whitespace-pre-wrap"
                                     dangerouslySetInnerHTML={{ __html: contentHtml }}
                                 ></p>
-                                <p className="text-[10px] text-slate-500 mt-2 uppercase truncate">{item.video.title}</p>
+                                <p className="text-[9px] text-slate-500 mt-1 uppercase truncate">{item.video.title}</p>
                             </div>
                         </div>
                     </div>
@@ -382,12 +385,12 @@
 
         // --- HELPER INFO COMPONENT (YENİ) ---
         const HelperInfo = () => (
-            <div className="bg-indigo-500/5 border border-indigo-500/10 rounded-xl p-4 mb-4 animate-fade-in">
-                <h4 className="text-indigo-400 text-xs font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+            <div className="bg-indigo-500/5 border border-indigo-500/10 rounded-xl p-3 mb-2 animate-fade-in">
+                <h4 className="text-indigo-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
                     Nasıl Kullanılır?
                 </h4>
-                <ul className="text-[11px] text-slate-300 space-y-1.5 list-disc list-inside leading-relaxed">
+                <ul className="text-[10px] text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
                     <li><strong className="text-white">Arama:</strong> Bir kelime yazın. Sistem altyazıları tarayıp o kelimenin geçtiği saati (timestamp) bulur.</li>
                     <li><strong className="text-white">Oynat:</strong> Arama sonucuna tıklayın, video otomatik o noktadan başlar.</li>
                     <li><strong className="text-white">Filtrele:</strong> Yukarıdaki kategorilerden seçim yaparak sadece o yayıncıyı listeleyin.</li>
@@ -589,7 +592,7 @@
                                 </div>
                             </div>
 
-                            <div className="lg:col-span-4 space-y-6 animate-slide-up" style={{animationDelay: '100ms'}}>
+                            <div className="lg:col-span-4 space-y-3 animate-slide-up" style={{animationDelay: '100ms'}}>
                                 <div className="relative group">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                         <svg className="h-5 w-5 text-slate-500 group-focus-within:text-indigo-500 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
@@ -599,20 +602,21 @@
                                         placeholder="Kelime, söz veya cümle arayın..."
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(cleanSearch(e.target.value))}
-                                        className="w-full bg-slate-900/50 border border-white/10 text-slate-100 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 block w-full pl-11 p-4 transition-all duration-300 placeholder:text-slate-600"
+                                        className="w-full bg-slate-900/50 border border-white/10 text-slate-100 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 block w-full pl-11 p-3 transition-all duration-300 placeholder:text-slate-600"
                                     />
                                 </div>
 
                                 {/* YENİ: HelperInfo Kartı */}
                                 {!isSearchActive && <HelperInfo />}
 
-                                <div className="flex items-center justify-between px-2 sticky top-0 bg-[#020617] z-10 py-2">
-                                    <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider">
+                                {/* Değişiklik: py-2 -> py-1 (Başlık yukarı kaydırıldı) */}
+                                <div className="flex items-center justify-between px-2 sticky top-0 bg-[#020617] z-10 py-1 mb-1">
+                                    <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                         {isSearchingText ? '📝 Metinler taranıyor...' : (isSearchActive ? (
-                                            <span>
+                                            <span className="text-[11px]">
                                                 <span className="text-white font-normal">'{searchTerm}'</span>
                                                 <span className="text-slate-500 mx-1">•</span>
-                                                <span className="text-indigo-400 text-xs bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
+                                                <span className="text-indigo-400 text-[10px] bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
                                                     {getCategoryName(activeCategory)}
                                                 </span>
                                             </span>
@@ -620,10 +624,10 @@
                                     </h3>
                                 </div>
 
-                                {/* 🔥 KRİTİK DÜZELTME NOKTASI: Nükleer Seçenek + Fiziksel Ayrım */}
+                                {/* Değişiklik: space-y-4 -> space-y-2 (Video aralıkları sıkıştırıldı) */}
                                 <div 
                                     key={isSearchActive ? 'search-mode' : 'normal-mode'} 
-                                    className="space-y-4 overflow-y-auto h-[600px] pr-2 pb-4"
+                                    className="space-y-2 overflow-y-auto h-[600px] pr-2 pb-4"
                                 >
                                     {loading ? (
                                         <div className="text-center py-8 text-slate-500 animate-pulse">Videolar yükleniyor...</div>
