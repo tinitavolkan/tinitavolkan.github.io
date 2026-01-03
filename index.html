@@ -475,7 +475,6 @@
             </div>
         );
 
-        // --- DÜZELTİLMİŞ VİDEO OYNATICI ---
         const VideoPlayer = ({ video, startTime, reloadKey }) => {
             if (!video) return (
                 <div className="w-full aspect-video bg-slate-900/50 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden group">
@@ -495,26 +494,21 @@
 
             const baseUrl = `https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`;
             
+            // --- OTOMATİK BAŞLATMA DÜZELTME ---
             let finalUrl = baseUrl;
             
             if (startTime) {
                 const safeStart = Number(startTime);
-                finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1`;
+                // Zaman damgası seçildiğinde: o zamanı, otomatik başlatmayı ve reloadKey'i ekle
+                finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&cb=${reloadKey}`;
             } else {
-                finalUrl = `${baseUrl}&autoplay=1`;
+                // Sadece video seçildiğinde (zaman yok): Otomatik başlatmayı ve reloadKey'i ekle
+                finalUrl = `${baseUrl}&autoplay=1&cb=${reloadKey}`;
             }
 
             return (
                 <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-indigo-900/20 border border-white/10 relative animate-fade-in ring-1 ring-indigo-500/20">
-                    <iframe 
-                        key={reloadKey} // KRİTİK: React'ın iframe'i tamamen yeniden oluşturmasını sağlar
-                        src={finalUrl} 
-                        className="w-full h-full" 
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowFullScreen
-                        muted // KRİTİK: Tarayıcıların otomatik oynatma politikasını aşar (sessiz başlar)
-                        title={video.title}
-                    ></iframe>
+                    <iframe src={finalUrl} className="w-full h-full" allowFullScreen title={video.title}></iframe>
                 </div>
             );
         };
