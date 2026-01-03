@@ -251,7 +251,7 @@
             return parts.length === 0 ? text : parts;
         };
 
-        // --- YENİ: YORUM REHBERİ BİLEŞENİ ---
+        // --- YORUM REHBERİ ---
         const CommentGuideBox = () => (
             <div className="rounded-2xl bg-gradient-to-br from-indigo-900/30 to-slate-900/40 border border-indigo-500/20 overflow-hidden animate-fade-in mt-6">
                 <div className="p-6">
@@ -395,7 +395,6 @@
                                 className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-600"
                             />
                             
-                            {/* --- DÜZELTME: Yorum kutusu genişletildi, yer tutucu değişti --- */}
                             <textarea 
                                 placeholder="Videonun bu anı hakkında ne düşünüyorsun? Örneğin: 12:30'daki espri çok güzeldi..."
                                 value={text}
@@ -495,9 +494,13 @@
 
             const baseUrl = `https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`;
             
-            const finalUrl = startTime 
-                ? `${baseUrl}&start=${startTime}&autoplay=1`
-                : baseUrl;
+            // --- DÜZELTME: Zorla yenileme için URL'ye benzersiz bir değer ekliyoruz ---
+            let finalUrl = baseUrl;
+            
+            if (startTime) {
+                // &t={Date.now()} her tıklamada URL'yi değiştirir, böylece React iframe'i yeniden yükler.
+                finalUrl = `${baseUrl}&start=${startTime}&autoplay=1&t=${Date.now()}`;
+            }
 
             return (
                 <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-indigo-900/20 border border-white/10 relative animate-fade-in ring-1 ring-indigo-500/20">
@@ -824,7 +827,6 @@
                                 <div className="animate-slide-up">
                                     <VideoPlayer video={selectedVideo} startTime={startTime} />
                                     
-                                    {/* --- DÜZELTME: Video seçiliyse Rehber kutusu gizlenir, aksi halde gösterilir --- */}
                                     {!selectedVideo && <CommentGuideBox />}
 
                                     {selectedVideo && (
