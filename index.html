@@ -107,7 +107,6 @@
         const { useState, useEffect, useMemo, useRef } = React;
 
         // --- FIREBASE KURULUMU ---
-        // Senin verdiğin config dosyası burada kullanılıyor.
         const firebaseConfig = {
             apiKey: "AIzaSyDVhRw5lEIrJ5cFjJS1D86AvJeAI67ja0Q",
             authDomain: "site-comments-ed18f.firebaseapp.com",
@@ -117,8 +116,10 @@
             appId: "1:587969670836:web:de8f614bbcafa0ed2b1e1"
         };
 
-        // Firebase'i başlat (Uygulama yüklendiğinde bir kere çalışır)
-        firebase.initializeApp(firebaseConfig);
+        // Tekrar yükleme hatasını engelle
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
         const db = firebase.firestore();
 
         const CATEGORIES = [
@@ -199,7 +200,7 @@
             return cat ? cat.name : id;
         };
 
-        // --- FIREBASE YORUM BİLEŞENİ ---
+        // --- FIREBASE YORUM BİLEŞENİ (SON HAL) ---
         const CommentSection = ({ videoId }) => {
             const [comments, setComments] = useState([]);
             const [nickname, setNickname] = useState('');
@@ -207,7 +208,7 @@
             const [isPosting, setIsPosting] = useState(false);
             const [isLoading, setIsLoading] = useState(true);
 
-            // Nickname'i LocalStorage'dan çek (Firebase'e değil, sadece kullanıcı kolaylığı için tarayıcıda tutuyoruz)
+            // Nickname'i LocalStorage'dan çek (Kullanıcı kolaylığı için)
             useEffect(() => {
                 const savedNick = localStorage.getItem('katman_user_nickname');
                 if (savedNick) setNickname(savedNick);
@@ -268,13 +269,14 @@
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
 
-                    // Nickname'i tarayıcıya hafızaya al (kullanıcı kolaylığı için)
+                    // Nickname'i tarayıcıya hafızaya al
                     localStorage.setItem('katman_user_nickname', nickname.trim());
 
                     setText(''); // Yorum kutusunu temizle
                 } catch (error) {
+                    // Hata olursa kullanıcıya göster
                     console.error("Yorum gönderilemedi:", error);
-                    alert("Yorum gönderilirken bir hata oluştu.");
+                    alert("HATA: " + error.message + "\nFirebase Console'da Security Rules'un açık olduğundan emin olun.");
                 } finally {
                     setIsPosting(false);
                 }
@@ -356,7 +358,7 @@
             );
         };
 
-        // --- UI Components (Navbar, Player, etc. - Unchanged mostly) ---
+        // --- UI Components (Navbar, Player, etc.) ---
         const Navbar = ({ categories, activeCategory, setActiveCategory, lastUpdate }) => (
             <div className="border-b border-white/10 glass-panel sticky top-0 z-40">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
