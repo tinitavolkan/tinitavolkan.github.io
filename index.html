@@ -20,7 +20,7 @@
     <!-- Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- Firebase SDK (Compat versiyonu - HTML dosyalarında çalışmak için) -->
+    <!-- Firebase SDK (Compat versiyonu) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
@@ -171,9 +171,10 @@
                     }
                 }
                 return {
-                    id: v.embed_id || index,
+                    // CRITICAL: id serves as React key. embedId serves as the source of truth for DB/Player.
+                    id: v.embed_id || index, 
                     title: v.title,
-                    embedId: v.embed_id,
+                    embedId: v.embed_id, 
                     date: date,
                     category: category,
                     sortMetrics: getSortParts(v.title)
@@ -200,7 +201,7 @@
             return cat ? cat.name : id;
         };
 
-        // --- FIREBASE YORUM BİLEŞENİ (SON HAL) ---
+        // --- FIREBASE YORUM BİLEŞENİ ---
         const CommentSection = ({ videoId }) => {
             const [comments, setComments] = useState([]);
             const [nickname, setNickname] = useState('');
@@ -208,7 +209,7 @@
             const [isPosting, setIsPosting] = useState(false);
             const [isLoading, setIsLoading] = useState(true);
 
-            // Nickname'i LocalStorage'dan çek (Kullanıcı kolaylığı için)
+            // Nickname'i LocalStorage'dan çek
             useEffect(() => {
                 const savedNick = localStorage.getItem('katman_user_nickname');
                 if (savedNick) setNickname(savedNick);
@@ -222,14 +223,13 @@
 
                 // Sorgu: Sadece bu videoya ait yorumları al, tarihe göre sırala
                 const q = db.collection("comments")
-                          .where("videoId", "==", videoId)
+                          .where("videoId", "==", videoId) // Artık embedId ile eşleşecek
                           .orderBy("createdAt", "asc");
 
                 const unsubscribe = q.onSnapshot((snapshot) => {
                     const fetchedComments = [];
                     snapshot.forEach((doc) => {
                         const data = doc.data();
-                        // Timestamp'ı uygun formata çevir
                         const date = data.createdAt ? data.createdAt.toDate() : new Date();
                         fetchedComments.push({
                             id: doc.id,
@@ -244,7 +244,6 @@
                     setIsLoading(false);
                 });
 
-                // Temizlik fonksiyonu (Video değiştiğinde önceki dinlemeyi bırak)
                 return () => unsubscribe();
             }, [videoId]);
 
@@ -261,22 +260,18 @@
                 setIsPosting(true);
 
                 try {
-                    // Firestore'a ekle
                     await db.collection("comments").add({
-                        videoId: videoId, // Hangi videoya ait olduğunu kaydet
+                        videoId: videoId, // embedId kaydediliyor
                         nickname: nickname.trim(),
                         text: text.trim(),
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
 
-                    // Nickname'i tarayıcıya hafızaya al
                     localStorage.setItem('katman_user_nickname', nickname.trim());
-
-                    setText(''); // Yorum kutusunu temizle
+                    setText(''); 
                 } catch (error) {
-                    // Hata olursa kullanıcıya göster
                     console.error("Yorum gönderilemedi:", error);
-                    alert("HATA: " + error.message + "\nFirebase Console'da Security Rules'un açık olduğundan emin olun.");
+                    alert("HATA: " + error.message);
                 } finally {
                     setIsPosting(false);
                 }
@@ -358,7 +353,7 @@
             );
         };
 
-        // --- UI Components (Navbar, Player, etc.) ---
+        // --- UI Components ---
         const Navbar = ({ categories, activeCategory, setActiveCategory, lastUpdate }) => (
             <div className="border-b border-white/10 glass-panel sticky top-0 z-40">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -746,9 +741,9 @@
                                         </div>
                                     )}
 
-                                    {/* Firebase Entegre Yorum Bölümü */}
-                                    {selectedVideo && (
-                                        <CommentSection videoId={selectedVideo.id} />
+                                    {/* --- DÜZELTME YAPILAN SATIR --- */}
+                                    {selectedVideo && selectedVideo.embedId && (
+                                        <CommentSection videoId={selectedVideo.embedId} />
                                     )}
                                 </div>
                             </div>
