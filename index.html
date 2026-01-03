@@ -39,10 +39,12 @@
                     animation: {
                         'fade-in': 'fadeIn 0.3s ease-out',
                         'slide-up': 'slideUp 0.4s ease-out',
+                        'slide-in-right': 'slideInRight 0.3s ease-out',
                     },
                     keyframes: {
                         fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } }
+                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
+                        slideInRight: { '0%': { transform: 'translateX(20px)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } }
                     }
                 }
             }
@@ -186,6 +188,140 @@
             return cat ? cat.name : id;
         };
 
+        // --- YENİ: Yorum Bileşeni ---
+        const CommentSection = ({ videoId }) => {
+            const [comments, setComments] = useState([]);
+            const [nickname, setNickname] = useState('');
+            const [text, setText] = useState('');
+            const [isPosting, setIsPosting] = useState(false);
+
+            // LocalStorage'dan Nickname'i çek
+            useEffect(() => {
+                const savedNick = localStorage.getItem('katman_user_nickname');
+                if (savedNick) setNickname(savedNick);
+            }, []);
+
+            // LocalStorage'dan Yorumları Çek
+            useEffect(() => {
+                if (!videoId) return;
+                const savedComments = localStorage.getItem(`katman_comments_${videoId}`);
+                if (savedComments) {
+                    try {
+                        setComments(JSON.parse(savedComments));
+                    } catch (e) {
+                        console.error("Yorumlar okunamadı", e);
+                    }
+                } else {
+                    setComments([]);
+                }
+            }, [videoId]);
+
+            // Yorum Gönderme
+            const handlePost = () => {
+                if (!nickname.trim()) {
+                    alert("Lütfen bir takma ad (nickname) belirleyin.");
+                    return;
+                }
+                if (!text.trim()) {
+                    alert("Yorum boş olamaz.");
+                    return;
+                }
+
+                setIsPosting(true);
+
+                const newComment = {
+                    id: Date.now(),
+                    nickname: nickname.trim(),
+                    text: text.trim(),
+                    date: new Date().toISOString()
+                };
+
+                const updatedComments = [newComment, ...comments];
+                
+                // Kaydet
+                localStorage.setItem(`katman_comments_${videoId}`, JSON.stringify(updatedComments));
+                localStorage.setItem('katman_user_nickname', nickname.trim());
+
+                setComments(updatedComments);
+                setText('');
+                setIsPosting(false);
+            };
+
+            const formatDate = (isoString) => {
+                const date = new Date(isoString);
+                return new Intl.DateTimeFormat('tr-TR', { 
+                    day: '2-digit', month: 'long', year: 'numeric', 
+                    hour: '2-digit', minute: '2-digit' 
+                }).format(date);
+            };
+
+            if (!videoId) return null;
+
+            return (
+                <div className="mt-6 rounded-2xl bg-slate-900/40 border border-white/5 overflow-hidden animate-slide-up">
+                    <div className="p-4 border-b border-white/5 flex items-center justify-between bg-white/5">
+                        <h3 className="font-bold text-white flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-400"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            Yorumlar <span className="text-xs font-normal text-slate-400 ml-1">({comments.length})</span>
+                        </h3>
+                        <div className="text-[10px] text-slate-500 bg-slate-900/80 px-2 py-1 rounded border border-white/5">
+                            Yerel Kayıt
+                        </div>
+                    </div>
+
+                    <div className="p-4 space-y-4">
+                        {/* Input Area */}
+                        <div className="flex flex-col gap-3">
+                            <input 
+                                type="text" 
+                                placeholder="Takma Adın (Nick)" 
+                                value={nickname}
+                                onChange={(e) => setNickname(e.target.value)}
+                                className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-600"
+                            />
+                            <textarea 
+                                placeholder="Bu yayın hakkında düşüncelerin neler?" 
+                                value={text}
+                                onChange={(e) => setText(e.target.value)}
+                                rows="2"
+                                className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all resize-none placeholder:text-slate-600"
+                            ></textarea>
+                            <div className="flex justify-end">
+                                <button 
+                                    onClick={handlePost}
+                                    disabled={isPosting}
+                                    className="bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-800 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+                                >
+                                    {isPosting ? (
+                                        <span className="animate-spin h-3 w-3 border-2 border-white border-t-transparent rounded-full"></span>
+                                    ) : 'Yorum Yap'}
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Comments List */}
+                        <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
+                            {comments.length === 0 ? (
+                                <div className="text-center py-6 text-slate-500 text-sm">
+                                    Henüz yorum yapılmamış. İlk sen yorum yap!
+                                </div>
+                            ) : (
+                                comments.map((c) => (
+                                    <div key={c.id} className="bg-slate-950/30 border border-white/5 p-3 rounded-lg animate-slide-in-right">
+                                        <div className="flex justify-between items-start mb-1">
+                                            <span className="text-xs font-bold text-indigo-300">{c.nickname}</span>
+                                            <span className="text-[10px] text-slate-600">{formatDate(c.date)}</span>
+                                        </div>
+                                        <p className="text-sm text-slate-300 leading-relaxed">{c.text}</p>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
         // --- UI Components ---
 
         const Navbar = ({ categories, activeCategory, setActiveCategory, lastUpdate }) => (
@@ -256,7 +392,6 @@
                         ${isActive ? 'border-indigo-500 ring-1 ring-indigo-500/30' : 'border-white/5 hover:border-white/10 hover:shadow-lg hover:shadow-indigo-900/10'}
                     `}
                 >
-                    {/* Değişiklik: aspect-video -> aspect-[16/10] (Kısa ve daha kompakt) */}
                     <div className="relative w-full aspect-[16/10] bg-black">
                         <iframe 
                             src={`https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`} 
@@ -267,9 +402,7 @@
                         ></iframe>
                         {isActive && <div className="absolute inset-0 bg-indigo-500/10 z-10 ring-2 ring-inset ring-indigo-500 pointer-events-none"></div>}
                     </div>
-                    {/* Değişiklik: p-3 -> p-2 (Daha az boşluk) */}
                     <div className="p-2 bg-slate-900/70 backdrop-blur-sm border-t border-white/5">
-                        {/* Değişiklik: text-xs -> text-[11px] (Biraz daha küçük yazı) */}
                         <p className="text-[11px] text-slate-300 line-clamp-2 leading-relaxed group-hover:text-white">{video.title}</p>
                         <div className="mt-1.5 flex items-center justify-between">
                             <span className="text-[9px] text-indigo-400 font-medium bg-indigo-500/10 px-1.5 py-0.5 rounded">{video.category}</span>
@@ -589,6 +722,11 @@
                                             </div>
                                         </div>
                                     )}
+
+                                    {/* YENİ EKLENEN KISIM: Yorum Bölümü */}
+                                    {selectedVideo && (
+                                        <CommentSection videoId={selectedVideo.id} />
+                                    )}
                                 </div>
                             </div>
 
@@ -606,10 +744,8 @@
                                     />
                                 </div>
 
-                                {/* YENİ: HelperInfo Kartı */}
                                 {!isSearchActive && <HelperInfo />}
 
-                                {/* Değişiklik: py-2 -> py-1 (Başlık yukarı kaydırıldı) */}
                                 <div className="flex items-center justify-between px-2 sticky top-0 bg-[#020617] z-10 py-1 mb-1">
                                     <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                         {isSearchingText ? '📝 Metinler taranıyor...' : (isSearchActive ? (
@@ -624,7 +760,6 @@
                                     </h3>
                                 </div>
 
-                                {/* Değişiklik: space-y-4 -> space-y-2 (Video aralıkları sıkıştırıldı) */}
                                 <div 
                                     key={isSearchActive ? 'search-mode' : 'normal-mode'} 
                                     className="space-y-2 overflow-y-auto h-[600px] pr-2 pb-4"
