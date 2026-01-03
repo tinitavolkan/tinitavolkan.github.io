@@ -116,7 +116,6 @@
             appId: "1:587969670836:web:de8f614bbcafa0ed2b1e1"
         };
 
-        // Tekrar yükleme hatasını engelle
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
@@ -207,38 +206,79 @@
             return cat ? cat.name : id;
         };
 
+        // --- METİN İŞLEME (TIMESTAMP LINKLEME) ---
+        const linkifyTimestamps = (text, onSeek) => {
+            if (!text) return text;
+            
+            // Regex: SS:MM veya DD:SS:MM formatını yakalar
+            const timeRegex = /(\d{1,2}):(\d{2})(?::(\d{2}))?/g;
+            const parts = [];
+            let lastIndex = 0;
+            let match;
+
+            // Regex state'i sıfırla
+            timeRegex.lastIndex = 0;
+
+            while ((match = timeRegex.exec(text)) !== null) {
+                // Zaman damgasından önceki metni ekle
+                if (match.index > lastIndex) {
+                    parts.push(text.substring(lastIndex, match.index));
+                }
+
+                const [fullMatch, h, m, s] = match;
+                let seconds = 0;
+                
+                // 3 bölüm varsa (HH:MM:SS)
+                if (s !== undefined) {
+                    seconds = parseInt(h) * 3600 + parseInt(m) * 60 + parseInt(s);
+                } else {
+                    // 2 bölüm varsa (MM:SS)
+                    seconds = parseInt(h) * 60 + parseInt(m);
+                }
+
+                // Tıklanabilir Span ekle
+                parts.push(
+                    <span 
+                        key={`time-${match.index}`}
+                        onClick={() => onSeek(seconds)}
+                        className="text-indigo-400 cursor-pointer hover:text-indigo-300 hover:underline font-mono bg-indigo-500/10 px-1 rounded transition-colors select-none"
+                        title="Videonun bu anına git"
+                    >
+                        {fullMatch}
+                    </span>
+                );
+
+                lastIndex = timeRegex.lastIndex;
+            }
+
+            // Kalan metni ekle
+            if (lastIndex < text.length) {
+                parts.push(text.substring(lastIndex));
+            }
+
+            return parts.length === 0 ? text : parts;
+        };
+
         // --- FIREBASE YORUM BİLEŞENİ ---
-        const CommentSection = ({ videoId }) => {
+        const CommentSection = ({ videoId, onSeek }) => {
             const [comments, setComments] = useState([]);
             const [nickname, setNickname] = useState('');
             const [text, setText] = useState('');
             const [isPosting, setIsPosting] = useState(false);
             const [isLoading, setIsLoading] = useState(true);
 
-            // Nickname'i LocalStorage'dan çek
             useEffect(() => {
                 const savedNick = localStorage.getItem('katman_user_nickname');
                 if (savedNick) setNickname(savedNick);
             }, []);
 
-            // Yorumları Firebase'den Dinle
             useEffect(() => {
                 if (!videoId) return;
-
-                console.log("DEBUG: Yorumlar yükleniyor için Video ID:", videoId);
-
                 setIsLoading(true);
 
-                // Sorgu: Sadece bu videoya ait yorumları al.
-                // .orderBy("createdAt", "asc") KALDIRILDI (Index hatasını önlemek için test amacıyla)
-                // Not: Yorumlar sırasız gelecek ama en azından yüklenmiş olacak.
-                const q = db.collection("comments")
-                          .where("videoId", "==", videoId); 
-                          // .orderBy("createdAt", "asc"); // <--- BURADAKİ SATIRI KALDIRDIM
+                const q = db.collection("comments").where("videoId", "==", videoId);
 
                 const unsubscribe = q.onSnapshot((snapshot) => {
-                    console.log("DEBUG: Firebase snapshot gelindi. Boyut:", snapshot.size);
-                    
                     const fetchedComments = [];
                     snapshot.forEach((doc) => {
                         const data = doc.data();
@@ -250,14 +290,13 @@
                         });
                     });
                     
-                    // İstemci tarafında (Client-side) sıralama
+                    // İstemci tarafında sıralama
                     fetchedComments.sort((a, b) => a.displayDate - b.displayDate);
                     
                     setComments(fetchedComments);
                     setIsLoading(false);
                 }, (error) => {
                     console.error("Yorumlar yüklenirken HATA:", error);
-                    alert("Yorumlar yüklenemedi: " + error.message);
                     setIsLoading(false);
                 });
 
@@ -273,7 +312,6 @@
                     alert("Yorum boş olamaz.");
                     return;
                 }
-
                 setIsPosting(true);
 
                 try {
@@ -325,13 +363,18 @@
                                 onChange={(e) => setNickname(e.target.value)}
                                 className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-600"
                             />
-                            <textarea 
-                                placeholder="Bu yayın hakkında düşüncelerin neler?" 
-                                value={text}
-                                onChange={(e) => setText(e.target.value)}
-                                rows="2"
-                                className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all resize-none placeholder:text-slate-600"
-                            ></textarea>
+                            <div className="relative">
+                                <textarea 
+                                    placeholder="19:10 daki an çok iyiydi!" 
+                                    value={text}
+                                    onChange={(e) => setText(e.target.value)}
+                                    rows="2"
+                                    className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all resize-none placeholder:text-slate-600 pr-16"
+                                ></textarea>
+                                <div className="absolute bottom-2 right-2 text-[9px] text-slate-500 pointer-events-none">
+                                    💡 10:00 formatında yaz
+                                </div>
+                            </div>
                             <div className="flex justify-end">
                                 <button 
                                     onClick={handlePost}
@@ -360,7 +403,10 @@
                                             <span className="text-xs font-bold text-indigo-300">{c.nickname}</span>
                                             <span className="text-[10px] text-slate-600">{formatDate(c.displayDate)}</span>
                                         </div>
-                                        <p className="text-sm text-slate-300 leading-relaxed">{c.text}</p>
+                                        {/* --- DÜZELTME: linkifyTimestamps fonksiyonunu kullanıyoruz --- */}
+                                        <p className="text-sm text-slate-300 leading-relaxed">
+                                            {linkifyTimestamps(c.text, onSeek)}
+                                        </p>
                                     </div>
                                 ))
                             )}
@@ -589,6 +635,12 @@
 
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
+            // --- DÜZELTME: handleSeekComment fonksiyonu ---
+            const handleSeekComment = (seconds) => {
+                setStartTime(seconds);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
             useEffect(() => {
                 const fetchVideos = async () => {
                     try {
@@ -758,8 +810,12 @@
                                         </div>
                                     )}
 
+                                    {/* --- DÜZELTME: onSeek prop'u eklendi --- */}
                                     {selectedVideo && selectedVideo.embedId && (
-                                        <CommentSection videoId={selectedVideo.embedId} />
+                                        <CommentSection 
+                                            videoId={selectedVideo.embedId} 
+                                            onSeek={handleSeekComment} 
+                                        />
                                     )}
                                 </div>
                             </div>
