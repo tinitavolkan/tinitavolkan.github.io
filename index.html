@@ -210,17 +210,14 @@
         const linkifyTimestamps = (text, onSeek) => {
             if (!text) return text;
             
-            // Regex: SS:MM veya DD:SS:MM formatını yakalar
             const timeRegex = /(\d{1,2}):(\d{2})(?::(\d{2}))?/g;
             const parts = [];
             let lastIndex = 0;
             let match;
 
-            // Regex state'i sıfırla
             timeRegex.lastIndex = 0;
 
             while ((match = timeRegex.exec(text)) !== null) {
-                // Zaman damgasından önceki metni ekle
                 if (match.index > lastIndex) {
                     parts.push(text.substring(lastIndex, match.index));
                 }
@@ -228,15 +225,12 @@
                 const [fullMatch, h, m, s] = match;
                 let seconds = 0;
                 
-                // 3 bölüm varsa (HH:MM:SS)
                 if (s !== undefined) {
                     seconds = parseInt(h) * 3600 + parseInt(m) * 60 + parseInt(s);
                 } else {
-                    // 2 bölüm varsa (MM:SS)
                     seconds = parseInt(h) * 60 + parseInt(m);
                 }
 
-                // Tıklanabilir Span ekle
                 parts.push(
                     <span 
                         key={`time-${match.index}`}
@@ -251,7 +245,6 @@
                 lastIndex = timeRegex.lastIndex;
             }
 
-            // Kalan metni ekle
             if (lastIndex < text.length) {
                 parts.push(text.substring(lastIndex));
             }
@@ -290,7 +283,6 @@
                         });
                     });
                     
-                    // İstemci tarafında sıralama
                     fetchedComments.sort((a, b) => a.displayDate - b.displayDate);
                     
                     setComments(fetchedComments);
@@ -354,7 +346,6 @@
                     </div>
 
                     <div className="p-4 space-y-4">
-                        {/* Input Area */}
                         <div className="flex flex-col gap-3">
                             <input 
                                 type="text" 
@@ -388,7 +379,6 @@
                             </div>
                         </div>
 
-                        {/* Comments List */}
                         <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
                             {isLoading ? (
                                 <div className="text-center py-6 text-slate-500 text-sm animate-pulse">Yorumlar yükleniyor...</div>
@@ -403,7 +393,6 @@
                                             <span className="text-xs font-bold text-indigo-300">{c.nickname}</span>
                                             <span className="text-[10px] text-slate-600">{formatDate(c.displayDate)}</span>
                                         </div>
-                                        {/* --- DÜZELTME: linkifyTimestamps fonksiyonunu kullanıyoruz --- */}
                                         <p className="text-sm text-slate-300 leading-relaxed">
                                             {linkifyTimestamps(c.text, onSeek)}
                                         </p>
@@ -467,7 +456,11 @@
             );
 
             const baseUrl = `https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`;
-            const finalUrl = startTime ? `${baseUrl}&start=${startTime}` : baseUrl;
+            
+            // --- DÜZELTME: startTime varsa autoplay=1 ekliyoruz ---
+            const finalUrl = startTime 
+                ? `${baseUrl}&start=${startTime}&autoplay=1`
+                : baseUrl;
 
             return (
                 <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-indigo-900/20 border border-white/10 relative animate-fade-in ring-1 ring-indigo-500/20">
@@ -635,7 +628,6 @@
 
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
-            // --- DÜZELTME: handleSeekComment fonksiyonu ---
             const handleSeekComment = (seconds) => {
                 setStartTime(seconds);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -810,7 +802,6 @@
                                         </div>
                                     )}
 
-                                    {/* --- DÜZELTME: onSeek prop'u eklendi --- */}
                                     {selectedVideo && selectedVideo.embedId && (
                                         <CommentSection 
                                             videoId={selectedVideo.embedId} 
