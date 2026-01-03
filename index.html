@@ -20,6 +20,10 @@
     <!-- Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
+    <!-- Firebase SDK (Compat versiyonu - HTML dosyalarında çalışmak için) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
     <!-- Tailwind Config -->
     <script>
         tailwind.config = {
@@ -83,7 +87,6 @@
         <div class="aurora-glow bottom-[-200px] right-[-200px] bg-purple-500/10 delay-1000"></div>
     </div>
 
-    <!-- SABİT INSTAGRAM BUTONU -->
     <a 
         href="https://www.instagram.com/tinitavolkan/" 
         target="_blank" 
@@ -100,9 +103,23 @@
 
     <div id="root"></div>
 
-    <!-- REACT APP -->
     <script type="text/babel">
         const { useState, useEffect, useMemo, useRef } = React;
+
+        // --- FIREBASE KURULUMU ---
+        // Senin verdiğin config dosyası burada kullanılıyor.
+        const firebaseConfig = {
+            apiKey: "AIzaSyDVhRw5lEIrJ5cFjJS1D86AvJeAI67ja0Q",
+            authDomain: "site-comments-ed18f.firebaseapp.com",
+            projectId: "site-comments-ed18f",
+            storageBucket: "site-comments-ed18f.firebasestorage.app",
+            messagingSenderId: "587969670836",
+            appId: "1:587969670836:web:de8f614bbcafa0ed2b1e1"
+        };
+
+        // Firebase'i başlat (Uygulama yüklendiğinde bir kere çalışır)
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
 
         const CATEGORIES = [
             { id: 'all', name: 'Tüm Arşiv' },
@@ -125,11 +142,7 @@
         };
 
         // --- Utility Functions ---
-        const cleanSearch = (val) => (val || '')
-            .replace(/[\u200B-\u200D\uFEFF]/g, '')
-            .replace(/\u00A0/g, ' ')
-            .trim();
-
+        const cleanSearch = (val) => (val || '').replace(/[\u200B-\u200D\uFEFF]/g, '').replace(/\u00A0/g, ' ').trim();
         const normalizeText = (str) => {
             return str.toString().toLowerCase()
                 .replace('ğ', 'g').replace('ü', 'u').replace('ş', 's')
@@ -146,7 +159,6 @@
             const processed = rawVideos.map((v, index) => {
                 const dateMatch = v.title.match(/(\d{2})\.(\d{2})\.(\d{4})/);
                 const date = dateMatch ? new Date(dateMatch[3], dateMatch[2] - 1, dateMatch[1]) : new Date();
-
                 const normalizedTitle = normalizeText(v.title);
                 let category = "Diğer";
                 for (let cat of CATEGORIES) {
@@ -157,7 +169,6 @@
                         break;
                     }
                 }
-
                 return {
                     id: v.embed_id || index,
                     title: v.title,
@@ -188,36 +199,55 @@
             return cat ? cat.name : id;
         };
 
-        // --- YENİ: Yorum Bileşeni ---
+        // --- FIREBASE YORUM BİLEŞENİ ---
         const CommentSection = ({ videoId }) => {
             const [comments, setComments] = useState([]);
             const [nickname, setNickname] = useState('');
             const [text, setText] = useState('');
             const [isPosting, setIsPosting] = useState(false);
+            const [isLoading, setIsLoading] = useState(true);
 
-            // LocalStorage'dan Nickname'i çek
+            // Nickname'i LocalStorage'dan çek (Firebase'e değil, sadece kullanıcı kolaylığı için tarayıcıda tutuyoruz)
             useEffect(() => {
                 const savedNick = localStorage.getItem('katman_user_nickname');
                 if (savedNick) setNickname(savedNick);
             }, []);
 
-            // LocalStorage'dan Yorumları Çek
+            // Yorumları Firebase'den Dinle
             useEffect(() => {
                 if (!videoId) return;
-                const savedComments = localStorage.getItem(`katman_comments_${videoId}`);
-                if (savedComments) {
-                    try {
-                        setComments(JSON.parse(savedComments));
-                    } catch (e) {
-                        console.error("Yorumlar okunamadı", e);
-                    }
-                } else {
-                    setComments([]);
-                }
+
+                setIsLoading(true);
+
+                // Sorgu: Sadece bu videoya ait yorumları al, tarihe göre sırala
+                const q = db.collection("comments")
+                          .where("videoId", "==", videoId)
+                          .orderBy("createdAt", "asc");
+
+                const unsubscribe = q.onSnapshot((snapshot) => {
+                    const fetchedComments = [];
+                    snapshot.forEach((doc) => {
+                        const data = doc.data();
+                        // Timestamp'ı uygun formata çevir
+                        const date = data.createdAt ? data.createdAt.toDate() : new Date();
+                        fetchedComments.push({
+                            id: doc.id,
+                            ...data,
+                            displayDate: date
+                        });
+                    });
+                    setComments(fetchedComments);
+                    setIsLoading(false);
+                }, (error) => {
+                    console.error("Yorumlar yüklenirken hata:", error);
+                    setIsLoading(false);
+                });
+
+                // Temizlik fonksiyonu (Video değiştiğinde önceki dinlemeyi bırak)
+                return () => unsubscribe();
             }, [videoId]);
 
-            // Yorum Gönderme
-            const handlePost = () => {
+            const handlePost = async () => {
                 if (!nickname.trim()) {
                     alert("Lütfen bir takma ad (nickname) belirleyin.");
                     return;
@@ -229,30 +259,32 @@
 
                 setIsPosting(true);
 
-                const newComment = {
-                    id: Date.now(),
-                    nickname: nickname.trim(),
-                    text: text.trim(),
-                    date: new Date().toISOString()
-                };
+                try {
+                    // Firestore'a ekle
+                    await db.collection("comments").add({
+                        videoId: videoId, // Hangi videoya ait olduğunu kaydet
+                        nickname: nickname.trim(),
+                        text: text.trim(),
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
 
-                const updatedComments = [newComment, ...comments];
-                
-                // Kaydet
-                localStorage.setItem(`katman_comments_${videoId}`, JSON.stringify(updatedComments));
-                localStorage.setItem('katman_user_nickname', nickname.trim());
+                    // Nickname'i tarayıcıya hafızaya al (kullanıcı kolaylığı için)
+                    localStorage.setItem('katman_user_nickname', nickname.trim());
 
-                setComments(updatedComments);
-                setText('');
-                setIsPosting(false);
+                    setText(''); // Yorum kutusunu temizle
+                } catch (error) {
+                    console.error("Yorum gönderilemedi:", error);
+                    alert("Yorum gönderilirken bir hata oluştu.");
+                } finally {
+                    setIsPosting(false);
+                }
             };
 
-            const formatDate = (isoString) => {
-                const date = new Date(isoString);
+            const formatDate = (dateObj) => {
                 return new Intl.DateTimeFormat('tr-TR', { 
                     day: '2-digit', month: 'long', year: 'numeric', 
                     hour: '2-digit', minute: '2-digit' 
-                }).format(date);
+                }).format(dateObj);
             };
 
             if (!videoId) return null;
@@ -264,8 +296,8 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-400"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                             Yorumlar <span className="text-xs font-normal text-slate-400 ml-1">({comments.length})</span>
                         </h3>
-                        <div className="text-[10px] text-slate-500 bg-slate-900/80 px-2 py-1 rounded border border-white/5">
-                            Yerel Kayıt
+                        <div className="text-[10px] text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded border border-indigo-500/20">
+                            🔴 Canlı Bağlantı
                         </div>
                     </div>
 
@@ -301,7 +333,9 @@
 
                         {/* Comments List */}
                         <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
-                            {comments.length === 0 ? (
+                            {isLoading ? (
+                                <div className="text-center py-6 text-slate-500 text-sm animate-pulse">Yorumlar yükleniyor...</div>
+                            ) : comments.length === 0 ? (
                                 <div className="text-center py-6 text-slate-500 text-sm">
                                     Henüz yorum yapılmamış. İlk sen yorum yap!
                                 </div>
@@ -310,7 +344,7 @@
                                     <div key={c.id} className="bg-slate-950/30 border border-white/5 p-3 rounded-lg animate-slide-in-right">
                                         <div className="flex justify-between items-start mb-1">
                                             <span className="text-xs font-bold text-indigo-300">{c.nickname}</span>
-                                            <span className="text-[10px] text-slate-600">{formatDate(c.date)}</span>
+                                            <span className="text-[10px] text-slate-600">{formatDate(c.displayDate)}</span>
                                         </div>
                                         <p className="text-sm text-slate-300 leading-relaxed">{c.text}</p>
                                     </div>
@@ -322,8 +356,7 @@
             );
         };
 
-        // --- UI Components ---
-
+        // --- UI Components (Navbar, Player, etc. - Unchanged mostly) ---
         const Navbar = ({ categories, activeCategory, setActiveCategory, lastUpdate }) => (
             <div className="border-b border-white/10 glass-panel sticky top-0 z-40">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -383,7 +416,6 @@
             );
         };
 
-        // --- COMPONENT 1: Sadece Normal Video Listesi için Kart ---
         const NormalVideoCard = ({ video, isActive, onClick }) => {
             return (
                 <div 
@@ -413,7 +445,6 @@
             );
         };
 
-        // --- COMPONENT 2: Sadece Arama Sonuçları için Kart ---
         const SearchResultItem = ({ item, onClick }) => {
             if (item.type === 'video') {
                 return (
@@ -465,7 +496,6 @@
             return null;
         };
 
-        // --- COMPONENT 3: Normal Liste Konteyneri ---
         const NormalVideoList = ({ videos, selectedVideoId, onSelect }) => {
             if (videos.length === 0) {
                 return <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">Bu kategoride video bulunamadı.</div>;
@@ -484,7 +514,6 @@
             );
         };
 
-        // --- COMPONENT 4: Arama Sonuçları Konteyneri ---
         const SearchResultsList = ({ results, selectedVideoId, onSelect, searchTerm, categoryName }) => {
             if (results.length === 0) {
                 return (
@@ -516,7 +545,6 @@
             );
         };
 
-        // --- HELPER INFO COMPONENT (YENİ) ---
         const HelperInfo = () => (
             <div className="bg-indigo-500/5 border border-indigo-500/10 rounded-xl p-3 mb-2 animate-fade-in">
                 <h4 className="text-indigo-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-2">
@@ -531,7 +559,6 @@
             </div>
         );
 
-        // --- MAIN APP ---
         const App = () => {
             const [videos, setVideos] = useState([]);
             const [lastUpdate, setLastUpdate] = useState("");
@@ -548,7 +575,6 @@
 
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
-            // Veri Çekme
             useEffect(() => {
                 const fetchVideos = async () => {
                     try {
@@ -572,7 +598,6 @@
                 fetchVideos();
             }, []);
 
-            // Mod Değişikliğinde Temizleme
             useEffect(() => {
                 if (!isSearchActive) {
                     setSearchResults([]); 
@@ -582,7 +607,6 @@
                 }
             }, [isSearchActive]);
 
-            // Arama Logic (Kategori Bazlı)
             useEffect(() => {
                 const term = cleanSearch(searchTerm).toLowerCase();
                 if (!term) return;
@@ -597,12 +621,10 @@
 
                     if (videos.length === 0) return;
 
-                    // 🔥 KRİTİK: Kategori Filtreleme
                     const videosToSearch = videos.filter(v => 
                         activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory)
                     );
 
-                    // Başlık Filtreleme
                     const titleMatches = videosToSearch.filter(v => {
                         const textMatch = normalizeText(v.title).includes(term);
                         return textMatch;
@@ -615,7 +637,6 @@
                         isActive: false
                     }));
 
-                    // Metin Dosyası Araması
                     const fetchPromises = videosToSearch.map(async (v) => {
                         if (normalizeText(v.title).includes(term)) return []; 
 
@@ -723,7 +744,7 @@
                                         </div>
                                     )}
 
-                                    {/* YENİ EKLENEN KISIM: Yorum Bölümü */}
+                                    {/* Firebase Entegre Yorum Bölümü */}
                                     {selectedVideo && (
                                         <CommentSection videoId={selectedVideo.id} />
                                     )}
