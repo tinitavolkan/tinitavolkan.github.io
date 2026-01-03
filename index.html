@@ -120,7 +120,15 @@
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
+
         const db = firebase.firestore();
+
+        // --- AD-BLOCKER ÇÖZÜMÜ (Long Polling) ---
+        // net::ERR_BLOCKED_BY_CLIENT hatasını çözmek için WebSockets yerine HTTP kullanıyoruz
+        db.settings({
+          experimentalForceLongPolling: true,
+          useFetchStreams: false
+        });
 
         const CATEGORIES = [
             { id: 'all', name: 'Tüm Arşiv' },
@@ -171,7 +179,6 @@
                     }
                 }
                 return {
-                    // CRITICAL: id serves as React key. embedId serves as the source of truth for DB/Player.
                     id: v.embed_id || index, 
                     title: v.title,
                     embedId: v.embed_id, 
@@ -223,7 +230,7 @@
 
                 // Sorgu: Sadece bu videoya ait yorumları al, tarihe göre sırala
                 const q = db.collection("comments")
-                          .where("videoId", "==", videoId) // Artık embedId ile eşleşecek
+                          .where("videoId", "==", videoId) 
                           .orderBy("createdAt", "asc");
 
                 const unsubscribe = q.onSnapshot((snapshot) => {
@@ -261,7 +268,7 @@
 
                 try {
                     await db.collection("comments").add({
-                        videoId: videoId, // embedId kaydediliyor
+                        videoId: videoId, 
                         nickname: nickname.trim(),
                         text: text.trim(),
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -741,7 +748,6 @@
                                         </div>
                                     )}
 
-                                    {/* --- DÜZELTME YAPILAN SATIR --- */}
                                     {selectedVideo && selectedVideo.embedId && (
                                         <CommentSection videoId={selectedVideo.embedId} />
                                     )}
