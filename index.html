@@ -649,7 +649,7 @@
                     Nasıl Kullanılır?
                 </h4>
                 <ul className="text-[10px] text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
-                    <li><strong className="text-white">Arama:</strong> Bir kelime yazın. Sistem altyazıları tarayıp o kelimenin geçtiği saati (timestamp) bulur.</li>
+                    <li><strong className="text-white">Arama:</strong> Bir kelime yazın. Yazmayı bitirdikten 0.5 saniye sonra arama başlar.</li>
                     <li><strong className="text-white">Oynat:</strong> Arama sonucuna tıklayın, video otomatik o noktadan başlar.</li>
                     <li><strong className="text-white">Filtrele:</strong> Yukarıdaki kategorilerden seçim yaparak sadece o yayıncıyı listeleyin.</li>
                 </ul>
@@ -664,13 +664,14 @@
             const [startTime, setStartTime] = useState(null); 
             const [reloadKey, setReloadKey] = useState(0); 
             const [activeCategory, setActiveCategory] = useState('all');
-            const [searchTerm, setSearchTerm] = useState("");
+            const [searchTerm, setSearchTerm] = useState(""); // RAW input value (boşluklar korunur)
             const [searchResults, setSearchResults] = useState([]); 
             const [isSearchingText, setIsSearchingText] = useState(false);
             const textCache = useRef({}); 
             const debounceTimerRef = useRef(null);
             const searchIdRef = useRef(0);
 
+            // Arama modunda olup olmadığını, raw term'i temizleyerek belirliyoruz
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
             const handleSeekComment = (seconds) => {
@@ -712,33 +713,40 @@
                 fetchVideos();
             }, []);
 
+            // --- ARAMA MANTIĞI (DEBOUNCE EDILMIS) ---
             useEffect(() => {
+                // Eğer input boşsa hemen temizle
                 if (!isSearchActive) {
                     setSearchResults([]); 
                     setIsSearchingText(false);
                     searchIdRef.current++;
                     if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+                    return;
                 }
-            }, [isSearchActive]);
-
-            useEffect(() => {
-                const term = cleanSearch(searchTerm).toLowerCase();
-                if (!term) return;
                 
+                // Önceki zamanlayıcıyı iptal et
                 if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
 
+                // 500ms bekleme süresi
                 const performSearch = async () => {
                     const currentSearchId = ++searchIdRef.current;
                     
-                    setSearchResults([]);
+                    // UI Loading durumunu güncelle
                     setIsSearchingText(true);
+                    // Önceki sonuçları hemen temizlemeyebiliriz veya yeni sonuçlar gelince temizleyebiliriz.
+                    // Kullanıcı deneyimi için öncekini silmek daha temiz hissettirir.
+                    setSearchResults([]);
 
                     if (videos.length === 0) return;
+
+                    // Burada searchTerm'i temizliyoruz (trim + replace)
+                    const term = cleanSearch(searchTerm).toLowerCase();
 
                     const videosToSearch = videos.filter(v => 
                         activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory)
                     );
 
+                    // 1. Başlık Eşleşmesi
                     const titleMatches = videosToSearch.filter(v => {
                         const textMatch = normalizeText(v.title).includes(term);
                         return textMatch;
@@ -751,7 +759,9 @@
                         isActive: false
                     }));
 
+                    // 2. Metin İçi Eşleşme (Timestamp)
                     const fetchPromises = videosToSearch.map(async (v) => {
+                        // Başlık zaten eşleşiyorsa metni taramayı atla (performans)
                         if (normalizeText(v.title).includes(term)) return []; 
 
                         const path = getTxtPath(v.title); 
@@ -796,7 +806,7 @@
                                         seconds: totalSeconds,
                                         snippet: snippet,
                                         id: `ts-${v.id}-${totalSeconds}`,
-                                        searchTerm: term
+                                        searchTerm: term // Highlight için
                                     });
                                 }
                             }
@@ -807,17 +817,19 @@
                     const textHitsArrays = await Promise.all(fetchPromises);
                     const allTextHits = textHitsArrays.flat();
 
+                    // Arama iptal edildiyse güncelleme yapma
                     if (currentSearchId !== searchIdRef.current) return; 
 
                     setSearchResults([...allTextHits, ...results]);
                     setIsSearchingText(false);
                 };
 
+                // 500ms (0.5 saniye) gecikmeli başlatma
                 debounceTimerRef.current = setTimeout(() => {
                     performSearch();
                 }, 500);
 
-            }, [searchTerm, videos, activeCategory]); 
+            }, [searchTerm, videos, activeCategory]); // searchTerm değiştiğinde tetiklenir
 
             const displayVideos = useMemo(() => {
                 if (activeCategory === 'all') return videos;
@@ -870,7 +882,9 @@
                                         type="text"
                                         placeholder="Kelime, söz veya cümle arayın..."
                                         value={searchTerm}
-                                        onChange={(e) => setSearchTerm(cleanSearch(e.target.value))}
+                                        // DÜZELTME: Burada cleanSearch çağırmıyoruz, direkt değeri alıyoruz.
+                                        // Bu sayede kullanıcı boşluk basabilir.
+                                        onChange={(e) => setSearchTerm(e.target.value)}
                                         className="w-full bg-slate-900/50 border border-white/10 text-slate-100 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 block w-full pl-11 p-3 transition-all duration-300 placeholder:text-slate-600"
                                     />
                                 </div>
@@ -881,7 +895,7 @@
                                     <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                         {isSearchingText ? '📝 Metinler taranıyor...' : (isSearchActive ? (
                                             <span className="text-[11px]">
-                                                <span className="text-white font-normal">'{searchTerm}'</span>
+                                                <span className="text-white font-normal">'{cleanSearch(searchTerm)}'</span>
                                                 <span className="text-slate-500 mx-1">•</span>
                                                 <span className="text-indigo-400 text-[10px] bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
                                                     {getCategoryName(activeCategory)}
@@ -901,7 +915,7 @@
                                         <SearchResultsList
                                             results={searchResults}
                                             selectedVideoId={selectedVideo?.id}
-                                            searchTerm={searchTerm}
+                                            searchTerm={cleanSearch(searchTerm)}
                                             categoryName={getCategoryName(activeCategory)}
                                             onSelect={handleSelectVideo}
                                         />
