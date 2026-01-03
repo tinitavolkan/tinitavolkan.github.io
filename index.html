@@ -475,7 +475,7 @@
             </div>
         );
 
-        const VideoPlayer = ({ video, startTime }) => {
+        const VideoPlayer = ({ video, startTime, reloadKey }) => {
             if (!video) return (
                 <div className="w-full aspect-video bg-slate-900/50 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden group">
                      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTAsMC4wNSkiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] opacity-30"></div>
@@ -494,16 +494,18 @@
 
             const baseUrl = `https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`;
             
-            // --- DÜZELTME: 't' parametresi 'cb' yapıldı, böylece zaman parametresiyle karışmaz ---
+            // URL oluşturma
+            // reloadKey prop'u her tıklamada değişeceği için URL'de cb parametresi her seferinde unique olur.
+            // Bu sayede aynı zamana tıklasanız bile iframe yeniden yüklenir.
             let finalUrl = baseUrl;
             
             if (startTime) {
-                // startTime'ı sayıya çevir (NaN kontrolü için)
                 const safeStart = Number(startTime);
-                
-                // Rumble start parametresini kullanıyoruz.
-                // cb = Cache Buster (Zorla yenileme için)
-                finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&cb=${Date.now()}`;
+                // reloadKey'yi cb'ye ekleyerek tarayıcının URL'yi yeni görmesini sağlıyoruz
+                finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&cb=${reloadKey}`;
+            } else {
+                // Video ilk açılıyorsa da temiz bir yükleme yapalım
+                finalUrl = `${baseUrl}&cb=${reloadKey}`;
             }
 
             return (
@@ -662,6 +664,7 @@
             const [loading, setLoading] = useState(true);
             const [selectedVideo, setSelectedVideo] = useState(null);
             const [startTime, setStartTime] = useState(null); 
+            const [reloadKey, setReloadKey] = useState(0); // DÜZELTME: Force reload için sayaç eklendi
             const [activeCategory, setActiveCategory] = useState('all');
             const [searchTerm, setSearchTerm] = useState("");
             const [searchResults, setSearchResults] = useState([]); 
@@ -674,7 +677,26 @@
 
             const handleSeekComment = (seconds) => {
                 setStartTime(seconds);
+                // DÜZELTME: Her tıklamada reloadKey'i artırıyoruz, böylece VideoPlayer mutlaka güncellenir
+                setReloadKey(prev => prev + 1); 
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            const handleSelectVideo = (video, startSeconds = null) => {
+                // Eğer tıklanan video zaten seçili olan videoysa, yine de güncellemeyi zorlamak istiyoruz
+                // (Kullanıcı listeye tıklayarak videoyu sıfırlamak isteyebilir)
+                const isSameVideo = selectedVideo && selectedVideo.id === video.id;
+                
+                setSelectedVideo(video);
+                setStartTime(startSeconds);
+                
+                // DÜZELTME: reloadKey'i artırıyoruz. 
+                // Hem yorumlardan gelindiğinde hem listeden seçildiğinde video garantiyen yeniden yüklenir.
+                setReloadKey(prev => prev + 1);
+
+                if (window.innerWidth < 1024) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             };
 
             useEffect(() => {
@@ -812,14 +834,6 @@
                 return videos.filter(video => normalizeText(video.category) === normalizeText(activeCategory));
             }, [activeCategory, videos]);
 
-            const handleSelectVideo = (video, startSeconds = null) => {
-                setSelectedVideo(video);
-                setStartTime(startSeconds);
-                if (window.innerWidth < 1024) {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            };
-
             return (
                 <div className="min-h-screen flex flex-col pb-24">
                     <Navbar categories={CATEGORIES} activeCategory={activeCategory} setActiveCategory={setActiveCategory} lastUpdate={lastUpdate} />
@@ -829,7 +843,8 @@
                             
                             <div className="lg:col-span-8 space-y-6">
                                 <div className="animate-slide-up">
-                                    <VideoPlayer video={selectedVideo} startTime={startTime} />
+                                    {/* reloadKey prop olarak eklendi */}
+                                    <VideoPlayer video={selectedVideo} startTime={startTime} reloadKey={reloadKey} />
                                     
                                     {!selectedVideo && <CommentGuideBox />}
 
