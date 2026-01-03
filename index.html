@@ -494,12 +494,16 @@
 
             const baseUrl = `https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`;
             
-            // --- DÜZELTME: Zorla yenileme için URL'ye benzersiz bir değer ekliyoruz ---
+            // --- DÜZELTME: 't' parametresi 'cb' yapıldı, böylece zaman parametresiyle karışmaz ---
             let finalUrl = baseUrl;
             
             if (startTime) {
-                // &t={Date.now()} her tıklamada URL'yi değiştirir, böylece React iframe'i yeniden yükler.
-                finalUrl = `${baseUrl}&start=${startTime}&autoplay=1&t=${Date.now()}`;
+                // startTime'ı sayıya çevir (NaN kontrolü için)
+                const safeStart = Number(startTime);
+                
+                // Rumble start parametresini kullanıyoruz.
+                // cb = Cache Buster (Zorla yenileme için)
+                finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&cb=${Date.now()}`;
             }
 
             return (
