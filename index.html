@@ -123,8 +123,7 @@
 
         const db = firebase.firestore();
 
-        // --- AD-BLOCKER ÇÖZÜMÜ (Long Polling) ---
-        // net::ERR_BLOCKED_BY_CLIENT hatasını çözmek için WebSockets yerine HTTP kullanıyoruz
+        // --- AD-BLOCKER ÇÖZÜMÜ ---
         db.settings({
           experimentalForceLongPolling: true,
           useFetchStreams: false
@@ -226,14 +225,20 @@
             useEffect(() => {
                 if (!videoId) return;
 
+                console.log("DEBUG: Yorumlar yükleniyor için Video ID:", videoId);
+
                 setIsLoading(true);
 
-                // Sorgu: Sadece bu videoya ait yorumları al, tarihe göre sırala
+                // Sorgu: Sadece bu videoya ait yorumları al.
+                // .orderBy("createdAt", "asc") KALDIRILDI (Index hatasını önlemek için test amacıyla)
+                // Not: Yorumlar sırasız gelecek ama en azından yüklenmiş olacak.
                 const q = db.collection("comments")
-                          .where("videoId", "==", videoId) 
-                          .orderBy("createdAt", "asc");
+                          .where("videoId", "==", videoId); 
+                          // .orderBy("createdAt", "asc"); // <--- BURADAKİ SATIRI KALDIRDIM
 
                 const unsubscribe = q.onSnapshot((snapshot) => {
+                    console.log("DEBUG: Firebase snapshot gelindi. Boyut:", snapshot.size);
+                    
                     const fetchedComments = [];
                     snapshot.forEach((doc) => {
                         const data = doc.data();
@@ -244,10 +249,15 @@
                             displayDate: date
                         });
                     });
+                    
+                    // İstemci tarafında (Client-side) sıralama
+                    fetchedComments.sort((a, b) => a.displayDate - b.displayDate);
+                    
                     setComments(fetchedComments);
                     setIsLoading(false);
                 }, (error) => {
-                    console.error("Yorumlar yüklenirken hata:", error);
+                    console.error("Yorumlar yüklenirken HATA:", error);
+                    alert("Yorumlar yüklenemedi: " + error.message);
                     setIsLoading(false);
                 });
 
