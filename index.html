@@ -686,10 +686,29 @@
                 setStartTime(startSeconds);
                 setReloadKey(prev => prev + 1);
 
+                // --- YENİ: VİDEO İZLENME TAKİBİ (FIREBASE) ---
+                if (video && video.embedId) {
+                    db.collection("video_stats").doc(video.embedId).set({
+                        title: video.title,
+                        views: firebase.firestore.FieldValue.increment(1),
+                        lastViewed: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+                }
+                // ---------------------------------------------
+
                 if (window.innerWidth < 1024) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             };
+
+            // --- YENİ: SİTE ZİYARET SAYACI (FIREBASE) ---
+            useEffect(() => {
+                // Siteyi her açtığında sayaç dokümanını güncelle
+                db.collection("site_stats").doc("counter").set({
+                    visits: firebase.firestore.FieldValue.increment(1)
+                }, { merge: true });
+            }, []);
+            // -------------------------------------------
 
             useEffect(() => {
                 const fetchVideos = async () => {
