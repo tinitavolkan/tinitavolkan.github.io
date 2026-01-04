@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Paneli - Katman Arşiv</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React ve ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            950: '#020617',
+                            900: '#0f172a',
+                            800: '#1e293b',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.3s ease-out',
+                        'slide-up': 'slideUp 0.4s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #020617; }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="text-slate-100 antialiased min-h-screen flex items-center justify-center p-4">
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- FIREBASE KURULUMU (INDEX.HTML İLE AYNI OLMALI) ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyDVhRw5lEIrJ5cFjJS1D86AvJeAI67ja0Q",
+            authDomain: "site-comments-ed18f.firebaseapp.com",
+            projectId: "site-comments-ed18f",
+            storageBucket: "site-comments-ed18f.firebasestorage.app",
+            messagingSenderId: "587969670836",
+            appId: "1:587969670836:web:de8f614bbcafa0ed2b1e1"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        const db = firebase.firestore();
+        
+        // --- AYARLAR ---
+        const ADMIN_PASSWORD = "katman123"; // ŞİFRE BURASI
+
+        // --- LOGIN EKRANI BİLEŞENİ ---
+        const LoginScreen = ({ onLogin }) => {
+            const [password, setPassword] = useState('');
+            const [error, setError] = useState(false);
+            const [loading, setLoading] = useState(false);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setLoading(true);
+                setTimeout(() => {
+                    if (password === ADMIN_PASSWORD) {
+                        onLogin();
+                    } else {
+                        setError(true);
+                        setLoading(false);
+                    }
+                }, 500); // Yapay gecikme
+            };
+
+            return (
+                <div className="w-full max-w-sm bg-slate-900 border border-white/10 rounded-2xl p-8 shadow-2xl animate-slide-up">
+                    <div className="text-center mb-8">
+                        <div className="w-16 h-16 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-4 text-indigo-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </div>
+                        <h2 className="text-2xl font-bold text-white">Yönetici Paneli</h2>
+                        <p className="text-slate-400 mt-2">Lütfen erişim şifrenizi girin.</p>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div>
+                            <label className="block text-xs font-medium text-slate-400 mb-1 ml-1">ŞİFRE</label>
+                            <input 
+                                type="password" 
+                                value={password}
+                                onChange={(e) => {setPassword(e.target.value); setError(false);}}
+                                className={`w-full bg-slate-950 border ${error ? 'border-red-500 ring-1 ring-red-500' : 'border-white/10 focus:border-indigo-500'} text-white rounded-xl px-4 py-3 outline-none focus:ring-1 focus:ring-indigo-500 transition-all text-lg`}
+                                placeholder="****"
+                                autoFocus
+                            />
+                            {error && <p className="text-red-400 text-xs mt-2 pl-1">❌ Hatalı şifre.</p>}
+                        </div>
+                        <button 
+                            type="submit"
+                            disabled={loading || !password}
+                            className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-700 disabled:text-slate-500 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-600/20"
+                        >
+                            {loading ? 'Kontrol Ediliyor...' : 'Panele Gir'}
+                        </button>
+                    </form>
+                    <div className="mt-6 text-center border-t border-white/5 pt-4">
+                        <p className="text-[10px] text-slate-600 uppercase tracking-widest">Katman Arşiv Sistemi</p>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- DASHBOARD BİLEŞENİ ---
+        const Dashboard = ({ onLogout }) => {
+            const [stats, setStats] = useState({ count: 0, lastUpdate: null });
+            const [recentComments, setRecentComments] = useState([]);
+
+            // Verileri dinle (Canlı bağlantı)
+            useEffect(() => {
+                // 1. Sayaç Verileri
+                const unsubscribeStats = db.collection("stats").doc("global")
+                .onSnapshot(doc => {
+                    if (doc.exists) {
+                        setStats(doc.data());
+                    }
+                }, err => console.error(err));
+
+                // 2. Son Yorumlar
+                const unsubscribeComments = db.collection("comments")
+                .orderBy("createdAt", "desc")
+                .limit(10)
+                .onSnapshot(snapshot => {
+                    const list = [];
+                    snapshot.forEach(doc => {
+                        const d = doc.data();
+                        list.push({
+                            id: doc.id,
+                            ...d,
+                            date: d.createdAt?.toDate() || new Date()
+                        });
+                    });
+                    setRecentComments(list);
+                });
+
+                return () => {
+                    unsubscribeStats();
+                    unsubscribeComments();
+                };
+            }, []);
+
+            return (
+                <div className="w-full max-w-5xl animate-fade-in">
+                    {/* Header */}
+                    <header className="flex justify-between items-center mb-8 pb-6 border-b border-white/10">
+                        <div>
+                            <h1 className="text-3xl font-bold text-white">Panel Özeti</h1>
+                            <p className="text-slate-400 text-sm mt-1">Canlı istatistikler ve veri akışı</p>
+                        </div>
+                        <button 
+                            onClick={onLogout}
+                            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors border border-white/10 text-sm font-medium"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                            Çıkış Yap
+                        </button>
+                    </header>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        {/* ZİYARET KARTI */}
+                        <div className="glass-panel rounded-2xl p-8 relative overflow-hidden group">
+                            <div className="absolute -right-10 -top-10 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl group-hover:bg-indigo-500/30 transition-all duration-700"></div>
+                            
+                            <div className="relative z-10">
+                                <div className="flex items-center justify-between mb-4">
+                                    <h3 className="text-slate-400 font-medium uppercase tracking-wider text-sm">Toplam Ziyaretçi</h3>
+                                    <div className="flex items-center gap-2 text-green-400 text-xs font-bold bg-green-500/10 px-2 py-1 rounded border border-green-500/20">
+                                        <span className="relative flex h-2 w-2">
+                                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                          <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                        </span>
+                                        Canlı
+                                    </div>
+                                </div>
+                                <div className="text-7xl font-bold text-white mb-2 tracking-tight">
+                                    {stats.count || 0}
+                                </div>
+                                <p className="text-slate-500 text-sm">
+                                    Son güncelleme: {stats.lastUpdate ? new Date(stats.lastUpdate.seconds * 1000).toLocaleTimeString('tr-TR') : '-'}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* BİLGİ KARTI */}
+                        <div className="glass-panel rounded-2xl p-8 flex flex-col justify-center border border-white/5">
+                            <h3 className="text-indigo-400 font-bold text-lg mb-4 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                                Nasıl Çalışır?
+                            </h3>
+                            <ul className="space-y-3 text-slate-300 text-sm">
+                                <li className="flex items-start gap-3">
+                                    <span className="text-indigo-500 mt-1">▹</span>
+                                    Siteye giren kişi tarayıcıda "ziyaret edildi" damgası vurur.
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <span className="text-indigo-500 mt-1">▹</span>
+                                    Aynı kişi gün içinde tekrar girerse sayaç artmaz (tekrar önleme).
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <span className="text-indigo-500 mt-1">▹</span>
+                                    Bu sayı Firebase Firestore'dan canlı olarak çekilir.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* SON YORUMLAR TABLOSU */}
+                    <div className="glass-panel rounded-2xl overflow-hidden">
+                        <div className="p-6 border-b border-white/10 bg-slate-900/50 flex justify-between items-center">
+                            <h3 className="text-white font-bold">Son Yapılan Yorumlar</h3>
+                            <span className="text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded">Son 10 Kayıt</span>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left text-sm">
+                                <thead className="bg-slate-950/50 text-slate-400 uppercase text-xs font-medium">
+                                    <tr>
+                                        <th className="px-6 py-4">Kullanıcı</th>
+                                        <th className="px-6 py-4">Yorum</th>
+                                        <th className="px-6 py-4">Tarih</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/5">
+                                    {recentComments.length === 0 ? (
+                                        <tr>
+                                            <td colSpan="3" className="px-6 py-8 text-center text-slate-600">Henüz yorum yok.</td>
+                                        </tr>
+                                    ) : recentComments.map((comment) => (
+                                        <tr key={comment.id} className="hover:bg-slate-800/30 transition-colors">
+                                            <td className="px-6 py-4 font-medium text-indigo-300">{comment.nickname}</td>
+                                            <td className="px-6 py-4 text-slate-300 line-clamp-1 max-w-xs">{comment.text}</td>
+                                            <td className="px-6 py-4 text-slate-500 text-xs">
+                                                {comment.date.toLocaleDateString('tr-TR')} {comment.date.toLocaleTimeString('tr-TR', {hour:'2-digit', minute:'2-digit'})}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- ANA UYGULAMA ---
+        const App = () => {
+            const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+            // Oturum durumunu localStorage'dan hatırlayabiliriz ama basitlik için state tutuyoruz
+            useEffect(() => {
+                const auth = sessionStorage.getItem('admin_auth');
+                if(auth === 'true') setIsLoggedIn(true);
+            }, []);
+
+            const handleLogin = () => {
+                sessionStorage.setItem('admin_auth', 'true');
+                setIsLoggedIn(true);
+            };
+
+            const handleLogout = () => {
+                sessionStorage.removeItem('admin_auth');
+                setIsLoggedIn(false);
+            };
+
+            return (
+                <div className="min-h-screen w-full bg-gradient-to-br from-[#020617] to-[#0f172a]">
+                    {/* Arka plan dekorasyonu */}
+                    <div className="fixed inset-0 overflow-hidden pointer-events-none z-[-1]">
+                        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px]"></div>
+                        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px]"></div>
+                    </div>
+
+                    <div className="relative z-10">
+                        {isLoggedIn ? (
+                            <Dashboard onLogout={handleLogout} />
+                        ) : (
+                            <LoginScreen onLogin={handleLogin} />
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
