@@ -499,10 +499,8 @@
             
             if (startTime) {
                 const safeStart = Number(startTime);
-                // Zaman damgası seçildiğinde: o zamanı, otomatik başlatmayı ve reloadKey'i ekle
                 finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&cb=${reloadKey}`;
             } else {
-                // Sadece video seçildiğinde (zaman yok): Otomatik başlatmayı ve reloadKey'i ekle
                 finalUrl = `${baseUrl}&autoplay=1&cb=${reloadKey}`;
             }
 
@@ -664,14 +662,17 @@
             const [startTime, setStartTime] = useState(null); 
             const [reloadKey, setReloadKey] = useState(0); 
             const [activeCategory, setActiveCategory] = useState('all');
-            const [searchTerm, setSearchTerm] = useState(""); // RAW input value (boşluklar korunur)
+            const [searchTerm, setSearchTerm] = useState("");
             const [searchResults, setSearchResults] = useState([]); 
             const [isSearchingText, setIsSearchingText] = useState(false);
+            
+            // Yeni durum: Uyarı gösterilsin mi?
+            const [showNotice, setShowNotice] = useState(true);
+
             const textCache = useRef({}); 
             const debounceTimerRef = useRef(null);
             const searchIdRef = useRef(0);
 
-            // Arama modunda olup olmadığını, raw term'i temizleyerek belirliyoruz
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
             const handleSeekComment = (seconds) => {
@@ -715,7 +716,6 @@
 
             // --- ARAMA MANTIĞI (DEBOUNCE EDILMIS) ---
             useEffect(() => {
-                // Eğer input boşsa hemen temizle
                 if (!isSearchActive) {
                     setSearchResults([]); 
                     setIsSearchingText(false);
@@ -724,29 +724,22 @@
                     return;
                 }
                 
-                // Önceki zamanlayıcıyı iptal et
                 if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
 
-                // 500ms bekleme süresi
                 const performSearch = async () => {
                     const currentSearchId = ++searchIdRef.current;
                     
-                    // UI Loading durumunu güncelle
                     setIsSearchingText(true);
-                    // Önceki sonuçları hemen temizlemeyebiliriz veya yeni sonuçlar gelince temizleyebiliriz.
-                    // Kullanıcı deneyimi için öncekini silmek daha temiz hissettirir.
                     setSearchResults([]);
 
                     if (videos.length === 0) return;
 
-                    // Burada searchTerm'i temizliyoruz (trim + replace)
                     const term = cleanSearch(searchTerm).toLowerCase();
 
                     const videosToSearch = videos.filter(v => 
                         activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory)
                     );
 
-                    // 1. Başlık Eşleşmesi
                     const titleMatches = videosToSearch.filter(v => {
                         const textMatch = normalizeText(v.title).includes(term);
                         return textMatch;
@@ -759,9 +752,7 @@
                         isActive: false
                     }));
 
-                    // 2. Metin İçi Eşleşme (Timestamp)
                     const fetchPromises = videosToSearch.map(async (v) => {
-                        // Başlık zaten eşleşiyorsa metni taramayı atla (performans)
                         if (normalizeText(v.title).includes(term)) return []; 
 
                         const path = getTxtPath(v.title); 
@@ -806,7 +797,7 @@
                                         seconds: totalSeconds,
                                         snippet: snippet,
                                         id: `ts-${v.id}-${totalSeconds}`,
-                                        searchTerm: term // Highlight için
+                                        searchTerm: term
                                     });
                                 }
                             }
@@ -817,19 +808,17 @@
                     const textHitsArrays = await Promise.all(fetchPromises);
                     const allTextHits = textHitsArrays.flat();
 
-                    // Arama iptal edildiyse güncelleme yapma
                     if (currentSearchId !== searchIdRef.current) return; 
 
                     setSearchResults([...allTextHits, ...results]);
                     setIsSearchingText(false);
                 };
 
-                // 500ms (0.5 saniye) gecikmeli başlatma
                 debounceTimerRef.current = setTimeout(() => {
                     performSearch();
                 }, 500);
 
-            }, [searchTerm, videos, activeCategory]); // searchTerm değiştiğinde tetiklenir
+            }, [searchTerm, videos, activeCategory]); 
 
             const displayVideos = useMemo(() => {
                 if (activeCategory === 'all') return videos;
@@ -844,6 +833,45 @@
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                             
                             <div className="lg:col-span-8 space-y-6">
+                                {/* --- SİSTEM UYARISI --- */}
+                                {showNotice && (
+                                    <div className="relative overflow-hidden rounded-xl bg-amber-900/20 border border-amber-500/30 animate-slide-up mb-4 shadow-lg shadow-amber-900/10">
+                                        {/* Dekoratif arka plan elementi */}
+                                        <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-amber-500">
+                                                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                                                <line x1="12" y1="9" x2="12" y2="13"/>
+                                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                            </svg>
+                                        </div>
+                                        
+                                        <div className="p-4 flex items-start justify-between">
+                                            <div className="flex items-start gap-4 pr-8">
+                                                <div className="p-2.5 bg-amber-500/20 rounded-full flex-shrink-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber-400">
+                                                        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                                                        <line x1="12" y1="9" x2="12" y2="13"/>
+                                                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-amber-400 font-bold text-sm mb-1">Önemli Duyuru</h3>
+                                                    <p className="text-slate-200 text-sm leading-relaxed font-medium">
+                                                        Video kaliteleri ile ilgili bir problemin çözümü için ....
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <button 
+                                                onClick={() => setShowNotice(false)}
+                                                className="text-amber-500/50 hover:text-amber-400 transition-colors p-1"
+                                                title="Kapat"
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
                                 <div className="animate-slide-up">
                                     <VideoPlayer video={selectedVideo} startTime={startTime} reloadKey={reloadKey} />
                                     
@@ -882,8 +910,6 @@
                                         type="text"
                                         placeholder="Kelime, söz veya cümle arayın..."
                                         value={searchTerm}
-                                        // DÜZELTME: Burada cleanSearch çağırmıyoruz, direkt değeri alıyoruz.
-                                        // Bu sayede kullanıcı boşluk basabilir.
                                         onChange={(e) => setSearchTerm(e.target.value)}
                                         className="w-full bg-slate-900/50 border border-white/10 text-slate-100 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 block w-full pl-11 p-3 transition-all duration-300 placeholder:text-slate-600"
                                     />
