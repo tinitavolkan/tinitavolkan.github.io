@@ -774,7 +774,22 @@
             const [searchTerm, setSearchTerm] = useState("");
             const [searchResults, setSearchResults] = useState([]); 
             const [isSearchingText, setIsSearchingText] = useState(false);
-            const [showNotice, setShowNotice] = useState(true);
+            
+            // --- YENİ: DUYURU KONFİGÜRASYONU (FIREBASE'DEN) ---
+            const [noticeConfig, setNoticeConfig] = useState(null);
+
+            useEffect(() => {
+                // Siteyi açtığımızda duyuru ayarlarını dinle
+                const unsubscribe = db.collection("site_config").doc("general").onSnapshot((doc) => {
+                    if (doc.exists) {
+                        setNoticeConfig(doc.data());
+                    } else {
+                        // Eğer veri yoksa varsayılan kapalı
+                        setNoticeConfig({ notice_enabled: false });
+                    }
+                });
+                return () => unsubscribe();
+            }, []);
 
             const textCache = useRef({}); 
             const debounceTimerRef = useRef(null);
@@ -962,7 +977,8 @@
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                             
                             <div className="lg:col-span-8 space-y-6">
-                                {showNotice && (
+                                {/* --- DİNAMİK DUYURU (FIREBASE KONTROLLÜ) --- */}
+                                {noticeConfig && noticeConfig.notice_enabled && (
                                     <div className="relative overflow-hidden rounded-xl bg-amber-900/20 border border-amber-500/30 animate-slide-up mb-4 shadow-lg shadow-amber-900/10">
                                         <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-amber-500">
@@ -981,21 +997,19 @@
                                                     </svg>
                                                 </div>
                                                 <div>
-                                                    <h3 className="text-amber-400 font-bold text-sm mb-1">Önemli Duyuru</h3>
+                                                    <h3 className="text-amber-400 font-bold text-sm mb-1">{noticeConfig.notice_title || "Önemli Duyuru"}</h3>
                                                     <p className="text-slate-200 text-sm leading-relaxed font-medium">
-                                                        Video kaliteleri ile ilgili bir problemin çözümü için bazı videolara ulaşılamayabilir
+                                                        {noticeConfig.notice_message || "Duyuru içeriği yüklenemedi."}
                                                     </p>
                                                 </div>
                                             </div>
-                                            <button onClick={() => setShowNotice(false)} className="text-amber-500/50 hover:text-amber-400 transition-colors p-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                                            </button>
+                                            {/* Kullanıcı kapatma butonunu kaldırdım, tamamen admin panelinden kontrol edilecek */}
                                         </div>
                                     </div>
                                 )}
+                                {/* ------------------------------------------- */}
 
                                 <div className="animate-slide-up">
-                                    {/* --- DEĞİŞİKLİK: BAŞLIK VİDEONUN ÜSTÜNE TAŞINDI --- */}
                                     {selectedVideo && (
                                         <div className="mb-4 p-6 rounded-2xl bg-slate-900/40 border border-white/5 flex items-start gap-4 animate-fade-in">
                                             <div className="p-3 rounded-xl bg-indigo-500/10 text-indigo-400">
@@ -1010,7 +1024,6 @@
                                             </div>
                                         </div>
                                     )}
-                                    {/* ------------------------------------------ */}
 
                                     <VideoPlayer video={selectedVideo} startTime={startTime} reloadKey={reloadKey} />
                                     
