@@ -164,6 +164,24 @@
             return title; // Parçasız videolar için tam başlığı döndür
         };
 
+        // --- YENİ: PARÇA İSMİNİ ŞIKLAŞTIRMA ---
+        const getNicePartName = (title) => {
+            // _Parca_000, _Parca_001 formatını yakala
+            const match = title.match(/_?Parca[_\s]*(\d+)/i);
+            if (match) {
+                const num = parseInt(match[1], 10);
+                return `Parça ${num + 1}`; // 000 -> Parça 1, 001 -> Parça 2
+            }
+            
+            // Eğer sonunda sadece sayı varsa (örn: Egearseven 29.12.2025 1)
+            const simpleMatch = title.match(/(\d+)$/);
+            if (simpleMatch) {
+                return `Parça ${simpleMatch[1]}`;
+            }
+
+            return "Tam Video";
+        };
+
         const processVideoData = (rawVideos) => {
             const getSortParts = (title) => {
                 const match = title.match(/(\d+)\s*_Parca_\s*(\d+)/);
@@ -588,9 +606,11 @@
                                     )}
                                 </div>
                                 <div className="p-1.5">
-                                    <p className="text-[10px] text-slate-300 truncate text-center font-mono">
-                                        {video.title.replace(currentPrefix, '').trim() || 'Tam Video'}
+                                    {/* --- DEĞİŞİKLİK BURADA: Şık İsim Fonksiyonu --- */}
+                                    <p className="text-[10px] text-slate-300 truncate text-center font-medium">
+                                        {getNicePartName(video.title)}
                                     </p>
+                                    {/* -------------------------------------- */}
                                 </div>
                             </div>
                         ))}
@@ -947,7 +967,6 @@
                 return groupVideos(displayVideos);
             }, [displayVideos, isSearchActive]);
 
-            // Seçili videonun başlık ön eki (prefix) ile aynı olan grubu bul (Sidebar için vurgulama)
             const selectedGroupPrefix = useMemo(() => {
                 if (!selectedVideo) return null;
                 return getGroupPrefix(selectedVideo.title);
