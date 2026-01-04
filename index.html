@@ -1,4 +1,3 @@
-11
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -155,6 +154,15 @@
                 .replace('ğ', 'g').replace('ü', 'u').replace('ş', 's')
                 .replace('ı', 'i').replace('ö', 'o').replace('ç', 'c');
         };
+        
+        // Grup ismini (prefix) çıkarma yardımcısı
+        const getGroupPrefix = (title) => {
+            const match = title.match(/(_Parca_|_Parça_)\d+$/i);
+            if (match) {
+                return title.substring(0, match.index);
+            }
+            return title; // Parçasız videolar için tam başlığı döndür
+        };
 
         const processVideoData = (rawVideos) => {
             const getSortParts = (title) => {
@@ -195,34 +203,25 @@
             return processed;
         };
 
-        // --- YENİ: GRUPLAMA MANTIĞI ---
         const groupVideos = (videos) => {
             const groups = {};
             
             videos.forEach(video => {
-                // Başlıkta "_Parca_XXX" veya "_Parça_XXX" var mı kontrol et
-                const match = video.title.match(/(_Parca_|_Parça_)\d+$/i);
-                
-                let baseTitle = video.title;
-                if (match) {
-                    baseTitle = video.title.substring(0, match.index);
-                }
+                const baseTitle = getGroupPrefix(video.title);
 
                 if (!groups[baseTitle]) {
                     groups[baseTitle] = {
                         id: baseTitle,
                         title: baseTitle,
                         videos: [],
-                        date: video.date, // Grup tarihi, ilk videonun tarihi olsun
+                        date: video.date, 
                         category: video.category,
-                        // Parça sayısı bilgisini de tutalım
                         partCount: 0
                     };
                 }
                 groups[baseTitle].videos.push(video);
             });
 
-            // Objeyi diziye çevirip tarihe göre sırala
             return Object.values(groups).sort((a, b) => b.date - a.date);
         };
 
@@ -237,10 +236,9 @@
             return cat ? cat.name : id;
         };
 
-        // --- METİN İŞLEME (TIMESTAMP LINKLEME) ---
+        // --- METİN İŞLEME ---
         const linkifyTimestamps = (text, onSeek) => {
             if (!text) return text;
-            
             const timeRegex = /(\d{1,2}):(\d{2})(?::(\d{2}))?/g;
             const parts = [];
             let lastIndex = 0;
@@ -255,7 +253,6 @@
 
                 const [fullMatch, h, m, s] = match;
                 let seconds = 0;
-                
                 if (s !== undefined) {
                     seconds = parseInt(h) * 3600 + parseInt(m) * 60 + parseInt(s);
                 } else {
@@ -293,7 +290,6 @@
                         </div>
                         <h3 className="text-xl font-bold text-white">Yorum Özellikleri</h3>
                     </div>
-                    
                     <div className="space-y-3">
                         <div className="flex items-start gap-3">
                             <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -426,7 +422,6 @@
                                 onChange={(e) => setNickname(e.target.value)}
                                 className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-600"
                             />
-                            
                             <textarea 
                                 placeholder="Videonun bu anı hakkında ne düşünüyorsun? Örneğin: 12:30'daki espri çok güzeldi..."
                                 value={text}
@@ -526,7 +521,6 @@
 
             const baseUrl = `https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`;
             
-            // --- OTOMATİK BAŞLATMA DÜZELTME ---
             let finalUrl = baseUrl;
             
             if (startTime) {
@@ -543,68 +537,98 @@
             );
         };
 
-        // --- YENİ: GRUPLU VİDEO LİSTE ÖGESİ ---
-        const VideoGroupItem = ({ group, isOpen, onToggle, selectedVideoId, onSelectVideo }) => {
-            const isAnyPartActive = group.videos.some(v => v.id === selectedVideoId);
+        // --- YENİ: AKTİF GRUBUN PARÇA LİSTESİ (SOL TARAF) ---
+        const ActiveGroupPlaylist = ({ currentVideo, allVideos, onSelectPart }) => {
+            if (!currentVideo) return null;
+
+            const currentPrefix = getGroupPrefix(currentVideo.title);
+            
+            // Mevcut videonun grubuna ait diğer videoları bul
+            const groupParts = allVideos.filter(v => getGroupPrefix(v.title) === currentPrefix);
+
+            // Eğer grup sadece tek videodan oluşuyorsa gösterme
+            if (groupParts.length <= 1) return null;
+
+            // Parçaları sırala (Parça 000, 001 vb.)
+            groupParts.sort((a, b) => a.title.localeCompare(b.title));
 
             return (
-                <div className={`mb-2 overflow-hidden rounded-xl border transition-all duration-300 ${isAnyPartActive ? 'border-indigo-500/50 bg-indigo-900/10' : 'border-white/5 hover:border-white/10 bg-slate-900/30'}`}>
-                    {/* Grup Başlığı */}
-                    <div 
-                        onClick={() => onToggle(group.id)}
-                        className={`p-3 cursor-pointer flex items-center justify-between ${isAnyPartActive ? 'bg-indigo-500/5' : 'hover:bg-white/5'}`}
-                    >
-                        <div className="flex items-center gap-3 overflow-hidden">
-                            <div className={`p-1.5 rounded-lg transition-colors ${isOpen ? 'bg-indigo-500/20 text-indigo-400' : 'bg-slate-800 text-slate-500'}`}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-300 ${isOpen ? 'rotate-90' : ''}`}>
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg>
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-slate-200 truncate">{group.title}</p>
-                                <div className="flex items-center gap-2 mt-0.5">
-                                    <span className="text-[10px] text-indigo-400 bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-500/20">{group.category}</span>
-                                    {group.videos.length > 1 && <span className="text-[9px] text-slate-500">{group.videos.length} Parça</span>}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="text-[10px] text-slate-500 font-medium pl-2 whitespace-nowrap">
-                            {group.date.toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' })}
-                        </div>
+                <div className="mt-4 rounded-2xl bg-slate-900/40 border border-white/5 animate-fade-in overflow-hidden">
+                    <div className="p-3 border-b border-white/5 bg-white/5 flex items-center justify-between">
+                        <h4 className="text-sm font-bold text-indigo-300 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+                            Yayın Parçaları
+                        </h4>
+                        <span className="text-[10px] text-slate-500 bg-slate-950/50 px-2 py-0.5 rounded border border-white/5">{groupParts.length} Video</span>
                     </div>
-
-                    {/* Alt Videolar (Parçalar) */}
-                    <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                        <div className="pt-1 pb-2 px-2 space-y-2 bg-black/20">
-                            {group.videos.map((video, idx) => (
-                                <div
-                                    key={video.id}
-                                    onClick={(e) => {
-                                        e.stopPropagation(); // Parent tıklamasını engelle
-                                        onSelectVideo(video);
-                                    }}
-                                    className={`group/part flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-all border border-transparent hover:bg-white/5 ${selectedVideoId === video.id ? 'bg-indigo-600/20 border-indigo-500/30' : ''}`}
-                                >
-                                    <div className="relative w-20 h-12 bg-black rounded-md overflow-hidden flex-shrink-0">
-                                         <iframe 
-                                            src={`https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`} 
-                                            className="absolute inset-0 w-full h-full pointer-events-none opacity-80 group-hover/part:opacity-100" 
-                                            loading="lazy" 
-                                            allowFullScreen
-                                        ></iframe>
-                                        {selectedVideoId === video.id && <div className="absolute inset-0 bg-indigo-500/20"></div>}
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-xs text-slate-400 truncate group-hover/part:text-slate-200">
-                                            {/* Parça ismini başlık olarak gösterelim ama daha sönük */}
-                                            {video.title.replace(group.title, '').trim() || 'Tam Video'}
-                                        </p>
-                                    </div>
-                                    {selectedVideoId === video.id && (
-                                        <div className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.8)]"></div>
+                    <div className="p-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                        {groupParts.map((video, index) => (
+                            <div
+                                key={video.id}
+                                onClick={() => onSelectPart(video)}
+                                className={`group cursor-pointer relative rounded-lg overflow-hidden border transition-all ${
+                                    video.id === currentVideo.id 
+                                        ? 'border-indigo-500 ring-1 ring-indigo-500/30 bg-indigo-900/20' 
+                                        : 'border-white/5 hover:border-indigo-500/50 bg-slate-950/30'
+                                }`}
+                            >
+                                <div className="aspect-video w-full bg-black relative">
+                                    <iframe 
+                                        src={`https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`} 
+                                        className="absolute inset-0 w-full h-full pointer-events-none opacity-60 group-hover:opacity-100" 
+                                        loading="lazy" 
+                                        allowFullScreen
+                                    ></iframe>
+                                    {video.id === currentVideo.id && (
+                                        <div className="absolute inset-0 bg-indigo-500/20 flex items-center justify-center">
+                                            <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                            </div>
+                                        </div>
                                     )}
                                 </div>
-                            ))}
+                                <div className="p-1.5">
+                                    <p className="text-[10px] text-slate-300 truncate text-center font-mono">
+                                        {video.title.replace(currentPrefix, '').trim() || 'Tam Video'}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        // --- SAĞ TARAF (SİDEBAR) GRUP BUTONU ---
+        const VideoGroupItem = ({ group, isSelected, onClick }) => {
+            return (
+                <div 
+                    onClick={onClick}
+                    className={`p-3 rounded-xl cursor-pointer transition-all duration-200 border ${
+                        isSelected 
+                        ? 'bg-indigo-600 border-indigo-500 shadow-lg shadow-indigo-600/20 transform scale-[1.02]' 
+                        : 'bg-slate-900/30 border-white/5 hover:bg-slate-800 hover:border-white/10'
+                    }`}
+                >
+                    <div className="flex items-center justify-between">
+                        <div className="flex-1 min-w-0 pr-2">
+                            <p className={`text-sm font-medium truncate ${isSelected ? 'text-white' : 'text-slate-300'}`}>
+                                {group.title}
+                            </p>
+                            <div className="flex items-center gap-2 mt-1">
+                                <span className={`text-[9px] px-1.5 py-0.5 rounded border ${isSelected ? 'bg-white/10 border-white/20 text-white' : 'bg-slate-800 border-slate-700 text-slate-400'}`}>
+                                    {group.category}
+                                </span>
+                                {group.videos.length > 1 && (
+                                    <span className="text-[9px] text-slate-500 flex items-center gap-0.5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                        {group.videos.length} Parça
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-500 group-hover:text-indigo-400'}`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                         </div>
                     </div>
                 </div>
@@ -692,7 +716,6 @@
             return null;
         };
 
-        // Arama Modu İçin Liste
         const SearchResultsList = ({ results, selectedVideoId, onSelect, searchTerm, categoryName }) => {
             if (results.length === 0) {
                 return (
@@ -731,9 +754,9 @@
                     Nasıl Kullanılır?
                 </h4>
                 <ul className="text-[10px] text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
-                    <li><strong className="text-white">Gruplar:</strong> Parçalı videolar ana başlık altındadır. Başlığa tıklayarak parçaları açın.</li>
-                    <li><strong className="text-white">Arama:</strong> Bir kelime yazın. Yazmayı bitirdikten 0.5 saniye sonra arama başlar.</li>
-                    <li><strong className="text-white">Oynat:</strong> Arama sonucuna tıklayın, video otomatik o noktadan başlar.</li>
+                    <li><strong className="text-white">Liste:</strong> Sağdaki listeden bir başlığa tıklayın, ilk parçası açılır.</li>
+                    <li><strong className="text-white">Parçalar:</strong> Sol tarafta o yayına ait tüm parçaları görebilirsiniz.</li>
+                    <li><strong className="text-white">Arama:</strong> Kelime arayarak içeriğe göre videolara ulaşın.</li>
                 </ul>
             </div>
         );
@@ -750,9 +773,6 @@
             const [searchResults, setSearchResults] = useState([]); 
             const [isSearchingText, setIsSearchingText] = useState(false);
             const [showNotice, setShowNotice] = useState(true);
-
-            // Gruplar için açık/kapalı durumu
-            const [expandedGroups, setExpandedGroups] = useState({});
 
             const textCache = useRef({}); 
             const debounceTimerRef = useRef(null);
@@ -771,15 +791,6 @@
                 setStartTime(startSeconds);
                 setReloadKey(prev => prev + 1);
 
-                // Seçilen video içindeki grubu otomatik aç (eğer grup modundaysak)
-                if (!isSearchActive) {
-                    const match = video.title.match(/(_Parca_|_Parça_)\d+$/i);
-                    if (match) {
-                        const baseTitle = video.title.substring(0, match.index);
-                        setExpandedGroups(prev => ({...prev, [baseTitle]: true}));
-                    }
-                }
-
                 if (video && video.embedId) {
                     db.collection("video_stats").doc(video.embedId).set({
                         title: video.title,
@@ -791,13 +802,6 @@
                 if (window.innerWidth < 1024) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
-            };
-
-            const toggleGroup = (groupId) => {
-                setExpandedGroups(prev => ({
-                    ...prev,
-                    [groupId]: !prev[groupId]
-                }));
             };
 
             useEffect(() => {
@@ -938,11 +942,16 @@
                 return videos.filter(video => normalizeText(video.category) === normalizeText(activeCategory));
             }, [activeCategory, videos]);
 
-            // Gruplanmış videoları hazırla (Sadece arama yokken)
             const groupedVideos = useMemo(() => {
                 if (isSearchActive) return [];
                 return groupVideos(displayVideos);
             }, [displayVideos, isSearchActive]);
+
+            // Seçili videonun başlık ön eki (prefix) ile aynı olan grubu bul (Sidebar için vurgulama)
+            const selectedGroupPrefix = useMemo(() => {
+                if (!selectedVideo) return null;
+                return getGroupPrefix(selectedVideo.title);
+            }, [selectedVideo]);
 
             return (
                 <div className="min-h-screen flex flex-col pb-24">
@@ -986,6 +995,14 @@
 
                                 <div className="animate-slide-up">
                                     <VideoPlayer video={selectedVideo} startTime={startTime} reloadKey={reloadKey} />
+                                    
+                                    {/* --- AKTİF GRUBUN PARÇA LİSTESİ (SOL TARAF PANELİ) --- */}
+                                    <ActiveGroupPlaylist 
+                                        currentVideo={selectedVideo} 
+                                        allVideos={displayVideos} 
+                                        onSelectPart={handleSelectVideo} 
+                                    />
+                                    {/* ------------------------------------------------- */}
                                     
                                     {!selectedVideo && <CommentGuideBox />}
 
@@ -1058,7 +1075,7 @@
                                             onSelect={handleSelectVideo}
                                         />
                                     ) : (
-                                        /* YENİ: GRUPLU LİSTELEME */
+                                        /* SAĞ TARAF: GRUPLU LİSTE (BUTONLAR) */
                                         <>
                                             {groupedVideos.length === 0 ? (
                                                 <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">Bu kategoride video bulunamadı.</div>
@@ -1067,10 +1084,8 @@
                                                     <VideoGroupItem
                                                         key={group.id}
                                                         group={group}
-                                                        isOpen={!!expandedGroups[group.id]}
-                                                        onToggle={toggleGroup}
-                                                        selectedVideoId={selectedVideo?.id}
-                                                        onSelectVideo={handleSelectVideo}
+                                                        isSelected={selectedGroupPrefix === group.id}
+                                                        onClick={() => handleSelectVideo(group.videos[0])}
                                                     />
                                                 ))
                                             )}
