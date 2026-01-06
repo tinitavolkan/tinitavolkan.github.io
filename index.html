@@ -176,6 +176,40 @@
       return "Tam Video";
     };
 
+    // --- YARDIMCI: Otomatik Geçiş İçin Grup Parçalarını Sıralama ---
+    const getSortedGroupParts = (allVideos, currentVideo) => {
+      const prefix = getGroupPrefix(currentVideo.title);
+
+      return allVideos
+        .filter(v => getGroupPrefix(v.title) === prefix)
+        .sort((a, b) => a.title.localeCompare(b.title));
+    };
+
+    // --- YARDIMCI: TXT Dosyasından Video Süresini Hesaplama ---
+    const getVideoDurationFromTxt = async (title) => {
+      try {
+        const path = `text/${title.replace(/\.html$/, '')}.txt`;
+        const res = await fetch(path);
+        
+        if (!res.ok) return null;
+
+        const text = await res.text();
+        const matches = [...text.matchAll(/\[(\d{2}):(\d{2}):(\d{2})\]/g)];
+        
+        if (matches.length === 0) return null;
+
+        // En sondaki zaman damgasını al
+        const last = matches[matches.length - 1];
+        const h = parseInt(last[1], 10);
+        const m = parseInt(last[2], 10);
+        const s = parseInt(last[3], 10);
+        
+        return (h * 3600) + (m * 60) + s;
+      } catch (e) {
+        return null;
+      }
+    };
+
     const processVideoData = (rawVideos) => {
       const getSortParts = (title) => {
         const match = title.match(/(\d+)\s*_Parca_\s*(\d+)/);
@@ -775,6 +809,9 @@
       const [searchResults, setSearchResults] = useState([]);
       const [isSearchingText, setIsSearchingText] = useState(false);
 
+      // --- AUTO PLAY TIMER ---
+      const autoPlayTimeoutRef = useRef(null);
+
       // --- YENİ: DUYURU KONFİGÜRASYONU (FIREBASE'DEN) ---
       const [noticeConfig, setNoticeConfig] = useState(null);
 
@@ -798,16 +835,29 @@
       const isSearchActive = cleanSearch(searchTerm).length > 0;
 
       const handleSeekComment = (seconds) => {
+        // Kullanıcı yorumdaki zamana tıkladığında otoplay'i durdur
+        if (autoPlayTimeoutRef.current) {
+          clearTimeout(autoPlayTimeoutRef.current);
+          autoPlayTimeoutRef.current = null;
+        }
         setStartTime(seconds);
         setReloadKey(prev => prev + 1);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       };
 
-      const handleSelectVideo = (video, startSeconds = null) => {
+      // --- GÜNCELLENMİŞ: Otomatik Geçiş Mantığı İçeren handleSelectVideo ---
+      const handleSelectVideo = async (video, startSeconds = null) => {
+        // 1. Önceki otomatik geçiş sayacını temizle
+        if (autoPlayTimeoutRef.current) {
+          clearTimeout(autoPlayTimeoutRef.current);
+          autoPlayTimeoutRef.current = null;
+        }
+
         setSelectedVideo(video);
         setStartTime(startSeconds);
         setReloadKey(prev => prev + 1);
 
+        // İstatistik güncelleme
         if (video && video.embedId) {
           db.collection("video_stats").doc(video.embedId).set({
             title: video.title,
@@ -816,8 +866,41 @@
           }, { merge: true });
         }
 
+        // Sayfayı kaydır
         if (window.innerWidth < 1024) {
           window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 2. Otomatik Geçiş (Auto Next) Mantığı
+        // Sadece manuel zaman ataması (startSeconds) yoksa çalışsın. Yani kullanıcı
+        // aramadan gelmediyse veya yorum zamanına tıklamadıysa normal akış devam etsin.
+        // Not: startSeconds varsa bu genelde arama sonucu veya yorum tıklamasıdır,
+        // bu durumlarda otomatik geçiş kafa karıştırıcı olabilir, devre dışı bırakılabilir.
+        // Ancak "Parça 1 bittiğinde Parça 2" isteği için, sürenin sonuna gelindiğinde
+        // startSeconds'ın önemi kalmaz, o yüzden her zaman kurabiliriz.
+
+        const groupParts = getSortedGroupParts(videos, video);
+        const currentIndex = groupParts.findIndex(v => v.id === video.id);
+        const nextVideo = groupParts[currentIndex + 1];
+
+        if (nextVideo) {
+          console.log("Sonraki parça planlanıyor:", nextVideo.title);
+
+          // Süre hesapla
+          let duration = await getVideoDurationFromTxt(video.title);
+          
+          // Eğer süre bulunamazsa varsayılan 1 saat (3600 sn) ver
+          if (!duration) duration = 3600;
+
+          // Küçük bir buffer ekle (+10 saniye), video tam bittiğinde geçsin ki son kelimeyi duyabilelim
+          const durationWithBuffer = duration + 10;
+
+          console.log(`Video süresi: ${duration}s. ${durationWithBuffer}s sonra sonraki parçaya geçilecek.`);
+
+          autoPlayTimeoutRef.current = setTimeout(() => {
+            console.log("Süre doldu, sonraki parçaya geçiliyor:", nextVideo.title);
+            handleSelectVideo(nextVideo);
+          }, durationWithBuffer * 1000);
         }
       };
 
@@ -1003,7 +1086,6 @@
                           </p>
                         </div>
                       </div>
-                      {/* Kullanıcı kapatma butonunu kaldırdım, tamamen admin panelinden kontrol edilecek */}
                     </div>
                   </div>
                 )}
