@@ -527,7 +527,7 @@
             </div>
         );
 
-        // ✅ NİHAİ VİDEO PLAYER BİLEŞENİ (INIT LOGIC GÜVENLİ HALE GETİRİLDİ)
+        // ✅ NİHAİ VİDEO PLAYER BİLEŞENİ (INIT VE SEEK TAM AYRILDI)
         const VideoPlayer = ({ video, startTime, onEnded }) => {
             const containerId = useRef(`rumble-player-${Math.random().toString(36).slice(2)}`);
             const playerRef = useRef(null);
@@ -536,7 +536,8 @@
             const progressIntervalRef = useRef(null);
             const pollIntervalRef = useRef(null);
 
-            // 1️⃣ INIT EFFECT (Sadece Video Değişince)
+            // 1️⃣ INIT EFFECT (Sadece Video Değişince, Player Oluşturur)
+            // ❌ Burada seek veya play YAPILMIYOR.
             useEffect(() => {
                 if (!video || !window.Rumble) return;
 
@@ -550,20 +551,15 @@
                 window.Rumble("play", {
                     video: video.embedId,
                     div: containerId.current,
-                    autoplay: false, // 🔴 KRİTİK: Otomatik başlatma kapatıldı.
-                    // start parametresi kaldırıldı, ready callback içinde manuel kontrol edeceğiz.
+                    autoplay: false, 
                     callbacks: {
                         ready: (player) => {
+                            // ✅ SADECE PLAYER REFERANSINI KAYDET
                             playerRef.current = player;
                             window.__rumblePlayerRef = playerRef;
-
-                            // 🔴 KRİTİK MANTIK: Player hazır olduktan sonra seek, sonra play.
-                            // Bu, autoplay + start çakışmasını önlüyor.
-                            if (typeof startTime === "number" && startTime > 0) {
-                                player.seekTo(startTime);
-                            }
-
-                            player.play?.();
+                            
+                            // ❌ Burada seek veya play çağrısı yok.
+                            // Bu işlemler SEEK effect'i tarafından yapılacak.
                         }
                     }
                 });
@@ -611,17 +607,24 @@
                 };
             }, [video]); // 🔴 SADECE VİDEO DEĞİŞİNCE
 
-            // 2️⃣ SEEK EFFECT (Aynı video içinde saniye değişince)
+            // 2️⃣ SEEK EFFECT (Tek Yetkili: Her türlü zamanlama ve oynatma buradan)
+            // startTime prop'u değiştiğinde (null -> sayı, veya sayı -> başka sayı) çalışır.
             useEffect(() => {
                 if (!playerRef.current) return;
-                if (startTime == null || startTime === 0) return;
+                // startTime undefined ise (başlangıç durumu), hiçbir şey yapma
+                if (startTime === undefined) return;
 
                 try {
-                    if (typeof playerRef.current.seekTo === "function") {
+                    // Eğer belirli bir saniye varsa oraya atla
+                    if (typeof startTime === "number" && startTime > 0) {
                         playerRef.current.seekTo(startTime);
-                        playerRef.current.play?.();
                     }
-                } catch (e) {}
+
+                    // Her durumda oynat (null ise 0'dan, sayı ise atladığı yerden)
+                    playerRef.current.play?.();
+                } catch (e) {
+                    console.warn("Seek/Play error:", e);
+                }
             }, [startTime]); // 🔴 SADECE ZAMAN DEĞİŞİNCE
 
             if (!video) return (
@@ -930,18 +933,23 @@
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
             const handleSelectVideo = (video, startSeconds = null) => {
+                // ✅ DÜZELTME: Aynı video ise sadece saniye değişikliği varsa güncelle
                 if (selectedVideo && video.id === selectedVideo.id) {
-                    setStartTime(startSeconds || 0);
+                    if (startSeconds != null) {
+                        setStartTime(startSeconds);
+                    }
                     if (window.innerWidth < 1024) {
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     }
                     return; 
                 }
 
+                // Farklı bir video ise
                 setSelectedVideo(video);
 
                 let finalStart = startSeconds;
                 
+                // Kayıtlı zaman kontrolü
                 if (finalStart === null && video) {
                     const saved = localStorage.getItem(`progress_${video.id}`);
                     if (saved) {
