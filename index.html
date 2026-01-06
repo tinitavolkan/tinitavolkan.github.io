@@ -24,9 +24,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
-    <!-- RUMBLE EMBED JS (API için Gerekli) -->
-    <script src="https://rumble.com/embedJS/u4o7uxk/"></script>
-
     <!-- Tailwind Config -->
     <script>
         tailwind.config = {
@@ -81,15 +78,6 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
-
-        /* Toggle Switch Checkbox */
-        .toggle-checkbox:checked {
-            right: 0;
-            border-color: #68D391;
-        }
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: #68D391;
-        }
     </style>
 </head>
 <body class="text-slate-100 antialiased overflow-x-hidden min-h-screen flex flex-col">
@@ -116,7 +104,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useMemo, useRef, useCallback } = React;
+        const { useState, useEffect, useMemo, useRef } = React;
 
         // --- FIREBASE KURULUMU ---
         const firebaseConfig = {
@@ -166,32 +154,6 @@
                 .replace('ğ', 'g').replace('ü', 'u').replace('ş', 's')
                 .replace('ı', 'i').replace('ö', 'o').replace('ç', 'c');
         };
-        
-        const getGroupPrefix = (title) => {
-            const match = title.match(/(_Parca_|_Parça_)\d+$/i);
-            if (match) {
-                return title.substring(0, match.index);
-            }
-            return title;
-        };
-
-        const extractPartNumber = (title) => {
-            const m = title.match(/_Parc(?:a|ça)[_\s]*(\d+)/i);
-            return m ? parseInt(m[1], 10) : 0;
-        };
-
-        const getNicePartName = (title) => {
-            const match = title.match(/_?Parc[a-z]*[aâ][_\s]*(\d+)/i);
-            if (match) {
-                const num = parseInt(match[1], 10);
-                return `Parça ${num + 1}`; 
-            }
-            const simpleMatch = title.match(/(\d+)$/);
-            if (simpleMatch) {
-                return `Parça ${simpleMatch[1]}`;
-            }
-            return "Tam Video";
-        };
 
         const processVideoData = (rawVideos) => {
             const getSortParts = (title) => {
@@ -232,28 +194,6 @@
             return processed;
         };
 
-        const groupVideos = (videos) => {
-            const groups = {};
-            
-            videos.forEach(video => {
-                const baseTitle = getGroupPrefix(video.title);
-
-                if (!groups[baseTitle]) {
-                    groups[baseTitle] = {
-                        id: baseTitle,
-                        title: baseTitle,
-                        videos: [],
-                        date: video.date, 
-                        category: video.category,
-                        partCount: 0
-                    };
-                }
-                groups[baseTitle].videos.push(video);
-            });
-
-            return Object.values(groups).sort((a, b) => b.date - a.date);
-        };
-
         const getTxtPath = (title) => {
             let cleanTitle = title.replace(/\.html$/, '');
             let filename = cleanTitle + ".txt";
@@ -265,8 +205,10 @@
             return cat ? cat.name : id;
         };
 
+        // --- METİN İŞLEME (TIMESTAMP LINKLEME) ---
         const linkifyTimestamps = (text, onSeek) => {
             if (!text) return text;
+            
             const timeRegex = /(\d{1,2}):(\d{2})(?::(\d{2}))?/g;
             const parts = [];
             let lastIndex = 0;
@@ -281,6 +223,7 @@
 
                 const [fullMatch, h, m, s] = match;
                 let seconds = 0;
+                
                 if (s !== undefined) {
                     seconds = parseInt(h) * 3600 + parseInt(m) * 60 + parseInt(s);
                 } else {
@@ -308,6 +251,7 @@
             return parts.length === 0 ? text : parts;
         };
 
+        // --- YORUM REHBERİ ---
         const CommentGuideBox = () => (
             <div className="rounded-2xl bg-gradient-to-br from-indigo-900/30 to-slate-900/40 border border-indigo-500/20 overflow-hidden animate-fade-in mt-6">
                 <div className="p-6">
@@ -317,6 +261,7 @@
                         </div>
                         <h3 className="text-xl font-bold text-white">Yorum Özellikleri</h3>
                     </div>
+                    
                     <div className="space-y-3">
                         <div className="flex items-start gap-3">
                             <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -347,6 +292,7 @@
             </div>
         );
 
+        // --- FIREBASE YORUM BİLEŞENİ ---
         const CommentSection = ({ videoId, onSeek }) => {
             const [comments, setComments] = useState([]);
             const [nickname, setNickname] = useState('');
@@ -448,6 +394,7 @@
                                 onChange={(e) => setNickname(e.target.value)}
                                 className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-600"
                             />
+                            
                             <textarea 
                                 placeholder="Videonun bu anı hakkında ne düşünüyorsun? Örneğin: 12:30'daki espri çok güzeldi..."
                                 value={text}
@@ -495,6 +442,7 @@
             );
         };
 
+        // --- UI Components ---
         const Navbar = ({ categories, activeCategory, setActiveCategory, lastUpdate }) => (
             <div className="border-b border-white/10 glass-panel sticky top-0 z-40">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -527,123 +475,7 @@
             </div>
         );
 
-        // ✅ NİHAİ VİDEO PLAYER BİLEŞENİ (SEEK GUARD EKLENDİ)
-        const VideoPlayer = ({ video, startTime, onEnded }) => {
-            const containerId = useRef(`rumble-player-${Math.random().toString(36).slice(2)}`);
-            const playerRef = useRef(null);
-            const endedRef = useRef(false);
-            
-            const progressIntervalRef = useRef(null);
-            const pollIntervalRef = useRef(null);
-
-            // ✅ SEEK GUARD: Rumble metadata yüklenene kadar bekler
-            const seekWhenReady = (player, seconds, attempt = 0) => {
-                if (!player || attempt > 20) return;
-
-                try {
-                    const duration = player.getDuration?.();
-
-                    // 🔴 Rumble henüz hazır değilse bekle
-                    if (!duration || duration <= 0) {
-                        setTimeout(() => seekWhenReady(player, seconds, attempt + 1), 50);
-                        return;
-                    }
-
-                    // ✅ ARTIK SEEK KABUL EDİLİR
-                    player.seekTo(seconds);
-                    player.play?.();
-
-                } catch (e) {
-                    // Hata durumunda da tekrar dene
-                    setTimeout(() => seekWhenReady(player, seconds, attempt + 1), 50);
-                }
-            };
-
-            // 1️⃣ INIT EFFECT (Sadece Video Değişince, Player Oluşturur)
-            useEffect(() => {
-                if (!video || !window.Rumble) return;
-
-                const container = document.getElementById(containerId.current);
-                if (!container) return;
-
-                container.innerHTML = "";
-                endedRef.current = false;
-                playerRef.current = null;
-
-                window.Rumble("play", {
-                    video: video.embedId,
-                    div: containerId.current,
-                    autoplay: false, 
-                    callbacks: {
-                        ready: (player) => {
-                            // ✅ SADECE PLAYER REFERANSINI KAYDET
-                            playerRef.current = player;
-                            window.__rumblePlayerRef = playerRef;
-                            
-                            // ❌ Burada seek veya play YAPILMIYOR.
-                        }
-                    }
-                });
-
-                progressIntervalRef.current = setInterval(() => {
-                    const player = playerRef.current;
-                    if (!player) return;
-                    try {
-                        const currentTime = player.getCurrentTime?.();
-                        if (currentTime && currentTime > 10) {
-                            localStorage.setItem(`progress_${video.id}`, currentTime);
-                        }
-                    } catch (e) {}
-                }, 5000);
-
-                pollIntervalRef.current = setInterval(() => {
-                    const player = playerRef.current;
-                    if (!player || endedRef.current) return;
-
-                    try {
-                        const current = player.getCurrentTime?.();
-                        const duration = player.getDuration?.();
-
-                        if (
-                            typeof current === "number" &&
-                            typeof duration === "number" &&
-                            duration > 0 &&
-                            current >= duration - 1
-                        ) {
-                            endedRef.current = true;
-                            onEnded?.();
-                            localStorage.removeItem(`progress_${video.id}`);
-                        }
-                    } catch (e) {}
-                }, 1000);
-
-                return () => {
-                    clearInterval(progressIntervalRef.current);
-                    clearInterval(pollIntervalRef.current);
-                    container.innerHTML = "";
-                    playerRef.current = null;
-                    if (window.__rumblePlayerRef === playerRef) {
-                        delete window.__rumblePlayerRef;
-                    }
-                };
-            }, [video]); // 🔴 SADECE VİDEO DEĞİŞİNCE
-
-            // 2️⃣ SEEK EFFECT (Tek Yetkili: Her türlü zamanlama ve oynatma buradan)
-            useEffect(() => {
-                if (!playerRef.current) return;
-                // startTime undefined ise (başlangıç durumu), hiçbir şey yapma
-                if (startTime === undefined) return;
-
-                // Normal başlangıç veya kayıtlı süre yoksa direkt oynat
-                if (startTime == null || startTime <= 0) {
-                    playerRef.current.play?.();
-                    return;
-                }
-
-                // ✅ KORUMALI SEEK FONKSİYONUNU ÇAĞIR
-                seekWhenReady(playerRef.current, startTime);
-            }, [startTime]); // 🔴 SADECE ZAMAN DEĞİŞİNCE
-
+        const VideoPlayer = ({ video, startTime, reloadKey }) => {
             if (!video) return (
                 <div className="w-full aspect-video bg-slate-900/50 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden group">
                      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTAsMC4wNSkiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] opacity-30"></div>
@@ -660,133 +492,23 @@
                 </div>
             );
 
+            const baseUrl = `https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`;
+            
+            // --- OTOMATİK BAŞLATMA DÜZELTME ---
+            let finalUrl = baseUrl;
+            
+            if (startTime) {
+                const safeStart = Number(startTime);
+                // Zaman damgası seçildiğinde: o zamanı, otomatik başlatmayı ve reloadKey'i ekle
+                finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&cb=${reloadKey}`;
+            } else {
+                // Sadece video seçildiğinde (zaman yok): Otomatik başlatmayı ve reloadKey'i ekle
+                finalUrl = `${baseUrl}&autoplay=1&cb=${reloadKey}`;
+            }
+
             return (
                 <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-indigo-900/20 border border-white/10 relative animate-fade-in ring-1 ring-indigo-500/20">
-                    <div id={containerId.current} className="w-full h-full"></div>
-                </div>
-            );
-        };
-
-        const ActiveGroupPlaylist = ({ currentVideo, allVideos, groupedVideos, onSelectPart, onNextClick, autoNextEnabled, setAutoNextEnabled }) => {
-            if (!currentVideo) return null;
-
-            const currentPrefix = getGroupPrefix(currentVideo.title);
-            const groupParts = allVideos.filter(v => getGroupPrefix(v.title) === currentPrefix);
-
-            if (groupParts.length <= 1) return null;
-
-            groupParts.sort((a, b) => extractPartNumber(a.title) - extractPartNumber(b.title));
-
-            const currentIndex = groupParts.findIndex(v => v.id === currentVideo.id);
-            const hasNext = currentIndex !== -1 && currentIndex < groupParts.length - 1;
-
-            return (
-                <div className="mt-4 rounded-2xl bg-slate-900/40 border border-white/5 animate-fade-in overflow-hidden">
-                    <div className="p-3 border-b border-white/5 bg-white/5 flex items-center justify-between">
-                        <h4 className="text-sm font-bold text-indigo-300 flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-                            Yayın Parçaları
-                        </h4>
-                        <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-2">
-                                <span className="text-[10px] text-slate-400 font-medium">Otomatik Geçiş</span>
-                                <div className="relative inline-block w-8 mr-2 align-middle select-none transition duration-200 ease-in">
-                                    <input 
-                                        type="checkbox" 
-                                        name="toggle" 
-                                        id="toggle-autonext" 
-                                        checked={autoNextEnabled}
-                                        onChange={() => setAutoNextEnabled(!autoNextEnabled)}
-                                        className="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 appearance-none cursor-pointer border-slate-300 checked:right-0 checked:border-green-400 transition-all duration-300 top-1 left-1"
-                                    />
-                                    <label 
-                                        htmlFor="toggle-autonext" 
-                                        className={`toggle-label block overflow-hidden h-6 rounded-full cursor-pointer transition-colors duration-300 ${autoNextEnabled ? 'bg-green-500' : 'bg-slate-700'}`}
-                                    ></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div className="p-2 bg-slate-950/30 flex justify-center border-b border-white/5">
-                        <button 
-                            onClick={onNextClick}
-                            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all shadow-lg hover:shadow-indigo-600/20 active:scale-95"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
-                            Sonraki Parçaya Atla
-                        </button>
-                    </div>
-
-                    <div className="p-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                        {groupParts.map((video, index) => (
-                            <div
-                                key={video.id}
-                                onClick={() => onSelectPart(video)}
-                                className={`group cursor-pointer relative rounded-lg overflow-hidden border transition-all ${
-                                    video.id === currentVideo.id 
-                                        ? 'border-indigo-500 ring-1 ring-indigo-500/30 bg-indigo-900/20' 
-                                        : 'border-white/5 hover:border-indigo-500/50 bg-slate-950/30'
-                                }`}
-                            >
-                                <div className="aspect-video w-full bg-black relative">
-                                    <iframe 
-                                        src={`https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`} 
-                                        className="absolute inset-0 w-full h-full pointer-events-none opacity-60 group-hover:opacity-100" 
-                                        loading="lazy" 
-                                        allowFullScreen
-                                    ></iframe>
-                                    {video.id === currentVideo.id && (
-                                        <div className="absolute inset-0 bg-indigo-500/20 flex items-center justify-center">
-                                            <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="p-1.5">
-                                    <p className="text-[10px] text-slate-300 truncate text-center font-medium">
-                                        {getNicePartName(video.title)}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            );
-        };
-
-        const VideoGroupItem = ({ group, isSelected, onClick }) => {
-            return (
-                <div 
-                    onClick={onClick}
-                    className={`p-3 rounded-xl cursor-pointer transition-all duration-200 border ${
-                        isSelected 
-                        ? 'bg-indigo-600 border-indigo-500 shadow-lg shadow-indigo-600/20 transform scale-[1.02]' 
-                        : 'bg-slate-900/30 border-white/5 hover:bg-slate-800 hover:border-white/10'
-                    }`}
-                >
-                    <div className="flex items-center justify-between">
-                        <div className="flex-1 min-w-0 pr-2">
-                            <p className={`text-sm font-medium truncate ${isSelected ? 'text-white' : 'text-slate-300'}`}>
-                                {group.title}
-                            </p>
-                            <div className="flex items-center gap-2 mt-1">
-                                <span className={`text-[9px] px-1.5 py-0.5 rounded border ${isSelected ? 'bg-white/10 border-white/20 text-white' : 'bg-slate-800 border-slate-700 text-slate-400'}`}>
-                                    {group.category}
-                                </span>
-                                {group.videos.length > 1 && (
-                                    <span className="text-[9px] text-slate-500 flex items-center gap-0.5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                                        {group.videos.length} Parça
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-500 group-hover:text-indigo-400'}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                        </div>
-                    </div>
+                    <iframe src={finalUrl} className="w-full h-full" allowFullScreen title={video.title}></iframe>
                 </div>
             );
         };
@@ -871,6 +593,24 @@
             return null;
         };
 
+        const NormalVideoList = ({ videos, selectedVideoId, onSelect }) => {
+            if (videos.length === 0) {
+                return <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">Bu kategoride video bulunamadı.</div>;
+            }
+            return (
+                <>
+                    {videos.map((video) => (
+                        <NormalVideoCard
+                            key={`normal-${video.id}`}
+                            video={video}
+                            isActive={selectedVideoId === video.id}
+                            onClick={() => onSelect(video)}
+                        />
+                    ))}
+                </>
+            );
+        };
+
         const SearchResultsList = ({ results, selectedVideoId, onSelect, searchTerm, categoryName }) => {
             if (results.length === 0) {
                 return (
@@ -909,10 +649,9 @@
                     Nasıl Kullanılır?
                 </h4>
                 <ul className="text-[10px] text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
-                    <li><strong className="text-white">Liste:</strong> Sağdaki listeden bir başlığa tıklayın.</li>
-                    <li><strong className="text-white">Arama:</strong> Kelime arayarak içeriğe göre videolara ulaşın.</li>
-                    <li><strong className="text-white">Otomatik:</strong> Parça 1 bitince Parça 2'ye, grup bitince yeni yayına geçer.</li>
-                    <li><strong className="text-white">Kayıt:</strong> Kaldığın saniyeyi otomatik hatırlar.</li>
+                    <li><strong className="text-white">Arama:</strong> Bir kelime yazın. Yazmayı bitirdikten 0.5 saniye sonra arama başlar.</li>
+                    <li><strong className="text-white">Oynat:</strong> Arama sonucuna tıklayın, video otomatik o noktadan başlar.</li>
+                    <li><strong className="text-white">Filtrele:</strong> Yukarıdaki kategorilerden seçim yaparak sadece o yayıncıyı listeleyin.</li>
                 </ul>
             </div>
         );
@@ -923,128 +662,33 @@
             const [loading, setLoading] = useState(true);
             const [selectedVideo, setSelectedVideo] = useState(null);
             const [startTime, setStartTime] = useState(null); 
+            const [reloadKey, setReloadKey] = useState(0); 
             const [activeCategory, setActiveCategory] = useState('all');
-            const [searchTerm, setSearchTerm] = useState("");
+            const [searchTerm, setSearchTerm] = useState(""); // RAW input value (boşluklar korunur)
             const [searchResults, setSearchResults] = useState([]); 
             const [isSearchingText, setIsSearchingText] = useState(false);
-            const [autoNextEnabled, setAutoNextEnabled] = useState(true);
-
-            const [noticeConfig, setNoticeConfig] = useState(null);
-            const autoNextLock = useRef(false);
-
-            useEffect(() => {
-                const unsubscribe = db.collection("site_config").doc("general").onSnapshot((doc) => {
-                    if (doc.exists) {
-                        setNoticeConfig(doc.data());
-                    } else {
-                        setNoticeConfig({ notice_enabled: false });
-                    }
-                });
-                return () => unsubscribe();
-            }, []);
-
             const textCache = useRef({}); 
             const debounceTimerRef = useRef(null);
             const searchIdRef = useRef(0);
 
+            // Arama modunda olup olmadığını, raw term'i temizleyerek belirliyoruz
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
-            // ✅ KRİTİK GÜNCELLEME: handleSelectVideo Mantığı Değişti
+            const handleSeekComment = (seconds) => {
+                setStartTime(seconds);
+                setReloadKey(prev => prev + 1); 
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
             const handleSelectVideo = (video, startSeconds = null) => {
-                // AYNI VİDEO İÇİN MANTIK (Korumalı)
-                if (selectedVideo && video.id === selectedVideo.id) {
-                    if (startSeconds != null) {
-                        // Aynı video içi seek için de direkt set ediyoruz
-                        setStartTime(startSeconds);
-                    }
-                    if (window.innerWidth < 1024) {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                    return; 
-                }
-
-                // YENİ VİDEO SEÇİMİ
                 setSelectedVideo(video);
-
-                // 1. Önce startTime'ı sıfırla. VideoPlayer'ın "play from 0" moduna girmesini sağlar.
-                // Bu, player'ın init olmasını ve play komutunu almasını garanti eder.
-                setStartTime(null);
-
-                // 2. Gerçek saniyeyi hesapla
-                let finalStart = startSeconds;
-                if (finalStart === null && video) {
-                    const saved = localStorage.getItem(`progress_${video.id}`);
-                    if (saved) {
-                        const savedTime = parseFloat(saved);
-                        if (savedTime > 10) {
-                            finalStart = savedTime;
-                        }
-                    }
-                }
-
-                // 3. Sonraki tick'te gerçek saniyeyi set et.
-                // Bu sayede null -> val geçişi olur ve useEffect kesin çalışır.
-                setTimeout(() => {
-                    setStartTime(finalStart);
-                }, 0);
-
-                if (video && video.embedId) {
-                    db.collection("video_stats").doc(video.embedId).set({
-                        title: video.title,
-                        views: firebase.firestore.FieldValue.increment(1),
-                        lastViewed: firebase.firestore.FieldValue.serverTimestamp()
-                    }, { merge: true });
-                }
+                setStartTime(startSeconds);
+                setReloadKey(prev => prev + 1);
 
                 if (window.innerWidth < 1024) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             };
-
-            const handleSeekComment = (seconds) => {
-                if(selectedVideo) {
-                    setStartTime(seconds);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            };
-
-            const handleAutoNext = useCallback(() => {
-                if (autoNextLock.current) return;
-                if (!autoNextEnabled) return;
-                autoNextLock.current = true;
-
-                if (!selectedVideo) return;
-
-                const prefix = getGroupPrefix(selectedVideo.title);
-                
-                const parts = displayVideos
-                    .filter(v => getGroupPrefix(v.title) === prefix)
-                    .sort((a, b) => extractPartNumber(a.title) - extractPartNumber(b.title));
-
-                const currentIndex = parts.findIndex(v => v.id === selectedVideo.id);
-
-                setTimeout(() => {
-                    if (currentIndex !== -1 && currentIndex < parts.length - 1) {
-                        const nextVideo = parts[currentIndex + 1];
-                        handleSelectVideo(nextVideo);
-                    } else {
-                        const allGroups = groupedVideos; 
-                        const currentGroupIdx = allGroups.findIndex(g => g.id === prefix);
-
-                        if (currentGroupIdx !== -1 && currentGroupIdx < allGroups.length - 1) {
-                            const nextGroup = allGroups[currentGroupIdx + 1];
-                            handleSelectVideo(nextGroup.videos[0]);
-                        }
-                    }
-                    autoNextLock.current = false;
-                }, 400); 
-            }, [selectedVideo, displayVideos, groupedVideos, autoNextEnabled]); 
-
-            useEffect(() => {
-                db.collection("site_stats").doc("counter").set({
-                    visits: firebase.firestore.FieldValue.increment(1)
-                }, { merge: true });
-            }, []);
 
             useEffect(() => {
                 const fetchVideos = async () => {
@@ -1069,7 +713,9 @@
                 fetchVideos();
             }, []);
 
+            // --- ARAMA MANTIĞI (DEBOUNCE EDILMIS) ---
             useEffect(() => {
+                // Eğer input boşsa hemen temizle
                 if (!isSearchActive) {
                     setSearchResults([]); 
                     setIsSearchingText(false);
@@ -1078,21 +724,29 @@
                     return;
                 }
                 
+                // Önceki zamanlayıcıyı iptal et
                 if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
 
+                // 500ms bekleme süresi
                 const performSearch = async () => {
                     const currentSearchId = ++searchIdRef.current;
+                    
+                    // UI Loading durumunu güncelle
                     setIsSearchingText(true);
+                    // Önceki sonuçları hemen temizlemeyebiliriz veya yeni sonuçlar gelince temizleyebiliriz.
+                    // Kullanıcı deneyimi için öncekini silmek daha temiz hissettirir.
                     setSearchResults([]);
 
                     if (videos.length === 0) return;
 
+                    // Burada searchTerm'i temizliyoruz (trim + replace)
                     const term = cleanSearch(searchTerm).toLowerCase();
 
                     const videosToSearch = videos.filter(v => 
                         activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory)
                     );
 
+                    // 1. Başlık Eşleşmesi
                     const titleMatches = videosToSearch.filter(v => {
                         const textMatch = normalizeText(v.title).includes(term);
                         return textMatch;
@@ -1105,7 +759,9 @@
                         isActive: false
                     }));
 
+                    // 2. Metin İçi Eşleşme (Timestamp)
                     const fetchPromises = videosToSearch.map(async (v) => {
+                        // Başlık zaten eşleşiyorsa metni taramayı atla (performans)
                         if (normalizeText(v.title).includes(term)) return []; 
 
                         const path = getTxtPath(v.title); 
@@ -1150,7 +806,7 @@
                                         seconds: totalSeconds,
                                         snippet: snippet,
                                         id: `ts-${v.id}-${totalSeconds}`,
-                                        searchTerm: term
+                                        searchTerm: term // Highlight için
                                     });
                                 }
                             }
@@ -1161,32 +817,24 @@
                     const textHitsArrays = await Promise.all(fetchPromises);
                     const allTextHits = textHitsArrays.flat();
 
+                    // Arama iptal edildiyse güncelleme yapma
                     if (currentSearchId !== searchIdRef.current) return; 
 
                     setSearchResults([...allTextHits, ...results]);
                     setIsSearchingText(false);
                 };
 
+                // 500ms (0.5 saniye) gecikmeli başlatma
                 debounceTimerRef.current = setTimeout(() => {
                     performSearch();
                 }, 500);
 
-            }, [searchTerm, videos, activeCategory]); 
+            }, [searchTerm, videos, activeCategory]); // searchTerm değiştiğinde tetiklenir
 
             const displayVideos = useMemo(() => {
                 if (activeCategory === 'all') return videos;
                 return videos.filter(video => normalizeText(video.category) === normalizeText(activeCategory));
             }, [activeCategory, videos]);
-
-            const groupedVideos = useMemo(() => {
-                if (isSearchActive) return [];
-                return groupVideos(displayVideos);
-            }, [displayVideos, isSearchActive]);
-
-            const selectedGroupPrefix = useMemo(() => {
-                if (!selectedVideo) return null;
-                return getGroupPrefix(selectedVideo.title);
-            }, [selectedVideo]);
 
             return (
                 <div className="min-h-screen flex flex-col pb-24">
@@ -1196,72 +844,25 @@
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                             
                             <div className="lg:col-span-8 space-y-6">
-                                {noticeConfig && noticeConfig.notice_enabled && (
-                                    <div className="relative overflow-hidden rounded-xl bg-amber-900/20 border border-amber-500/30 animate-slide-up mb-4 shadow-lg shadow-amber-900/10">
-                                        <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-amber-500">
-                                                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
-                                                <line x1="12" y1="9" x2="12" y2="13"/>
-                                                <line x1="12" y1="17" x2="12.01" y2="17"/>
-                                            </svg>
-                                        </div>
-                                        <div className="p-4 flex items-start justify-between">
-                                            <div className="flex items-start gap-4 pr-8">
-                                                <div className="p-2.5 bg-amber-500/20 rounded-full flex-shrink-0">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber-400">
-                                                        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
-                                                        <line x1="12" y1="9" x2="12" y2="13"/>
-                                                        <line x1="12" y1="17" x2="12.01" y2="17"/>
-                                                    </svg>
-                                                </div>
-                                                <div>
-                                                    <h3 className="text-amber-400 font-bold text-sm mb-1">{noticeConfig.notice_title || "Önemli Duyuru"}</h3>
-                                                    <p className="text-slate-200 text-sm leading-relaxed font-medium">
-                                                        {noticeConfig.notice_message || "Duyuru içeriği yüklenemedi."}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
                                 <div className="animate-slide-up">
+                                    <VideoPlayer video={selectedVideo} startTime={startTime} reloadKey={reloadKey} />
+                                    
+                                    {!selectedVideo && <CommentGuideBox />}
+
                                     {selectedVideo && (
-                                        <div className="mb-4 p-6 rounded-2xl bg-slate-900/40 border border-white/5 flex items-start gap-4 animate-fade-in">
+                                        <div className="mt-6 p-6 rounded-2xl bg-slate-900/40 border border-white/5 flex items-start gap-4 animate-fade-in">
                                             <div className="p-3 rounded-xl bg-indigo-500/10 text-indigo-400">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m7 15 5-5 5 5"/></svg>
                                             </div>
                                             <div>
                                                 <h2 className="text-xl font-bold text-white mb-1">{selectedVideo.title}</h2>
                                                 <p className="text-slate-400 text-sm">
-                                                    Oynatılıyor • {selectedVideo.category}
-                                                    {typeof startTime === "number" && startTime > 0 && (
-                                                        <span className="ml-2 text-indigo-400 font-medium">
-                                                            • {Math.floor(startTime/60)}:{String(startTime%60).padStart(2,'0')} saniyesine atlandı
-                                                        </span>
-                                                    )}
+                                                    Oynatılıyor • {selectedVideo.category} 
+                                                    {startTime && ` • Zaman: ${Math.floor(startTime/3600)}:${Math.floor((startTime%3600)/60)}:${startTime%60}`}
                                                 </p>
                                             </div>
                                         </div>
                                     )}
-
-                                    <VideoPlayer 
-                                        video={selectedVideo} 
-                                        startTime={startTime} 
-                                        onEnded={handleAutoNext} 
-                                    />
-                                    
-                                    <ActiveGroupPlaylist 
-                                        currentVideo={selectedVideo} 
-                                        allVideos={displayVideos}
-                                        groupedVideos={groupedVideos}
-                                        onSelectPart={handleSelectVideo}
-                                        onNextClick={handleAutoNext}
-                                        autoNextEnabled={autoNextEnabled}
-                                        setAutoNextEnabled={setAutoNextEnabled}
-                                    />
-                                    
-                                    {!selectedVideo && <CommentGuideBox />}
 
                                     {selectedVideo && selectedVideo.embedId && (
                                         <CommentSection 
@@ -1281,6 +882,8 @@
                                         type="text"
                                         placeholder="Kelime, söz veya cümle arayın..."
                                         value={searchTerm}
+                                        // DÜZELTME: Burada cleanSearch çağırmıyoruz, direkt değeri alıyoruz.
+                                        // Bu sayede kullanıcı boşluk basabilir.
                                         onChange={(e) => setSearchTerm(e.target.value)}
                                         className="w-full bg-slate-900/50 border border-white/10 text-slate-100 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 block w-full pl-11 p-3 transition-all duration-300 placeholder:text-slate-600"
                                     />
@@ -1317,20 +920,11 @@
                                             onSelect={handleSelectVideo}
                                         />
                                     ) : (
-                                        <>
-                                            {groupedVideos.length === 0 ? (
-                                                <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">Bu kategoride video bulunamadı.</div>
-                                            ) : (
-                                                groupedVideos.map(group => (
-                                                    <VideoGroupItem
-                                                        key={group.id}
-                                                        group={group}
-                                                        isSelected={selectedGroupPrefix === group.id}
-                                                        onClick={() => handleSelectVideo(group.videos[0])}
-                                                    />
-                                                ))
-                                            )}
-                                        </>
+                                        <NormalVideoList
+                                            videos={displayVideos}
+                                            selectedVideoId={selectedVideo?.id}
+                                            onSelect={handleSelectVideo}
+                                        />
                                     )}
                                 </div>
                             </div>
