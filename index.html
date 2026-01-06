@@ -176,37 +176,26 @@
       return "Tam Video";
     };
 
-    // --- YARDIMCI: Otomatik Geçiş İçin Grup Parçalarını Sıralama ---
     const getSortedGroupParts = (allVideos, currentVideo) => {
       const prefix = getGroupPrefix(currentVideo.title);
-
       return allVideos
         .filter(v => getGroupPrefix(v.title) === prefix)
         .sort((a, b) => a.title.localeCompare(b.title));
     };
 
-    // --- YARDIMCI: TXT Dosyasından Video Süresini Hesaplama (DÜZELTİLDİ) ---
     const getVideoDurationFromTxt = async (title) => {
       try {
-        // Dosya adını _Parça kısmını temizleyerek oluşturuyoruz.
         const clean = getGroupPrefix(title);
         const path = `text/${clean}.txt`;
-
         const res = await fetch(path);
-        
         if (!res.ok) return null;
-
         const text = await res.text();
         const matches = [...text.matchAll(/\[(\d{2}):(\d{2}):(\d{2})\]/g)];
-        
         if (matches.length === 0) return null;
-
-        // En sondaki zaman damgasını al
         const last = matches[matches.length - 1];
         const h = parseInt(last[1], 10);
         const m = parseInt(last[2], 10);
         const s = parseInt(last[3], 10);
-        
         return (h * 3600) + (m * 60) + s;
       } catch (e) {
         return null;
@@ -254,10 +243,8 @@
 
     const groupVideos = (videos) => {
       const groups = {};
-
       videos.forEach(video => {
         const baseTitle = getGroupPrefix(video.title);
-
         if (!groups[baseTitle]) {
           groups[baseTitle] = {
             id: baseTitle,
@@ -270,7 +257,6 @@
         }
         groups[baseTitle].videos.push(video);
       });
-
       return Object.values(groups).sort((a, b) => b.date - a.date);
     };
 
@@ -291,14 +277,11 @@
       const parts = [];
       let lastIndex = 0;
       let match;
-
       timeRegex.lastIndex = 0;
-
       while ((match = timeRegex.exec(text)) !== null) {
         if (match.index > lastIndex) {
           parts.push(text.substring(lastIndex, match.index));
         }
-
         const [fullMatch, h, m, s] = match;
         let seconds = 0;
         if (s !== undefined) {
@@ -306,7 +289,6 @@
         } else {
           seconds = parseInt(h) * 60 + parseInt(m);
         }
-
         parts.push(
           <span
             key={`time-${match.index}`}
@@ -317,14 +299,11 @@
             {fullMatch}
           </span>
         );
-
         lastIndex = timeRegex.lastIndex;
       }
-
       if (lastIndex < text.length) {
         parts.push(text.substring(lastIndex));
       }
-
       return parts.length === 0 ? text : parts;
     };
 
@@ -382,9 +361,7 @@
       useEffect(() => {
         if (!videoId) return;
         setIsLoading(true);
-
         const q = db.collection("comments").where("videoId", "==", videoId);
-
         const unsubscribe = q.onSnapshot((snapshot) => {
           const fetchedComments = [];
           snapshot.forEach((doc) => {
@@ -396,16 +373,13 @@
               displayDate: date
             });
           });
-
           fetchedComments.sort((a, b) => a.displayDate - b.displayDate);
-
           setComments(fetchedComments);
           setIsLoading(false);
         }, (error) => {
           console.error("Yorumlar yüklenirken HATA:", error);
           setIsLoading(false);
         });
-
         return () => unsubscribe();
       }, [videoId]);
 
@@ -419,7 +393,6 @@
           return;
         }
         setIsPosting(true);
-
         try {
           await db.collection("comments").add({
             videoId: videoId,
@@ -427,7 +400,6 @@
             text: text.trim(),
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
           });
-
           localStorage.setItem('katman_user_nickname', nickname.trim());
           setText('');
         } catch (error) {
@@ -458,7 +430,6 @@
               🔴 Canlı Bağlantı
             </div>
           </div>
-
           <div className="p-4 space-y-4">
             <div className="flex flex-col gap-3">
               <input
@@ -475,7 +446,6 @@
                 rows="4"
                 className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-3 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all resize-none placeholder:text-slate-500 leading-relaxed"
               ></textarea>
-
               <div className="flex justify-end">
                 <button
                   onClick={handlePost}
@@ -488,7 +458,6 @@
                 </button>
               </div>
             </div>
-
             <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
               {isLoading ? (
                 <div className="text-center py-6 text-slate-500 text-sm animate-pulse">Yorumlar yükleniyor...</div>
@@ -570,17 +539,16 @@
 
       if (startTime) {
         const safeStart = Number(startTime);
-        finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&mute=1&cb=${reloadKey}`;
+        // 🔴 DEĞİŞİKLİK: autoplay=1 KALDIRILDI. Sadece mute=1 ve start parametresi var.
+        finalUrl = `${baseUrl}&start=${safeStart}&mute=1&cb=${reloadKey}`;
       } else {
-        finalUrl = `${baseUrl}&autoplay=1&mute=1&cb=${reloadKey}`;
+        // 🔴 DEĞİŞİKLİK: autoplay=1 KALDIRILDI. Sadece mute=1 var.
+        finalUrl = `${baseUrl}&mute=1&cb=${reloadKey}`;
       }
 
       return (
         <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-indigo-900/20 border border-white/10 relative animate-fade-in ring-1 ring-indigo-500/20">
-          {/* 
-            CRITICAL: Key prop ensures React completely destroys and recreates the iframe 
-            whenever reloadKey changes. This is vital for the "black screen -> load" strategy.
-          */}
+          {/* Key prop: React'ın iframe'i tamamen yeniden oluşturması için zorunlu */}
           <iframe 
             key={`${video.embedId}-${reloadKey}`} 
             src={finalUrl} 
@@ -595,13 +563,9 @@
 
     const ActiveGroupPlaylist = ({ currentVideo, allVideos, onSelectPart }) => {
       if (!currentVideo) return null;
-
       const currentPrefix = getGroupPrefix(currentVideo.title);
-
       const groupParts = allVideos.filter(v => getGroupPrefix(v.title) === currentPrefix);
-
       if (groupParts.length <= 1) return null;
-
       groupParts.sort((a, b) => a.title.localeCompare(b.title));
 
       return (
@@ -853,15 +817,15 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       };
 
-      // --- GÜNCELLENMİŞ: Stabil Otomatik Geçiş Mantığı (2 Aşamalı Unmount/Mount) ---
+      // --- NİHAİ GEÇİŞ MANTIĞI (autoplay=1 OLMADAN) ---
       const handleSelectVideo = async (video, startSeconds = null) => {
-        // 1. Mevcut otoplay'i iptal et
+        // Mevcut timer'ı temizle
         if (autoPlayTimeoutRef.current) {
           clearTimeout(autoPlayTimeoutRef.current);
           autoPlayTimeoutRef.current = null;
         }
 
-        // Eğer manuel seçim ise (startSeconds varsa veya kullanıcı tıkladıysa) normal akış
+        // Eğer manuel seçim ise (kullanıcı tıkladı veya aramadan geldi)
         if (startSeconds !== null || video !== videos.find(v => v.id === selectedVideo?.id)) {
             setSelectedVideo(video);
             setStartTime(startSeconds);
@@ -882,11 +846,7 @@
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 2. Otomatik Geçiş (Auto Next) Mantığı - SADECE OTOMATİK GEÇİŞ İÇİN
-        // startSeconds null ise ve video aynı grup içinde bir sonraki videoya geçiş ise buraya düşer.
-        // Ancak handleSelectVideo recursive çağrıldığı için, recursive çağrıda startSeconds null gelebilir.
-        // Bu yüzden otomasyon mantığını burada yönetiyoruz.
-        
+        // OTOMATİK GEÇİŞ SIRASI
         const groupParts = getSortedGroupParts(videos, video);
         const currentIndex = groupParts.findIndex(v => v.id === video.id);
         const nextVideo = groupParts[currentIndex + 1];
@@ -894,10 +854,8 @@
         if (nextVideo) {
           console.log("Sonraki parça planlanıyor:", nextVideo.title);
 
-          // Süre hesapla
           let duration = await getVideoDurationFromTxt(video.title);
           if (!duration) duration = 3600;
-
           const durationWithBuffer = duration + 10;
 
           console.log(`Video süresi: ${duration}s. ${durationWithBuffer}s sonra sonraki parçaya geçilecek.`);
@@ -905,17 +863,16 @@
           autoPlayTimeoutRef.current = setTimeout(() => {
             console.log("Süre doldu. Eski iframe kapatılıyor...");
             
-            // AŞAMA 1: Eski videoyu tamamen kaldır
-            // Bu, eski iframe'in DOM'dan silinmesini ve Rumble scriptlerinin durmasını garanti eder.
+            // AŞAMA 1: Eski iframe'i yok et
             setSelectedVideo(null);
 
-            // AŞAMA 2: Kısa bir bekleme sonrası yeni videoyu yükle
+            // AŞAMA 2: 200ms sonra yeni iframe'i yükle (autoplay=1 olmadan)
             setTimeout(() => {
-                console.log("Yeni video yükleniyor:", nextVideo.title);
+                console.log("Yeni video yükleniyor (autoplay parametresiz):", nextVideo.title);
                 setStartTime(null);
-                setReloadKey(prev => prev + 1); // Key'i değiştir
+                setReloadKey(prev => prev + 1);
                 setSelectedVideo(nextVideo);
-            }, 200); // 200ms "Boşluk" süresi
+            }, 200); 
 
           }, durationWithBuffer * 1000);
         }
@@ -1077,7 +1034,6 @@
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
               <div className="lg:col-span-8 space-y-6">
-                {/* --- DİNAMİK DUYURU --- */}
                 {noticeConfig && noticeConfig.notice_enabled && (
                   <div className="relative overflow-hidden rounded-xl bg-amber-900/20 border border-amber-500/30 animate-slide-up mb-4 shadow-lg shadow-amber-900/10">
                     <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
@@ -1123,11 +1079,6 @@
                     </div>
                   )}
 
-                  {/* 
-                     VideoPlayer'ın key prop'u sayesinde, selectedVideo null iken 
-                     placeholder gösterilir. setReloadKey arttığında bile video varsa,
-                     key değiştiği için iframe yeniden yüklenir.
-                  */}
                   <VideoPlayer video={selectedVideo} startTime={startTime} reloadKey={reloadKey} />
 
                   <ActiveGroupPlaylist
