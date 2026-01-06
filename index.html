@@ -185,10 +185,14 @@
         .sort((a, b) => a.title.localeCompare(b.title));
     };
 
-    // --- YARDIMCI: TXT Dosyasından Video Süresini Hesaplama ---
+    // --- YARDIMCI: TXT Dosyasından Video Süresini Hesaplama (DÜZELTİLDİ) ---
     const getVideoDurationFromTxt = async (title) => {
       try {
-        const path = `text/${title.replace(/\.html$/, '')}.txt`;
+        // DÜZELTME: Dosya adını oluştururken _Parça kısmını temizliyoruz.
+        // Örnek: "Blush 15.12.2025 1_Parca_000" -> "Blush 15.12.2025 1.txt"
+        const clean = getGroupPrefix(title);
+        const path = `text/${clean}.txt`;
+
         const res = await fetch(path);
         
         if (!res.ok) return null;
@@ -567,14 +571,24 @@
 
       if (startTime) {
         const safeStart = Number(startTime);
-        finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&cb=${reloadKey}`;
+        // DÜZELTME: autoplay=1 ve mute=1 parametreleri eklendi
+        finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&mute=1&cb=${reloadKey}`;
       } else {
-        finalUrl = `${baseUrl}&autoplay=1&cb=${reloadKey}`;
+        // DÜZELTME: autoplay=1 ve mute=1 parametreleri eklendi
+        finalUrl = `${baseUrl}&autoplay=1&mute=1&cb=${reloadKey}`;
       }
 
       return (
         <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-indigo-900/20 border border-white/10 relative animate-fade-in ring-1 ring-indigo-500/20">
-          <iframe src={finalUrl} className="w-full h-full" allowFullScreen title={video.title}></iframe>
+          {/* DÜZELTME: Key prop eklendi. React'ın iframe'i tamamen yeniden oluşturması sağlandı. */}
+          <iframe 
+            key={`${video.embedId}-${reloadKey}`}
+            src={finalUrl} 
+            className="w-full h-full" 
+            allow="autoplay; fullscreen"
+            allowFullScreen 
+            title={video.title}>
+          </iframe>
         </div>
       );
     };
@@ -853,6 +867,7 @@
           autoPlayTimeoutRef.current = null;
         }
 
+        // State güncellemelerini başlat
         setSelectedVideo(video);
         setStartTime(startSeconds);
         setReloadKey(prev => prev + 1);
@@ -872,13 +887,6 @@
         }
 
         // 2. Otomatik Geçiş (Auto Next) Mantığı
-        // Sadece manuel zaman ataması (startSeconds) yoksa çalışsın. Yani kullanıcı
-        // aramadan gelmediyse veya yorum zamanına tıklamadıysa normal akış devam etsin.
-        // Not: startSeconds varsa bu genelde arama sonucu veya yorum tıklamasıdır,
-        // bu durumlarda otomatik geçiş kafa karıştırıcı olabilir, devre dışı bırakılabilir.
-        // Ancak "Parça 1 bittiğinde Parça 2" isteği için, sürenin sonuna gelindiğinde
-        // startSeconds'ın önemi kalmaz, o yüzden her zaman kurabiliriz.
-
         const groupParts = getSortedGroupParts(videos, video);
         const currentIndex = groupParts.findIndex(v => v.id === video.id);
         const nextVideo = groupParts[currentIndex + 1];
@@ -892,13 +900,14 @@
           // Eğer süre bulunamazsa varsayılan 1 saat (3600 sn) ver
           if (!duration) duration = 3600;
 
-          // Küçük bir buffer ekle (+10 saniye), video tam bittiğinde geçsin ki son kelimeyi duyabilelim
+          // Küçük bir buffer ekle (+10 saniye)
           const durationWithBuffer = duration + 10;
 
           console.log(`Video süresi: ${duration}s. ${durationWithBuffer}s sonra sonraki parçaya geçilecek.`);
 
           autoPlayTimeoutRef.current = setTimeout(() => {
             console.log("Süre doldu, sonraki parçaya geçiliyor:", nextVideo.title);
+            // Recursively call to play next
             handleSelectVideo(nextVideo);
           }, durationWithBuffer * 1000);
         }
