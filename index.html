@@ -527,7 +527,7 @@
             </div>
         );
 
-        // ✅ GÜNCELLENMİŞ VİDEO PLAYER (POLLING + İLERLEME KAYIT)
+        // ✅ GÜNCELLENMİŞ VİDEO PLAYER (GLOBAL REF EKLENDİ)
         const VideoPlayer = ({ video, startTime, onEnded }) => {
             const containerId = useRef(`rumble-player-${Math.random().toString(36).slice(2)}`);
             const playerRef = useRef(null);
@@ -552,11 +552,12 @@
                     callbacks: {
                         ready: (player) => {
                             playerRef.current = player;
+                            // ✅ KRİTİK: Player referansını global olarak dışarı açıyoruz
+                            window.__rumblePlayerRef = playerRef; 
                         }
                     }
                 });
 
-                // ⏱️ İLERLEME KAYDETME (Her 5 saniyede bir)
                 progressIntervalRef.current = setInterval(() => {
                     const player = playerRef.current;
                     if (!player) return;
@@ -568,7 +569,6 @@
                     } catch (e) {}
                 }, 5000);
 
-                // ⏱️ POLLING (Video bitiş kontrolü - Her 1 saniyede bir)
                 pollIntervalRef.current = setInterval(() => {
                     const player = playerRef.current;
                     if (!player || endedRef.current) return;
@@ -585,8 +585,6 @@
                         ) {
                             endedRef.current = true;
                             onEnded?.();
-                            
-                            // İlerlemeyi sıfırla (video bitti)
                             localStorage.removeItem(`progress_${video.id}`);
                         }
                     } catch (e) {}
@@ -597,6 +595,10 @@
                     clearInterval(pollIntervalRef.current);
                     container.innerHTML = "";
                     playerRef.current = null;
+                    // ✅ KRİTİK: Component unmount olunca global referansı temizle
+                    if (window.__rumblePlayerRef === playerRef) {
+                        delete window.__rumblePlayerRef;
+                    }
                 };
             }, [video, startTime, onEnded]);
 
@@ -953,35 +955,43 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             };
 
-            // ✅ VİDEO SEÇME (FORCE RESET EKLENDİ)
+            // ✅ VİDEO SEÇME (GLOBAL SEEK API + STATE RESET EKLENDİ)
             const handleSelectVideo = (video, startSeconds = null) => {
                 const isSameVideo = selectedVideo?.id === video?.id;
 
+                // ✅ KRİTİK DÜZELTME: Aynı video ve zaman değişikliği varsa
+                if (isSameVideo && startSeconds !== null) {
+                    const player = window.__rumblePlayerRef?.current;
+
+                    if (player && typeof player.seekTo === "function") {
+                        // ✅ RUMBLE YENİDEN BAŞLATILMIYOR
+                        player.seekTo(startSeconds);
+                        player.play?.();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        return; // 🔴 ÇOK ÖNEMLİ: State değişikliği yapmadan çık
+                    } else {
+                        // Fallback: Player hazır değilse (hemen peş peşe tıklanırsa vs.) State reset'ine dön
+                        setStartTime(null);
+                        setTimeout(() => setStartTime(startSeconds), 0);
+                        return;
+                    }
+                }
+
+                // Normal video değişimi veya ilk açılış
                 setSelectedVideo(video);
 
-                if (isSameVideo && startSeconds !== null) {
-                    // ✅ KRİTİK DÜZELTME: Aynı video içinde zaman atlaması yapılıyorsa
-                    // State'i sıfırlayıp tekrar set ederek Rumble'ı zorla yeniden başlatıyoruz.
-                    
-                    setStartTime(null); // 1. Adım: Sıfırla
-                    setTimeout(() => {
-                        setStartTime(startSeconds); // 2. Adım: Yeni süreyi ver
-                    }, 0);
-                } else {
-                    // Normal video değişimi veya ilk açılış
-                    let finalStart = startSeconds;
-                    
-                    if (finalStart === null && video) {
-                        const saved = localStorage.getItem(`progress_${video.id}`);
-                        if (saved) {
-                            const savedTime = parseFloat(saved);
-                            if (savedTime > 10) {
-                                finalStart = savedTime;
-                            }
+                let finalStart = startSeconds;
+                
+                if (finalStart === null && video) {
+                    const saved = localStorage.getItem(`progress_${video.id}`);
+                    if (saved) {
+                        const savedTime = parseFloat(saved);
+                        if (savedTime > 10) {
+                            finalStart = savedTime;
                         }
                     }
-                    setStartTime(finalStart);
                 }
+                setStartTime(finalStart);
 
                 if (video && video.embedId) {
                     db.collection("video_stats").doc(video.embedId).set({
