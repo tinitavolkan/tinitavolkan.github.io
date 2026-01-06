@@ -949,10 +949,12 @@
 
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
+            // ✅ KRİTİK GÜNCELLEME: handleSelectVideo Mantığı Değişti
             const handleSelectVideo = (video, startSeconds = null) => {
-                // ✅ DÜZELTME: Aynı video ise sadece saniye değişikliği varsa güncelle
+                // AYNI VİDEO İÇİN MANTIK (Korumalı)
                 if (selectedVideo && video.id === selectedVideo.id) {
                     if (startSeconds != null) {
+                        // Aynı video içi seek için de direkt set ediyoruz
                         setStartTime(startSeconds);
                     }
                     if (window.innerWidth < 1024) {
@@ -961,12 +963,15 @@
                     return; 
                 }
 
-                // Farklı bir video ise
+                // YENİ VİDEO SEÇİMİ
                 setSelectedVideo(video);
 
+                // 1. Önce startTime'ı sıfırla. VideoPlayer'ın "play from 0" moduna girmesini sağlar.
+                // Bu, player'ın init olmasını ve play komutunu almasını garanti eder.
+                setStartTime(null);
+
+                // 2. Gerçek saniyeyi hesapla
                 let finalStart = startSeconds;
-                
-                // Kayıtlı zaman kontrolü
                 if (finalStart === null && video) {
                     const saved = localStorage.getItem(`progress_${video.id}`);
                     if (saved) {
@@ -976,8 +981,12 @@
                         }
                     }
                 }
-                
-                setStartTime(finalStart);
+
+                // 3. Sonraki tick'te gerçek saniyeyi set et.
+                // Bu sayede null -> val geçişi olur ve useEffect kesin çalışır.
+                setTimeout(() => {
+                    setStartTime(finalStart);
+                }, 0);
 
                 if (video && video.embedId) {
                     db.collection("video_stats").doc(video.embedId).set({
