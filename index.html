@@ -527,37 +527,46 @@
             </div>
         );
 
-        // ✅ GÜNCELLENMİŞ VİDEO PLAYER (GLOBAL REF EKLENDİ)
+        // ✅ DÜZELTİLMİŞ VİDEO PLAYER BİLEŞENİ
+        // useEffect ikiye bölündü: Init ve Seek.
         const VideoPlayer = ({ video, startTime, onEnded }) => {
             const containerId = useRef(`rumble-player-${Math.random().toString(36).slice(2)}`);
             const playerRef = useRef(null);
             const endedRef = useRef(false);
+            
+            // İlerleme kaydetme ve bitiş kontrolü için ref'ler
             const progressIntervalRef = useRef(null);
             const pollIntervalRef = useRef(null);
 
+            // 1️⃣ EFEKT: SADECE VİDEO DEĞİŞİNCE ÇALIŞIR (INIT)
+            // startTime burada dependency OLAMAZ, aksi takdirde her aramada yeniden yüklenir.
             useEffect(() => {
                 if (!video || !window.Rumble) return;
 
                 const container = document.getElementById(containerId.current);
                 if (!container) return;
 
+                // Temizlik
                 container.innerHTML = "";
                 endedRef.current = false;
+                playerRef.current = null; // Eski referansı temizle
 
                 window.Rumble("play", {
                     video: video.embedId,
                     div: containerId.current,
                     autoplay: true,
-                    start: startTime || 0,
+                    // Buradaki start sadece ilk yükleme içindir.
+                    start: startTime || 0, 
                     callbacks: {
                         ready: (player) => {
                             playerRef.current = player;
-                            // ✅ KRİTİK: Player referansını global olarak dışarı açıyoruz
+                            // Global referansı güncelle
                             window.__rumblePlayerRef = playerRef; 
                         }
                     }
                 });
 
+                // İlerleme kaydetme arka plan işlemleri
                 progressIntervalRef.current = setInterval(() => {
                     const player = playerRef.current;
                     if (!player) return;
@@ -569,6 +578,7 @@
                     } catch (e) {}
                 }, 5000);
 
+                // Video bitti mi kontrolü
                 pollIntervalRef.current = setInterval(() => {
                     const player = playerRef.current;
                     if (!player || endedRef.current) return;
@@ -591,16 +601,33 @@
                 }, 1000);
 
                 return () => {
+                    // Cleanup: Component unmount olursa her şeyi temizle
                     clearInterval(progressIntervalRef.current);
                     clearInterval(pollIntervalRef.current);
                     container.innerHTML = "";
                     playerRef.current = null;
-                    // ✅ KRİTİK: Component unmount olunca global referansı temizle
                     if (window.__rumblePlayerRef === playerRef) {
                         delete window.__rumblePlayerRef;
                     }
                 };
-            }, [video, startTime, onEnded]);
+            }, [video]); // 🔴 SADECE VIDEO OBJESİ DEĞİŞİNCE YENİDEN ÇALIŞIR
+
+            // 2️⃣ EFEKT: SADECE ZAMAN DEĞİŞİNCE ÇALIŞIR (SEEK)
+            useEffect(() => {
+                if (!playerRef.current) return;
+                // startTime null ise veya 0 ise atla (zaten 0'dan başlar)
+                if (startTime == null || startTime === 0) return;
+
+                try {
+                    // Player hazır mı kontrol et
+                    if (typeof playerRef.current.seekTo === "function") {
+                        playerRef.current.seekTo(startTime);
+                        playerRef.current.play?.();
+                    }
+                } catch (e) {
+                    console.warn("Seek hatası:", e);
+                }
+            }, [startTime]); // 🔴 SADECE startTime DEĞİŞİNCE ÇALIŞIR
 
             if (!video) return (
                 <div className="w-full aspect-video bg-slate-900/50 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden group">
@@ -887,7 +914,7 @@
             const [searchTerm, setSearchTerm] = useState("");
             const [searchResults, setSearchResults] = useState([]); 
             const [isSearchingText, setIsSearchingText] = useState(false);
-            const [autoNextEnabled, setAutoNextEnabled] = useState(true); // Varsayılan açık
+            const [autoNextEnabled, setAutoNextEnabled] = useState(true);
 
             const [noticeConfig, setNoticeConfig] = useState(null);
             const autoNextLock = useRef(false);
@@ -909,79 +936,28 @@
 
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
-            // ✅ OTOMATİK SONRAKİ (GELİŞMİŞ MANTIK)
-            const handleAutoNext = useCallback(() => {
-                if (autoNextLock.current) return;
-
-                // ✅ DÜZELTME: Toggle kapalıysa hiçbir şey yapma
-                if (!autoNextEnabled) return;
-
-                autoNextLock.current = true;
-
-                if (!selectedVideo) return;
-
-                const prefix = getGroupPrefix(selectedVideo.title);
-                
-                const parts = displayVideos
-                    .filter(v => getGroupPrefix(v.title) === prefix)
-                    .sort((a, b) => extractPartNumber(a.title) - extractPartNumber(b.title));
-
-                const currentIndex = parts.findIndex(v => v.id === selectedVideo.id);
-
-                // ✅ DÜZELTME: Gecikmeli geçiş (Rumble API temizliği için zaman tanı)
-                setTimeout(() => {
-                    if (currentIndex !== -1 && currentIndex < parts.length - 1) {
-                        // Aynı grupta sonraki parça var
-                        const nextVideo = parts[currentIndex + 1];
-                        handleSelectVideo(nextVideo);
-                    } else {
-                        // GRUP BİTTİ -> SONRAKİ YAYINA GEÇ
-                        const allGroups = groupedVideos; 
-                        const currentGroupIdx = allGroups.findIndex(g => g.id === prefix);
-
-                        if (currentGroupIdx !== -1 && currentGroupIdx < allGroups.length - 1) {
-                            const nextGroup = allGroups[currentGroupIdx + 1];
-                            handleSelectVideo(nextGroup.videos[0]);
-                        }
-                    }
-                    autoNextLock.current = false;
-                }, 400); 
-            }, [selectedVideo, displayVideos, groupedVideos, autoNextEnabled]); 
-
-            const handleSeekComment = (seconds) => {
-                // Yorumlardan tıklayınca da aynı video içinde zaman atlama olduğu için
-                // direkt handleSelectVideo'yu kullanıyoruz.
-                handleSelectVideo(selectedVideo, seconds);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            };
-
-            // ✅ VİDEO SEÇME (GLOBAL SEEK API + STATE RESET EKLENDİ)
+            // ✅ VİDEO SEÇME FONKSİYONU (SİMLEŞTİRİLDİ)
+            // React state güncellemeleri, VideoPlayer'ın split edilmiş useEffect'lerini tetikleyecektir.
             const handleSelectVideo = (video, startSeconds = null) => {
-                const isSameVideo = selectedVideo?.id === video?.id;
-
-                // ✅ KRİTİK DÜZELTME: Aynı video ve zaman değişikliği varsa
-                if (isSameVideo && startSeconds !== null) {
-                    const player = window.__rumblePlayerRef?.current;
-
-                    if (player && typeof player.seekTo === "function") {
-                        // ✅ RUMBLE YENİDEN BAŞLATILMIYOR
-                        player.seekTo(startSeconds);
-                        player.play?.();
+                // Eğer tıklanan video şu an oynatılan videonun aynısıysa
+                if (selectedVideo && video.id === selectedVideo.id) {
+                    // Sadece zamanı güncelle. (Seek Effect'i tetikler)
+                    setStartTime(startSeconds || 0);
+                    
+                    // Sayfa başına kaydır (hafif gecikmeli, smooth)
+                    if (window.innerWidth < 1024) {
                         window.scrollTo({ top: 0, behavior: 'smooth' });
-                        return; // 🔴 ÇOK ÖNEMLİ: State değişikliği yapmadan çık
-                    } else {
-                        // Fallback: Player hazır değilse (hemen peş peşe tıklanırsa vs.) State reset'ine dön
-                        setStartTime(null);
-                        setTimeout(() => setStartTime(startSeconds), 0);
-                        return;
                     }
+                    return; 
                 }
 
-                // Normal video değişimi veya ilk açılış
+                // Farklı bir video ise: Videoyu ve zamanı güncelle.
+                // (Init Effect'i tetikler, sonra StartTime Effect'i tetikler)
                 setSelectedVideo(video);
 
                 let finalStart = startSeconds;
                 
+                // Kayıtlı zamanı kontrol et
                 if (finalStart === null && video) {
                     const saved = localStorage.getItem(`progress_${video.id}`);
                     if (saved) {
@@ -991,8 +967,10 @@
                         }
                     }
                 }
+                
                 setStartTime(finalStart);
 
+                // İstatistik gönderme
                 if (video && video.embedId) {
                     db.collection("video_stats").doc(video.embedId).set({
                         title: video.title,
@@ -1005,6 +983,46 @@
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             };
+
+            const handleSeekComment = (seconds) => {
+                // Yorumlardan gelirse de aynı mantık
+                if(selectedVideo) {
+                    setStartTime(seconds);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+
+            const handleAutoNext = useCallback(() => {
+                if (autoNextLock.current) return;
+                if (!autoNextEnabled) return;
+                autoNextLock.current = true;
+
+                if (!selectedVideo) return;
+
+                const prefix = getGroupPrefix(selectedVideo.title);
+                
+                const parts = displayVideos
+                    .filter(v => getGroupPrefix(v.title) === prefix)
+                    .sort((a, b) => extractPartNumber(a.title) - extractPartNumber(b.title));
+
+                const currentIndex = parts.findIndex(v => v.id === selectedVideo.id);
+
+                setTimeout(() => {
+                    if (currentIndex !== -1 && currentIndex < parts.length - 1) {
+                        const nextVideo = parts[currentIndex + 1];
+                        handleSelectVideo(nextVideo);
+                    } else {
+                        const allGroups = groupedVideos; 
+                        const currentGroupIdx = allGroups.findIndex(g => g.id === prefix);
+
+                        if (currentGroupIdx !== -1 && currentGroupIdx < allGroups.length - 1) {
+                            const nextGroup = allGroups[currentGroupIdx + 1];
+                            handleSelectVideo(nextGroup.videos[0]);
+                        }
+                    }
+                    autoNextLock.current = false;
+                }, 400); 
+            }, [selectedVideo, displayVideos, groupedVideos, autoNextEnabled]); 
 
             useEffect(() => {
                 db.collection("site_stats").doc("counter").set({
@@ -1207,9 +1225,12 @@
                                         </div>
                                     )}
 
-                                    {/* ✅ KRİTİK DÜZELTME: Key prop eklendi. Video değişince component tamamen yeniden oluşur. */}
+                                    {/* 
+                                       ✅ KRİTİK GÜNCELLEME:
+                                       1. key prop'u KALDIRILDI.
+                                       2. VideoPlayer artık state değişikliklerini internal olarak yönetiyor.
+                                    */}
                                     <VideoPlayer 
-                                        key={selectedVideo?.embedId || 'empty'} 
                                         video={selectedVideo} 
                                         startTime={startTime} 
                                         onEnded={handleAutoNext} 
