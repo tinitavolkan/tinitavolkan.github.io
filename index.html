@@ -44,7 +44,6 @@
             'fade-in': 'fadeIn 0.3s ease-out',
             'slide-up': 'slideUp 0.4s ease-out',
             'slide-in-right': 'slideInRight 0.3s ease-out',
-            'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
           },
           keyframes: {
             fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
@@ -177,28 +176,38 @@
       return "Tam Video";
     };
 
+    // --- YARDIMCI: Otomatik Geçiş İçin Grup Parçalarını Sıralama ---
     const getSortedGroupParts = (allVideos, currentVideo) => {
       const prefix = getGroupPrefix(currentVideo.title);
+
       return allVideos
         .filter(v => getGroupPrefix(v.title) === prefix)
         .sort((a, b) => a.title.localeCompare(b.title));
     };
 
+    // --- YARDIMCI: TXT Dosyasından Video Süresini Hesaplama (DÜZELTİLDİ) ---
     const getVideoDurationFromTxt = async (title) => {
       try {
+        // DÜZELTME: Dosya adını oluştururken _Parça kısmını temizliyoruz.
+        // Örnek: "Blush 15.12.2025 1_Parca_000" -> "Blush 15.12.2025 1.txt"
         const clean = getGroupPrefix(title);
         const path = `text/${clean}.txt`;
+
         const res = await fetch(path);
+        
         if (!res.ok) return null;
 
         const text = await res.text();
         const matches = [...text.matchAll(/\[(\d{2}):(\d{2}):(\d{2})\]/g)];
+        
         if (matches.length === 0) return null;
 
+        // En sondaki zaman damgasını al
         const last = matches[matches.length - 1];
         const h = parseInt(last[1], 10);
         const m = parseInt(last[2], 10);
         const s = parseInt(last[3], 10);
+        
         return (h * 3600) + (m * 60) + s;
       } catch (e) {
         return null;
@@ -540,19 +549,21 @@
     );
 
     const VideoPlayer = ({ video, startTime, reloadKey }) => {
-      if (!video) {
-        // Placeholder for the 200ms gap or initial state
-        return (
-          <div className="w-full aspect-video bg-slate-900/50 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden">
-            <div className="animate-pulse-fast">
-              <div className="w-16 h-16 rounded-full bg-indigo-600/20 flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-400"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
-              </div>
-              <p className="text-slate-400 text-sm">Yükleniyor...</p>
-            </div>
+      if (!video) return (
+        <div className="w-full aspect-video bg-slate-900/50 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTAsMC4wNSkiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] opacity-30"></div>
+          <div className="w-20 h-20 rounded-full bg-slate-800 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-xl">
+            <span className="text-3xl">▶</span>
           </div>
-        );
-      }
+          <h3 className="text-xl font-semibold text-white mb-2">Videonun Adı Burada</h3>
+          <p className="text-slate-400 max-w-sm mx-auto mb-4">
+            Arama kutusuna bir kelime yazın veya listeden bir yayın seçerek başlayın.
+          </p>
+          <div className="bg-indigo-500/10 border border-indigo-500/20 rounded-lg px-4 py-2 text-xs text-indigo-300">
+            💡 Sitedeki yayınların altyazıları taranarak, aradığınız kelime geçtiği anda video otomatik başlar.
+          </div>
+        </div>
+      );
 
       const baseUrl = `https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`;
 
@@ -560,13 +571,16 @@
 
       if (startTime) {
         const safeStart = Number(startTime);
+        // DÜZELTME: autoplay=1 ve mute=1 parametreleri eklendi
         finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&mute=1&cb=${reloadKey}`;
       } else {
+        // DÜZELTME: autoplay=1 ve mute=1 parametreleri eklendi
         finalUrl = `${baseUrl}&autoplay=1&mute=1&cb=${reloadKey}`;
       }
 
       return (
         <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-indigo-900/20 border border-white/10 relative animate-fade-in ring-1 ring-indigo-500/20">
+          {/* DÜZELTME: Key prop eklendi. React'ın iframe'i tamamen yeniden oluşturması sağlandı. */}
           <iframe 
             key={`${video.embedId}-${reloadKey}`}
             src={finalUrl} 
@@ -809,14 +823,19 @@
       const [searchResults, setSearchResults] = useState([]);
       const [isSearchingText, setIsSearchingText] = useState(false);
 
+      // --- AUTO PLAY TIMER ---
       const autoPlayTimeoutRef = useRef(null);
+
+      // --- YENİ: DUYURU KONFİGÜRASYONU (FIREBASE'DEN) ---
       const [noticeConfig, setNoticeConfig] = useState(null);
 
       useEffect(() => {
+        // Siteyi açtığımızda duyuru ayarlarını dinle
         const unsubscribe = db.collection("site_config").doc("general").onSnapshot((doc) => {
           if (doc.exists) {
             setNoticeConfig(doc.data());
           } else {
+            // Eğer veri yoksa varsayılan kapalı
             setNoticeConfig({ notice_enabled: false });
           }
         });
@@ -830,6 +849,7 @@
       const isSearchActive = cleanSearch(searchTerm).length > 0;
 
       const handleSeekComment = (seconds) => {
+        // Kullanıcı yorumdaki zamana tıkladığında otoplay'i durdur
         if (autoPlayTimeoutRef.current) {
           clearTimeout(autoPlayTimeoutRef.current);
           autoPlayTimeoutRef.current = null;
@@ -839,98 +859,57 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       };
 
-      // --- CORE LOGIC: STABLE AUTO-TRANSITION ---
-      const handleSelectVideo = async (video, startSeconds = null, isAutoTransition = false) => {
-        // 1. Mevcut zamanlayıcıları temizle
+      // --- GÜNCELLENMİŞ: Otomatik Geçiş Mantığı İçeren handleSelectVideo ---
+      const handleSelectVideo = async (video, startSeconds = null) => {
+        // 1. Önceki otomatik geçiş sayacını temizle
         if (autoPlayTimeoutRef.current) {
           clearTimeout(autoPlayTimeoutRef.current);
           autoPlayTimeoutRef.current = null;
         }
 
-        // Eğer bu manuel bir tıklama ise (aramadan veya listeden), hemen yükle.
-        // Eğer bu otomatik bir geçiş ise, 200ms'lik "DOM Cleaning" süresi ver.
-        
-        if (isAutoTransition) {
-          // OTOMATİK GEÇİŞ STRATEJİSİ (2 AŞAMA)
+        // State güncellemelerini başlat
+        setSelectedVideo(video);
+        setStartTime(startSeconds);
+        setReloadKey(prev => prev + 1);
+
+        // İstatistik güncelleme
+        if (video && video.embedId) {
+          db.collection("video_stats").doc(video.embedId).set({
+            title: video.title,
+            views: firebase.firestore.FieldValue.increment(1),
+            lastViewed: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
+        }
+
+        // Sayfayı kaydır
+        if (window.innerWidth < 1024) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 2. Otomatik Geçiş (Auto Next) Mantığı
+        const groupParts = getSortedGroupParts(videos, video);
+        const currentIndex = groupParts.findIndex(v => v.id === video.id);
+        const nextVideo = groupParts[currentIndex + 1];
+
+        if (nextVideo) {
+          console.log("Sonraki parça planlanıyor:", nextVideo.title);
+
+          // Süre hesapla
+          let duration = await getVideoDurationFromTxt(video.title);
           
-          // AŞAMA 1: Eski iframe'i kaldır (DOM'u boşalt)
-          setSelectedVideo(null);
+          // Eğer süre bulunamazsa varsayılan 1 saat (3600 sn) ver
+          if (!duration) duration = 3600;
 
-          // AŞAMA 2: 200ms sonra yeni videoyu yükle
+          // Küçük bir buffer ekle (+10 saniye)
+          const durationWithBuffer = duration + 10;
+
+          console.log(`Video süresi: ${duration}s. ${durationWithBuffer}s sonra sonraki parçaya geçilecek.`);
+
           autoPlayTimeoutRef.current = setTimeout(() => {
-            setReloadKey(prev => prev + 1);
-            setStartTime(null); // Otomatik geçişte zaman sıfırdan başlar
-            setSelectedVideo(video);
-            
-            // İstatistik güncelleme
-            if (video && video.embedId) {
-              db.collection("video_stats").doc(video.embedId).set({
-                title: video.title,
-                views: firebase.firestore.FieldValue.increment(1),
-                lastViewed: firebase.firestore.FieldValue.serverTimestamp()
-              }, { merge: true });
-            }
-
-            // Sayfa kaydırma
-            if (window.innerWidth < 1024) {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-
-            // SONRAKİ VİDEOYU PLANLA (Recursive)
-            const groupParts = getSortedGroupParts(videos, video);
-            const currentIndex = groupParts.findIndex(v => v.id === video.id);
-            const nextVideo = groupParts[currentIndex + 1];
-
-            if (nextVideo) {
-              console.log("Sonraki parça planlanıyor:", nextVideo.title);
-              let duration = await getVideoDurationFromTxt(video.title);
-              if (!duration) duration = 3600;
-              const durationWithBuffer = duration + 10;
-
-              autoPlayTimeoutRef.current = setTimeout(() => {
-                console.log("Otomatik geçiş tetikleniyor:", nextVideo.title);
-                // Recursive çağrı, isAutoTransition=true ile
-                handleSelectVideo(nextVideo, null, true);
-              }, durationWithBuffer * 1000);
-            }
-
-          }, 200); // 200ms gecikme
-
-        } else {
-          // MANUEL SEÇİM (Anlık)
-          setSelectedVideo(video);
-          setStartTime(startSeconds);
-          setReloadKey(prev => prev + 1);
-
-          if (video && video.embedId) {
-            db.collection("video_stats").doc(video.embedId).set({
-              title: video.title,
-              views: firebase.firestore.FieldValue.increment(1),
-              lastViewed: firebase.firestore.FieldValue.serverTimestamp()
-            }, { merge: true });
-          }
-
-          // Manuel seçimde de sonraki videoyu planlamalıyız ki akış bozulmasın
-          if (!startSeconds) {
-             const groupParts = getSortedGroupParts(videos, video);
-            const currentIndex = groupParts.findIndex(v => v.id === video.id);
-            const nextVideo = groupParts[currentIndex + 1];
-
-            if (nextVideo) {
-              let duration = await getVideoDurationFromTxt(video.title);
-              if (!duration) duration = 3600;
-              const durationWithBuffer = duration + 10;
-
-              autoPlayTimeoutRef.current = setTimeout(() => {
-                console.log("Manuel başlatımdan sonra otomatik geçiş:", nextVideo.title);
-                handleSelectVideo(nextVideo, null, true);
-              }, durationWithBuffer * 1000);
-            }
-          }
-
-          if (window.innerWidth < 1024) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
+            console.log("Süre doldu, sonraki parçaya geçiliyor:", nextVideo.title);
+            // Recursively call to play next
+            handleSelectVideo(nextVideo);
+          }, durationWithBuffer * 1000);
         }
       };
 
@@ -1090,6 +1069,7 @@
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
               <div className="lg:col-span-8 space-y-6">
+                {/* --- DİNAMİK DUYURU (FIREBASE KONTROLLÜ) --- */}
                 {noticeConfig && noticeConfig.notice_enabled && (
                   <div className="relative overflow-hidden rounded-xl bg-amber-900/20 border border-amber-500/30 animate-slide-up mb-4 shadow-lg shadow-amber-900/10">
                     <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
@@ -1118,6 +1098,7 @@
                     </div>
                   </div>
                 )}
+                {/* ------------------------------------------- */}
 
                 <div className="animate-slide-up">
                   {selectedVideo && (
@@ -1140,7 +1121,7 @@
                   <ActiveGroupPlaylist
                     currentVideo={selectedVideo}
                     allVideos={displayVideos}
-                    onSelectPart={(v) => handleSelectVideo(v, null, false)}
+                    onSelectPart={handleSelectVideo}
                   />
 
                   {!selectedVideo && <CommentGuideBox />}
@@ -1196,7 +1177,7 @@
                       selectedVideoId={selectedVideo?.id}
                       searchTerm={cleanSearch(searchTerm)}
                       categoryName={getCategoryName(activeCategory)}
-                      onSelect={(v, s) => handleSelectVideo(v, s, false)}
+                      onSelect={handleSelectVideo}
                     />
                   ) : (
                     <>
@@ -1208,7 +1189,7 @@
                             key={group.id}
                             group={group}
                             isSelected={selectedGroupPrefix === group.id}
-                            onClick={() => handleSelectVideo(group.videos[0], null, false)}
+                            onClick={() => handleSelectVideo(group.videos[0])}
                           />
                         ))
                       )}
