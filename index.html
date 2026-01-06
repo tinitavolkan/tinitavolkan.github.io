@@ -686,10 +686,29 @@
                 setStartTime(startSeconds);
                 setReloadKey(prev => prev + 1);
 
+                // --- YENİ: VİDEO İZLENME TAKİBİ (FIREBASE) ---
+                if (video && video.embedId) {
+                    db.collection("video_stats").doc(video.embedId).set({
+                        title: video.title,
+                        views: firebase.firestore.FieldValue.increment(1),
+                        lastViewed: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+                }
+                // ---------------------------------------------
+
                 if (window.innerWidth < 1024) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             };
+
+            // --- YENİ: SİTE ZİYARET SAYACI (FIREBASE) ---
+            useEffect(() => {
+                // Siteyi her açtığında sayaç dokümanını güncelle
+                db.collection("site_stats").doc("counter").set({
+                    visits: firebase.firestore.FieldValue.increment(1)
+                }, { merge: true });
+            }, []);
+            // -------------------------------------------
 
             useEffect(() => {
                 const fetchVideos = async () => {
@@ -857,7 +876,7 @@
                                                 <div>
                                                     <h3 className="text-amber-400 font-bold text-sm mb-1">Önemli Duyuru</h3>
                                                     <p className="text-slate-200 text-sm leading-relaxed font-medium">
-                                                        Video kaliteleri ile ilgili bir problemin çözümü için ....
+                                                        Video kaliteleri ile ilgili bir problemin çözümü için bazı videolara ulaşılamayabilir
                                                     </p>
                                                 </div>
                                             </div>
