@@ -910,6 +910,10 @@
             // ✅ OTOMATİK SONRAKİ (GELİŞMİŞ MANTIK)
             const handleAutoNext = useCallback(() => {
                 if (autoNextLock.current) return;
+
+                // ✅ DÜZELTME: Toggle kapalıysa hiçbir şey yapma
+                if (!autoNextEnabled) return;
+
                 autoNextLock.current = true;
 
                 if (!selectedVideo) return;
@@ -922,27 +926,25 @@
 
                 const currentIndex = parts.findIndex(v => v.id === selectedVideo.id);
 
-                if (currentIndex !== -1 && currentIndex < parts.length - 1) {
-                    // Aynı grupta sonraki parça var
-                    const nextVideo = parts[currentIndex + 1];
-                    handleSelectVideo(nextVideo);
-                } else {
-                    // GRUP BİTTİ -> SONRAKİ YAYINA GEÇ
-                    // Tüm grupları tarihe göre sırala
-                    const allGroups = groupedVideos; 
-                    const currentGroupIdx = allGroups.findIndex(g => g.id === prefix);
-
-                    if (currentGroupIdx !== -1 && currentGroupIdx < allGroups.length - 1) {
-                        const nextGroup = allGroups[currentGroupIdx + 1];
-                        // Sonraki grubun ilk parçasını aç
-                        handleSelectVideo(nextGroup.videos[0]);
-                    }
-                }
-
+                // ✅ DÜZELTME: Gecikmeli geçiş (Rumble API temizliği için zaman tanı)
                 setTimeout(() => {
+                    if (currentIndex !== -1 && currentIndex < parts.length - 1) {
+                        // Aynı grupta sonraki parça var
+                        const nextVideo = parts[currentIndex + 1];
+                        handleSelectVideo(nextVideo);
+                    } else {
+                        // GRUP BİTTİ -> SONRAKİ YAYINA GEÇ
+                        const allGroups = groupedVideos; 
+                        const currentGroupIdx = allGroups.findIndex(g => g.id === prefix);
+
+                        if (currentGroupIdx !== -1 && currentGroupIdx < allGroups.length - 1) {
+                            const nextGroup = allGroups[currentGroupIdx + 1];
+                            handleSelectVideo(nextGroup.videos[0]);
+                        }
+                    }
                     autoNextLock.current = false;
-                }, 1500);
-            }, [selectedVideo, displayVideos, groupedVideos]); 
+                }, 400); // 400ms gecikme ile eski iframe'in temizlenmesini bekle
+            }, [selectedVideo, displayVideos, groupedVideos, autoNextEnabled]); 
 
             const handleSeekComment = (seconds) => {
                 setStartTime(seconds);
@@ -951,14 +953,11 @@
 
             // ✅ VİDEO SEÇME (İLERLEME OKUMA EKLENDİ)
             const handleSelectVideo = (video, startSeconds = null) => {
-                // Manuel saniye verilmediyse LocalStorage'dan bak
                 let finalStart = startSeconds;
                 if (finalStart === null && video) {
                     const saved = localStorage.getItem(`progress_${video.id}`);
                     if (saved) {
                         const savedTime = parseFloat(saved);
-                        // Eğer videonun en az %10'u izlendiyse kaldığın yerden sor/direkt git
-                        // Şimdilik direkt gidiyoruz, kullanıcı tekrar başa alabilir
                         if (savedTime > 10) {
                             finalStart = savedTime;
                         }
@@ -1182,7 +1181,9 @@
                                         </div>
                                     )}
 
+                                    {/* ✅ KRİTİK DÜZELTME: Key prop eklendi. Video değişince component tamamen yeniden oluşur. */}
                                     <VideoPlayer 
+                                        key={selectedVideo?.embedId || 'empty'} 
                                         video={selectedVideo} 
                                         startTime={startTime} 
                                         onEnded={handleAutoNext} 
