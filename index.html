@@ -943,29 +943,45 @@
                         }
                     }
                     autoNextLock.current = false;
-                }, 400); // 400ms gecikme ile eski iframe'in temizlenmesini bekle
+                }, 400); 
             }, [selectedVideo, displayVideos, groupedVideos, autoNextEnabled]); 
 
             const handleSeekComment = (seconds) => {
-                setStartTime(seconds);
+                // Yorumlardan tıklayınca da aynı video içinde zaman atlama olduğu için
+                // direkt handleSelectVideo'yu kullanıyoruz.
+                handleSelectVideo(selectedVideo, seconds);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             };
 
-            // ✅ VİDEO SEÇME (İLERLEME OKUMA EKLENDİ)
+            // ✅ VİDEO SEÇME (FORCE RESET EKLENDİ)
             const handleSelectVideo = (video, startSeconds = null) => {
-                let finalStart = startSeconds;
-                if (finalStart === null && video) {
-                    const saved = localStorage.getItem(`progress_${video.id}`);
-                    if (saved) {
-                        const savedTime = parseFloat(saved);
-                        if (savedTime > 10) {
-                            finalStart = savedTime;
-                        }
-                    }
-                }
+                const isSameVideo = selectedVideo?.id === video?.id;
 
                 setSelectedVideo(video);
-                setStartTime(finalStart);
+
+                if (isSameVideo && startSeconds !== null) {
+                    // ✅ KRİTİK DÜZELTME: Aynı video içinde zaman atlaması yapılıyorsa
+                    // State'i sıfırlayıp tekrar set ederek Rumble'ı zorla yeniden başlatıyoruz.
+                    
+                    setStartTime(null); // 1. Adım: Sıfırla
+                    setTimeout(() => {
+                        setStartTime(startSeconds); // 2. Adım: Yeni süreyi ver
+                    }, 0);
+                } else {
+                    // Normal video değişimi veya ilk açılış
+                    let finalStart = startSeconds;
+                    
+                    if (finalStart === null && video) {
+                        const saved = localStorage.getItem(`progress_${video.id}`);
+                        if (saved) {
+                            const savedTime = parseFloat(saved);
+                            if (savedTime > 10) {
+                                finalStart = savedTime;
+                            }
+                        }
+                    }
+                    setStartTime(finalStart);
+                }
 
                 if (video && video.embedId) {
                     db.collection("video_stats").doc(video.embedId).set({
