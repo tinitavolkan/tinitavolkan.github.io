@@ -527,7 +527,7 @@
             </div>
         );
 
-        // ✅ NİHAİ VİDEO PLAYER BİLEŞENİ (INIT VE SEEK TAM AYRILDI)
+        // ✅ NİHAİ VİDEO PLAYER BİLEŞENİ (SEEK GUARD EKLENDİ)
         const VideoPlayer = ({ video, startTime, onEnded }) => {
             const containerId = useRef(`rumble-player-${Math.random().toString(36).slice(2)}`);
             const playerRef = useRef(null);
@@ -536,8 +536,30 @@
             const progressIntervalRef = useRef(null);
             const pollIntervalRef = useRef(null);
 
+            // ✅ SEEK GUARD: Rumble metadata yüklenene kadar bekler
+            const seekWhenReady = (player, seconds, attempt = 0) => {
+                if (!player || attempt > 20) return;
+
+                try {
+                    const duration = player.getDuration?.();
+
+                    // 🔴 Rumble henüz hazır değilse bekle
+                    if (!duration || duration <= 0) {
+                        setTimeout(() => seekWhenReady(player, seconds, attempt + 1), 50);
+                        return;
+                    }
+
+                    // ✅ ARTIK SEEK KABUL EDİLİR
+                    player.seekTo(seconds);
+                    player.play?.();
+
+                } catch (e) {
+                    // Hata durumunda da tekrar dene
+                    setTimeout(() => seekWhenReady(player, seconds, attempt + 1), 50);
+                }
+            };
+
             // 1️⃣ INIT EFFECT (Sadece Video Değişince, Player Oluşturur)
-            // ❌ Burada seek veya play YAPILMIYOR.
             useEffect(() => {
                 if (!video || !window.Rumble) return;
 
@@ -558,8 +580,7 @@
                             playerRef.current = player;
                             window.__rumblePlayerRef = playerRef;
                             
-                            // ❌ Burada seek veya play çağrısı yok.
-                            // Bu işlemler SEEK effect'i tarafından yapılacak.
+                            // ❌ Burada seek veya play YAPILMIYOR.
                         }
                     }
                 });
@@ -608,23 +629,19 @@
             }, [video]); // 🔴 SADECE VİDEO DEĞİŞİNCE
 
             // 2️⃣ SEEK EFFECT (Tek Yetkili: Her türlü zamanlama ve oynatma buradan)
-            // startTime prop'u değiştiğinde (null -> sayı, veya sayı -> başka sayı) çalışır.
             useEffect(() => {
                 if (!playerRef.current) return;
                 // startTime undefined ise (başlangıç durumu), hiçbir şey yapma
                 if (startTime === undefined) return;
 
-                try {
-                    // Eğer belirli bir saniye varsa oraya atla
-                    if (typeof startTime === "number" && startTime > 0) {
-                        playerRef.current.seekTo(startTime);
-                    }
-
-                    // Her durumda oynat (null ise 0'dan, sayı ise atladığı yerden)
+                // Normal başlangıç veya kayıtlı süre yoksa direkt oynat
+                if (startTime == null || startTime <= 0) {
                     playerRef.current.play?.();
-                } catch (e) {
-                    console.warn("Seek/Play error:", e);
+                    return;
                 }
+
+                // ✅ KORUMALI SEEK FONKSİYONUNU ÇAĞIR
+                seekWhenReady(playerRef.current, startTime);
             }, [startTime]); // 🔴 SADECE ZAMAN DEĞİŞİNCE
 
             if (!video) return (
