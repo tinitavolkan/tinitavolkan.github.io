@@ -159,6 +159,7 @@
         };
         
         const getGroupPrefix = (title) => {
+            // Hem Parca hem Parça destekleniyor
             const match = title.match(/(_Parca_|_Parça_)\d+$/i);
             if (match) {
                 return title.substring(0, match.index);
@@ -166,14 +167,15 @@
             return title;
         };
 
-        // ✅ YENİ: Sayısal parça numarası çıkarma
+        // ✅ GÜNCELLENMİŞ: Türkçe ve İngilizce "Parça" desteği
         const extractPartNumber = (title) => {
-            const m = title.match(/_Parca[_\s]*(\d+)/i);
+            // _Parca_ veya _Parça_ formatlarını yakalar
+            const m = title.match(/_Parc(?:a|ça)[_\s]*(\d+)/i);
             return m ? parseInt(m[1], 10) : 0;
         };
 
         const getNicePartName = (title) => {
-            const match = title.match(/_?Parca[_\s]*(\d+)/i);
+            const match = title.match(/_?Parc[a-z]*[aâ][_\s]*(\d+)/i);
             if (match) {
                 const num = parseInt(match[1], 10);
                 return `Parça ${num + 1}`; 
@@ -519,9 +521,7 @@
             </div>
         );
 
-        // ✅ GÜVENLİ VİDEO PLAYER (ID ÇAKIŞMASI ÖNLENDİ)
         const VideoPlayer = ({ video, startTime, onEnded }) => {
-            // Her instance için benzersiz bir ID oluştur
             const containerId = useRef(`rumble-player-${Math.random().toString(36).slice(2)}`);
 
             useEffect(() => {
@@ -530,7 +530,6 @@
                 const container = document.getElementById(containerId.current);
                 if (!container) return;
 
-                // Önceki içeriği temizle
                 container.innerHTML = "";
 
                 window.Rumble("play", {
@@ -545,7 +544,6 @@
                     }
                 });
 
-                // Cleanup: Component unmount olduğunda container'ı temizle
                 return () => {
                     if (container) {
                         container.innerHTML = "";
@@ -585,7 +583,8 @@
 
             if (groupParts.length <= 1) return null;
 
-            groupParts.sort((a, b) => a.title.localeCompare(b.title));
+            // ✅ DÜZELTİLDİ: Artık alfabetik değil, sayısal sıralama
+            groupParts.sort((a, b) => extractPartNumber(a.title) - extractPartNumber(b.title));
 
             return (
                 <div className="mt-4 rounded-2xl bg-slate-900/40 border border-white/5 animate-fade-in overflow-hidden">
@@ -806,10 +805,7 @@
             const [searchResults, setSearchResults] = useState([]); 
             const [isSearchingText, setIsSearchingText] = useState(false);
             
-            // --- DUYURU KONFİGÜRASYONU ---
             const [noticeConfig, setNoticeConfig] = useState(null);
-            
-            // ✅ Double-fire koruması için Lock
             const autoNextLock = useRef(false);
 
             useEffect(() => {
@@ -829,9 +825,7 @@
 
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
-            // ✅ OTOMATİK SONRAKİ VİDEO MANTIĞI (GÜVENLİ)
             const handleAutoNext = useCallback(() => {
-                // Kilit kontrolü: Eğer işlem halen devam ediyorsa çık
                 if (autoNextLock.current) return;
                 autoNextLock.current = true;
 
@@ -841,7 +835,6 @@
                 
                 const parts = displayVideos
                     .filter(v => getGroupPrefix(v.title) === prefix)
-                    // ✅ Sayısal sıralama
                     .sort((a, b) => extractPartNumber(a.title) - extractPartNumber(b.title));
 
                 const currentIndex = parts.findIndex(v => v.id === selectedVideo.id);
@@ -851,7 +844,6 @@
                     handleSelectVideo(nextVideo);
                 }
 
-                // 1.5 saniye sonra kilidi aç
                 setTimeout(() => {
                     autoNextLock.current = false;
                 }, 1500);
