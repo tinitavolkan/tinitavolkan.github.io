@@ -24,9 +24,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
-    <!-- RUMBLE EMBED JS (API için Gerekli) -->
-    <script src="https://rumble.com/embedJS/u4o7uxk/"></script>
-
     <!-- Tailwind Config -->
     <script>
         tailwind.config = {
@@ -513,40 +510,7 @@
             </div>
         );
 
-        // --- REVİZE EDİLMİŞ VİDEO PLAYER (RUMBLE JS API) ---
-        const VideoPlayer = ({ video, startTime, onEnded }) => {
-            const playerRef = useRef(null);
-
-            useEffect(() => {
-                // Rumble scripti yüklendi mi kontrol et
-                if (!video || !window.Rumble) return;
-
-                // Container'ı temizle (React strict mode veya hızlı geçişlerde hata önler)
-                const container = document.getElementById("rumble-player");
-                if (container) {
-                    container.innerHTML = "";
-                }
-
-                // Rumble JS API'yi başlat
-                try {
-                    window.Rumble("play", {
-                        video: video.embedId,
-                        div: "rumble-player",
-                        autoplay: true,
-                        start: startTime || 0,
-                        callbacks: {
-                            // Video bittiğinde tetiklenir
-                            ended: () => {
-                                if (onEnded) onEnded();
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error("Rumble Player API Hatası:", error);
-                }
-
-            }, [video, startTime]); // Video veya süre değişirse yeniden yükle
-
+        const VideoPlayer = ({ video, startTime, reloadKey }) => {
             if (!video) return (
                 <div className="w-full aspect-video bg-slate-900/50 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden group">
                      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTAsMC4wNSkiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] opacity-30"></div>
@@ -563,10 +527,20 @@
                 </div>
             );
 
+            const baseUrl = `https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`;
+            
+            let finalUrl = baseUrl;
+            
+            if (startTime) {
+                const safeStart = Number(startTime);
+                finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&cb=${reloadKey}`;
+            } else {
+                finalUrl = `${baseUrl}&autoplay=1&cb=${reloadKey}`;
+            }
+
             return (
                 <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-indigo-900/20 border border-white/10 relative animate-fade-in ring-1 ring-indigo-500/20">
-                    {/* İframe yerine Rumble API'nin yükleyeceği container */}
-                    <div id="rumble-player" className="w-full h-full"></div>
+                    <iframe src={finalUrl} className="w-full h-full" allowFullScreen title={video.title}></iframe>
                 </div>
             );
         };
@@ -785,7 +759,6 @@
                     <li><strong className="text-white">Liste:</strong> Sağdaki listeden bir başlığa tıklayın, ilk parçası açılır.</li>
                     <li><strong className="text-white">Parçalar:</strong> Sol tarafta o yayına ait tüm parçaları görebilirsiniz.</li>
                     <li><strong className="text-white">Arama:</strong> Kelime arayarak içeriğe göre videolara ulaşın.</li>
-                    <li><strong className="text-white">Otomatik:</strong> Parça 1 biterse Parça 2 kendiliğinden başlar.</li>
                 </ul>
             </div>
         );
@@ -796,26 +769,12 @@
             const [loading, setLoading] = useState(true);
             const [selectedVideo, setSelectedVideo] = useState(null);
             const [startTime, setStartTime] = useState(null); 
+            const [reloadKey, setReloadKey] = useState(0); 
             const [activeCategory, setActiveCategory] = useState('all');
             const [searchTerm, setSearchTerm] = useState("");
             const [searchResults, setSearchResults] = useState([]); 
             const [isSearchingText, setIsSearchingText] = useState(false);
-            
-            // --- YENİ: DUYURU KONFİGÜRASYONU (FIREBASE'DEN) ---
-            const [noticeConfig, setNoticeConfig] = useState(null);
-
-            useEffect(() => {
-                // Siteyi açtığımızda duyuru ayarlarını dinle
-                const unsubscribe = db.collection("site_config").doc("general").onSnapshot((doc) => {
-                    if (doc.exists) {
-                        setNoticeConfig(doc.data());
-                    } else {
-                        // Eğer veri yoksa varsayılan kapalı
-                        setNoticeConfig({ notice_enabled: false });
-                    }
-                });
-                return () => unsubscribe();
-            }, []);
+            const [showNotice, setShowNotice] = useState(true);
 
             const textCache = useRef({}); 
             const debounceTimerRef = useRef(null);
@@ -823,34 +782,16 @@
 
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
-            // --- YENİ: OTOMATİK SONRAKİ VİDEO MANTIĞI ---
-            const handleAutoNext = () => {
-                if (!selectedVideo) return;
-
-                const prefix = getGroupPrefix(selectedVideo.title);
-                
-                // Aynı gruptaki videoları bul
-                const parts = displayVideos
-                    .filter(v => getGroupPrefix(v.title) === prefix)
-                    .sort((a, b) => a.title.localeCompare(b.title)); // Alfabetik sıralama (Parça 1, Parça 2...)
-
-                const currentIndex = parts.findIndex(v => v.id === selectedVideo.id);
-
-                // Eğer bir sonraki parça varsa onu seç
-                if (currentIndex !== -1 && currentIndex < parts.length - 1) {
-                    const nextVideo = parts[currentIndex + 1];
-                    handleSelectVideo(nextVideo);
-                }
-            };
-
             const handleSeekComment = (seconds) => {
                 setStartTime(seconds);
+                setReloadKey(prev => prev + 1); 
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             };
 
             const handleSelectVideo = (video, startSeconds = null) => {
                 setSelectedVideo(video);
                 setStartTime(startSeconds);
+                setReloadKey(prev => prev + 1);
 
                 if (video && video.embedId) {
                     db.collection("video_stats").doc(video.embedId).set({
@@ -1021,8 +962,7 @@
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                             
                             <div className="lg:col-span-8 space-y-6">
-                                {/* --- DİNAMİK DUYURU (FIREBASE KONTROLLÜ) --- */}
-                                {noticeConfig && noticeConfig.notice_enabled && (
+                                {showNotice && (
                                     <div className="relative overflow-hidden rounded-xl bg-amber-900/20 border border-amber-500/30 animate-slide-up mb-4 shadow-lg shadow-amber-900/10">
                                         <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-amber-500">
@@ -1041,18 +981,21 @@
                                                     </svg>
                                                 </div>
                                                 <div>
-                                                    <h3 className="text-amber-400 font-bold text-sm mb-1">{noticeConfig.notice_title || "Önemli Duyuru"}</h3>
+                                                    <h3 className="text-amber-400 font-bold text-sm mb-1">Önemli Duyuru</h3>
                                                     <p className="text-slate-200 text-sm leading-relaxed font-medium">
-                                                        {noticeConfig.notice_message || "Duyuru içeriği yüklenemedi."}
+                                                        Video kaliteleri ile ilgili bir problemin çözümü için bazı videolara ulaşılamayabilir
                                                     </p>
                                                 </div>
                                             </div>
+                                            <button onClick={() => setShowNotice(false)} className="text-amber-500/50 hover:text-amber-400 transition-colors p-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                            </button>
                                         </div>
                                     </div>
                                 )}
-                                {/* ------------------------------------------- */}
 
                                 <div className="animate-slide-up">
+                                    {/* --- DEĞİŞİKLİK: BAŞLIK VİDEONUN ÜSTÜNE TAŞINDI --- */}
                                     {selectedVideo && (
                                         <div className="mb-4 p-6 rounded-2xl bg-slate-900/40 border border-white/5 flex items-start gap-4 animate-fade-in">
                                             <div className="p-3 rounded-xl bg-indigo-500/10 text-indigo-400">
@@ -1067,13 +1010,9 @@
                                             </div>
                                         </div>
                                     )}
+                                    {/* ------------------------------------------ */}
 
-                                    {/* --- REVİZE EDİLMİŞ PLAYER ÇAĞRISI --- */}
-                                    <VideoPlayer 
-                                        video={selectedVideo} 
-                                        startTime={startTime} 
-                                        onEnded={handleAutoNext} 
-                                    />
+                                    <VideoPlayer video={selectedVideo} startTime={startTime} reloadKey={reloadKey} />
                                     
                                     <ActiveGroupPlaylist 
                                         currentVideo={selectedVideo} 
