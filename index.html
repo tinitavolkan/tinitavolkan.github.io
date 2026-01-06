@@ -188,8 +188,7 @@
     // --- YARDIMCI: TXT Dosyasından Video Süresini Hesaplama (DÜZELTİLDİ) ---
     const getVideoDurationFromTxt = async (title) => {
       try {
-        // DÜZELTME: Dosya adını oluştururken _Parça kısmını temizliyoruz.
-        // Örnek: "Blush 15.12.2025 1_Parca_000" -> "Blush 15.12.2025 1.txt"
+        // Dosya adını _Parça kısmını temizleyerek oluşturuyoruz.
         const clean = getGroupPrefix(title);
         const path = `text/${clean}.txt`;
 
@@ -571,18 +570,19 @@
 
       if (startTime) {
         const safeStart = Number(startTime);
-        // DÜZELTME: autoplay=1 ve mute=1 parametreleri eklendi
         finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&mute=1&cb=${reloadKey}`;
       } else {
-        // DÜZELTME: autoplay=1 ve mute=1 parametreleri eklendi
         finalUrl = `${baseUrl}&autoplay=1&mute=1&cb=${reloadKey}`;
       }
 
       return (
         <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-indigo-900/20 border border-white/10 relative animate-fade-in ring-1 ring-indigo-500/20">
-          {/* DÜZELTME: Key prop eklendi. React'ın iframe'i tamamen yeniden oluşturması sağlandı. */}
+          {/* 
+            CRITICAL: Key prop ensures React completely destroys and recreates the iframe 
+            whenever reloadKey changes. This is vital for the "black screen -> load" strategy.
+          */}
           <iframe 
-            key={`${video.embedId}-${reloadKey}`}
+            key={`${video.embedId}-${reloadKey}`} 
             src={finalUrl} 
             className="w-full h-full" 
             allow="autoplay; fullscreen"
@@ -823,19 +823,14 @@
       const [searchResults, setSearchResults] = useState([]);
       const [isSearchingText, setIsSearchingText] = useState(false);
 
-      // --- AUTO PLAY TIMER ---
       const autoPlayTimeoutRef = useRef(null);
-
-      // --- YENİ: DUYURU KONFİGÜRASYONU (FIREBASE'DEN) ---
       const [noticeConfig, setNoticeConfig] = useState(null);
 
       useEffect(() => {
-        // Siteyi açtığımızda duyuru ayarlarını dinle
         const unsubscribe = db.collection("site_config").doc("general").onSnapshot((doc) => {
           if (doc.exists) {
             setNoticeConfig(doc.data());
           } else {
-            // Eğer veri yoksa varsayılan kapalı
             setNoticeConfig({ notice_enabled: false });
           }
         });
@@ -849,7 +844,6 @@
       const isSearchActive = cleanSearch(searchTerm).length > 0;
 
       const handleSeekComment = (seconds) => {
-        // Kullanıcı yorumdaki zamana tıkladığında otoplay'i durdur
         if (autoPlayTimeoutRef.current) {
           clearTimeout(autoPlayTimeoutRef.current);
           autoPlayTimeoutRef.current = null;
@@ -859,20 +853,22 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       };
 
-      // --- GÜNCELLENMİŞ: Otomatik Geçiş Mantığı İçeren handleSelectVideo ---
+      // --- GÜNCELLENMİŞ: Stabil Otomatik Geçiş Mantığı (2 Aşamalı Unmount/Mount) ---
       const handleSelectVideo = async (video, startSeconds = null) => {
-        // 1. Önceki otomatik geçiş sayacını temizle
+        // 1. Mevcut otoplay'i iptal et
         if (autoPlayTimeoutRef.current) {
           clearTimeout(autoPlayTimeoutRef.current);
           autoPlayTimeoutRef.current = null;
         }
 
-        // State güncellemelerini başlat
-        setSelectedVideo(video);
-        setStartTime(startSeconds);
-        setReloadKey(prev => prev + 1);
+        // Eğer manuel seçim ise (startSeconds varsa veya kullanıcı tıkladıysa) normal akış
+        if (startSeconds !== null || video !== videos.find(v => v.id === selectedVideo?.id)) {
+            setSelectedVideo(video);
+            setStartTime(startSeconds);
+            setReloadKey(prev => prev + 1);
+        }
 
-        // İstatistik güncelleme
+        // İstatistik güncelle
         if (video && video.embedId) {
           db.collection("video_stats").doc(video.embedId).set({
             title: video.title,
@@ -886,7 +882,11 @@
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 2. Otomatik Geçiş (Auto Next) Mantığı
+        // 2. Otomatik Geçiş (Auto Next) Mantığı - SADECE OTOMATİK GEÇİŞ İÇİN
+        // startSeconds null ise ve video aynı grup içinde bir sonraki videoya geçiş ise buraya düşer.
+        // Ancak handleSelectVideo recursive çağrıldığı için, recursive çağrıda startSeconds null gelebilir.
+        // Bu yüzden otomasyon mantığını burada yönetiyoruz.
+        
         const groupParts = getSortedGroupParts(videos, video);
         const currentIndex = groupParts.findIndex(v => v.id === video.id);
         const nextVideo = groupParts[currentIndex + 1];
@@ -896,19 +896,27 @@
 
           // Süre hesapla
           let duration = await getVideoDurationFromTxt(video.title);
-          
-          // Eğer süre bulunamazsa varsayılan 1 saat (3600 sn) ver
           if (!duration) duration = 3600;
 
-          // Küçük bir buffer ekle (+10 saniye)
           const durationWithBuffer = duration + 10;
 
           console.log(`Video süresi: ${duration}s. ${durationWithBuffer}s sonra sonraki parçaya geçilecek.`);
 
           autoPlayTimeoutRef.current = setTimeout(() => {
-            console.log("Süre doldu, sonraki parçaya geçiliyor:", nextVideo.title);
-            // Recursively call to play next
-            handleSelectVideo(nextVideo);
+            console.log("Süre doldu. Eski iframe kapatılıyor...");
+            
+            // AŞAMA 1: Eski videoyu tamamen kaldır
+            // Bu, eski iframe'in DOM'dan silinmesini ve Rumble scriptlerinin durmasını garanti eder.
+            setSelectedVideo(null);
+
+            // AŞAMA 2: Kısa bir bekleme sonrası yeni videoyu yükle
+            setTimeout(() => {
+                console.log("Yeni video yükleniyor:", nextVideo.title);
+                setStartTime(null);
+                setReloadKey(prev => prev + 1); // Key'i değiştir
+                setSelectedVideo(nextVideo);
+            }, 200); // 200ms "Boşluk" süresi
+
           }, durationWithBuffer * 1000);
         }
       };
@@ -1069,7 +1077,7 @@
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
               <div className="lg:col-span-8 space-y-6">
-                {/* --- DİNAMİK DUYURU (FIREBASE KONTROLLÜ) --- */}
+                {/* --- DİNAMİK DUYURU --- */}
                 {noticeConfig && noticeConfig.notice_enabled && (
                   <div className="relative overflow-hidden rounded-xl bg-amber-900/20 border border-amber-500/30 animate-slide-up mb-4 shadow-lg shadow-amber-900/10">
                     <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
@@ -1098,7 +1106,6 @@
                     </div>
                   </div>
                 )}
-                {/* ------------------------------------------- */}
 
                 <div className="animate-slide-up">
                   {selectedVideo && (
@@ -1116,6 +1123,11 @@
                     </div>
                   )}
 
+                  {/* 
+                     VideoPlayer'ın key prop'u sayesinde, selectedVideo null iken 
+                     placeholder gösterilir. setReloadKey arttığında bile video varsa,
+                     key değiştiği için iframe yeniden yüklenir.
+                  */}
                   <VideoPlayer video={selectedVideo} startTime={startTime} reloadKey={reloadKey} />
 
                   <ActiveGroupPlaylist
