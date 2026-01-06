@@ -527,46 +527,47 @@
             </div>
         );
 
-        // ✅ DÜZELTİLMİŞ VİDEO PLAYER BİLEŞENİ
-        // useEffect ikiye bölündü: Init ve Seek.
+        // ✅ NİHAİ VİDEO PLAYER BİLEŞENİ (INIT LOGIC GÜVENLİ HALE GETİRİLDİ)
         const VideoPlayer = ({ video, startTime, onEnded }) => {
             const containerId = useRef(`rumble-player-${Math.random().toString(36).slice(2)}`);
             const playerRef = useRef(null);
             const endedRef = useRef(false);
             
-            // İlerleme kaydetme ve bitiş kontrolü için ref'ler
             const progressIntervalRef = useRef(null);
             const pollIntervalRef = useRef(null);
 
-            // 1️⃣ EFEKT: SADECE VİDEO DEĞİŞİNCE ÇALIŞIR (INIT)
-            // startTime burada dependency OLAMAZ, aksi takdirde her aramada yeniden yüklenir.
+            // 1️⃣ INIT EFFECT (Sadece Video Değişince)
             useEffect(() => {
                 if (!video || !window.Rumble) return;
 
                 const container = document.getElementById(containerId.current);
                 if (!container) return;
 
-                // Temizlik
                 container.innerHTML = "";
                 endedRef.current = false;
-                playerRef.current = null; // Eski referansı temizle
+                playerRef.current = null;
 
                 window.Rumble("play", {
                     video: video.embedId,
                     div: containerId.current,
-                    autoplay: true,
-                    // Buradaki start sadece ilk yükleme içindir.
-                    start: startTime || 0, 
+                    autoplay: false, // 🔴 KRİTİK: Otomatik başlatma kapatıldı.
+                    // start parametresi kaldırıldı, ready callback içinde manuel kontrol edeceğiz.
                     callbacks: {
                         ready: (player) => {
                             playerRef.current = player;
-                            // Global referansı güncelle
-                            window.__rumblePlayerRef = playerRef; 
+                            window.__rumblePlayerRef = playerRef;
+
+                            // 🔴 KRİTİK MANTIK: Player hazır olduktan sonra seek, sonra play.
+                            // Bu, autoplay + start çakışmasını önlüyor.
+                            if (typeof startTime === "number" && startTime > 0) {
+                                player.seekTo(startTime);
+                            }
+
+                            player.play?.();
                         }
                     }
                 });
 
-                // İlerleme kaydetme arka plan işlemleri
                 progressIntervalRef.current = setInterval(() => {
                     const player = playerRef.current;
                     if (!player) return;
@@ -578,7 +579,6 @@
                     } catch (e) {}
                 }, 5000);
 
-                // Video bitti mi kontrolü
                 pollIntervalRef.current = setInterval(() => {
                     const player = playerRef.current;
                     if (!player || endedRef.current) return;
@@ -601,7 +601,6 @@
                 }, 1000);
 
                 return () => {
-                    // Cleanup: Component unmount olursa her şeyi temizle
                     clearInterval(progressIntervalRef.current);
                     clearInterval(pollIntervalRef.current);
                     container.innerHTML = "";
@@ -610,24 +609,20 @@
                         delete window.__rumblePlayerRef;
                     }
                 };
-            }, [video]); // 🔴 SADECE VIDEO OBJESİ DEĞİŞİNCE YENİDEN ÇALIŞIR
+            }, [video]); // 🔴 SADECE VİDEO DEĞİŞİNCE
 
-            // 2️⃣ EFEKT: SADECE ZAMAN DEĞİŞİNCE ÇALIŞIR (SEEK)
+            // 2️⃣ SEEK EFFECT (Aynı video içinde saniye değişince)
             useEffect(() => {
                 if (!playerRef.current) return;
-                // startTime null ise veya 0 ise atla (zaten 0'dan başlar)
                 if (startTime == null || startTime === 0) return;
 
                 try {
-                    // Player hazır mı kontrol et
                     if (typeof playerRef.current.seekTo === "function") {
                         playerRef.current.seekTo(startTime);
                         playerRef.current.play?.();
                     }
-                } catch (e) {
-                    console.warn("Seek hatası:", e);
-                }
-            }, [startTime]); // 🔴 SADECE startTime DEĞİŞİNCE ÇALIŞIR
+                } catch (e) {}
+            }, [startTime]); // 🔴 SADECE ZAMAN DEĞİŞİNCE
 
             if (!video) return (
                 <div className="w-full aspect-video bg-slate-900/50 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden group">
@@ -673,7 +668,6 @@
                             Yayın Parçaları
                         </h4>
                         <div className="flex items-center gap-3">
-                            {/* Toggle Switch */}
                             <div className="flex items-center gap-2">
                                 <span className="text-[10px] text-slate-400 font-medium">Otomatik Geçiş</span>
                                 <div className="relative inline-block w-8 mr-2 align-middle select-none transition duration-200 ease-in">
@@ -694,7 +688,6 @@
                         </div>
                     </div>
                     
-                    {/* Manual Next Button */}
                     <div className="p-2 bg-slate-950/30 flex justify-center border-b border-white/5">
                         <button 
                             onClick={onNextClick}
@@ -936,28 +929,19 @@
 
             const isSearchActive = cleanSearch(searchTerm).length > 0;
 
-            // ✅ VİDEO SEÇME FONKSİYONU (SİMLEŞTİRİLDİ)
-            // React state güncellemeleri, VideoPlayer'ın split edilmiş useEffect'lerini tetikleyecektir.
             const handleSelectVideo = (video, startSeconds = null) => {
-                // Eğer tıklanan video şu an oynatılan videonun aynısıysa
                 if (selectedVideo && video.id === selectedVideo.id) {
-                    // Sadece zamanı güncelle. (Seek Effect'i tetikler)
                     setStartTime(startSeconds || 0);
-                    
-                    // Sayfa başına kaydır (hafif gecikmeli, smooth)
                     if (window.innerWidth < 1024) {
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     }
                     return; 
                 }
 
-                // Farklı bir video ise: Videoyu ve zamanı güncelle.
-                // (Init Effect'i tetikler, sonra StartTime Effect'i tetikler)
                 setSelectedVideo(video);
 
                 let finalStart = startSeconds;
                 
-                // Kayıtlı zamanı kontrol et
                 if (finalStart === null && video) {
                     const saved = localStorage.getItem(`progress_${video.id}`);
                     if (saved) {
@@ -970,7 +954,6 @@
                 
                 setStartTime(finalStart);
 
-                // İstatistik gönderme
                 if (video && video.embedId) {
                     db.collection("video_stats").doc(video.embedId).set({
                         title: video.title,
@@ -985,7 +968,6 @@
             };
 
             const handleSeekComment = (seconds) => {
-                // Yorumlardan gelirse de aynı mantık
                 if(selectedVideo) {
                     setStartTime(seconds);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1218,18 +1200,17 @@
                                             <div>
                                                 <h2 className="text-xl font-bold text-white mb-1">{selectedVideo.title}</h2>
                                                 <p className="text-slate-400 text-sm">
-                                                    Oynatılıyor • {selectedVideo.category} 
-                                                    {startTime && ` • Kaldığın yerden devam ediliyor (${Math.floor(startTime/60)}dk)`}
+                                                    Oynatılıyor • {selectedVideo.category}
+                                                    {typeof startTime === "number" && startTime > 0 && (
+                                                        <span className="ml-2 text-indigo-400 font-medium">
+                                                            • {Math.floor(startTime/60)}:{String(startTime%60).padStart(2,'0')} saniyesine atlandı
+                                                        </span>
+                                                    )}
                                                 </p>
                                             </div>
                                         </div>
                                     )}
 
-                                    {/* 
-                                       ✅ KRİTİK GÜNCELLEME:
-                                       1. key prop'u KALDIRILDI.
-                                       2. VideoPlayer artık state değişikliklerini internal olarak yönetiyor.
-                                    */}
                                     <VideoPlayer 
                                         video={selectedVideo} 
                                         startTime={startTime} 
