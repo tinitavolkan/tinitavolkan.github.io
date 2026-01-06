@@ -13,14 +13,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- React & ReactDOM -->
+    <!-- React ve ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
     <!-- Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- Firebase SDK (Compat) -->
+
+    <!-- Firebase SDK (Compat versiyonu) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
@@ -34,14 +34,16 @@
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
                     },
                     colors: {
-                        slate: { 950: '#020617', 900: '#0f172a', 800: '#1e293b', },
-                        brand: { 500: '#6366f1', 600: '#4f46e5' } // Indigo brand color
+                        slate: {
+                            950: '#020617',
+                            900: '#0f172a',
+                            800: '#1e293b',
+                        }
                     },
                     animation: {
                         'fade-in': 'fadeIn 0.3s ease-out',
                         'slide-up': 'slideUp 0.4s ease-out',
                         'slide-in-right': 'slideInRight 0.3s ease-out',
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
@@ -55,49 +57,42 @@
 
     <style>
         body { background-color: #020617; }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #020617; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #475569; }
-        
-        /* Aurora Background Effect */
+
         .aurora-glow {
             position: absolute; width: 600px; height: 600px;
             background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, rgba(0,0,0,0) 70%);
             border-radius: 50%; filter: blur(80px); z-index: -1;
-            pointer-events: none;
+            animation: aurora 15s infinite alternate; pointer-events: none;
         }
         @keyframes aurora {
             0% { transform: translate(-20%, -20%) scale(1); opacity: 0.5; }
             100% { transform: translate(-10%, 20%) scale(0.9); opacity: 0.5; }
         }
 
-        /* Glassmorphism Utilities */
         .glass-panel {
             background: rgba(30, 41, 59, 0.4);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .glass-card {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
 <body class="text-slate-100 antialiased overflow-x-hidden min-h-screen flex flex-col">
-
-    <!-- Background Ambience -->
+    
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
-        <div class="aurora-glow top-[-200px] left-[-200px] bg-indigo-500/20" style="animation: aurora 15s infinite alternate;"></div>
-        <div class="aurora-glow bottom-[-200px] right-[-200px] bg-purple-500/10" style="animation: aurora 20s infinite alternate-reverse;"></div>
+        <div class="aurora-glow top-[-200px] left-[-200px] bg-indigo-500/20"></div>
+        <div class="aurora-glow bottom-[-200px] right-[-200px] bg-purple-500/10 delay-1000"></div>
     </div>
 
-    <!-- Instagram CTA -->
-    <a href="https://www.instagram.com/tinitavolkan/" target="_blank" rel="noopener noreferrer"
-       class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white transition-all duration-300 shadow-xl shadow-purple-600/40 hover:scale-105 animate-slide-up border border-white/10 group">
+    <a 
+        href="https://www.instagram.com/tinitavolkan/" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-3 px-8 py-3.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white transition-all duration-300 shadow-xl shadow-purple-600/40 hover:scale-105 animate-slide-up border border-white/10 group"
+    >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="group-hover:rotate-6 transition-transform">
             <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
@@ -109,9 +104,9 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useMemo, useRef, createContext, useContext } = React;
+        const { useState, useEffect, useMemo, useRef } = React;
 
-        // --- FIREBASE & CONFIG ---
+        // --- FIREBASE KURULUMU ---
         const firebaseConfig = {
             apiKey: "AIzaSyDVhRw5lEIrJ5cFjJS1D86AvJeAI67ja0Q",
             authDomain: "site-comments-ed18f.firebaseapp.com",
@@ -121,15 +116,22 @@
             appId: "1:587969670836:web:de8f614bbcafa0ed2b1e1"
         };
 
-        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
         const db = firebase.firestore();
-        db.settings({ experimentalForceLongPolling: true, useFetchStreams: false });
+
+        db.settings({
+          experimentalForceLongPolling: true,
+          useFetchStreams: false
+        });
 
         const CATEGORIES = [
             { id: 'all', name: 'Tüm Arşiv' },
             { id: 'Hype', name: 'Hype' },
             { id: 'Triel', name: 'Triel' },
-            { id: 'Sinasi', name: 'Şinasi' },
+            { id: 'Sinasi', name: 'Şinasi' }, 
             { id: 'Prensesperver', name: 'Prensesperver' },
             { id: 'Nuriben', name: 'Nuriben' },
             { id: 'Nesrin', name: 'Nesrin' },
@@ -137,133 +139,161 @@
             { id: 'Blush', name: 'Blush' }
         ];
 
-        // --- UTILITIES ---
-        const normalizeText = (str) => str.toString().toLowerCase()
-            .replace('ğ', 'g').replace('ü', 'u').replace('ş', 's')
-            .replace('ı', 'i').replace('ö', 'o').replace('ç', 'c');
+        const FALLBACK_DATA = {
+            "tarih": "02.01.2026",
+            "videos": [
+                { "title": "Blush 15.12.2025 1", "embed_id": "v71l1b4", "link": "https://rumble.com/v71l1b4-blush.html" }, 
+                { "title": "Blush 15.12.2025 2_Parca_000", "embed_id": "v71l1b5", "link": "https://rumble.com/v71l1b5-blush.html" }
+            ]
+        };
 
+        // --- Utility Functions ---
         const cleanSearch = (val) => (val || '').replace(/[\u200B-\u200D\uFEFF]/g, '').replace(/\u00A0/g, ' ').trim();
-
-        const getGroupPrefix = (title) => {
-            const match = title.match(/(_Parca_|_Parça_)\d+$/i);
-            return match ? title.substring(0, match.index) : title;
+        const normalizeText = (str) => {
+            return str.toString().toLowerCase()
+                .replace('ğ', 'g').replace('ü', 'u').replace('ş', 's')
+                .replace('ı', 'i').replace('ö', 'o').replace('ç', 'c');
         };
 
-        const getNicePartName = (title) => {
-            const match = title.match(/_?Parca[_\s]*(\d+)/i);
-            if (match) return `Parça ${parseInt(match[1], 10) + 1}`;
-            const simpleMatch = title.match(/(\d+)$/);
-            if (simpleMatch) return `Parça ${simpleMatch[1]}`;
-            return "Tam Video";
-        };
-
-        const getTxtPath = (title) => `text/${title.replace(/\.html$/, '')}.txt`;
-
-        const getCategoryName = (id) => CATEGORIES.find(c => c.id === id)?.name || id;
-
-        // --- UI COMPONENTS ---
-
-        // 1. Toast Notification System (Alert replacement)
-        const ToastContext = createContext();
-        const ToastProvider = ({ children }) => {
-            const [toasts, setToasts] = useState([]);
-            const addToast = (msg, type = 'info') => {
-                const id = Date.now();
-                setToasts(prev => [...prev, { id, msg, type }]);
-                setTimeout(() => removeToast(id), 3000);
+        const processVideoData = (rawVideos) => {
+            const getSortParts = (title) => {
+                const match = title.match(/(\d+)\s*_Parca_\s*(\d+)/);
+                if (match) return { mainPart: parseInt(match[1], 10), subPart: parseInt(match[2], 10) };
+                return { mainPart: 0, subPart: 0 };
             };
-            const removeToast = (id) => setToasts(prev => prev.filter(t => t.id !== id));
-            return (
-                <ToastContext.Provider value={{ addToast }}>
-                    {children}
-                    <div className="fixed top-24 right-4 z-[60] flex flex-col gap-2 pointer-events-none">
-                        {toasts.map(t => (
-                            <div key={t.id} className={`pointer-events-auto px-4 py-3 rounded-lg shadow-lg border backdrop-blur-md text-sm font-medium animate-slide-in-right flex items-center gap-2
-                                ${t.type === 'error' ? 'bg-red-900/80 border-red-500/30 text-red-100' : 'bg-indigo-900/80 border-indigo-500/30 text-indigo-100'}`}>
-                                <span>{t.type === 'error' ? '⚠️' : '✅'}</span>
-                                {t.msg}
-                            </div>
-                        ))}
-                    </div>
-                </ToastContext.Provider>
-            );
-        };
-        const useToast = () => useContext(ToastContext);
 
-        // 2. Icons
-        const Icons = {
-            Search: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>,
-            Play: () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>,
-            Comment: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
-            Info: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            const processed = rawVideos.map((v, index) => {
+                const dateMatch = v.title.match(/(\d{2})\.(\d{2})\.(\d{4})/);
+                const date = dateMatch ? new Date(dateMatch[3], dateMatch[2] - 1, dateMatch[1]) : new Date();
+                const normalizedTitle = normalizeText(v.title);
+                let category = "Diğer";
+                for (let cat of CATEGORIES) {
+                    if (cat.id === 'all') continue;
+                    const normalizedCat = normalizeText(cat.id);
+                    if (normalizedTitle.includes(normalizedCat)) {
+                        category = cat.name;
+                        break;
+                    }
+                }
+                return {
+                    id: v.embed_id || index, 
+                    title: v.title,
+                    embedId: v.embed_id, 
+                    date: date,
+                    category: category,
+                    sortMetrics: getSortParts(v.title)
+                };
+            });
+
+            processed.sort((a, b) => {
+                const dateDiff = b.date - a.date;
+                if (dateDiff !== 0) return dateDiff;
+                if (a.sortMetrics.mainPart !== b.sortMetrics.mainPart) return a.sortMetrics.mainPart - b.sortMetrics.mainPart;
+                return a.sortMetrics.subPart - b.sortMetrics.subPart;
+            });
+            return processed;
         };
 
-        // 3. Navbar
-        const Navbar = ({ activeCategory, setActiveCategory, lastUpdate }) => (
-            <nav className="sticky top-0 z-40 glass-panel border-b border-white/10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-3 md:h-16">
-                        <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
-                            <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white font-bold">K</div>
-                                <div>
-                                    <h1 className="text-base font-bold text-white leading-tight">Katman Arşiv</h1>
-                                    <div className="text-[9px] text-indigo-400 font-medium tracking-wide hidden sm:block">Yayın Geçmişi</div>
-                                </div>
-                            </div>
-                            {lastUpdate && <div className="text-[9px] text-slate-500 bg-slate-950/50 px-2 py-0.5 rounded border border-white/5 md:ml-2">Son Güncelleme: {lastUpdate}</div>}
+        const getTxtPath = (title) => {
+            let cleanTitle = title.replace(/\.html$/, '');
+            let filename = cleanTitle + ".txt";
+            return `text/${filename}`;
+        };
+
+        const getCategoryName = (id) => {
+            const cat = CATEGORIES.find(c => c.id === id);
+            return cat ? cat.name : id;
+        };
+
+        // --- METİN İŞLEME (TIMESTAMP LINKLEME) ---
+        const linkifyTimestamps = (text, onSeek) => {
+            if (!text) return text;
+            
+            const timeRegex = /(\d{1,2}):(\d{2})(?::(\d{2}))?/g;
+            const parts = [];
+            let lastIndex = 0;
+            let match;
+
+            timeRegex.lastIndex = 0;
+
+            while ((match = timeRegex.exec(text)) !== null) {
+                if (match.index > lastIndex) {
+                    parts.push(text.substring(lastIndex, match.index));
+                }
+
+                const [fullMatch, h, m, s] = match;
+                let seconds = 0;
+                
+                if (s !== undefined) {
+                    seconds = parseInt(h) * 3600 + parseInt(m) * 60 + parseInt(s);
+                } else {
+                    seconds = parseInt(h) * 60 + parseInt(m);
+                }
+
+                parts.push(
+                    <span 
+                        key={`time-${match.index}`}
+                        onClick={() => onSeek(seconds)}
+                        className="text-indigo-400 cursor-pointer hover:text-indigo-300 hover:underline font-mono bg-indigo-500/10 px-1 rounded transition-colors select-none"
+                        title="Videonun bu anına git"
+                    >
+                        {fullMatch}
+                    </span>
+                );
+
+                lastIndex = timeRegex.lastIndex;
+            }
+
+            if (lastIndex < text.length) {
+                parts.push(text.substring(lastIndex));
+            }
+
+            return parts.length === 0 ? text : parts;
+        };
+
+        // --- YORUM REHBERİ ---
+        const CommentGuideBox = () => (
+            <div className="rounded-2xl bg-gradient-to-br from-indigo-900/30 to-slate-900/40 border border-indigo-500/20 overflow-hidden animate-fade-in mt-6">
+                <div className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2 bg-indigo-500/20 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-400"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                         </div>
-                        
-                        <div className="flex gap-1 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 no-scrollbar hide-scroll">
-                            {CATEGORIES.map((cat) => (
-                                <button
-                                    key={cat.id}
-                                    onClick={() => setActiveCategory(cat.id)}
-                                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 whitespace-nowrap border ${
-                                        activeCategory === cat.id
-                                            ? 'bg-indigo-600 text-white border-indigo-500 shadow-md'
-                                            : 'bg-transparent text-slate-400 border-transparent hover:text-white hover:bg-white/5'
-                                    }`}
-                                >
-                                    {cat.name}
-                                </button>
-                            ))}
+                        <h3 className="text-xl font-bold text-white">Yorum Özellikleri</h3>
+                    </div>
+                    
+                    <div className="space-y-3">
+                        <div className="flex items-start gap-3">
+                            <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span className="text-xs font-bold text-white">1</span>
+                            </div>
+                            <p className="text-slate-300 text-sm leading-relaxed">
+                                Videoların içindeki <strong className="text-indigo-300">anlık zamanları</strong> paylaşabilirsin.
+                            </p>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span className="text-xs font-bold text-white">2</span>
+                            </div>
+                            <p className="text-slate-300 text-sm leading-relaxed">
+                                Yorumun içine <span className="font-mono text-white bg-indigo-500/20 px-1.5 py-0.5 rounded text-xs">12:30</span> veya <span className="font-mono text-white bg-indigo-500/20 px-1.5 py-0.5 rounded text-xs">01:45:00</span> formatında zaman yazarsan, sistem bunu otomatik olarak <span className="text-indigo-400">tıklanabilir</span> bir linke çevirir.
+                            </p>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span className="text-xs font-bold text-white">3</span>
+                            </div>
+                            <p className="text-slate-300 text-sm leading-relaxed">
+                                Link'e tıklandığında video otomatik olarak o saniyeye gider ve oynamaya başlar.
+                            </p>
                         </div>
                     </div>
                 </div>
-            </nav>
+            </div>
         );
 
-        // 4. Video Player
-        const VideoPlayer = ({ video, startTime, reloadKey }) => {
-            if (!video) return (
-                <div className="w-full aspect-video bg-slate-900/50 rounded-2xl border border-dashed border-white/10 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
-                    <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border border-white/5">
-                        <span className="text-2xl opacity-50">▶</span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-white mb-1">Bir Video Seçin</h3>
-                    <p className="text-slate-400 text-sm max-w-md">
-                        Listeden bir yayın başlığı seçin veya arama kutusunu kullanın.
-                    </p>
-                </div>
-            );
-
-            const baseUrl = `https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`;
-            const finalUrl = startTime 
-                ? `${baseUrl}&start=${Number(startTime)}&autoplay=1&cb=${reloadKey}`
-                : `${baseUrl}&autoplay=1&cb=${reloadKey}`;
-
-            return (
-                <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10 relative animate-fade-in ring-1 ring-indigo-500/10">
-                    <iframe src={finalUrl} className="w-full h-full" allowFullScreen title={video.title}></iframe>
-                </div>
-            );
-        };
-
-        // 5. Comments System
+        // --- FIREBASE YORUM BİLEŞENİ ---
         const CommentSection = ({ videoId, onSeek }) => {
-            const { addToast } = useToast();
             const [comments, setComments] = useState([]);
             const [nickname, setNickname] = useState('');
             const [text, setText] = useState('');
@@ -278,409 +308,664 @@
             useEffect(() => {
                 if (!videoId) return;
                 setIsLoading(true);
-                const q = db.collection("comments").where("videoId", "==", videoId).orderBy("createdAt", "asc");
+
+                const q = db.collection("comments").where("videoId", "==", videoId);
+
                 const unsubscribe = q.onSnapshot((snapshot) => {
-                    const fetchedComments = snapshot.docs.map(doc => ({
-                        id: doc.id,
-                        ...doc.data(),
-                        displayDate: doc.data().createdAt?.toDate() || new Date()
-                    }));
+                    const fetchedComments = [];
+                    snapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const date = data.createdAt ? data.createdAt.toDate() : new Date();
+                        fetchedComments.push({
+                            id: doc.id,
+                            ...data,
+                            displayDate: date
+                        });
+                    });
+                    
+                    fetchedComments.sort((a, b) => a.displayDate - b.displayDate);
+                    
                     setComments(fetchedComments);
                     setIsLoading(false);
-                }, (err) => {
-                    console.error(err);
+                }, (error) => {
+                    console.error("Yorumlar yüklenirken HATA:", error);
                     setIsLoading(false);
                 });
+
                 return () => unsubscribe();
             }, [videoId]);
 
             const handlePost = async () => {
-                if (!nickname.trim()) return addToast("Lütfen bir takma ad belirleyin.", "error");
-                if (!text.trim()) return addToast("Yorum boş olamaz.", "error");
-                
+                if (!nickname.trim()) {
+                    alert("Lütfen bir takma ad (nickname) belirleyin.");
+                    return;
+                }
+                if (!text.trim()) {
+                    alert("Yorum boş olamaz.");
+                    return;
+                }
                 setIsPosting(true);
+
                 try {
                     await db.collection("comments").add({
-                        videoId,
+                        videoId: videoId, 
                         nickname: nickname.trim(),
                         text: text.trim(),
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
+
                     localStorage.setItem('katman_user_nickname', nickname.trim());
-                    setText('');
-                    addToast("Yorum gönderildi!");
+                    setText(''); 
                 } catch (error) {
-                    addToast("Yorum gönderilemedi.", "error");
+                    console.error("Yorum gönderilemedi:", error);
+                    alert("HATA: " + error.message);
                 } finally {
                     setIsPosting(false);
                 }
             };
 
-            const linkifyTimestamps = (txt) => {
-                if (!txt) return txt;
-                const timeRegex = /(\d{1,2}):(\d{2})(?::(\d{2}))?/g;
-                const parts = [];
-                let lastIndex = 0;
-                let match;
-                while ((match = timeRegex.exec(txt)) !== null) {
-                    parts.push(txt.substring(lastIndex, match.index));
-                    const [full, h, m, s] = match;
-                    const seconds = s ? parseInt(h)*3600 + parseInt(m)*60 + parseInt(s) : parseInt(h)*60 + parseInt(m);
-                    parts.push(<span key={match.index} onClick={() => onSeek(seconds)} className="text-indigo-400 cursor-pointer hover:text-indigo-300 hover:underline bg-indigo-500/10 px-1 rounded select-none">{full}</span>);
-                    lastIndex = timeRegex.lastIndex;
-                }
-                if (lastIndex < txt.length) parts.push(txt.substring(lastIndex));
-                return parts.length ? parts : txt;
+            const formatDate = (dateObj) => {
+                return new Intl.DateTimeFormat('tr-TR', { 
+                    day: '2-digit', month: 'long', year: 'numeric', 
+                    hour: '2-digit', minute: '2-digit' 
+                }).format(dateObj);
             };
 
+            if (!videoId) return null;
+
             return (
-                <div className="mt-6 glass-card rounded-2xl overflow-hidden animate-slide-up">
-                    <div className="p-4 border-b border-white/5 bg-white/5 flex justify-between items-center">
-                        <h3 className="font-bold text-white text-sm flex items-center gap-2"><Icons.Comment /> Yorumlar ({comments.length})</h3>
+                <div className="mt-6 rounded-2xl bg-slate-900/40 border border-white/5 overflow-hidden animate-slide-up">
+                    <div className="p-4 border-b border-white/5 flex items-center justify-between bg-white/5">
+                        <h3 className="font-bold text-white flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-400"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            Yorumlar <span className="text-xs font-normal text-slate-400 ml-1">({comments.length})</span>
+                        </h3>
+                        <div className="text-[10px] text-indigo-300 bg-indigo-500/10 px-2 py-1 rounded border border-indigo-500/20">
+                            🔴 Canlı Bağlantı
+                        </div>
                     </div>
+
                     <div className="p-4 space-y-4">
                         <div className="flex flex-col gap-3">
-                            <input type="text" placeholder="Takma Adın" value={nickname} onChange={e => setNickname(e.target.value)} className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-indigo-500 outline-none transition-colors" />
-                            <textarea placeholder="Fikirlerini paylaş... (Örn: 12:30 çok güzeldi)" value={text} onChange={e => setText(e.target.value)} rows="3" className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-indigo-500 outline-none transition-colors resize-none"></textarea>
+                            <input 
+                                type="text" 
+                                placeholder="Takma Adın (Nick)" 
+                                value={nickname}
+                                onChange={(e) => setNickname(e.target.value)}
+                                className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-600"
+                            />
+                            
+                            <textarea 
+                                placeholder="Videonun bu anı hakkında ne düşünüyorsun? Örneğin: 12:30'daki espri çok güzeldi..."
+                                value={text}
+                                onChange={(e) => setText(e.target.value)}
+                                rows="4"
+                                className="bg-slate-950/50 border border-white/10 rounded-lg px-3 py-3 text-sm text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all resize-none placeholder:text-slate-500 leading-relaxed"
+                            ></textarea>
+
                             <div className="flex justify-end">
-                                <button onClick={handlePost} disabled={isPosting} className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors">
-                                    {isPosting ? 'Gönderiliyor...' : 'Gönder'}
+                                <button 
+                                    onClick={handlePost}
+                                    disabled={isPosting}
+                                    className="bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-800 text-white text-xs font-bold px-6 py-3 rounded-lg transition-colors flex items-center gap-2"
+                                >
+                                    {isPosting ? (
+                                        <span className="animate-spin h-3 w-3 border-2 border-white border-t-transparent rounded-full"></span>
+                                    ) : 'Yorum Yap'}
                                 </button>
                             </div>
                         </div>
-                        <div className="h-px bg-white/5"></div>
-                        <div className="max-h-[250px] overflow-y-auto pr-2 space-y-3">
-                            {isLoading ? <div className="text-center text-slate-500 text-xs py-4">Yükleniyor...</div> : comments.length === 0 ? <div className="text-center text-slate-600 text-xs py-4">İlk yorumu sen yap!</div> : comments.map(c => (
-                                <div key={c.id} className="bg-slate-950/30 border border-white/5 p-3 rounded-lg">
-                                    <div className="flex justify-between items-center mb-1">
-                                        <span className="text-xs font-bold text-indigo-300">{c.nickname}</span>
-                                        <span className="text-[10px] text-slate-600">{c.displayDate.toLocaleDateString('tr-TR')}</span>
-                                    </div>
-                                    <p className="text-xs text-slate-300 leading-relaxed">{linkifyTimestamps(c.text)}</p>
+
+                        <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
+                            {isLoading ? (
+                                <div className="text-center py-6 text-slate-500 text-sm animate-pulse">Yorumlar yükleniyor...</div>
+                            ) : comments.length === 0 ? (
+                                <div className="text-center py-6 text-slate-500 text-sm">
+                                    Henüz yorum yapılmamış. İlk sen yorum yap!
                                 </div>
+                            ) : (
+                                comments.map((c) => (
+                                    <div key={c.id} className="bg-slate-950/30 border border-white/5 p-3 rounded-lg animate-slide-in-right">
+                                        <div className="flex justify-between items-start mb-1">
+                                            <span className="text-xs font-bold text-indigo-300">{c.nickname}</span>
+                                            <span className="text-[10px] text-slate-600">{formatDate(c.displayDate)}</span>
+                                        </div>
+                                        <p className="text-sm text-slate-300 leading-relaxed">
+                                            {linkifyTimestamps(c.text, onSeek)}
+                                        </p>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- UI Components ---
+        const Navbar = ({ categories, activeCategory, setActiveCategory, lastUpdate }) => (
+            <div className="border-b border-white/10 glass-panel sticky top-0 z-40">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-4 md:py-0 md:h-20">
+                        <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
+                            <div className="flex flex-col">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                                        <span className="text-xl">📼</span>
+                                    </div>
+                                    <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+                                        Katman Yayın Geçmişi Arşiv
+                                    </h1>
+                                </div>
+                                {lastUpdate && <div className="ml-[52px] text-[10px] sm:text-xs text-indigo-400 font-medium tracking-wide mt-0.5">Son Güncelleme: {lastUpdate}</div>}
+                            </div>
+                        </div>
+                        <div className="hidden md:flex items-center gap-2 flex-wrap justify-center md:justify-end">
+                            {categories.map((cat) => (
+                                <button key={cat.id} onClick={() => setActiveCategory(cat.id)} className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap ${activeCategory === cat.id ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/25' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}>{cat.name}</button>
+                            ))}
+                        </div>
+                        <div className="md:hidden flex gap-2 overflow-x-auto w-full pb-2 no-scrollbar">
+                            {categories.map((cat) => (
+                                <button key={cat.id} onClick={() => setActiveCategory(cat.id)} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 whitespace-nowrap flex-shrink-0 ${activeCategory === cat.id ? 'bg-indigo-600 text-white' : 'text-slate-400 bg-slate-800/50'}`}>{cat.name}</button>
                             ))}
                         </div>
                     </div>
                 </div>
+            </div>
+        );
+
+        const VideoPlayer = ({ video, startTime, reloadKey }) => {
+            if (!video) return (
+                <div className="w-full aspect-video bg-slate-900/50 rounded-2xl border border-white/5 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden group">
+                     <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTAsMC4wNSkiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] opacity-30"></div>
+                    <div className="w-20 h-20 rounded-full bg-slate-800 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-xl">
+                        <span className="text-3xl">▶</span>
+                    </div>
+                    <h3 className="text-xl font-semibold text-white mb-2">Videonun Adı Burada</h3>
+                    <p className="text-slate-400 max-w-sm mx-auto mb-4">
+                        Arama kutusuna bir kelime yazın veya listeden bir yayın seçerek başlayın.
+                    </p>
+                    <div className="bg-indigo-500/10 border border-indigo-500/20 rounded-lg px-4 py-2 text-xs text-indigo-300">
+                        💡 Sitedeki yayınların altyazıları taranarak, aradığınız kelime geçtiği anda video otomatik başlar.
+                    </div>
+                </div>
+            );
+
+            const baseUrl = `https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`;
+            
+            // --- OTOMATİK BAŞLATMA DÜZELTME ---
+            let finalUrl = baseUrl;
+            
+            if (startTime) {
+                const safeStart = Number(startTime);
+                finalUrl = `${baseUrl}&start=${safeStart}&autoplay=1&cb=${reloadKey}`;
+            } else {
+                finalUrl = `${baseUrl}&autoplay=1&cb=${reloadKey}`;
+            }
+
+            return (
+                <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-indigo-900/20 border border-white/10 relative animate-fade-in ring-1 ring-indigo-500/20">
+                    <iframe src={finalUrl} className="w-full h-full" allowFullScreen title={video.title}></iframe>
+                </div>
             );
         };
 
-        // 6. List Components
-        const VideoListItem = ({ item, isSelected, onClick, isSearchResult }) => {
-            const isTimestamp = item.type === 'timestamp';
-            const content = isTimestamp ? item.video : item;
-            
+        const NormalVideoCard = ({ video, isActive, onClick }) => {
             return (
                 <div 
-                    onClick={() => onClick(content, isTimestamp ? item.seconds : null)}
-                    className={`group p-3 rounded-xl border transition-all cursor-pointer overflow-hidden animate-fade-in ${
-                        isSelected 
-                        ? 'bg-indigo-900/20 border-indigo-500/50 shadow-lg shadow-indigo-900/10' 
-                        : 'bg-slate-900/40 border-white/5 hover:bg-slate-800/50 hover:border-white/10'
-                    }`}
+                    onClick={onClick} 
+                    className={`group cursor-pointer rounded-xl overflow-hidden border transition-all animate-fade-in
+                        ${isActive ? 'border-indigo-500 ring-1 ring-indigo-500/30' : 'border-white/5 hover:border-white/10 hover:shadow-lg hover:shadow-indigo-900/10'}
+                    `}
                 >
-                    <div className="flex gap-3">
-                        {/* Thumbnail / Preview */}
-                        <div className="w-24 flex-shrink-0 relative rounded-lg overflow-hidden bg-black aspect-video border border-white/5">
-                            <iframe 
-                                src={`https://rumble.com/embed/${content.embedId}/?pub=4o7uxk`} 
-                                className="w-full h-full opacity-60 group-hover:opacity-100 transition-opacity pointer-events-none"
-                                loading="lazy" 
-                            ></iframe>
-                            {isSelected && (
-                                <div className="absolute inset-0 bg-indigo-500/20 flex items-center justify-center">
-                                    <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white shadow-lg"><Icons.Play /></div>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Info */}
-                        <div className="flex-1 min-w-0 flex flex-col justify-center">
-                            <h4 className={`text-xs font-bold truncate mb-1 ${isSelected ? 'text-white' : 'text-slate-300 group-hover:text-white'}`}>
-                                {isTimestamp ? `[${item.timestamp}] ` : ""}{content.title}
-                            </h4>
-                            {isTimestamp ? (
-                                <p className="text-[10px] text-indigo-300 line-clamp-2 leading-snug">
-                                    "{item.snippet}"
-                                </p>
-                            ) : (
-                                <div className="flex items-center gap-2">
-                                    <span className="text-[9px] text-slate-500 bg-slate-950/50 px-1.5 py-0.5 rounded border border-white/5">{content.category}</span>
-                                </div>
-                            )}
+                    <div className="relative w-full aspect-[16/10] bg-black">
+                        <iframe 
+                            src={`https://rumble.com/embed/${video.embedId}/?pub=4o7uxk`} 
+                            className="absolute inset-0 w-full h-full pointer-events-none" 
+                            loading="lazy" 
+                            allowFullScreen 
+                            title={video.title}
+                        ></iframe>
+                        {isActive && <div className="absolute inset-0 bg-indigo-500/10 z-10 ring-2 ring-inset ring-indigo-500 pointer-events-none"></div>}
+                    </div>
+                    <div className="p-2 bg-slate-900/70 backdrop-blur-sm border-t border-white/5">
+                        <p className="text-[11px] text-slate-300 line-clamp-2 leading-relaxed group-hover:text-white">{video.title}</p>
+                        <div className="mt-1.5 flex items-center justify-between">
+                            <span className="text-[9px] text-indigo-400 font-medium bg-indigo-500/10 px-1.5 py-0.5 rounded">{video.category}</span>
+                            <span className="text-[9px] text-slate-500">{video.date.toLocaleDateString('tr-TR')}</span>
                         </div>
                     </div>
                 </div>
             );
         };
 
-        // --- MAIN APP ---
+        const SearchResultItem = ({ item, onClick }) => {
+            if (item.type === 'video') {
+                return (
+                    <div 
+                        onClick={onClick} 
+                        className={`group cursor-pointer rounded-xl overflow-hidden border transition-all animate-fade-in
+                            ${item.isActive ? 'border-indigo-500 ring-1 ring-indigo-500/30' : 'border-white/5 hover:border-white/10 hover:shadow-lg hover:shadow-indigo-900/10'}
+                        `}
+                    >
+                        <div className="relative w-full aspect-[16/10] bg-black">
+                            <iframe 
+                                src={`https://rumble.com/embed/${item.video.embedId}/?pub=4o7uxk`} 
+                                className="absolute inset-0 w-full h-full pointer-events-none" 
+                                loading="lazy" 
+                                allowFullScreen
+                            ></iframe>
+                            {item.isActive && <div className="absolute inset-0 bg-indigo-500/20 z-10 ring-2 ring-inset ring-indigo-500 pointer-events-none"></div>}
+                        </div>
+                        <div className="p-2 bg-slate-900/70 backdrop-blur-sm border-t border-white/5">
+                            <p className="text-[11px] text-slate-300 line-clamp-2 leading-relaxed group-hover:text-white">{item.video.title}</p>
+                        </div>
+                    </div>
+                );
+            } else if (item.type === 'timestamp') {
+                const contentHtml = `<span class="text-indigo-400 font-mono mr-1">[${item.timestamp}]</span>` + 
+                    item.snippet.replace(new RegExp(`(${item.searchTerm})`, 'gi'), '<mark class="bg-indigo-500/40 text-white px-0.5 rounded">$1</mark>');
+
+                return (
+                    <div 
+                        onClick={onClick} 
+                        className="group cursor-pointer rounded-xl overflow-hidden border border-indigo-500/30 bg-slate-900/80 backdrop-blur hover:bg-indigo-900/20 hover:border-indigo-500 transition-all p-2 relative animate-fade-in"
+                    >
+                        <div className="flex items-start gap-2">
+                            <div className="flex-shrink-0 w-10 h-10 rounded bg-indigo-600/20 flex flex-col items-center justify-center text-indigo-400 border border-indigo-500/20 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                <span className="text-[9px] font-bold leading-none mb-0.5">ATLA</span>
+                                <span className="text-[9px] font-mono">{item.timestamp}</span>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <p 
+                                    className="text-[11px] text-slate-300 leading-snug group-hover:text-white whitespace-pre-wrap"
+                                    dangerouslySetInnerHTML={{ __html: contentHtml }}
+                                ></p>
+                                <p className="text-[9px] text-slate-500 mt-1 uppercase truncate">{item.video.title}</p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+            return null;
+        };
+
+        const NormalVideoList = ({ videos, selectedVideoId, onSelect }) => {
+            if (videos.length === 0) {
+                return <div className="text-center py-12 text-slate-500 bg-slate-900/30 rounded-xl border border-dashed border-white/5">Bu kategoride video bulunamadı.</div>;
+            }
+            return (
+                <>
+                    {videos.map((video) => (
+                        <NormalVideoCard
+                            key={`normal-${video.id}`}
+                            video={video}
+                            isActive={selectedVideoId === video.id}
+                            onClick={() => onSelect(video)}
+                        />
+                    ))}
+                </>
+            );
+        };
+
+        const SearchResultsList = ({ results, selectedVideoId, onSelect, searchTerm, categoryName }) => {
+            if (results.length === 0) {
+                return (
+                    <div className="text-center py-10 px-4 bg-slate-900/30 rounded-xl border border-dashed border-white/5 animate-fade-in">
+                        <div className="text-4xl mb-2">🔍</div>
+                        <p className="text-slate-400 text-sm font-medium">"{searchTerm}" için sonuç bulunamadı.</p>
+                        <p className="text-slate-600 text-xs mt-2">
+                            {categoryName === 'Tüm Arşiv' 
+                                ? 'Aradığınız kelime yayınlarda geçmemiş olabilir.' 
+                                : 'Sadece seçili kategori ('+categoryName+') içinde aranıyor. Filtreyi "Tüm Arşiv" yapıp tekrar deneyin.'
+                            }
+                        </p>
+                    </div>
+                );
+            }
+            return (
+                <>
+                    {results.map((item, index) => (
+                        <SearchResultItem
+                            key={`search-${item.id || index}`}
+                            item={{
+                                ...item,
+                                isActive: item.type === 'video' ? selectedVideoId === item.video.id : false
+                            }}
+                            onClick={() => onSelect(item.video, item.seconds || null)}
+                        />
+                    ))}
+                </>
+            );
+        };
+
+        const HelperInfo = () => (
+            <div className="bg-indigo-500/5 border border-indigo-500/10 rounded-xl p-3 mb-2 animate-fade-in">
+                <h4 className="text-indigo-400 text-[10px] font-bold uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+                    Nasıl Kullanılır?
+                </h4>
+                <ul className="text-[10px] text-slate-300 space-y-1 list-disc list-inside leading-relaxed">
+                    <li><strong className="text-white">Arama:</strong> Bir kelime yazın. Yazmayı bitirdikten 0.5 saniye sonra arama başlar.</li>
+                    <li><strong className="text-white">Oynat:</strong> Arama sonucuna tıklayın, video otomatik o noktadan başlar.</li>
+                    <li><strong className="text-white">Filtrele:</strong> Yukarıdaki kategorilerden seçim yaparak sadece o yayıncıyı listeleyin.</li>
+                </ul>
+            </div>
+        );
+
         const App = () => {
-            const { addToast } = useToast();
             const [videos, setVideos] = useState([]);
+            const [lastUpdate, setLastUpdate] = useState("");
             const [loading, setLoading] = useState(true);
             const [selectedVideo, setSelectedVideo] = useState(null);
-            const [startTime, setStartTime] = useState(null);
-            const [reloadKey, setReloadKey] = useState(0);
+            const [startTime, setStartTime] = useState(null); 
+            const [reloadKey, setReloadKey] = useState(0); 
             const [activeCategory, setActiveCategory] = useState('all');
             const [searchTerm, setSearchTerm] = useState("");
-            const [searchResults, setSearchResults] = useState([]);
-            const [noticeConfig, setNoticeConfig] = useState(null);
+            const [searchResults, setSearchResults] = useState([]); 
+            const [isSearchingText, setIsSearchingText] = useState(false);
+            
+            // Yeni durum: Uyarı gösterilsin mi?
+            const [showNotice, setShowNotice] = useState(true);
 
-            // --- EFFECTS ---
-            useEffect(() => {
-                // Initial Data Load
-                const fetchData = async () => {
-                    try {
-                        const res = await fetch(`videos.json?t=${Date.now()}`);
-                        const data = await res.json();
-                        const rawVideos = Array.isArray(data) ? data : (data.videos || []);
-                        
-                        const processed = rawVideos.map((v, i) => {
-                            // Basic logic for categorization
-                            let category = "Diğer";
-                            const normTitle = normalizeText(v.title);
-                            for (let cat of CATEGORIES) {
-                                if (cat.id === 'all') continue;
-                                if (normTitle.includes(normalizeText(cat.id))) {
-                                    category = cat.name;
-                                    break;
-                                }
-                            }
-                            // Date parsing
-                            const dateMatch = v.title.match(/(\d{2})\.(\d{2})\.(\d{4})/);
-                            const date = dateMatch ? new Date(dateMatch[3], dateMatch[2]-1, dateMatch[1]) : new Date();
+            const textCache = useRef({}); 
+            const debounceTimerRef = useRef(null);
+            const searchIdRef = useRef(0);
 
-                            return { ...v, id: v.embed_id || i, category, date };
-                        }).sort((a,b) => b.date - a.date); // Newest first
+            const isSearchActive = cleanSearch(searchTerm).length > 0;
 
-                        setVideos(processed);
-                    } catch (err) {
-                        console.error("Yükleme hatası", err);
-                        addToast("Video listesi alınamadı.", "error");
-                    } finally {
-                        setLoading(false);
-                    }
-                };
-                fetchData();
+            const handleSeekComment = (seconds) => {
+                setStartTime(seconds);
+                setReloadKey(prev => prev + 1); 
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
 
-                // Stats Ping
-                db.collection("site_stats").doc("counter").set({ visits: firebase.firestore.FieldValue.increment(1) }, { merge: true });
-
-                // Notice Listener
-                const unsubNotice = db.collection("site_config").doc("general").onSnapshot(doc => {
-                    if (doc.exists) setNoticeConfig(doc.data());
-                });
-                return () => unsubNotice();
-            }, []);
-
-            // --- SEARCH LOGIC ---
-            useEffect(() => {
-                const term = cleanSearch(searchTerm);
-                if (term.length < 2) {
-                    setSearchResults([]);
-                    return;
-                }
-
-                const doSearch = async () => {
-                    const filtered = activeCategory === 'all' 
-                        ? videos 
-                        : videos.filter(v => normalizeText(v.category) === normalizeText(activeCategory));
-                    
-                    // 1. Title Search
-                    const titleMatches = filtered.filter(v => normalizeText(v.title).includes(term.toLowerCase()));
-                    
-                    // 2. Text Content Search (Mocking the .txt fetch)
-                    // Note: Since we can't reliably fetch hundreds of .txt files without CORS/backend in a static demo efficiently,
-                    // I will include the logic but rely primarily on title matches for performance in this rewrite unless a backend is present.
-                    // However, I'll keep the structure if the user has the files.
-                    
-                    let textMatches = [];
-                    try {
-                        // Fetching text files for search is expensive. We do it only for the filtered set.
-                        const searchPromises = filtered.map(async (v) => {
-                            try {
-                                const txtRes = await fetch(getTxtPath(v.title));
-                                if (!txtRes.ok) return [];
-                                const content = await txtRes.text();
-                                const lines = content.split('\n');
-                                const hits = [];
-                                lines.forEach(line => {
-                                    if (line.toLowerCase().includes(term.toLowerCase())) {
-                                        const timeMatch = line.match(/\[(\d{2}):(\d{2}):(\d{2})\]/);
-                                        if (timeMatch) {
-                                            const h=parseInt(timeMatch[1]), m=parseInt(timeMatch[2]), s=parseInt(timeMatch[3]);
-                                            hits.push({
-                                                type: 'timestamp',
-                                                video: v,
-                                                timestamp: `${h}:${m}:${s}`,
-                                                seconds: h*3600 + m*60 + s,
-                                                snippet: line.replace(timeMatch[0], '').trim()
-                                            });
-                                        }
-                                    }
-                                });
-                                return hits;
-                            } catch (e) { return []; }
-                        });
-                        const results = await Promise.all(searchPromises);
-                        textMatches = results.flat();
-                    } catch (e) {
-                        console.warn("Search error", e);
-                    }
-
-                    const combined = [
-                        ...textMatches.map(t => ({...t, id: `ts-${t.video.id}-${t.seconds}`})),
-                        ...titleMatches.map(v => ({ type: 'video', video: v, id: v.id }))
-                    ];
-                    
-                    // Sort relevance: Timestamps first (more specific), then videos
-                    setSearchResults(combined);
-                };
-
-                const timer = setTimeout(doSearch, 400);
-                return () => clearTimeout(timer);
-            }, [searchTerm, videos, activeCategory]);
-
-
-            // --- HANDLERS ---
-            const handleVideoSelect = (video, startSeconds = null) => {
+            const handleSelectVideo = (video, startSeconds = null) => {
                 setSelectedVideo(video);
                 setStartTime(startSeconds);
-                setReloadKey(k => k + 1);
-                
-                if (video?.embedId) {
-                    db.collection("video_stats").doc(video.embedId).set({
-                        title: video.title,
-                        views: firebase.firestore.FieldValue.increment(1),
-                        lastViewed: firebase.firestore.FieldValue.serverTimestamp()
-                    }, { merge: true });
-                }
-                
+                setReloadKey(prev => prev + 1);
+
                 if (window.innerWidth < 1024) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             };
 
-            const handleSeek = (seconds) => {
-                setStartTime(seconds);
-                setReloadKey(k => k + 1);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                addToast(`Videonun ${Math.floor(seconds/60)} dakikasına atlanıyor...`);
-            };
+            useEffect(() => {
+                const fetchVideos = async () => {
+                    try {
+                        const response = await fetch(`videos.json?t=${new Date().getTime()}`);
+                        if (!response.ok) throw new Error("Dosya bulunamadı");
+                        const data = await response.json();
+                        const rawVideos = Array.isArray(data) ? data : (data.videos || []);
+                        const tarih = Array.isArray(data) ? "" : (data.tarih || "");
+                        setLastUpdate(tarih);
+                        const processed = processVideoData(rawVideos);
+                        setVideos(processed);
+                    } catch (error) {
+                        console.warn("videos.json yüklenemedi, yedek veri kullanılıyor.", error);
+                        const processed = processVideoData(FALLBACK_DATA.videos);
+                        setLastUpdate(FALLBACK_DATA.tarih);
+                        setVideos(processed);
+                    } finally {
+                        setLoading(false);
+                    }
+                };
+                fetchVideos();
+            }, []);
 
-            // --- RENDER ---
-            const isSearching = cleanSearch(searchTerm).length >= 2;
-            const listData = isSearching ? searchResults : videos; // Simplified list view for demo, originally grouped
+            // --- ARAMA MANTIĞI (DEBOUNCE EDILMIS) ---
+            useEffect(() => {
+                if (!isSearchActive) {
+                    setSearchResults([]); 
+                    setIsSearchingText(false);
+                    searchIdRef.current++;
+                    if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+                    return;
+                }
+                
+                if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+
+                const performSearch = async () => {
+                    const currentSearchId = ++searchIdRef.current;
+                    
+                    setIsSearchingText(true);
+                    setSearchResults([]);
+
+                    if (videos.length === 0) return;
+
+                    const term = cleanSearch(searchTerm).toLowerCase();
+
+                    const videosToSearch = videos.filter(v => 
+                        activeCategory === 'all' || normalizeText(v.category) === normalizeText(activeCategory)
+                    );
+
+                    const titleMatches = videosToSearch.filter(v => {
+                        const textMatch = normalizeText(v.title).includes(term);
+                        return textMatch;
+                    });
+
+                    let results = titleMatches.map(v => ({
+                        type: 'video',
+                        video: v,
+                        id: `video-${v.id}`,
+                        isActive: false
+                    }));
+
+                    const fetchPromises = videosToSearch.map(async (v) => {
+                        if (normalizeText(v.title).includes(term)) return []; 
+
+                        const path = getTxtPath(v.title); 
+                        
+                        let content = textCache.current[path];
+                        if (!content) {
+                            try {
+                                let res = await fetch(path);
+                                if (!res.ok) {
+                                    const lowerPath = path.toLowerCase(); 
+                                    res = await fetch(lowerPath);
+                                    if (!res.ok) return []; 
+                                    
+                                    content = await res.text();
+                                    textCache.current[lowerPath] = content;
+                                } else {
+                                    content = await res.text();
+                                    textCache.current[path] = content; 
+                                }
+                            } catch (e) {
+                                return []; 
+                            }
+                        }
+
+                        const lines = content.split('\n');
+                        const hits = [];
+                        lines.forEach(line => {
+                            if (line.toLowerCase().includes(term)) {
+                                const timeMatch = line.match(/\[(\d{2}):(\d{2}):(\d{2})\]/);
+                                if (timeMatch) {
+                                    const h = parseInt(timeMatch[1]);
+                                    const m = parseInt(timeMatch[2]);
+                                    const s = parseInt(timeMatch[3]);
+                                    const totalSeconds = h * 3600 + m * 60 + s;
+                                    
+                                    let snippet = line.replace(timeMatch[0], '').trim(); 
+                                    
+                                    hits.push({
+                                        type: 'timestamp',
+                                        video: v,
+                                        timestamp: `${h}:${m}:${s}`,
+                                        seconds: totalSeconds,
+                                        snippet: snippet,
+                                        id: `ts-${v.id}-${totalSeconds}`,
+                                        searchTerm: term
+                                    });
+                                }
+                            }
+                        });
+                        return hits;
+                    });
+
+                    const textHitsArrays = await Promise.all(fetchPromises);
+                    const allTextHits = textHitsArrays.flat();
+
+                    if (currentSearchId !== searchIdRef.current) return; 
+
+                    setSearchResults([...allTextHits, ...results]);
+                    setIsSearchingText(false);
+                };
+
+                debounceTimerRef.current = setTimeout(() => {
+                    performSearch();
+                }, 500);
+
+            }, [searchTerm, videos, activeCategory]); 
+
+            const displayVideos = useMemo(() => {
+                if (activeCategory === 'all') return videos;
+                return videos.filter(video => normalizeText(video.category) === normalizeText(activeCategory));
+            }, [activeCategory, videos]);
 
             return (
-                <div className="min-h-screen flex flex-col pb-24 font-sans text-slate-200">
-                    <Navbar activeCategory={activeCategory} setActiveCategory={setActiveCategory} lastUpdate={videos.length > 0 ? "Bugün" : ""} />
+                <div className="min-h-screen flex flex-col pb-24">
+                    <Navbar categories={CATEGORIES} activeCategory={activeCategory} setActiveCategory={setActiveCategory} lastUpdate={lastUpdate} />
 
-                    <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full">
+                    <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                             
-                            {/* LEFT COLUMN (Player & Content) */}
-                            <div className="lg:col-span-8 flex flex-col gap-6">
-                                {/* Notice */}
-                                {noticeConfig?.notice_enabled && (
-                                    <div className="glass-panel p-4 rounded-xl border-l-4 border-amber-500 flex gap-4 items-start animate-slide-up">
-                                        <div className="text-amber-500 mt-0.5"><Icons.Info /></div>
-                                        <div>
-                                            <h3 className="text-amber-500 font-bold text-sm">{noticeConfig.notice_title}</h3>
-                                            <p className="text-xs text-slate-300 mt-1 leading-relaxed">{noticeConfig.notice_message}</p>
+                            <div className="lg:col-span-8 space-y-6">
+                                {/* --- SİSTEM UYARISI --- */}
+                                {showNotice && (
+                                    <div className="relative overflow-hidden rounded-xl bg-amber-900/20 border border-amber-500/30 animate-slide-up mb-4 shadow-lg shadow-amber-900/10">
+                                        {/* Dekoratif arka plan elementi */}
+                                        <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-amber-500">
+                                                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                                                <line x1="12" y1="9" x2="12" y2="13"/>
+                                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                            </svg>
+                                        </div>
+                                        
+                                        <div className="p-4 flex items-start justify-between">
+                                            <div className="flex items-start gap-4 pr-8">
+                                                <div className="p-2.5 bg-amber-500/20 rounded-full flex-shrink-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber-400">
+                                                        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                                                        <line x1="12" y1="9" x2="12" y2="13"/>
+                                                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <h3 className="text-amber-400 font-bold text-sm mb-1">Önemli Duyuru</h3>
+                                                    <p className="text-slate-200 text-sm leading-relaxed font-medium">
+                                                        Video kaliteleri ile ilgili bir problemin çözümü için ....
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <button 
+                                                onClick={() => setShowNotice(false)}
+                                                className="text-amber-500/50 hover:text-amber-400 transition-colors p-1"
+                                                title="Kapat"
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                            </button>
                                         </div>
                                     </div>
                                 )}
 
-                                {/* Player */}
-                                <div className="animate-fade-in">
+                                <div className="animate-slide-up">
+                                    <VideoPlayer video={selectedVideo} startTime={startTime} reloadKey={reloadKey} />
+                                    
+                                    {!selectedVideo && <CommentGuideBox />}
+
                                     {selectedVideo && (
-                                        <div className="mb-4 px-2">
-                                            <h2 className="text-xl font-bold text-white leading-tight mb-1">{selectedVideo.title}</h2>
-                                            <p className="text-sm text-slate-400">{selectedVideo.category}</p>
+                                        <div className="mt-6 p-6 rounded-2xl bg-slate-900/40 border border-white/5 flex items-start gap-4 animate-fade-in">
+                                            <div className="p-3 rounded-xl bg-indigo-500/10 text-indigo-400">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m7 15 5-5 5 5"/></svg>
+                                            </div>
+                                            <div>
+                                                <h2 className="text-xl font-bold text-white mb-1">{selectedVideo.title}</h2>
+                                                <p className="text-slate-400 text-sm">
+                                                    Oynatılıyor • {selectedVideo.category} 
+                                                    {startTime && ` • Zaman: ${Math.floor(startTime/3600)}:${Math.floor((startTime%3600)/60)}:${startTime%60}`}
+                                                </p>
+                                            </div>
                                         </div>
                                     )}
-                                    <VideoPlayer video={selectedVideo} startTime={startTime} reloadKey={reloadKey} />
-                                </div>
 
-                                {/* Comments */}
-                                {selectedVideo && <CommentSection videoId={selectedVideo.embedId} onSeek={handleSeek} />}
-                                
-                                {/* Intro Card (If no video selected) */}
-                                {!selectedVideo && (
-                                    <div className="p-8 glass-panel rounded-2xl text-center border border-dashed border-white/10 animate-slide-up">
-                                        <h3 className="text-2xl font-bold text-white mb-2">Katman Arşivine Hoş Geldiniz</h3>
-                                        <p className="text-slate-400 max-w-md mx-auto mb-6">
-                                            Burada yayınların tamamına, alt yazılarına ve zamana damgalı yorumlara erişebilirsiniz.
-                                        </p>
-                                        <div className="inline-flex items-center gap-2 text-indigo-400 bg-indigo-500/10 px-4 py-2 rounded-full text-sm border border-indigo-500/20">
-                                            <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
-                                            Sistem Aktif
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* RIGHT COLUMN (List & Search) */}
-                            <div className="lg:col-span-4 flex flex-col h-[calc(100vh-140px)] lg:h-auto sticky top-20">
-                                <div className="glass-panel rounded-2xl flex flex-col h-full overflow-hidden animate-slide-up border border-white/10">
-                                    {/* Search Bar */}
-                                    <div className="p-4 border-b border-white/5 bg-white/5">
-                                        <div className="relative">
-                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                                                <Icons.Search />
-                                            </div>
-                                            <input 
-                                                type="text" 
-                                                placeholder="Kelime, cümle ara..." 
-                                                value={searchTerm}
-                                                onChange={e => setSearchTerm(e.target.value)}
-                                                className="w-full bg-slate-950/50 border border-white/10 text-slate-100 text-sm rounded-lg focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 pl-10 p-2.5 transition-all outline-none placeholder:text-slate-600"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    {/* List Header */}
-                                    <div className="px-4 py-2 bg-white/5 flex justify-between items-center border-b border-white/5">
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                                            {isSearching ? 'Arama Sonuçları' : 'Son Eklenenler'}
-                                        </span>
-                                        <span className="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-400">{listData.length}</span>
-                                    </div>
-
-                                    {/* Scrollable List */}
-                                    <div className="flex-1 overflow-y-auto p-3 space-y-2 custom-scrollbar">
-                                        {loading ? (
-                                            <div className="flex justify-center py-10"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div></div>
-                                        ) : listData.length === 0 ? (
-                                            <div className="text-center py-10 text-slate-500 text-sm">Sonuç bulunamadı.</div>
-                                        ) : (
-                                            listData.map(item => (
-                                                <VideoListItem 
-                                                    key={item.id} 
-                                                    item={item} 
-                                                    isSelected={selectedVideo?.embedId === (item.video?.embedId || item.embedId)}
-                                                    onClick={handleVideoSelect}
-                                                />
-                                            ))
-                                        )}
-                                    </div>
+                                    {selectedVideo && selectedVideo.embedId && (
+                                        <CommentSection 
+                                            videoId={selectedVideo.embedId} 
+                                            onSeek={handleSeekComment} 
+                                        />
+                                    )}
                                 </div>
                             </div>
 
+                            <div className="lg:col-span-4 space-y-3 animate-slide-up" style={{animationDelay: '100ms'}}>
+                                <div className="relative group">
+                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <svg className="h-5 w-5 text-slate-500 group-focus-within:text-indigo-500 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder="Kelime, söz veya cümle arayın..."
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                        className="w-full bg-slate-900/50 border border-white/10 text-slate-100 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 block w-full pl-11 p-3 transition-all duration-300 placeholder:text-slate-600"
+                                    />
+                                </div>
+
+                                {!isSearchActive && <HelperInfo />}
+
+                                <div className="flex items-center justify-between px-2 sticky top-0 bg-[#020617] z-10 py-1 mb-1">
+                                    <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                                        {isSearchingText ? '📝 Metinler taranıyor...' : (isSearchActive ? (
+                                            <span className="text-[11px]">
+                                                <span className="text-white font-normal">'{cleanSearch(searchTerm)}'</span>
+                                                <span className="text-slate-500 mx-1">•</span>
+                                                <span className="text-indigo-400 text-[10px] bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
+                                                    {getCategoryName(activeCategory)}
+                                                </span>
+                                            </span>
+                                        ) : `${displayVideos.length} Video`)}
+                                    </h3>
+                                </div>
+
+                                <div 
+                                    key={isSearchActive ? 'search-mode' : 'normal-mode'} 
+                                    className="space-y-2 overflow-y-auto h-[600px] pr-2 pb-4"
+                                >
+                                    {loading ? (
+                                        <div className="text-center py-8 text-slate-500 animate-pulse">Videolar yükleniyor...</div>
+                                    ) : isSearchActive ? (
+                                        <SearchResultsList
+                                            results={searchResults}
+                                            selectedVideoId={selectedVideo?.id}
+                                            searchTerm={cleanSearch(searchTerm)}
+                                            categoryName={getCategoryName(activeCategory)}
+                                            onSelect={handleSelectVideo}
+                                        />
+                                    ) : (
+                                        <NormalVideoList
+                                            videos={displayVideos}
+                                            selectedVideoId={selectedVideo?.id}
+                                            onSelect={handleSelectVideo}
+                                        />
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </main>
+                    
+                    <footer className="border-t border-white/5 mt-12 py-8 bg-black/20 backdrop-blur-sm text-center">
+                        <p className="text-slate-600 text-sm">© 2025 Katman Yayın Geçmişi Arşiv.</p>
+                    </footer>
                 </div>
             );
         };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(
-            <ToastProvider>
-                <App />
-            </ToastProvider>
-        );
+        root.render(<App />);
     </script>
 </body>
 </html>
